@@ -20,9 +20,9 @@ class SignupPage extends Component {
     return(
       <Grid textAlign='center' columns={2} divided>
       <Grid.Row style = {{height: '100vh'}} verticalAlign = 'middle'>
-      <Grid.Column style={{ maxWidth: 450}} width = '8' >
-        <Header as='h2' color='teal' textAlign='center'>
-          Sign-up to surBing
+      <Grid.Column style={{ maxWidth: 450, minWidth: 300}} width = '8' >
+        <Header as='h1' color='teal' textAlign='center'>
+          Sign-up
         </Header>
         <Form size='large'>
           <Segment stacked>
