@@ -19,9 +19,9 @@ class LoginPage extends Component {
       return(
         <Grid textAlign='center' columns={2} divided>
           <Grid.Row style = {{height: '100vh'}} verticalAlign = 'middle'>
-          <Grid.Column style={{ maxWidth: 450 }} width='8'>
-            <Header as='h2' color='teal' textAlign='center'>
-            Log-in to your account
+          <Grid.Column style={{ maxWidth: 450 , minWidth: 300}}  >
+            <Header as='h1' color='teal' textAlign='center'>
+            surBing
             </Header>
           <Form size='large'>
             <Segment stacked>
