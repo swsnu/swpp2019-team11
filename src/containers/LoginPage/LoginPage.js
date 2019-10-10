@@ -20,7 +20,7 @@ class LoginPage extends Component {
         <Grid textAlign='center' columns={2} divided>
           <Grid.Row style = {{height: '100vh'}} verticalAlign = 'middle'>
           <Grid.Column style={{ maxWidth: 450 , minWidth: 300}}  >
-            <Header as='h1' color='teal' textAlign='center'>
+            <Header style = {{'font-size': '4`em'}} as='h1' color='teal' textAlign='center'>
             surBing
             </Header>
           <Form size='large'>
