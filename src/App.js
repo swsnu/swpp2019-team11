@@ -4,6 +4,7 @@ import SignupPage from './containers/SignupPage/SignupPage'
 import MainPage from './containers/MainPage/MainPage'
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
+
 function App() {
   return (
     <BrowserRouter>

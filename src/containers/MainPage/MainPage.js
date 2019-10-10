@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import {Grid, Header, Button} from 'semantic-ui-react'
+import ProfileButton from '../../components/ProfileButton/ProfileButton'
 
 class MainPage extends Component {
 
@@ -8,10 +9,16 @@ class MainPage extends Component {
     this.props.history.push('/upload')
   }
 
+
   render(){
     return(
-      <Grid textAlign='center' columns = {2}>
-        <Grid.Row style = {{height: '80vh'}} verticalAlign = 'middle'>
+      <Grid textAlign='center'>
+        <Grid.Row textAlign='right' colums = {1}>
+          <Grid.Column>
+            <ProfileButton/>
+          </Grid.Column>
+        </Grid.Row >
+        <Grid.Row columns= {2} style = {{height: '60.3vh'}} verticalAlign = 'middle'>
           <Grid.Column > 
             <Header style = {{'font-size': '4em'}} size = 'huge' color='teal' textAlign='center'>
               surBing
