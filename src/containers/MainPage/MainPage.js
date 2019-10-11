@@ -15,7 +15,7 @@ class MainPage extends Component {
       <Grid textAlign='center'>
         <Grid.Row textAlign='right' colums = {1}>
           <Grid.Column>
-            <ProfileButton/>
+            <ProfileButton style = {{'margin' : '25px'}} />
           </Grid.Column>
         </Grid.Row >
         <Grid.Row columns= {2} style = {{height: '60.3vh'}} verticalAlign = 'middle'>

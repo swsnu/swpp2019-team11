@@ -14,7 +14,7 @@ const ProfileButton = (props) => {
   }
   
   return(
-    <Dropdown as={Button} text='Profile' color = 'teal' size = 'large' style = {{'margin' : '30px'}}>
+    <Dropdown as={Button} text='Profile' color = 'teal' size = 'large' style = {props.style}>
       <Dropdown.Menu>
         <Dropdown.Item onClick = {() => myCartHandler()} color = 'primary' basic as={Button} fluid icon ><Icon name='cart'/>My Cart</Dropdown.Item>
         <Dropdown.Item onClick = {() => logoutHandler()} color = 'teal' basic as={Button} fluid icon><Icon name='key'/>Log Out</Dropdown.Item>

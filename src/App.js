@@ -2,6 +2,7 @@ import React from 'react';
 import LoginPage from './containers/LoginPage/LoginPage'
 import SignupPage from './containers/SignupPage/SignupPage'
 import MainPage from './containers/MainPage/MainPage'
+import SearchResultPage from './containers/SearchResultPage/SearchResultPage'
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
 
@@ -12,7 +13,8 @@ function App() {
         <Switch>
           <Route path='/login' component = {LoginPage} />
           <Route path = '/signup' component = {SignupPage}/>
-          <Route path = '/Main' component = {MainPage}/>
+          <Route path = '/main' component = {MainPage}/>
+          <Route path = '/search' component = {SearchResultPage} />
           <Redirect exact from='/' to = '/login'/>
         </Switch>
       </div>
