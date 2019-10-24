@@ -7,6 +7,7 @@ matrix:
     - cd front
     install:
     - yarn install
+    - npm install
     script:
     - ./node_modules/.bin/eslint src
     - yarn test --coverage --watchAll=false
