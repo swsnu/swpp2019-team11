@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
-import {Input} from 'semantic-ui-react'
-
+import React, { Component } from 'react';
+import { Input } from 'semantic-ui-react';
 
 
 /*
@@ -16,30 +15,31 @@ import {Input} from 'semantic-ui-react'
 */
 
 
-
-
 class SearchBar extends Component {
-
   state = {
-    value : '',
+    value: '',
   }
 
   clickListener = () => {
-    alert('clicked')
+    alert('clicked');
   }
 
   render() {
     return (
-      <Input {...this.props} 
-      size = {this.props.size} 
-      fluid 
-      value={this.state.value} 
-      onChange = {(e) => this.setState({...this.state, value : e.target.value})} 
-      action = {{icon: 'search', size: this.props.size , color : 'teal', onClick : () => this.clickListener()}} 
-      placeholder='Search...'/>
-    )
+      <Input
+        {...this.props}
+        size={this.props.size}
+        fluid
+        value={this.state.value}
+        onChange={(e) => this.setState({ ...this.state, value: e.target.value })}
+        action={{
+          icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
+        }}
+        placeholder="Search..."
+      />
+    );
   }
 }
 
 
-export default SearchBar
+export default SearchBar;
