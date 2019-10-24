@@ -9,5 +9,14 @@ matrix:
     - yarn install
     - npm install
     script:
-    - ./node_modules/.bin/eslint src
+    - ./node_modules/.bin/eslint src/
     - yarn test --coverage --watchAll=false
+  - language: python3
+    python3:
+    - '3.6'
+    before_install:
+    - cd ml
+    install:
+    - pip3 install django
+    script:
+    - pylint **/*.py
