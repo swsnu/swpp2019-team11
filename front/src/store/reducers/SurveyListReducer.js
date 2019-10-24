@@ -1,18 +1,18 @@
-import * as actionTypes from '../actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  survey_list : []
+  survey_list: [],
 };
 
 
 const SurveyListReducer = (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case actionTypes.GET_SURVEYS:
-      return {...state, survey_list : action.target}
+      return { ...state, survey_list: action.target };
     default:
-      break
-    }
-  return {...state};
-}
+      break;
+  }
+  return { ...state };
+};
 
-export default SurveyListReducer
+export default SurveyListReducer;

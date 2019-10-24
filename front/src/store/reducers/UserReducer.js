@@ -1,20 +1,20 @@
-import * as actionTypes from '../actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  username : '',
-  email : '',
-  password : '',
+  username: '',
+  email: '',
+  password: '',
 };
 
 
 const UserReducer = (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case actionTypes.GET_SURVEYS:
-      return {...state, survey_list : action.target}
+      return { ...state, survey_list: action.target };
     default:
       break;
-    }
-  return {...state};
-}
+  }
+  return { ...state };
+};
 
-export default UserReducer
+export default UserReducer;
