@@ -18,5 +18,6 @@ matrix:
     - cd ml
     install:
     - pip3 install django
+    - pip3 install pylint
     script:
     - pylint **/*.py
