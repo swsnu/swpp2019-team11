@@ -22,4 +22,4 @@ class Response(models.Model):
     content = models.TextField()
 
 class Cart(models.Model):
-    survey = models.ManyToManyField(Survey)s
+    survey = models.ManyToManyField(Survey)
