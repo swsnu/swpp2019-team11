@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
-
+import {withRouter} from 'react-router'
+import {connect} from 'react-redux'
+import * as actionCreators from '../../store/actions/index'
 
 /*
 
@@ -13,7 +15,6 @@ import { Input } from 'semantic-ui-react';
 
 
 */
-
 
 class SearchBar extends Component {
   state = {
@@ -42,4 +43,4 @@ class SearchBar extends Component {
 }
 
 
-export default SearchBar;
+export default (withRouter(SearchBar));
