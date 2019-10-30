@@ -26,4 +26,5 @@ yarn-error.log*
 /ml/data/
 
 #backend
-/backend/__pycache__/
+backend/backend/__pycache__
+backend/surBing/__pycache__
