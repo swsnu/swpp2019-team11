@@ -17,6 +17,8 @@ class SignupPage extends Component {
 
   signupHandler = () => {
     alert('signed up!');
+    this.props.signUp(this.state.username, this.state.email, this.state.password);
+    this.props.history.push('/main/');
   }
 
   render() {
@@ -49,7 +51,7 @@ class SignupPage extends Component {
                   value={this.state.password_confirmation}
                   onChange={(e) => this.setState({ password_confirmation: e.target.value })}
                 />
-                <Button color="teal" fluid size="large">
+                <Button color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
               </Segment>
@@ -65,6 +67,11 @@ class SignupPage extends Component {
     );
   }
 }
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp : (username, email, password) => dispatch(actionCreators.signup({username: username, email: email, password: password})),
+  }
+}
 
 
-export default SignupPage;
+export default connect (null, mapDispatchToProps) (SignupPage);
