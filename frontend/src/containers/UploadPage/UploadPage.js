@@ -24,7 +24,7 @@ class UploadPage extends Component{
         if (this.state.progress == 1 ) this.setState({...this.state, progress: 2});
     }
     SubmitHandler = () => {
-        if (this.state.progress == 2 ) this.props.history.push('/main/');
+        if (this.state.progress == 2 ) this.props.history.push('/main/'); 
     }
 
     render(){
