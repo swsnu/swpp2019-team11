@@ -35,22 +35,24 @@ class SearchResultPage extends Component {
   
   componentDidMount(){
     this.setState({...this.state, filtered_list : this.props.survey_list})
+    this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock title = {survey.title} />)})
   }
 
   componentDidUpdate(prevProps){
     if(this.props.survey_list!=prevProps.survey_list){
-      this.setState({survey_component_list : this.props.filtered_list.map((survey) => <SurveyBlock title = {survey.title} />)})
+      console.log(this.props)
+      this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock title = {survey.title} />)})
     }
   }
 
   render() {
     return (
-      <div>
+      <div style = {{minWidth : '800px'}}>
         <TopBar searchBar = {true}/>
-        <Grid colums = {2} divided padded>
-          <Grid.Row>
+        <Grid  colums = {2} divided padded>
+          <Grid.Row >
             <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>
-            <Grid.Column width = {8}>{this.state.survey_component_ligit sst}</Grid.Column>
+            <Grid.Column width = {8}>{this.state.survey_component_list}</Grid.Column>
           </Grid.Row>
         </Grid>
       </div>

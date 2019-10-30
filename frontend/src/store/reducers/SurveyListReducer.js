@@ -1,7 +1,13 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  survey_list: [],
+  survey_list: [
+    {
+      'title' : 'title testing'
+      
+    },
+
+  ],
 };
 
 
