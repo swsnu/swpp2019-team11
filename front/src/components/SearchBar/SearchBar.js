@@ -37,7 +37,7 @@ class SearchBar extends Component {
   render() {
     return (
       <Input
-        style = {{width : this.props.width}}
+        style = {{width : this.props.width, minWidth : this.props.minWidth}}
         size={this.props.size}
         fluid
         value={this.state.value}
