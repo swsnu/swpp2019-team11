@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Header, Segment, Checkbox, Button, Divider } from 'semantic-ui-react';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import MLResult from '../../components/CartPage/MLResult/MLResult';
+import TopBar from '../../components/TopBar/TopBar';
 
 class CartPage extends Component {
   state = {
@@ -51,36 +51,18 @@ class CartPage extends Component {
     this.setState({ ...this.state, isTotalChecked: newTotalChecked, isChecked: newChecked });
   }
 
-  getTopBar = (height) => (
-    <Segment style={{ minHeight: height + 'vh' }}>
-      <Grid columns={2}>
-        <Grid.Row verticalAlign="middle" style={{ height: height + 'vh', minHeight: height + 'vh' }}>
-          <Grid.Column textAlign="center" style={{ minWidth: 200 }} width={2}>
-            <Header style={{ fontSize: '4em' }} size="huge" color="teal" textAlign="center">
-              surBing
-            </Header>
-          </Grid.Column>
-          <Grid.Column style={{ minWidth: 200 }} floated="right" width={2}>
-            <ProfileButton />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Segment>
-  );
-
   getCartBar = (height) => (
-    <Grid>
-      <Grid.Row verticalAlign="middle" style={{ height: height + 'vh', minHeight: height + 'vh' }}>
-        <Grid.Column style={{ minWidth: 200 }} width={2}>
+    <Grid verticalAlign='middle' style={{ height: height+'px' }}>
+      <Grid.Row style={{ minWidth: 1200 }}>
+        <Grid.Column style={{ width: 200, marginRight: 230 }}>
           <Header style={{ fontSize: '3em' }} textAlign="center" size="huge">
             Cart
           </Header>
         </Grid.Column>
-        <Grid.Column width={1}></Grid.Column>
-        <Grid.Column style={{ minWidth: 200 }} width={4}>
+        <Grid.Column style={{ width: 200 }}>
           <Checkbox label='Select All' checked={this.state.isTotalChecked} onChange={() => { this.onToggleTotal() }} />
         </Grid.Column>
-        <Grid.Column style={{ minWidth: 500 }} width={5} textAlign="right">
+        <Grid.Column style={{ width: 570 }} textAlign='right'>
           <Button onClick={() => { this.onClickAnalysis() }} >ANALYSIS</Button> {' '}
           <Button onClick={() => { this.onClickDownload() }} >DOWNLOAD</Button> {' '}
           <Button onClick={() => { this.onClickDeleteFromCart() }} >DELETE FROM CART</Button>
@@ -115,10 +97,10 @@ class CartPage extends Component {
   getCartEntries = () => {
     const entries = this.state.cartEntry.map((cur, index) => (
       <Grid.Row verticalAlign="middle">
-        <Grid.Column>
+        <Grid.Column style={{ width: 30 }}>
           <Checkbox checked={this.state.isChecked[index]} onClick={() => { this.onToggleSelected([index], this.TOGGLE) }} />
         </Grid.Column>
-        <Grid.Column width={15}>
+        <Grid.Column style={{ minWidth: 740 }}>
           <Segment>
             {cur.title}
           </Segment>
@@ -134,24 +116,23 @@ class CartPage extends Component {
   }
 
   getContents = () => (
-    <Grid padded columns={2} divided>
-      <Grid.Column width={3}>
+    <Grid columns={2} divided style={{ minWidth: 1200 }}>
+      <Grid.Column style={{ width: 430 }}>
         {this.getAnalysisRes()}
       </Grid.Column>
-      <Grid.Column width={9}>
+      <Grid.Column style={{ minWidth: 770 }}>
         {this.getCartEntries()}
       </Grid.Column>
     </Grid>
   );
 
   render() {
-    const topBar = this.getTopBar(10);
-    const cartBar = this.getCartBar(8);
+    const cartBar = this.getCartBar(100);
     const contents = this.getContents();
 
     return (
       <div>
-        {topBar}
+        <TopBar searchBar={false} />
         {cartBar}
         <Divider />
         {contents}
