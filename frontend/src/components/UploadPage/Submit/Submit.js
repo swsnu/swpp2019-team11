@@ -8,6 +8,9 @@ class Submit extends Component{
         return(
             <div class="ui green segment">
                 Hell Yeah!
+                <div align="right" >
+                    <button class="ui green basic button" > Continue </button>
+                </div>
             </div>
         );
     }

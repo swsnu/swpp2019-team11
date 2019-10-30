@@ -6,8 +6,11 @@ import {connect} from 'react-redux'
 class UploadFile extends Component{
     render(){
         return(
-            <div class="ui yellow segment">
+            <div class="ui yellow segment" >
                 Hell Yeah!
+                <div align="right">
+                    <button class="ui yellow basic button" align="right" > Continue </button>
+                </div>
             </div>
         );
     }

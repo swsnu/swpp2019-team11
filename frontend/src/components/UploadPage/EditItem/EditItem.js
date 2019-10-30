@@ -8,6 +8,9 @@ class EditItem extends Component{
         return(
             <div class="ui olive segment">
                 Hell Yeah!
+                <div align="right">
+                    <button class="ui olive basic button" align="right" > Continue </button>
+                </div>
             </div>
         );
     }
