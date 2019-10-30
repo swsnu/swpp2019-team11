@@ -9,8 +9,9 @@ class UploadFile extends Component{
         return(
             <div class="ui yellow segment" >
                 <Header style={{ 'font-size': '2em' }} size="huge" color="yellow">1. Upload</Header>
+                <div style={{"font-size":"20px", "color":"#663300"}}><strong>.csv file</strong></div>
                 <div align="right">
-                    <button class="ui yellow basic button" align="right" > Continue </button>
+                    <button class="ui yellow basic button" align="right" style={{"marginRight":"20pt", "width":"100pt"}} > Continue </button>
                 </div>
             </div>
         );

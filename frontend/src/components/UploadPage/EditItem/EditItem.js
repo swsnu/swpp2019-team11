@@ -10,13 +10,16 @@ class EditItem extends Component{
         return(
             <div class="ui olive segment">
                 <Header style={{ 'font-size': '2em' }} size="huge" color="olive">2. Edit Your Survey</Header>
-                <h4>Title:</h4>
-                <h4 style={{"margin-bottom":"30px"}}>Items:</h4>
+                <div style={{"font-size":"22px", "margin-bottom":"10px", "color":"#663300"}}><strong>Title:</strong></div>
+                <div style={{"font-size":"20px", "margin-bottom":"10px", "color":"#663300"}}>Items:</div>
+                <div class="ui checkbox" style={{'margin-left':"25px"}}>
+                    <input type="checkbox" name="example" />
+                    <label > Item Name </label>
+                </div>
                 <Grid columns={1}>
-                    <CheckItem/>
                     <Grid.Row >
                         <Grid.Column align="right">
-                            <button align="right" class="ui olive basic button" align="right" > Continue </button>
+                            <button align="right" class="ui olive basic button" style={{"marginRight":"20pt", "width":"100pt"}}> Continue </button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

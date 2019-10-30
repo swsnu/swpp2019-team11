@@ -8,7 +8,7 @@ class CheckItem extends Component{
     render(){
         return(
           <div class="ui checkbox" style={{'margin-left':"25px"}}>
-            <input type="checkbox" name="example"/>
+            <input type="checkbox" name="example" />
             <label > Item Name </label>
           </div>
         );

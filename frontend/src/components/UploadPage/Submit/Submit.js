@@ -10,7 +10,7 @@ class Submit extends Component{
             <div class="ui green segment">
                 <Header style={{ 'font-size': '2em' }} size="huge" color="green">3. Warning & Confirm</Header>
                 <div align="right" >
-                    <button class="ui green basic button" > Continue </button>
+                    <button class="ui green basic button" style={{"marginRight":"20pt", "width":"100pt"}}> Continue </button>
                 </div>
             </div>
         );
