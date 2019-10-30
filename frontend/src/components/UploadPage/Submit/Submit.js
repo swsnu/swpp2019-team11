@@ -17,7 +17,7 @@ class Submit extends Component{
                         <Grid.Column align="right" >
                             <div class="ui checkbox" style={{'margin-right':"120px", 'font-size': '1em'}} align="right" >
                                 <input type="checkbox" align="right" name="example" fontSize="1em" style={{"fontSize":"30pt"}}/>
-                                <label align="right"> Yes </label>
+                                <label align="right"> Yes, I will Admit. </label>
                             </div>
                         </Grid.Column>
                     </Grid.Row>

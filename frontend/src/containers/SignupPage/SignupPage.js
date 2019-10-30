@@ -18,7 +18,7 @@ class SignupPage extends Component {
   signupHandler = () => {
     alert('signed up!');
     this.props.signUp(this.state.username, this.state.email, this.state.password);
-    this.props.history.push('/main/');
+    this.props.history.push('/login/');
   }
 
   render() {
