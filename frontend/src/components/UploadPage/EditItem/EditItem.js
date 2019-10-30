@@ -11,10 +11,18 @@ class EditItem extends Component{
             <div class="ui olive segment">
                 <Header style={{ 'font-size': '2em',  "margin-left":"10px" }} size="huge" color="olive">2. Edit Your Survey</Header>
                 <div style={{"font-size":"22px", "margin-bottom":"10px", "margin-left":"17px", "color":"#663300"}}><strong>Title:</strong></div>
-                <div style={{"font-size":"20px", "margin-bottom":"10px", "margin-left":"17px","color":"#663300"}}>Items:</div>
-                <div class="ui checkbox" style={{'margin-left':"32px"}}>
+                <div style={{"font-size":"21px", "margin-bottom":"10px", "margin-left":"17px","color":"#663300"}}><strong>Items:</strong></div>
+                <div class="ui checkbox" style={{'margin-left':"32px", 'margin-top':'5px', 'margin-bottom':'5px'}}>
                     <input type="checkbox" name="example" />
                     <label > Item Name </label>
+                </div>
+                <div class="ui checkbox" style={{'margin-left':"32px", 'margin-top':'5px', 'margin-bottom':'5px'}}>
+                    <input type="checkbox" name="example" />
+                    <label > Item Name2 </label>
+                </div>
+                <div class="ui checkbox" style={{'margin-left':"32px", 'margin-top':'5px', 'margin-bottom':'5px'}}>
+                    <input type="checkbox" name="example" />
+                    <label > Item Name3 </label>
                 </div>
                 <Grid columns={1}>
                     <Grid.Row >
