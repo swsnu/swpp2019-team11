@@ -23,7 +23,7 @@ const Submit = (props) => {
                     </Grid.Row>
                 </Grid>
                 <div align="right" >
-                    <button class="ui green basic button" style={{"margin-top":"15px", "marginRight":"20pt", "width":"100pt"}}> Continue </button>
+                    <button class="ui green button" style={{"margin-top":"15px", "marginRight":"20pt", "width":"100pt"}}> Continue </button>
                 </div>
             </div>
         );

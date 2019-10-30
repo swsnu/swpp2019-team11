@@ -29,9 +29,10 @@ const EditItem =(props) => {
                         <Grid.Column align="right">
                             <button 
                                 align="right" 
-                                class="ui olive basic button" 
+                                class="ui olive button" 
                                 style={{"margin-top":"15px","marginRight":"20pt", "width":"100pt"}}
                                 onClick = {props.editOnClick}
+                                disabled = {props.progress != 1}
                             > Continue </button>
                         </Grid.Column>
                     </Grid.Row>
