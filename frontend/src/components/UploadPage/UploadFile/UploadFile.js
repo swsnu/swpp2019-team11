@@ -5,6 +5,7 @@ import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 
 class UploadFile extends Component{
+    
     render(){
         return(
             <div class="ui yellow segment" >
