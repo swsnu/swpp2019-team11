@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import TopBar from '../../components/TopBar/TopBar'
 import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
 import * as actionCreators from '../../store/actions/index'
@@ -47,15 +46,7 @@ class SearchResultPage extends Component {
   render() {
     return (
       <div>
-        <Segment style={{ height: '100px' }}>
-          <Grid colums={3} style = {{'min-width' : '800px'}}>
-            <Grid.Row verticalAlign="middle" >
-              <Grid.Column textAlign="center" style={{ minWidth: 200, marginRight : '50px' }}><Header style={{ 'font-size': '4em', 'cursor':'pointer' }} onClick = {() => {this.props.history.push('/main')}} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
-              <Grid.Column style = {{minWidth : 300}} ><SearchBar size="huge" minWidth = '300px' width = {'calc(100vw - 500px)'} /></Grid.Column>
-              <Grid.Column style={{ minWidth: '180px' }} floated="right" ><ProfileButton /></Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
+        <TopBar searchBar = {true}/>
         <Grid colums = {2} divided padded>
           <Grid.Row>
             <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>
