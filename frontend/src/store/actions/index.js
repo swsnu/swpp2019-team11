@@ -1,1 +1,1 @@
-export {getSurveys} from './surveys'
+export {getSurveyList, getSurvey} from './survey'

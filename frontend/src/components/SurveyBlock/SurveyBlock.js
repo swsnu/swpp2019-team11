@@ -1,12 +1,12 @@
 import React from 'react';
-import {Segment} from 'semantic-ui-react'
+import {Segment, Header} from 'semantic-ui-react'
 
 
 const SurveyBlock = (props) => {
 
   return(
-    <Segment>
-      <Header>{this.props.title}</Header>
+    <Segment style = {{height : '80px'}} onClick = {() => {this.props.push('/survey/'+ props.id)}}>
+      <Header >{this.props.title}</Header>
       
     </Segment>
   )

@@ -18,7 +18,7 @@ import * as actionCreators from '../../store/actions/index'
 
 const mapDispatchToProps = dispatch => {
   return{
-    onSearch : (keyword) => {dispatch(actionCreators.getSurveys(keyword))},
+    onSearch : (keyword) => {dispatch(actionCreators.getSurveyList(keyword))},
   }
 }
 
