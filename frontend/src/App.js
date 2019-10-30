@@ -6,6 +6,7 @@ import LoginPage from './containers/LoginPage/LoginPage';
 import SignupPage from './containers/SignupPage/SignupPage';
 import MainPage from './containers/MainPage/MainPage';
 import SearchResultPage from './containers/SearchResultPage/SearchResultPage';
+import UploadPage from './containers/UploadPage/UploadPage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" component={SignupPage} />
           <Route path="/main" component={MainPage} />
           <Route path="/search" component={SearchResultPage} />
+          <Route path="/upload" component={UploadPage} />
           <Redirect exact from="/" to="/login" />
         </Switch>
       </div>
