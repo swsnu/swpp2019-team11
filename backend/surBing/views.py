@@ -25,4 +25,16 @@ def search(request, keyword = ''):
     else:
         return HttpResponseBadRequest(['GET'])
 
-
+def signup(request):    #create new
+    if request.method == 'POST':
+        try:
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
+            email = req_data['email']
+        except (KeyError, json.decoder.JSONDecodeError) as e:
+            return HttpResponse(status=400)
+        user = User.objects.create_user)(username = username, email = email, password = password)
+        return HttpResponse(status = 201)
+    else:
+        return HttpResponseBadRequest(['POST'])
