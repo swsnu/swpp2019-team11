@@ -24,3 +24,6 @@ yarn-error.log*
 
 #ml files
 /ml/data/
+
+#backend
+/backend/__pycache__/
