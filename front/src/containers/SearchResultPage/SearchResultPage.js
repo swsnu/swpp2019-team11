@@ -5,19 +5,27 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 
 
 class SearchResultPage extends Component {
+
+
+
   render() {
     return (
       <div>
-        <Segment style={{ minHeight: '10vh' }}>
+        <Segment style={{ height: '100px' }}>
           <Grid colums={3}>
-            <Grid.Row verticalAlign="middle" style={{ height: '10vh', minHeight: '10vh' }}>
-              <Grid.Column textAlign="center" style={{ minWidth: 200 }} width={2}><Header style={{ 'font-size': '4em' }} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
-              <Grid.Column width={11}><SearchBar size="huge" /></Grid.Column>
-              <Grid.Column style={{ minWidth: 200 }} floated="right" width={2}><ProfileButton /></Grid.Column>
+            <Grid.Row verticalAlign="middle" >
+              <Grid.Column textAlign="center" style={{ minWidth: 200, marginRight : '50px' }}><Header style={{ 'font-size': '4em', 'cursor':'pointer' }} onClick = {() => {this.props.history.push('/main')}} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
+              <Grid.Column  style = {{minWidth : 300}} ><SearchBar size="huge" width = {'calc(100vw - 500px)'} /></Grid.Column>
+              <Grid.Column style={{ minWidth: '180px' }} floated="right" ><ProfileButton /></Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>
-        <Grid />
+        <Grid colums = {2} divided>
+          <Grid.Row>
+            <Grid.Column style = {{minWidth : '300px', maxWidth : '300px'}}> awd </Grid.Column>
+            <Grid.Column width = {8}> dawawdawdawdawdawdad </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

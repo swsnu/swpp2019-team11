@@ -16,19 +16,28 @@ import * as actionCreators from '../../store/actions/index'
 
 */
 
+const mapDispatchToProps = dispatch => {
+  return{
+    onSearch : (keyword) => {dispatch(actionCreators.getSurveys(keyword))},
+  }
+}
+
+
 class SearchBar extends Component {
   state = {
     value: '',
   }
 
   clickListener = () => {
-    alert('clicked');
+    this.props.onSearch(this.state.value)
+    this.setState({...this.state, value : ''})
+    this.props.history.push('/search')
   }
 
   render() {
     return (
       <Input
-        {...this.props}
+        style = {{width : this.props.width}}
         size={this.props.size}
         fluid
         value={this.state.value}
@@ -43,4 +52,4 @@ class SearchBar extends Component {
 }
 
 
-export default (withRouter(SearchBar));
+export default connect(null, mapDispatchToProps)(withRouter(SearchBar));
