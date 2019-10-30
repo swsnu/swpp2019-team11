@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 import {
   Button, Form, Grid, Header, Segment, Message,
 } from 'semantic-ui-react';
