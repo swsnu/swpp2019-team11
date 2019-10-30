@@ -1,0 +1,1 @@
+export {getSurveys} from './surveys'
