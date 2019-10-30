@@ -5,8 +5,8 @@ import {withRouter} from 'react-router';
 import {connect} from 'react-redux';
 import CheckItem from './CheckItem';
 
-class EditItem extends Component{
-    render(){
+const EditItem =(props) => {
+    if (props.progress >= 1){
         return(
             <div class="ui olive segment">
                 <Header style={{ 'font-size': '2em',  "margin-left":"10px" }} size="huge" color="olive">2. Edit Your Survey</Header>
@@ -27,11 +27,21 @@ class EditItem extends Component{
                 <Grid columns={1}>
                     <Grid.Row >
                         <Grid.Column align="right">
-                            <button align="right" class="ui olive basic button" style={{"margin-top":"15px","marginRight":"20pt", "width":"100pt"}}> Continue </button>
+                            <button 
+                                align="right" 
+                                class="ui olive basic button" 
+                                style={{"margin-top":"15px","marginRight":"20pt", "width":"100pt"}}
+                                onClick = {props.editOnClick}
+                            > Continue </button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
             </div>
+        );
+    }
+    else {
+        return(
+            <div></div>
         );
     }
 }

@@ -9,23 +9,35 @@ class UploadPage extends Component{
         admitCheck : false,
         progress : 0,
     }
+    componentDidMount = () => {
+        this.setState({admitCheck:false, progress:0});
+    }
+
     AdmitButtonHandler = () => {
         if (this.state.admitCheck == false) this.setState({...this.state, admitCheck: true});
         else this.setState({...this.state, admitCheck: false});
     }
     UploadHandler = () => {
-        var next_pro = this.state.progress + 1;
-        if (this.state.progress != 2 ) this.setState({...this.state, progress: next_pro});
-        else this.state.push('/main/')
+        if (this.state.progress == 0 ) this.setState({...this.state, progress: 1});
     }
+    EditHandler = () => {
+        if (this.state.progress == 1 ) this.setState({...this.state, progress: 2});
+    }
+    SubmitHandler = () => {
+        if (this.state.progress == 2 ) this.props.history.push('/main/');
+    }
+
     render(){
         return (
         <div>
             <Segment style={{ minHeight: '10vh' }}>
                 <TopBar/>
-                <UploadFile/>
-                <EditItem/>
-                <Submit/>
+                <UploadFile 
+                    uploadOnClick = {() => this.UploadHandler()}
+                    progress={this.state.progress}
+                />
+                <EditItem progress={this.state.progress} editOnClick = {() => this.EditHandler()} />
+                <Submit progress={this.state.progress} submitOnClick = {() => this.SubmitHandler() }/>
             </Segment>
         </div>
         );

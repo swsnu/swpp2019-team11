@@ -4,8 +4,8 @@ import { Input } from 'semantic-ui-react';
 import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 
-class Submit extends Component{
-    render(){
+const Submit = (props) => {
+    if (props.progress >= 2){
         return(
             <div class="ui green segment">
                 <Header style={{ 'font-size': '2em' ,'margin-left':"8px" }} size="huge" color="green">3. Warning & Confirm</Header>
@@ -27,6 +27,9 @@ class Submit extends Component{
                 </div>
             </div>
         );
+    }
+    else{
+        return(<div></div>);
     }
 }
 export default Submit;
