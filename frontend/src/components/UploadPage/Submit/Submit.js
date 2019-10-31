@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Grid, Header, Segment, GridColumn } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
 
 const Submit = (props) => {
     if (props.progress >= 2){

@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 export const signup_ = (res) => {
-    //if (res.status == 200) alert("signed up"); modify this. 
     return {type: actionTypes.SIGNUP};
 };
 export const signup = (username, email, password) => {

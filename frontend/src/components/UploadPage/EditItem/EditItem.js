@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Header} from 'semantic-ui-react';
 
 const EditItem =(props) => {
     if (props.progress >= 1){

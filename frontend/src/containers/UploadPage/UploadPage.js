@@ -2,7 +2,7 @@ import UploadFile from '../../components/UploadPage/UploadFile/UploadFile';
 import EditItem from '../../components/UploadPage/EditItem/EditItem';
 import Submit from '../../components/UploadPage/Submit/Submit';
 import React, { Component } from 'react';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import TopBar from '../../components/TopBar/TopBar';
 class UploadPage extends Component{
     state = {
