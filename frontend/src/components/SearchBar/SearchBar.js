@@ -29,7 +29,8 @@ class SearchBar extends Component {
   }
 
   clickListener = () => {
-    if(this.state.value!=null){
+    if(this.state.value!=''){
+      console.log(this.state.value)
       this.props.onSearch(this.state.value)
       this.setState({...this.state, value : ''})
       this.props.history.push('/search')

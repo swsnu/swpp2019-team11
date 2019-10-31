@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid} from 'semantic-ui-react';
 import TopBar from '../../components/TopBar/TopBar'
 import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
@@ -35,13 +35,13 @@ class SearchResultPage extends Component {
   
   componentDidMount(){
     this.setState({...this.state, filtered_list : this.props.survey_list})
-    this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock title = {survey.title} />)})
+    this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search id = {survey.id} title = {survey.title} />)})
   }
 
   componentDidUpdate(prevProps){
     if(this.props.survey_list!=prevProps.survey_list){
       console.log(this.props)
-      this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock title = {survey.title} />)})
+      this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search id = {survey.id} title = {survey.title} />)})
     }
   }
 
