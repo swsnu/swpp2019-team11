@@ -53,5 +53,13 @@
     "react-addons-shallow-compare": "^15.6.2",
     "react-dates": "^21.3.1",
     "react-dom": "^16.11.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js",
+      "!src/App.js"
+    ]
   }
 }
