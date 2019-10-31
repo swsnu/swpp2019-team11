@@ -24,12 +24,11 @@ def search(request, keyword = ''):
     else:
         return HttpResponseBadRequest(['GET'])
 
-@csrf_exempt
+#@csrf_exempt
 def signup(request):    #create new
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
-            print(req_data)
             username = req_data['username']
             password = req_data['password']
             email = req_data['email']
