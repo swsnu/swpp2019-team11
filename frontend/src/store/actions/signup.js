@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 export const signup_ = (res) => {
-    return {type: actionTypes.SIGNUP};
+    return {type: actionTypes.SIGNUP, target : res};
 };
 export const signup = (username, email, password) => {
     var user = {
@@ -12,7 +12,8 @@ export const signup = (username, email, password) => {
     return dispatch => {
         return axios.post('/api/signup/', user)
             .then(res => {
-                dispatch(signup_(res.data));
+                dispatch(signup_(res.status));
+                return res;
             })
     }
 };

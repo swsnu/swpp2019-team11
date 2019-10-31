@@ -32,6 +32,9 @@ def signup(request):    #create new
             email = req_data['email']
         except (KeyError, json.decoder.JSONDecodeError) as e:
             return HttpResponse(status=400)
+        if User.objects.filter(username = username).exists():
+            return HttpResponse(status = 400)
+        
         User.objects.create_user(username = username, email = email, password = password)
         return HttpResponse(status = 201)
     else:

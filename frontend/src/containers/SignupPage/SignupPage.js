@@ -19,9 +19,16 @@ class SignupPage extends Component {
   signupHandler = () => {
     if (this.state.password != this.state.password_confirmation) {
       alert("Password Confiramtion is different!");
-    } 
-    this.props.signUp(this.state.username, this.state.email, this.state.password);
-    //this.props.history.push('/login/');
+    } else{
+      this.props.signUp(this.state.username, this.state.email, this.state.password).then((res)=>{
+        this.props.history.push('/login');
+      })
+      .catch((res)=> {
+        alert(res)
+      })
+      ;
+      
+    }
   }
 
   render() {
