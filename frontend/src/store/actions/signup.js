@@ -6,14 +6,14 @@ export const signup_ = (res) => {
 };
 export const signup = (username, email, password) => {
     var user = {
-        username : username,
-        email : email,
-        password : password
+        'username' : username,
+        'email' : email,
+        'password' : password
     }
     return dispatch => {
-        return axios.post('/api/login/', user)
+        return axios.post('/api/signup/', user)
             .then(res => {
-                    dispatch(signup_(res.data));
+                dispatch(signup_(res.data));
             })
     }
 };

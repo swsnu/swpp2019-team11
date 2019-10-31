@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import TopBar from '../../components/TopBar/TopBar';
 class UploadPage extends Component{
+    val 
     state = {
         admitCheck : false,
         progress : 0,
@@ -30,8 +31,8 @@ class UploadPage extends Component{
     render(){
         return (
         <div>
+            <TopBar/>
             <Segment style={{ minHeight: '10vh' }}>
-                <TopBar/>
                 <UploadFile 
                     uploadOnClick = {() => this.UploadHandler()}
                     progress={this.state.progress}

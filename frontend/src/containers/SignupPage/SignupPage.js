@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index';
 import {
   Button, Form, Grid, Header, Segment, Message,
 } from 'semantic-ui-react';
+
 import { NavLink } from 'react-router-dom';
 
 class SignupPage extends Component {
@@ -16,9 +18,13 @@ class SignupPage extends Component {
 
 
   signupHandler = () => {
-    alert('signed up!');
+    //alert('signed up!');
+    if (this.state.password != this.state.password_confirmation) {
+      alert("Password Confiramtion is different!");
+    }
+    //else axios.post('http://localhost:3000/signup/').then(result => alert(result));
     this.props.signUp(this.state.username, this.state.email, this.state.password);
-    this.props.history.push('/login/');
+    //this.props.history.push('/login/');
   }
 
   render() {
@@ -69,9 +75,10 @@ class SignupPage extends Component {
 }
 export const mapDispatchToProps = (dispatch) => {
   return {
-    signUp : (username, email, password) => dispatch(actionCreators.signup({username: username, email: email, password: password})),
+    signUp : (username, email, password) => dispatch(actionCreators.signup(username, email, password)),
   }
 }
 
 
 export default connect (null, mapDispatchToProps) (SignupPage);
+//export default SignupPage;

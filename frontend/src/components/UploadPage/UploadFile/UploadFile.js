@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-import { Input } from 'semantic-ui-react';
-import {withRouter} from 'react-router'
-import {connect} from 'react-redux'
+//import { Input } from 'semantic-ui-react';
+//import {withRouter} from 'react-router'
+//import {connect} from 'react-redux'
 
 const UploadFile = (props) => {  
     return(
