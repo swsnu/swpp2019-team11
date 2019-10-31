@@ -19,7 +19,7 @@ const EditItem =(props) => {
                 <Grid.Row>
                     <h3 class="ui checkbox" style={{'margin-left':"32px", 'margin-top':'5px', 'margin-bottom':'5px'}}>
                         <input type="checkbox" name="example" />
-                        <label > Item Name2 </label>
+                        <label > Item Name2 </label> 
                     </h3>
                 </Grid.Row>
                 <Grid.Row>
