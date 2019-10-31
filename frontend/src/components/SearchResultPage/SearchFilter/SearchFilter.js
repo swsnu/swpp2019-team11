@@ -20,7 +20,7 @@ class SearchFilter extends Component {
 
   render(){
     return(
-      <div stretched style = {{height : '700px', 'borderStyle' : 'none', 'padding' : '5px'}}>
+      <div stretched style = {{'textAlign' : 'center', 'height' : '700px', 'borderStyle' : 'none', 'padding' : '5px'}}>
         <Header color = 'teal' size = 'huge' textAlign = 'center'>Filter</Header>
         <Segment virticalAlign = 'middle' style = {{height : 120}}>
           <Header color = 'teal' textAlign = 'center'>Respondents</Header>
