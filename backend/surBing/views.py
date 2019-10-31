@@ -15,7 +15,6 @@ def token(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-
 def search(request, keyword = ''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains = keyword).values())
@@ -24,7 +23,6 @@ def search(request, keyword = ''):
     else:
         return HttpResponseBadRequest(['GET'])
 
-#@csrf_exempt
 def signup(request):    #create new
     if request.method == 'POST':
         try:
@@ -34,7 +32,7 @@ def signup(request):    #create new
             email = req_data['email']
         except (KeyError, json.decoder.JSONDecodeError) as e:
             return HttpResponse(status=400)
-        user = User.objects.create_user(username = username, email = email, password = password)
+        User.objects.create_user(username = username, email = email, password = password)
         return HttpResponse(status = 201)
     else:
         return HttpResponseBadRequest(['POST'])
