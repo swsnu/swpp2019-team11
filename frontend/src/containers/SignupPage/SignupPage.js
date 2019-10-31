@@ -17,11 +17,9 @@ class SignupPage extends Component {
 
 
   signupHandler = () => {
-    //alert('signed up!');
     if (this.state.password != this.state.password_confirmation) {
       alert("Password Confiramtion is different!");
     } 
-    //else axios.post('http://localhost:3000/signup/').then(result => alert(result));
     this.props.signUp(this.state.username, this.state.email, this.state.password);
     //this.props.history.push('/login/');
   }
