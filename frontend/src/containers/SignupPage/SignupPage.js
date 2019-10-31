@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 import {
   Button, Form, Grid, Header, Segment, Message,
 } from 'semantic-ui-react';
+
 import { NavLink } from 'react-router-dom';
 
 class SignupPage extends Component {
@@ -14,7 +17,18 @@ class SignupPage extends Component {
 
 
   signupHandler = () => {
-    alert('signed up!');
+    if (this.state.password != this.state.password_confirmation) {
+      alert("Password Confiramtion is different!");
+    } else{
+      this.props.signUp(this.state.username, this.state.email, this.state.password).then((res)=>{
+        this.props.history.push('/login');
+      })
+      .catch((res)=> {
+        alert(res)
+      })
+      ;
+      
+    }
   }
 
   render() {
@@ -47,7 +61,7 @@ class SignupPage extends Component {
                   value={this.state.password_confirmation}
                   onChange={(e) => this.setState({ password_confirmation: e.target.value })}
                 />
-                <Button color="teal" fluid size="large">
+                <Button color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
               </Segment>
@@ -63,6 +77,12 @@ class SignupPage extends Component {
     );
   }
 }
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp : (username, email, password) => dispatch(actionCreators.signup(username, email, password)),
+  }
+}
 
 
-export default SignupPage;
+export default connect (null, mapDispatchToProps) (SignupPage);
+//export default SignupPage;
