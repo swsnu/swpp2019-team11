@@ -19,7 +19,7 @@ class MainPage extends Component {
         </Grid.Row>
         <Grid.Row columns={2} style={{ height: '60.3vh' }} verticalAlign="middle">
           <Grid.Column>
-            <Header style={{ 'font-size': '4em' }} size="huge" color="teal" textAlign="center">
+            <Header style={{ 'font-size': '4em', 'cursor':'pointer' }} size="huge" color="teal" textAlign="center">
               surBing
             </Header>
             <SearchBar size="huge" />

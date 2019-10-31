@@ -7,6 +7,9 @@ import SignupPage from './containers/SignupPage/SignupPage';
 import MainPage from './containers/MainPage/MainPage';
 import SearchResultPage from './containers/SearchResultPage/SearchResultPage';
 import SurveyDetailPage from './containers/SurveyDetailPage/SurveyDetailPage';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import UploadPage from './containers/UploadPage/UploadPage';
 
 
 function App() {
@@ -19,6 +22,7 @@ function App() {
           <Route path="/main" component={MainPage} />
           <Route path="/search" component={SearchResultPage} />
           <Route path="/survey/:id" component={SurveyDetailPage} />
+          <Route path="/upload" component={UploadPage} />
           <Redirect exact from="/" to="/login" />
         </Switch>
       </div>
