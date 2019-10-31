@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import TopBar from '../../components/TopBar/TopBar';
 class UploadPage extends Component{
-    val 
     state = {
         admitCheck : false,
         progress : 0,
@@ -27,7 +26,6 @@ class UploadPage extends Component{
     SubmitHandler = () => {
         if (this.state.progress == 2 ) this.props.history.push('/main/'); 
     }
-
     render(){
         return (
         <div>

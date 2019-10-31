@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Header, Segment, GridColumn } from 'semantic-ui-react';
-//import { Input } from 'semantic-ui-react';
-//import {withRouter} from 'react-router'
-//import {connect} from 'react-redux'
 
 const Submit = (props) => {
     if (props.progress >= 2){

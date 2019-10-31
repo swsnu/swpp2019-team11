@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
-//import { Input } from 'semantic-ui-react';
-//import {withRouter} from 'react-router';
-//import {connect} from 'react-redux';
-//import CheckItem from './CheckItem';
 
 const EditItem =(props) => {
     if (props.progress >= 1){
