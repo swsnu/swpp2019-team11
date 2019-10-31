@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Grid, Button, Header, Segment, Image} from 'semantic-ui-react'
 import {DateRangePicker} from 'react-dates'
-import Slider from '@material-ui/core/esm/Slider'
+import Slider from '@material-ui/core/Slider'
 import userImage from '../../../assets/responser.png'
 
 class SearchFilter extends Component {

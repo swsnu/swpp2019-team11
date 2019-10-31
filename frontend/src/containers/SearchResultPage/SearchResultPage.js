@@ -50,7 +50,7 @@ class SearchResultPage extends Component {
     return (
       <div style = {{minWidth : '800px'}}>
         <TopBar searchBar = {true}/>
-        <Grid  colums = {2} divided padded>
+        <Grid  columns = {2} divided padded>
           <Grid.Row >
             <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>
             <Grid.Column width = {8}>{this.state.survey_component_list}</Grid.Column>
