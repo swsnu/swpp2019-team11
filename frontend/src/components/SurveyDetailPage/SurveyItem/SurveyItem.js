@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ItemResponse from './ItemResponse/ItemResponse';
-import { Header, Message } from 'semantic-ui-react';
+import { Description, Header, Message, Grid } from 'semantic-ui-react';
 
 class SurveyItem extends Component {
   state = {
@@ -22,14 +22,16 @@ class SurveyItem extends Component {
     const itemResponses = this.state.items.map(it => {
       return(
         <div>
-          <Header style = {{border: '1px solid grey', margin: 20, 'font-size':'1.5em'}}>
-            {it.itemTitle}
-          
+            <Message style = {{'min-width': '800px', margin: 20, background: '#FFFFFF',border: '1px solid grey', 'box-shadow': '5px 3px 3px #BDBDBD', borderRadius:10,'font-size':'1.5em'}}>
+            <Message.Header style={{'margin-bottom' : 10, color: '#00B5AD'}}>
+              {it.itemTitle}
+            </Message.Header>
           <ItemResponse
             id = {it.id}
             itemResponse = {it.itemResponse}
           />            
-          </Header>
+          </Message>
+
         </div>
 
 

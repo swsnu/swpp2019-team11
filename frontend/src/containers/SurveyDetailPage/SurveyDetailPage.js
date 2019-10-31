@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import SurveyItem from '../../components/SurveyDetailPage/SurveyItem/SurveyItem';
 import { Header, Icon, Grid } from 'semantic-ui-react';
+import TopBar from '../../components/TopBar/TopBar';
 
 class SurveyDetailPage extends Component {
   render() {
     return (
       <div className = "SurveyDetailPage">
-        <Grid columns={2} divided>
-          <Grid.Row style = {{margin: 20, border: '1px solid grey', borderRadius: 20}}>
-            <Grid.Column style = {{width: '65%', 'font-size':'4em'}}>
+        <TopBar searchBar = {true}/>
+        <Grid columns={2} style = {{'min-width' : 800}} divided>
+          <Grid.Row verticalAlign='middle' style = {{margin: 30, height: 130, border: '1px solid grey', 'box-shadow': '5px 3px 3px #BDBDBD', borderRadius: 10}}>
+            <Grid.Column style = {{width: '65%', 'font-size':'3.5em'}}>
               <Header style = {{color: '#00B5AD'}} textAlign='center' vertical-align='middle'>
                 Survey Title
               </Header>
