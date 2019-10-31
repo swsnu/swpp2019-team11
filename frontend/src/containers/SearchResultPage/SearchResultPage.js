@@ -1,26 +1,64 @@
 import React, { Component } from 'react';
-import { Grid, Header, Segment } from 'semantic-ui-react';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import { Grid} from 'semantic-ui-react';
+import TopBar from '../../components/TopBar/TopBar'
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
+import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
+import * as actionCreators from '../../store/actions/index'
+import {connect} from 'react-redux'
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onSurveyDetail : (id) => {dispatch(actionCreators.getSurvey(id))}
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    survey_list : state.svl.survey_list
+  }
+}
 
 class SearchResultPage extends Component {
+
+  state = {
+    filtered_list : [],
+    survey_component_list : [],
+    startDate: '',
+    endDate: '',
+    respondant_min : '1',
+    respondant_max : '1000',
+  }
+
+  filterHandler = (startDate, endDate, respondant) => {
+    this.setState({...this.state, startDate : startDate, endDate: endDate, respondant_min : respondant[0], respondant_max : respondant[1] })
+  }
+  
+  componentDidMount(){
+    this.state.filtered_list = this.props.survey_list
+    this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.survey_list!=prevProps.survey_list){
+      this.state.filtered_list = this.props.survey_list
+      this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search = {true} id = {survey.id} title = {survey.title} />)})
+    }
+  }
+
   render() {
+    console.log(this.state.survey_component_list)
     return (
-      <div>
-        <Segment style={{ minHeight: '10vh' }}>
-          <Grid colums={3}>
-            <Grid.Row verticalAlign="middle" style={{ height: '10vh', minHeight: '10vh' }}>
-              <Grid.Column textAlign="center" style={{ minWidth: 200 }} width={2}><Header style={{ 'font-size': '4em' }} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
-              <Grid.Column width={11}><SearchBar size="huge" /></Grid.Column>
-              <Grid.Column style={{ minWidth: 200 }} floated="right" width={2}><ProfileButton /></Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
-        <Grid />
+      <div style = {{minWidth : '800px'}}>
+        <TopBar searchBar = {true} history  = {this.props.history} />
+        <Grid  columns = {2} divided padded>
+          <Grid.Row >
+            <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>
+            <Grid.Column width = {8}>{this.state.survey_component_list}</Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
 }
 
-export default SearchResultPage;
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResultPage);
