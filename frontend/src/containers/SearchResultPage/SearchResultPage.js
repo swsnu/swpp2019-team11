@@ -49,7 +49,7 @@ class SearchResultPage extends Component {
     console.log(this.state.survey_component_list)
     return (
       <div style = {{minWidth : '800px'}}>
-        <TopBar searchBar = {true}/>
+        <TopBar searchBar = {true} history  = {this.props.history} />
         <Grid  columns = {2} divided padded>
           <Grid.Row >
             <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>

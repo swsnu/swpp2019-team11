@@ -2,6 +2,7 @@ import json
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse ,HttpResponseBadRequest
 from .models import Survey, Item, Response, Cart
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json
 from json import JSONDecodeError
