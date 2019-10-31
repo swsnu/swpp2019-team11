@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ItemResponse from './ItemResponse/ItemResponse';
-import { Description, Header, Message, Grid } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
 class SurveyItem extends Component {
   state = {
@@ -43,7 +43,7 @@ class SurveyItem extends Component {
         {itemResponses}
     </div>
   )
-  };
-};
+  }
+}
 
 export default SurveyItem;
