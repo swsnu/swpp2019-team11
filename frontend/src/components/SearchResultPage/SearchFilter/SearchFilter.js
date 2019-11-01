@@ -18,9 +18,23 @@ class SearchFilter extends Component {
     this.setState({...this.state, respondant : newValue})
   }
 
+  formatFunction = (num) => {
+    if(num=='1000'){
+      return '1000+'
+    }else{
+      return num
+    }
+  }
+
+  falseReturn = () => false;
+
+  onClickHandler = () => {
+    this.props.filterHandler(this.state.startDate, this.state.endDate, this.state.respondant)
+  }
+
   render(){
     return(
-      <div stretched style = {{'textAlign' : 'center', 'height' : '700px', 'borderStyle' : 'none', 'padding' : '5px'}}>
+      <div className = 'topTag' stretched style = {{'textAlign' : 'center', 'height' : '700px', 'borderStyle' : 'none', 'padding' : '5px'}}>
         <Header color = 'teal' size = 'huge' textAlign = 'center'>Filter</Header>
         <Segment virticalAlign = 'middle' style = {{height : 120}}>
           <Header color = 'teal' textAlign = 'center'>Respondents</Header>
@@ -38,14 +52,7 @@ class SearchFilter extends Component {
                 onChange={this.handleSlider}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
-                valueLabelFormat = {(num) => {
-                  if(num=='1000'){
-                    return '1000+'
-                  }
-                  else{
-                    return num
-                  }
-                }}
+                valueLabelFormat = {this.formatFunction}
               />
             </Grid.Column>
             </Grid.Row>
@@ -54,7 +61,7 @@ class SearchFilter extends Component {
         <Segment>
           <Header color = 'teal' textAlign = 'center'>Date</Header>
           <DateRangePicker
-            isOutsideRange={() => false}
+            isOutsideRange={this.falseReturn}
             showDefaultInputIcon
             startDateId="startDate"
             endDateId="endDate"
@@ -65,7 +72,7 @@ class SearchFilter extends Component {
             onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
           />
         </Segment>
-        <Button textAlign = 'center'  color = 'teal' onClick = {() => {this.props.filterHandler(this.state.startDate, this.state.endDate, this.state.respondant)}}>Apply</Button>
+        <Button id = 'applyButton' textAlign = 'center'  color = 'teal' onClick = {this.onClickHandler}>Apply</Button>
       </div>
     )
   }

@@ -51,6 +51,8 @@ class SearchResultPage extends Component {
     }
   }
 
+  
+
   render() {
     return (
       <div style = {{minWidth : '800px'}}>

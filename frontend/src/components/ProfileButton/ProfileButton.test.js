@@ -1,7 +1,6 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
 import {ProfileButton} from './ProfileButton'
-import { debuglog } from 'util'
 
 describe('<ProfileButton />', ()=> {
   beforeEach(()=> {jest.clearAllMocks()})
@@ -15,9 +14,13 @@ describe('<ProfileButton />', ()=> {
     const wrapper = component.find('.DropDownClass')
     expect(wrapper.length).toBe(3)
   })
-  it('button should work', () => {
-    const wrapper = component.find('.DropDownClass').at(1)
-    console.log(mount(<ProfileButton />).find('.DropDownClass').at(1).debug({ ignoreProps: true }))
+  it('myCart button should work', () => {
+    const wrapper = component.find('.myCart').at(1)
+    wrapper.simulate('click')
+    expect(mockPush).toHaveBeenCalledTimes(1);
+  })
+  it('logout button should work', () => {
+    const wrapper = component.find('.logOut').at(1)
     wrapper.simulate('click')
     expect(mockPush).toHaveBeenCalledTimes(1);
   })
