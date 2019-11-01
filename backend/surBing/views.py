@@ -95,15 +95,15 @@ def signout(request):
 # - 400 for bad json request
 # - 404 when there is no such survey with provided id
 #
-# DELETE
-# - delete survey from cart
+# PUT
+# - delete survey from cart (** DELETE cannot receive additional data **)
 # - argument : {id_list : [list of survey id]}
 # - 200 when succeed
-# @check_logged_in to test
+@check_logged_in
 def mycart(request):
     if request.method == 'GET':
         cart = request.user.cart
-        surveys = list(cart.survey.all())
+        surveys = list(cart.survey.all().values())
         return JsonResponse(surveys, safe=False, status=200)
     
     elif request.method == 'POST':
@@ -125,7 +125,7 @@ def mycart(request):
             cart.survey.add(survey)
             return HttpResponse(status=201)
 
-    elif request.method == 'DELETE':
+    elif request.method == 'PUT':
         try:
             req_data = json.loads(request.body.decode())
             id_list = req_data['id_list']
@@ -140,4 +140,4 @@ def mycart(request):
         return HttpResponse(status=200)
 
     else:
-        return HttpResponseBadRequest(['GET', 'POST', 'DELETE'])
+        return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
