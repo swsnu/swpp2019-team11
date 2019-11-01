@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Button, Form, Grid, Header, Segment, Message,
 } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, withRouter } from 'react-router-dom';
+import * as actionCreators from '../../store/actions/index';
 
 class LoginPage extends Component {
   state = {
 
-    email: '',
+    username: '',
     password: '',
+
   };
 
   loginHandler = () => {
-    alert(this.state.email);
-    this.props.history.push('/Main');
+    this.props.logIn(this.state.username, this.state.password)
+    .then((res) => {this.props.history.push('/main');})
+    .catch((error) => {alert(error);})
   };
 
 
@@ -28,7 +31,8 @@ class LoginPage extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Form.Input onChange={(event) => this.setState({ email: event.target.value })} value={this.state.email} fluid icon="user" iconPosition="left" placeholder="E-mail address" />
+                <Form.Input onChange={(event) => this.setState({ username: event.target.value })} value={this.state.username}
+                  fluid icon="user" iconPosition="left" placeholder="Username" />
                 <Form.Input
                   fluid
                   icon="lock"
@@ -38,7 +42,7 @@ class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                <Button onClick={() => this.loginHandler()} color="teal" fluid size="large">
+                <Button disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} color="teal" fluid size="large">
               Login
                 </Button>
               </Segment>
@@ -55,5 +59,10 @@ class LoginPage extends Component {
   }
 }
 
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    logIn : (username, password) => dispatch(actionCreators.logIn(username, password)),
+  }
+}
 
-export default LoginPage;
+export default connect(null, mapDispatchToProps)(withRouter(LoginPage));
