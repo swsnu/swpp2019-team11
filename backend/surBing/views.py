@@ -41,3 +41,16 @@ def signup(request):    #create new
         return HttpResponse(status = 201)
     else:
         return HttpResponseBadRequest(['POST'])
+
+def signin(request):
+    if request.method == 'PUT':
+        try:
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
+        except (KeyError, json.decoder.JSONDecodeError) as e:
+            return HttpResponse(status=400)
+
+        user.authenticate(request = request)
+    else:
+        return HttpResponseBadRequest(['PUT'])
