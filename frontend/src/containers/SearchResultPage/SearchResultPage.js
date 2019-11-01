@@ -5,6 +5,7 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
 import * as actionCreators from '../../store/actions/index'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -61,4 +62,4 @@ class SearchResultPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchResultPage));

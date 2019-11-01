@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import { Grid, Header, Button } from 'semantic-ui-react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
+import {connect} from 'react-redux';
 
 class MainPage extends Component {
   addSurveyHandler = () => {
@@ -33,4 +35,4 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+export default connect(null, null)(withRouter(MainPage));

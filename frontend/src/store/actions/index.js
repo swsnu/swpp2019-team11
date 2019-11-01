@@ -1,2 +1,2 @@
 export {getSurveyList, getSurvey} from './survey'
-export {signup} from './signup';
+export {logIn, signUp} from './user';

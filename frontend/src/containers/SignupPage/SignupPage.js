@@ -79,7 +79,7 @@ class SignupPage extends Component {
 }
 export const mapDispatchToProps = (dispatch) => {
   return {
-    signUp : (username, email, password) => dispatch(actionCreators.signup(username, email, password)),
+    signUp : (username, email, password) => dispatch(actionCreators.signUp(username, email, password)),
   }
 }
 
