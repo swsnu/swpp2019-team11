@@ -35,7 +35,6 @@ class SearchResultPage extends Component {
   
   
   componentDidMount(){
-    console.log('mount')
     this.setState({survey_component_list : this.props.survey_list
       .map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
   }
