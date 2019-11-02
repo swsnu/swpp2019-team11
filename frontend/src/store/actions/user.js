@@ -10,7 +10,7 @@ export const signUp = (username, email, password) => {
   };
   return (dispatch) => axios.post('/api/signup/', user)
     .then((res) => {
-      dispatch(signUp_(res.status));
+      dispatch(signUp_());
       return res;
     });
 };
@@ -20,7 +20,7 @@ export const logIn = (username, password) => {
   const user = { username, password };
   return (dispatch) => axios.post('/api/login/', user)
     .then((res) => {
-      dispatch(logIn_(res.status));
+      dispatch(logIn_());
       return res;
     });
 };

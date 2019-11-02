@@ -42,7 +42,7 @@ class UploadPage extends Component {
 
     fileHandler = (file) => {
       const reader = new FileReader();
-      if (!file) alert('file is null');
+      //if (!file) alert('file is null');
       if (checkFilename(file.name) == '.csv') {
         let fileData = ' ';
         reader.onload = (e) => {
