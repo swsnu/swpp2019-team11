@@ -11,6 +11,7 @@ const initialState = {
 
 
 const SurveyReducer = (state = initialState, action) => {
+  let survey;
   switch (action.type) {
     case actionTypes.GET_SURVEY:
       return {
@@ -23,7 +24,7 @@ const SurveyReducer = (state = initialState, action) => {
         item_list: action.target.item_list,
       };
     case actionTypes.ADD_SURVEY:
-      const survey = {
+      survey = {
         title: action.target.title,
         date: action.target.date,
         author_name: action.target.author_name,
@@ -55,7 +56,7 @@ const SurveyReducer = (state = initialState, action) => {
     default:
       break;
   }
-  return {...state}
+  return { ...state };
 };
 
 export default SurveyReducer;

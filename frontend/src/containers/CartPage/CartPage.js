@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {connect} from 'react-redux';
-import { Grid, Header, Segment, Checkbox, Button, Divider, Label } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import {
+  Grid, Header, Segment, Checkbox, Button, Divider, Label,
+} from 'semantic-ui-react';
 import MLResult from '../../components/CartPage/MLResult/MLResult';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
@@ -14,11 +16,11 @@ class CartPage extends Component {
   }
 
   configureState() {
-    this.setState({...this.state, isTotalChecked: false});
-    let newChecked = [];
-    let len = this.props.survey_list.length;
-    for(let i = 0; i < len; i++) newChecked.push(false);
-    this.setState({...this.state, isChecked: newChecked});
+    this.setState({ ...this.state, isTotalChecked: false });
+    const newChecked = [];
+    const len = this.props.survey_list.length;
+    for (let i = 0; i < len; i++) newChecked.push(false);
+    this.setState({ ...this.state, isChecked: newChecked });
   }
 
   componentDidMount() {
@@ -26,9 +28,11 @@ class CartPage extends Component {
   }
 
   onClickAnalysis = () => {
-    let len = this.state.isChecked.length;
-    let id_list = [];
-    for(let i = 0; i < len; i++) if(this.state.isChecked[i]) id_list.push(this.props.survey_list[i].id);
+    const len = this.state.isChecked.length;
+    const id_list = [];
+    for (let i = 0; i < len; i++) {
+      if (this.state.isChecked[i]) id_list.push(this.props.survey_list[i].id);
+    }
     this.props.getMLResult(id_list);
   }
 
@@ -36,9 +40,9 @@ class CartPage extends Component {
   }
 
   onClickDeleteFromCart = () => {
-    let id_list = []
-    for(let i = 0; i < this.state.isChecked.length; i++){
-      if(this.state.isChecked[i]){
+    const id_list = [];
+    for (let i = 0; i < this.state.isChecked.length; i++) {
+      if (this.state.isChecked[i]) {
         id_list.push(this.props.survey_list[i].id);
       }
     }
@@ -46,8 +50,8 @@ class CartPage extends Component {
   }
 
   onToggleTotal = () => {
-    let newTotalChecked = !this.state.isTotalChecked;
-    let newChecked = [];
+    const newTotalChecked = !this.state.isTotalChecked;
+    const newChecked = [];
     for (let i = 0; i < this.state.isChecked.length; i++) {
       newChecked.push(newTotalChecked);
     }
@@ -56,17 +60,25 @@ class CartPage extends Component {
 
   /* type : 0 -> toggle value, type : 1 -> set value to 1 */
   TOGGLE = 0;
+
   SET = 1;
+
   onToggleSelected = (list, reqType) => {
-    let newChecked = this.state.isChecked.filter(() => true);
-    for (let i = 0; i < list.length; i++) newChecked[list[i]] = (reqType === this.TOGGLE ? !newChecked[list[i]] : true);
+    const newChecked = this.state.isChecked.filter(() => true);
+    for (let i = 0; i < list.length; i++) {
+      newChecked[list[i]] = (reqType === this.TOGGLE ? !newChecked[list[i]] : true);
+    }
     let newTotalChecked = true;
-    for (let i = 0; i < newChecked.length; i++) newTotalChecked &= newChecked[i];
-    this.setState({ ...this.state, isTotalChecked: newTotalChecked, isChecked: newChecked });
+    for (let i = 0; i < newChecked.length; i++) newTotalChecked = newTotalChecked && newChecked[i];
+    this.setState({
+      ...this.state,
+      isTotalChecked: newTotalChecked,
+      isChecked: newChecked,
+    });
   }
 
   getCartBar = (height) => (
-    <Grid verticalAlign='middle' style={{ height: height+'px' }}>
+    <Grid verticalAlign="middle" style={{ height: `${height}px` }}>
       <Grid.Row style={{ minWidth: 1200 }}>
         <Grid.Column style={{ width: 200, marginRight: 230 }}>
           <Header style={{ fontSize: '3em' }} textAlign="center" size="huge">
@@ -74,28 +86,37 @@ class CartPage extends Component {
           </Header>
         </Grid.Column>
         <Grid.Column style={{ width: 200 }}>
-          <Checkbox label='Select All' checked={this.state.isTotalChecked} onChange={() => { this.onToggleTotal() }} />
+          <Checkbox label="Select All" checked={this.state.isTotalChecked} onChange={() => { this.onToggleTotal(); }} />
         </Grid.Column>
-        <Grid.Column style={{ width: 570 }} textAlign='right'>
-          <Button onClick={() => { this.onClickAnalysis() }} >ANALYSIS</Button> {' '}
-          <Button onClick={() => { this.onClickDownload() }} >DOWNLOAD</Button> {' '}
-          <Button onClick={() => { this.onClickDeleteFromCart() }} >DELETE FROM CART</Button>
+        <Grid.Column style={{ width: 570 }} textAlign="right">
+          <Button onClick={() => { this.onClickAnalysis(); }}>ANALYSIS</Button>
+          {' '}
+          {' '}
+          <Button onClick={() => { this.onClickDownload(); }}>DOWNLOAD</Button>
+          {' '}
+          {' '}
+          <Button onClick={() => { this.onClickDeleteFromCart(); }}>DELETE FROM CART</Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
   );
 
   getAnalysisRes = () => {
-    const mlResults = this.props.ml_result.map((cur) =>
-      (<MLResult ml_result={cur} survey_list={this.props.survey_list} onClickSelect={this.onToggleSelected} />)
-    );
+    const mlResults = this.props.ml_result.map((cur) => (
+      <MLResult
+        ml_result={cur}
+        survey_list={this.props.survey_list}
+        onClickSelect={this.onToggleSelected}
+      />
+    ));
     return (
       <Grid padded>
         <Grid.Row>
-          <Grid.Column textAlign='center' width={16}>
+          <Grid.Column textAlign="center" width={16}>
             <Header style={{ fontSize: '2em' }} size="medium" textAlign="center">
               Analysis Result
-            </Header></Grid.Column>
+            </Header>
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
@@ -105,12 +126,17 @@ class CartPage extends Component {
                 : (
                   <Segment>
                     <Header size="small" textAlign="center">
-                      Please select surveys to analyze relevant items <br/>
-                      Then click the <Label>ANALYSIS</Label> button.
+                      Please select surveys to analyze relevant items
+                      {' '}
+                      <br />
+                      Then click the
+                      {' '}
+                      <Label>ANALYSIS</Label>
+                      {' '}
+button.
                     </Header>
                   </Segment>
-                )
-              }
+                )}
             </Segment.Group>
           </Grid.Column>
         </Grid.Row>
@@ -122,7 +148,10 @@ class CartPage extends Component {
     const entries = this.props.survey_list.map((cur, index) => (
       <Grid.Row verticalAlign="middle">
         <Grid.Column style={{ width: 30 }}>
-          <Checkbox checked={this.state.isChecked[index]} onClick={() => { this.onToggleSelected([index], this.TOGGLE) }} />
+          <Checkbox
+            checked={this.state.isChecked[index]}
+            onClick={() => { this.onToggleSelected([index], this.TOGGLE); }}
+          />
         </Grid.Column>
         <Grid.Column style={{ minWidth: 740 }}>
           <SurveyBlock id={cur.id} title={cur.title} search={false} />
@@ -163,19 +192,15 @@ class CartPage extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getCartSurveyList: () => dispatch(actionCreators.getCart()),
-    deleteCart: (id_list) => dispatch(actionCreators.deleteCart(id_list)),
-    getMLResult: (id_list) => dispatch(actionCreators.getML(id_list)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  getCartSurveyList: () => dispatch(actionCreators.getCart()),
+  deleteCart: (id_list) => dispatch(actionCreators.deleteCart(id_list)),
+  getMLResult: (id_list) => dispatch(actionCreators.getML(id_list)),
+});
 
-const mapStateToProps = state => {
-  return {
-    survey_list: state.ct.survey_list,
-    ml_result: state.ct.ml_result
-  }
-}
+const mapStateToProps = (state) => ({
+  survey_list: state.ct.survey_list,
+  ml_result: state.ct.ml_result,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CartPage));

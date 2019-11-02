@@ -6,11 +6,12 @@ import { createBrowserHistory } from 'history';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import axios from 'axios';
 import store from './store/store';
 import App from './App';
-import axios from 'axios';
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 const history = createBrowserHistory();
 ReactDOM.render(<Provider store={store}><BrowserRouter history={history}><App /></BrowserRouter></Provider>, document.getElementById('root'));
 

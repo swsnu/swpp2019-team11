@@ -13,10 +13,10 @@ const rootReducer = combineReducers({
   ct: CartReducer,
 });
 
-const logger = (store) => (next) => (action) => {
-  console.log('[Middleware] Dispatching', action);
+const logger = () => (next) => (action) => {
+  // console.log('[Middleware] Dispatching', action);
   const result = next(action);
-  console.log('[Middleware] Next State', store.getState());
+  // console.log('[Middleware] Next State', store.getState());
   return result;
 };
 

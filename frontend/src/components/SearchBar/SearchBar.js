@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
-import {withRouter} from 'react-router-dom'
-import {connect} from 'react-redux'
-import * as actionCreators from '../../store/actions/index'
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 
 /*
 
@@ -16,11 +16,9 @@ import * as actionCreators from '../../store/actions/index'
 
 */
 
-const mapDispatchToProps = dispatch => {
-  return{
-    onSearch : (keyword) => {dispatch(actionCreators.getSurveyList(keyword))},
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onSearch: (keyword) => { dispatch(actionCreators.getSurveyList(keyword)); },
+});
 
 
 class SearchBar extends Component {
@@ -29,17 +27,17 @@ class SearchBar extends Component {
   }
 
   clickListener = () => {
-    if(this.state.value!=''){
-      this.props.onSearch(this.state.value)
-      this.setState({...this.state, value : ''})
-      this.props.history.push('/search')
+    if (this.state.value != '') {
+      this.props.onSearch(this.state.value);
+      this.setState({ ...this.state, value: '' });
+      this.props.history.push('/search');
     }
   }
 
   render() {
     return (
       <Input
-        style = {{width : this.props.width, minWidth : this.props.minWidth}}
+        style={{ width: this.props.width, minWidth: this.props.minWidth }}
         size={this.props.size}
         fluid
         value={this.state.value}

@@ -19,8 +19,9 @@ matrix:
     install:
     - pip3 install django
     - pip3 install pylint
+    - pip3 install pylint-django
     script:
-    - pylint **/*.py
+    - pylint **/*.py --load-plugins=pylint_django
   - dist: trusty
     addons:
       sonarcloud:
