@@ -1,12 +1,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 
-function checkFilename(filename){
-    var filelen = filename.length;
-    var lastdot = filename.lastIndexOf('.');
-    var fileext = filename.substring(lastdot, filelen).toLowerCase();
-    return fileext;
-}
 
 const UploadFile = (props) => {
     return(

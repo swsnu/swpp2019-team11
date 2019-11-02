@@ -27,7 +27,6 @@ class UploadPage extends Component{
         if (this.state.progress == 0 ) this.setState({...this.state, progress: 1});
     }
     inputButton = () => {
-        //const selectedFile = document.getElementById('input').files[0];
         return(
             <div 
                 class="ui icon input"
@@ -39,7 +38,14 @@ class UploadPage extends Component{
         );
     } 
     fileHandler = (file) => {
-        if (checkFilename(file.name) == '.csv') alert('yeah');
+        var reader = new FileReader();
+        if (!file) alert("file is null");
+        if (checkFilename(file.name) == '.csv') {
+            var fileData=" ";
+            reader.onload = function(e) {
+                fileData = e.target.result;
+            };
+        }
     }
     EditHandler = () => {
         if (this.state.progress == 1 ) this.setState({...this.state, progress: 2});
