@@ -19,7 +19,7 @@ const MLResult = (props) => {
   const similarList = props.ml_result.map((cur, index) => (
     <Grid.Row textAlign='center'>
       <Grid textAlign='center'>
-        <Grid.Row><p>{cur.item}</p></Grid.Row>
+        <Grid.Row><p>{cur.title}</p></Grid.Row>
         <Grid.Row><p style={{'color': '#808080'}}>{props.survey_list[cartIdList[index]].title}</p></Grid.Row>
       </Grid>
     </Grid.Row>

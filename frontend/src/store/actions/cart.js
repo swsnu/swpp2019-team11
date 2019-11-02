@@ -27,7 +27,7 @@ export const addCart = (id) => {
 }
 
 const deleteCart_ = (data) => {
-  return {type: actionTypes.DELETE_CART, target: data}
+  return {type: actionTypes.DELETE_CART, target: data};
 }
 export const deleteCart = (id_list) => {
   return (dispatch) => {
@@ -35,6 +35,19 @@ export const deleteCart = (id_list) => {
     return axios.put('/api/mycart/', data)
       .then((res) => {
         dispatch(deleteCart_(id_list));
+      });
+  }
+}
+
+const getML_ = (data) => {
+  return {type: actionTypes.GET_ML, target: data};
+}
+export const getML = (id_list) => {
+  return (dispatch) => {
+    const data = {'id_list': id_list};
+    return axios.put('/api/ml/', data)
+      .then((res) => {
+        dispatch(getML_(res.data));
       });
   }
 }

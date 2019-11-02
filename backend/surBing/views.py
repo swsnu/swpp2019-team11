@@ -72,9 +72,9 @@ def signin(request):
         return HttpResponseNotAllowed(['POST'])
 
 # logout
+@check_logged_in
 def signout(request):
     if request.method == 'GET':
-        if not request.user.is_authenticated: return HttpResponse(status=401)
         logout(request)
         return HttpResponse(status=204)
     
@@ -141,3 +141,30 @@ def mycart(request):
 
     else:
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
+
+# mock ml.
+# arbitrarily returns item lists in cart.
+@check_logged_in
+def ml(request):
+    if request.method == 'PUT':
+        try:
+            req_data = json.loads(request.body.decode())
+            id_list = req_data['id_list']
+        except (KeyError, json.decoder.JSONDecodeError):
+            return HttpResponse(status=400)
+        
+        cart = request.user.cart
+        survey_list = cart.survey.filter(id__in=id_list)
+        item_surveyId_list = []
+        tmp_list = []
+        for survey in survey_list:
+            for item in survey.item.all():
+                tmp_list.append({'surveyId': survey.id, 'title': item.title})
+                if len(tmp_list) >= 2:
+                    item_surveyId_list.append(tmp_list[:])
+                    tmp_list = []
+
+        return JsonResponse(item_surveyId_list, safe=False, status=200)
+
+    else:
+        return HttpResponseBadRequest(['GET'])

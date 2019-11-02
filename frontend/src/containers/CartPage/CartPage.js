@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Grid, Header, Segment, Checkbox, Button, Divider } from 'semantic-ui-react';
+import { Grid, Header, Segment, Checkbox, Button, Divider, Label } from 'semantic-ui-react';
 import MLResult from '../../components/CartPage/MLResult/MLResult';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 
 class CartPage extends Component {
   state = {
@@ -25,7 +26,10 @@ class CartPage extends Component {
   }
 
   onClickAnalysis = () => {
-    alert("Analysis");
+    let len = this.state.isChecked.length;
+    let id_list = [];
+    for(let i = 0; i < len; i++) if(this.state.isChecked[i]) id_list.push(this.props.survey_list[i].id);
+    this.props.getMLResult(id_list);
   }
 
   onClickDownload = () => {
@@ -97,7 +101,17 @@ class CartPage extends Component {
         <Grid.Row>
           <Grid.Column width={16}>
             <Segment.Group>
-              {mlResults}
+              {this.props.ml_result.length > 0
+                ? mlResults
+                : (
+                  <Segment>
+                    <Header size="small" textAlign="center">
+                      Please select surveys to analyze relevant items <br/>
+                      Then click the <Label>ANALYSIS</Label> button.
+                    </Header>
+                  </Segment>
+                )
+              }
             </Segment.Group>
           </Grid.Column>
         </Grid.Row>
@@ -112,9 +126,7 @@ class CartPage extends Component {
           <Checkbox checked={this.state.isChecked[index]} onClick={() => { this.onToggleSelected([index], this.TOGGLE) }} />
         </Grid.Column>
         <Grid.Column style={{ minWidth: 740 }}>
-          <Segment>
-            {cur.title}
-          </Segment>
+          <SurveyBlock id={cur.id} title={cur.title} search={false} />
         </Grid.Column>
       </Grid.Row>
     ));
@@ -156,6 +168,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getCartSurveyList: () => dispatch(actionCreators.getCart()),
     deleteCart: (id_list) => dispatch(actionCreators.deleteCart(id_list)),
+    getMLResult: (id_list) => dispatch(actionCreators.getML(id_list)),
   }
 }
 
