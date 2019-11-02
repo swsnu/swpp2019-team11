@@ -145,7 +145,7 @@ def mycart(request):
 # mock ml.
 # arbitrarily returns item lists in cart.
 @check_logged_in
-def ml(request):
+def ml_analysis(request):
     if request.method == 'PUT':
         try:
             req_data = json.loads(request.body.decode())
@@ -155,16 +155,16 @@ def ml(request):
         
         cart = request.user.cart
         survey_list = cart.survey.filter(id__in=id_list)
-        item_surveyId_list = []
+        item_surveyid_list = []
         tmp_list = []
         for survey in survey_list:
             for item in survey.item.all():
                 tmp_list.append({'surveyId': survey.id, 'title': item.title})
                 if len(tmp_list) >= 2:
-                    item_surveyId_list.append(tmp_list[:])
+                    item_surveyid_list.append(tmp_list[:])
                     tmp_list = []
 
-        return JsonResponse(item_surveyId_list, safe=False, status=200)
+        return JsonResponse(item_surveyid_list, safe=False, status=200)
 
     else:
         return HttpResponseBadRequest(['GET'])

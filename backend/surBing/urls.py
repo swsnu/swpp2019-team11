@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout/', views.signout, name='logout'),
     path('search/<str:keyword>/', views.search, name='search'),
     path('mycart/', views.mycart, name='mycart'),
-    path('ml/', views.ml, name='ml')
+    path('ml/', views.ml_analysis, name='ml_analysis')
 ]

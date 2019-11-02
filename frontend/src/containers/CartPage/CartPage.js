@@ -33,7 +33,6 @@ class CartPage extends Component {
   }
 
   onClickDownload = () => {
-    alert("Download");
   }
 
   onClickDeleteFromCart = () => {
