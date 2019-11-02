@@ -1,11 +1,10 @@
 import json
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
-from .models import Survey, Item, Response, Cart, SurBingUser
-from django.contrib.auth import login, authenticate, logout
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-import json
 from json import JSONDecodeError
 from functools import wraps
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
+from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.csrf import ensure_csrf_cookie
+from .models import Survey, Cart, SurBingUser
 
 # Create your views here.
 
@@ -33,13 +32,15 @@ def signup(request):    #create new
             email = req_data['email']
         except (KeyError, json.decoder.JSONDecodeError):
             return HttpResponse(status=400)
-        if SurBingUser.objects.filter(username = username).exists():
-            return HttpResponse(status = 400)
-        
+        if SurBingUser.objects.filter(username=username).exists():
+            return HttpResponse(status=400)
+
         cart = Cart()
         cart.save()
-        SurBingUser.objects.create_user(username = username, email = email, password = password, cart=cart)
-        return HttpResponse(status = 201)
+        SurBingUser.objects.create_user(username=username, email=email,
+                                        password=password, cart=cart)
+        return HttpResponse(status=201)
+
     else:
         return HttpResponseBadRequest(['POST'])
 
@@ -52,14 +53,14 @@ def signin(request):
             password = req_data['password']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
-        
+
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
             return HttpResponse(status=204)
         else:
             return HttpResponse(status=401)
-    
+
     else:
         return HttpResponseNotAllowed(['POST'])
 
@@ -69,21 +70,21 @@ def signout(request):
     if request.method == 'GET':
         logout(request)
         return HttpResponse(status=204)
-    
+
     else:
         return HttpResponseNotAllowed(['GET'])
 
-def search(request, keyword = ''):
+def search(request, keyword=''):
     if request.method == 'GET':
-        surveys = list(Survey.objects.filter(title__icontains = keyword).values())
+        surveys = list(Survey.objects.filter(title__icontains=keyword).values())
         return JsonResponse(surveys, safe=False)
 
     else:
         return HttpResponseBadRequest(['GET'])
 
-def survey(request, id):
+def survey(request, survey_id):
     if request.method == 'GET':
-        survey = list(Survey.objects.filter(id=id).values())[0]
+        survey = list(Survey.objects.filter(id=survey_id).values())[0]
         return JsonResponse(survey, safe=False)
 
     else:
@@ -113,21 +114,21 @@ def mycart(request):
         cart = request.user.cart
         surveys = list(cart.survey.all().values())
         return JsonResponse(surveys, safe=False, status=200)
-    
+
     elif request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
-            id = req_data['id']
+            survey_id = req_data['id']
         except (KeyError, json.decoder.JSONDecodeError):
             return HttpResponse(status=400)
 
         try:
-            survey = Survey.objects.get(id=id)
+            survey = Survey.objects.get(id=survey_id)
         except Survey.DoesNotExist:
             return HttpResponse(status=404)
-        
+
         cart = request.user.cart
-        if cart.survey.filter(id=id).exists():
+        if cart.survey.filter(id=survey_id).exists():
             return HttpResponse(status=200)
         else:
             cart.survey.add(survey)
@@ -160,7 +161,7 @@ def ml_analysis(request):
             id_list = req_data['id_list']
         except (KeyError, json.decoder.JSONDecodeError):
             return HttpResponse(status=400)
-        
+
         cart = request.user.cart
         survey_list = cart.survey.filter(id__in=id_list)
         item_surveyid_list = []
@@ -173,3 +174,6 @@ def ml_analysis(request):
                     tmp_list = []
 
         return JsonResponse(item_surveyid_list, safe=False, status=200)
+
+    else:
+        return HttpResponseBadRequest(['PUT'])
