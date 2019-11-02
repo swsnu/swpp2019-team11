@@ -18,8 +18,15 @@ describe('<SearchFilter />', () => {
   })
   it("button testing", () => {
     const wrapper = component.find('#applyButton')
-    console.log(shallow(<SearchFilter {...props} />).find('#applyButton').debug())
     wrapper.simulate('click')
     expect(mockFilterHandler).toHaveBeenCalledTimes(1)
+  })
+  it("handleSlider testing", () => {
+    instance.handleSlider(null, 'a')
+    expect(instance.state.respondant).toEqual('a')
+  })
+  it("formatFunction testing", () => {
+    expect(instance.formatFunction('1000')).toEqual('1000+')
+    expect(instance.formatFunction('500')).toEqual('500')
   })
 })

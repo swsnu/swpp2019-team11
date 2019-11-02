@@ -28,6 +28,10 @@ class SearchFilter extends Component {
 
   falseReturn = () => false;
 
+  onDatesChange = ({ startDate, endDate }) => { this.setState({ startDate, endDate })}
+
+  onFocusChange = (focusedInput) => { this.setState({ focusedInput })}
+
   onClickHandler = () => {
     this.props.filterHandler(this.state.startDate, this.state.endDate, this.state.respondant)
   }
@@ -67,9 +71,9 @@ class SearchFilter extends Component {
             endDateId="endDate"
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
+            onDatesChange={this.onDatesChange}
             focusedInput={this.state.focusedInput}
-            onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+            onFocusChange={this.onFocusChange}
           />
         </Segment>
         <Button id = 'applyButton' textAlign = 'center'  color = 'teal' onClick = {this.onClickHandler}>Apply</Button>
