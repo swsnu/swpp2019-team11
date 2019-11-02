@@ -14,7 +14,7 @@ class LoginPage extends Component {
 
   loginHandler = () => {
     alert(this.state.email);
-    this.props.history.push('/Main');
+    this.props.history.push('/main');
   };
 
 

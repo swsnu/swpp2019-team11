@@ -10,7 +10,7 @@ const UploadFile = (props) => {
                 class="ui icon input"
                 style={{"margin-top":"10px", "margin-left":"10px"}}
             >
-                <input id="image-file" type="file" />
+                <input id="csv-file" type="file" />
                 <i class="search icon"></i>
             </div>
             <div align="right">

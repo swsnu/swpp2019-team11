@@ -20,6 +20,7 @@ class UploadPage extends Component{
     UploadHandler = () => {
         if (this.state.progress == 0 ) this.setState({...this.state, progress: 1});
     }
+    //UploadButton = ()
     EditHandler = () => {
         if (this.state.progress == 1 ) this.setState({...this.state, progress: 2});
     }

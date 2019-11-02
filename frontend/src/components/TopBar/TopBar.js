@@ -19,5 +19,5 @@ const TopBar = (props) => {
     </Sticky>
   )
 }
-
-export default withRouter(TopBar)
+export default TopBar;
+//export default withRouter(TopBar)
