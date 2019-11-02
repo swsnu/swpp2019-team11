@@ -7,6 +7,7 @@ import SignupPage from './containers/SignupPage/SignupPage';
 import MainPage from './containers/MainPage/MainPage';
 import SearchResultPage from './containers/SearchResultPage/SearchResultPage';
 import CartPage from './containers/CartPage/CartPage';
+import SurveyDetailPage from './containers/SurveyDetailPage/SurveyDetailPage';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import UploadPage from './containers/UploadPage/UploadPage';

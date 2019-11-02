@@ -13,14 +13,16 @@ export const getSurveyList = (keyword) => {
   }
 };
 
+
 export const getSurvey_ = (survey) => {
   return {type: actionTypes.GET_SURVEY, target: survey}
 }
 
 export const getSurvey = (id) => {
   return dispatch => {
-    return axios.get("/api/survey/"+id).then(res => {
-      dispatch(getSurvey_(res.data))
+    return axios.get("/api/survey/"+id+"/").then(res => {
+      var datausing = res.data.replace(/[\[\]]+/g)
+      dispatch(getSurvey_(datausing))
     })
   }
 }

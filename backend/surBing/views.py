@@ -24,14 +24,6 @@ def token(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-def search(request, keyword = ''):
-    if request.method == 'GET':
-        surveys = list(Survey.objects.filter(title__icontains = keyword).values())
-        return JsonResponse(surveys, safe=False)
-
-    else:
-        return HttpResponseBadRequest(['GET'])
-
 def signup(request):    #create new
     if request.method == 'POST':
         try:
@@ -80,6 +72,22 @@ def signout(request):
     
     else:
         return HttpResponseNotAllowed(['GET'])
+
+def search(request, keyword = ''):
+    if request.method == 'GET':
+        surveys = list(Survey.objects.filter(title__icontains = keyword).values())
+        return JsonResponse(surveys, safe=False)
+
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+def survey(request, id):
+    if request.method == 'GET':
+        survey = list(Survey.objects.filter(title="test title").values('title'))
+        return JsonResponse(survey, safe=False)
+
+    else:
+        return HttpResponseBadRequest(['GET'])
 
 # mycart : api for cart
 # GET
@@ -165,6 +173,3 @@ def ml_analysis(request):
                     tmp_list = []
 
         return JsonResponse(item_surveyid_list, safe=False, status=200)
-
-    else:
-        return HttpResponseBadRequest(['GET'])
