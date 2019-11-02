@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
-  logOut: (username, password) => dispatch(actionCreators.logOut()),
+  logOut: () => dispatch(actionCreators.logOut()),
 });
 
-export const ProfileButton = (props) => {
+const ProfileButton = (props) => {
   const myCartHandler = () => {
     props.history.push('/mycart');
   };

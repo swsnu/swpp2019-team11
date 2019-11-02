@@ -20,12 +20,12 @@ class SurveyDetailPage extends Component {
 
   componentDidMount() {
     this.props.onSurveyDetail(this.props.match.params.id);
-    this.state.title = this.props.title;
+    this.setState({ ...this.state, title: this.props.title });
   }
 
   render() {
-    console.log(this.props.title);
-    this.state.title = this.props.title;
+    // console.log(this.props.title);
+    this.setState({ ...this.state, title: this.props.title });
     return (
       <div className="SurveyDetailPage">
         <TopBar searchBar />

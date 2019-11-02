@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { ProfileButton } from './ProfileButton';
+import { mount } from 'enzyme';
+import ProfileButton from './ProfileButton';
 
 describe('<ProfileButton />', () => {
   beforeEach(() => { jest.clearAllMocks(); });
@@ -9,7 +9,6 @@ describe('<ProfileButton />', () => {
     history: { push: () => mockPush() },
   };
   const component = mount(<ProfileButton {...props} />);
-  const instance = component.instance();
   it('should render without errors', () => {
     const wrapper = component.find('.DropDownClass');
     expect(wrapper.length).toBe(3);

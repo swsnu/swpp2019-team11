@@ -30,7 +30,9 @@ class CartPage extends Component {
   onClickAnalysis = () => {
     const len = this.state.isChecked.length;
     const id_list = [];
-    for (let i = 0; i < len; i++) if (this.state.isChecked[i]) id_list.push(this.props.survey_list[i].id);
+    for (let i = 0; i < len; i++) {
+      if (this.state.isChecked[i]) id_list.push(this.props.survey_list[i].id);
+    }
     this.props.getMLResult(id_list);
   }
 
@@ -63,10 +65,16 @@ class CartPage extends Component {
 
   onToggleSelected = (list, reqType) => {
     const newChecked = this.state.isChecked.filter(() => true);
-    for (let i = 0; i < list.length; i++) newChecked[list[i]] = (reqType === this.TOGGLE ? !newChecked[list[i]] : true);
+    for (let i = 0; i < list.length; i++) {
+      newChecked[list[i]] = (reqType === this.TOGGLE ? !newChecked[list[i]] : true);
+    }
     let newTotalChecked = true;
-    for (let i = 0; i < newChecked.length; i++) newTotalChecked &= newChecked[i];
-    this.setState({ ...this.state, isTotalChecked: newTotalChecked, isChecked: newChecked });
+    for (let i = 0; i < newChecked.length; i++) newTotalChecked = newTotalChecked && newChecked[i];
+    this.setState({
+      ...this.state,
+      isTotalChecked: newTotalChecked,
+      isChecked: newChecked,
+    });
   }
 
   getCartBar = (height) => (
@@ -94,7 +102,13 @@ class CartPage extends Component {
   );
 
   getAnalysisRes = () => {
-    const mlResults = this.props.ml_result.map((cur) => (<MLResult ml_result={cur} survey_list={this.props.survey_list} onClickSelect={this.onToggleSelected} />));
+    const mlResults = this.props.ml_result.map((cur) => (
+      <MLResult
+        ml_result={cur}
+        survey_list={this.props.survey_list}
+        onClickSelect={this.onToggleSelected}
+      />
+    ));
     return (
       <Grid padded>
         <Grid.Row>
@@ -134,7 +148,10 @@ button.
     const entries = this.props.survey_list.map((cur, index) => (
       <Grid.Row verticalAlign="middle">
         <Grid.Column style={{ width: 30 }}>
-          <Checkbox checked={this.state.isChecked[index]} onClick={() => { this.onToggleSelected([index], this.TOGGLE); }} />
+          <Checkbox
+            checked={this.state.isChecked[index]}
+            onClick={() => { this.onToggleSelected([index], this.TOGGLE); }}
+          />
         </Grid.Column>
         <Grid.Column style={{ minWidth: 740 }}>
           <SurveyBlock id={cur.id} title={cur.title} search={false} />

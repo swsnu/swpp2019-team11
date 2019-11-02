@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Button } from 'semantic-ui-react';
 
 
 const UploadFile = (props) => (
@@ -8,15 +8,14 @@ const UploadFile = (props) => (
     <div style={{ 'font-size': '20px', color: '#663300', 'margin-left': '20px' }}><strong>.csv file</strong></div>
     {props.inputButton}
     <div align="right">
-      <button
-        className="ui yellow button"
+      <Button
         align="right"
         style={{ marginRight: '20pt', width: '100pt' }}
         onClick={props.uploadOnClick}
         disabled={props.progress != 0}
       >
                     Continue
-      </button>
+      </Button>
     </div>
   </div>
 );

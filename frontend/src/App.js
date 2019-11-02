@@ -12,7 +12,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import UploadPage from './containers/UploadPage/UploadPage';
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       <Switch>

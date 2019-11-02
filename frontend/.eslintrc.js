@@ -36,5 +36,8 @@ module.exports = {
     "react/no-access-state-in-setstate" : [0],
     "react/jsx-key" : [0],
     "react/prop-types": [0],
+    "camelcase": [0],
+    "no-plusplus": [0],
+    "react/sort-comp": [0],
   },
 };

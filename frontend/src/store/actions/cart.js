@@ -11,7 +11,7 @@ const addCart_ = () => ({ type: actionTypes.ADD_CART });
 export const addCart = (id) => (dispatch) => {
   const data = { id };
   return axios.post('/api/mycart/', data)
-    .then((res) => {
+    .then(() => {
       dispatch(addCart_());
     });
 };
@@ -20,7 +20,7 @@ const deleteCart_ = (data) => ({ type: actionTypes.DELETE_CART, target: data });
 export const deleteCart = (id_list) => (dispatch) => {
   const data = { id_list };
   return axios.put('/api/mycart/', data)
-    .then((res) => {
+    .then(() => {
       dispatch(deleteCart_(id_list));
     });
 };

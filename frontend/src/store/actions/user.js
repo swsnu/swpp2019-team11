@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-const signUp_ = (res) => ({ type: actionTypes.SIGNUP });
+const signUp_ = () => ({ type: actionTypes.SIGNUP });
 export const signUp = (username, email, password) => {
   const user = {
     username,
@@ -15,7 +15,7 @@ export const signUp = (username, email, password) => {
     });
 };
 
-const logIn_ = (res) => ({ type: actionTypes.LOGIN });
+const logIn_ = () => ({ type: actionTypes.LOGIN });
 export const logIn = (username, password) => {
   const user = { username, password };
   return (dispatch) => axios.post('/api/login/', user)
@@ -27,6 +27,6 @@ export const logIn = (username, password) => {
 
 const logOut_ = () => ({ type: actionTypes.LOGOUT });
 export const logOut = () => (dispatch) => axios.get('/api/logout/')
-  .then((res) => {
+  .then(() => {
     dispatch(logOut_());
   });

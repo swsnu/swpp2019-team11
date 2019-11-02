@@ -16,8 +16,8 @@ class LoginPage extends Component {
 
   loginHandler = () => {
     this.props.logIn(this.state.username, this.state.password)
-      .then((res) => { this.props.history.push('/main'); })
-      .catch((error) => {});
+      .then(() => { this.props.history.push('/main'); })
+      .catch(() => {});
   };
 
   render() {

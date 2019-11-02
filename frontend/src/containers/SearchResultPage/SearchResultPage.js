@@ -27,7 +27,11 @@ class SearchResultPage extends Component {
 
   filterHandler = (startDate, endDate, respondant) => {
     this.setState({
-      ...this.state, startDate: (!startDate ? startDate : startDate.hour(0)), endDate: (!endDate ? endDate : endDate.hour(0)), respondant_min: respondant[0], respondant_max: respondant[1],
+      ...this.state,
+      startDate: (!startDate ? startDate : startDate.hour(0)),
+      endDate: (!endDate ? endDate : endDate.hour(0)),
+      respondant_min: respondant[0],
+      respondant_max: respondant[1],
     });
   }
 
@@ -40,13 +44,20 @@ class SearchResultPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.survey_list != prevProps.survey_list || this.state.startDate != prevState.startDate || this.state.endDate != prevState.endDate || this.state.respondant_min != prevState.respondant_min || this.state.respondant_max != prevState.respondant_max) {
+    if (this.props.survey_list != prevProps.survey_list
+      || this.state.startDate != prevState.startDate
+      || this.state.endDate != prevState.endDate
+      || this.state.respondant_min != prevState.respondant_min
+      || this.state.respondant_max != prevState.respondant_max) {
       this.setState({
         survey_component_list: this.props.survey_list
           .filter((survey) => (
-            (this.state.startDate == null ? true : !this.state.startDate.isAfter(moment(survey.date)))
-          && (this.state.endDate == null ? true : !this.state.endDate.isBefore(moment(survey.date)))
-          && (this.state.respondant_max == 1000 ? true : this.state.respondant_max >= survey.response_count)
+            (this.state.startDate == null
+              ? true : !this.state.startDate.isAfter(moment(survey.date)))
+          && (this.state.endDate == null
+            ? true : !this.state.endDate.isBefore(moment(survey.date)))
+          && (this.state.respondant_max == 1000
+            ? true : this.state.respondant_max >= survey.response_count)
           && (this.state.respondant_min <= survey.response_count)))
           .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
       });

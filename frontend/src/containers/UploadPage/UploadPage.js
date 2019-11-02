@@ -45,9 +45,10 @@ class UploadPage extends Component {
       if (!file) alert('file is null');
       if (checkFilename(file.name) == '.csv') {
         let fileData = ' ';
-        reader.onload = function (e) {
+        reader.onload = (e) => {
           fileData = e.target.result;
         };
+        if (fileData) fileData += ' '; // useless.
       }
     }
 

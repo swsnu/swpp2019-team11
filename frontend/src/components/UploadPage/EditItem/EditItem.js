@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Header, Button } from 'semantic-ui-react';
 
 const EditItem = (props) => {
   if (props.progress >= 1) {
@@ -23,26 +23,25 @@ const EditItem = (props) => {
           <Grid.Row>
             <h3 className="ui checkbox" style={{ 'margin-left': '32px', 'margin-top': '5px', 'margin-bottom': '5px' }}>
               <input type="checkbox" name="example" />
-              <label> Item Name1 </label>
+              Item Name1
             </h3>
           </Grid.Row>
           <Grid.Row>
             <h3 className="ui checkbox" style={{ 'margin-left': '32px', 'margin-top': '5px', 'margin-bottom': '5px' }}>
               <input type="checkbox" name="example" />
-              <label> Item Name2 </label>
+              Item Name2
             </h3>
           </Grid.Row>
           <Grid.Row>
             <h3 className="ui checkbox" style={{ 'margin-left': '32px', 'margin-top': '5px', 'margin-bottom': '5px' }}>
               <input type="checkbox" name="example" />
-              <label> Item Name3 </label>
+              Item Name3
             </h3>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column align="right">
-              <button
+              <Button
                 align="right"
-                className="ui olive button"
                 style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}
                 onClick={props.editOnClick}
                 disabled={props.progress != 1}
@@ -50,7 +49,7 @@ const EditItem = (props) => {
                 {' '}
 Continue
                 {' '}
-              </button>
+              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
