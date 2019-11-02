@@ -83,7 +83,7 @@ def search(request, keyword = ''):
 
 def survey(request, id):
     if request.method == 'GET':
-        survey = list(Survey.objects.filter(title="test title").values('title'))
+        survey = list(Survey.objects.filter(id=id).values())[0]
         return JsonResponse(survey, safe=False)
 
     else:

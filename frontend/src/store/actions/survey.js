@@ -21,8 +21,7 @@ export const getSurvey_ = (survey) => {
 export const getSurvey = (id) => {
   return dispatch => {
     return axios.get("/api/survey/"+id+"/").then(res => {
-      var datausing = res.data.replace(/[\[\]]+/g)
-      dispatch(getSurvey_(datausing))
+      dispatch(getSurvey_(res.data))
     })
   }
 }

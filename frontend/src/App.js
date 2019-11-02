@@ -22,6 +22,7 @@ function App(props) {
           <Route path="/signup" exact component={SignupPage} />
           <Route path="/main" exact component={MainPage} />
           <Route path="/search" exact component={SearchResultPage} />
+          <Route path="/survey/:id" exact component={SurveyDetailPage} />
           <Route path="/mycart" exact component={CartPage} />
           <Route path="/upload" exact component={UploadPage} />
           <Redirect exact from="/" to="/login" />
