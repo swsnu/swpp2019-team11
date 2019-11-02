@@ -16,8 +16,8 @@ class LoginPage extends Component {
 
   loginHandler = () => {
     this.props.logIn(this.state.username, this.state.password)
-    .then((res) => {this.props.history.push('/main');})
-    .catch((error) => {})
+      .then((res) => { this.props.history.push('/main'); })
+      .catch((error) => {});
   };
 
   render() {
@@ -30,8 +30,14 @@ class LoginPage extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Form.Input onChange={(event) => this.setState({ username: event.target.value })} value={this.state.username}
-                  fluid icon="user" iconPosition="left" placeholder="Username" />
+                <Form.Input
+                  onChange={(event) => this.setState({ username: event.target.value })}
+                  value={this.state.username}
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  placeholder="Username"
+                />
                 <Form.Input
                   fluid
                   icon="lock"
@@ -58,10 +64,8 @@ class LoginPage extends Component {
   }
 }
 
-export const mapDispatchToProps = (dispatch) => {
-  return {
-    logIn : (username, password) => dispatch(actionCreators.logIn(username, password)),
-  }
-}
+export const mapDispatchToProps = (dispatch) => ({
+  logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
+});
 
 export default connect(null, mapDispatchToProps)(withRouter(LoginPage));

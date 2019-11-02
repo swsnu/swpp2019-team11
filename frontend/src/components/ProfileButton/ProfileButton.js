@@ -1,14 +1,12 @@
 import React from 'react';
 import { Button, Dropdown, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import * as actionCreators from '../../store/actions/index';
 import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logOut : (username, password) => dispatch(actionCreators.logOut()),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  logOut: (username, password) => dispatch(actionCreators.logOut()),
+});
 
 export const ProfileButton = (props) => {
   const myCartHandler = () => {
@@ -19,13 +17,13 @@ export const ProfileButton = (props) => {
   };
 
   return (
-    <Dropdown className = 'DropDownClass' as={Button} text="Profile" color="teal" size="large" style={props.style}>
+    <Dropdown className="DropDownClass" as={Button} text="Profile" color="teal" size="large" style={props.style}>
       <Dropdown.Menu>
-        <Dropdown.Item className = 'myCart' onClick={() => myCartHandler()} color="primary" basic as={Button} fluid icon>
+        <Dropdown.Item className="myCart" onClick={() => myCartHandler()} color="primary" basic as={Button} fluid icon>
           <Icon name="cart" />
           My Cart
         </Dropdown.Item>
-        <Dropdown.Item className = 'logOut'  onClick={() => logoutHandler()} color="teal" basic as={Button} fluid icon>
+        <Dropdown.Item className="logOut" onClick={() => logoutHandler()} color="teal" basic as={Button} fluid icon>
           <Icon name="key" />
           Log Out
         </Dropdown.Item>

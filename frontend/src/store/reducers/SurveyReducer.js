@@ -55,7 +55,7 @@ const SurveyReducer = (state = initialState, action) => {
     default:
       break;
   }
-  return {...state}
+  return { ...state };
 };
 
 export default SurveyReducer;

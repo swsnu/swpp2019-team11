@@ -1,64 +1,70 @@
 import React, { Component } from 'react';
-import { Grid} from 'semantic-ui-react';
-import TopBar from '../../components/TopBar/TopBar'
-import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
-import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
-import * as actionCreators from '../../store/actions/index'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom';
-import moment from 'moment'
+import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import moment from 'moment';
+import TopBar from '../../components/TopBar/TopBar';
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
+import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter';
+import * as actionCreators from '../../store/actions/index';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSurveyDetail : (id) => {dispatch(actionCreators.getSurvey(id))}
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onSurveyDetail: (id) => { dispatch(actionCreators.getSurvey(id)); },
+});
 
-const mapStateToProps = state => {
-  return {
-    survey_list : state.svl.survey_list
-  }
-}
+const mapStateToProps = (state) => ({
+  survey_list: state.svl.survey_list,
+});
 
 class SearchResultPage extends Component {
   state = {
-    survey_component_list : [],
+    survey_component_list: [],
     startDate: null,
     endDate: null,
-    respondant_min : '1',
-    respondant_max : '1000',
+    respondant_min: '1',
+    respondant_max: '1000',
   }
 
   filterHandler = (startDate, endDate, respondant) => {
-    this.setState({...this.state, startDate : (!startDate ? startDate : startDate.hour(0) ) , endDate: (!endDate ? endDate : endDate.hour(0) ), respondant_min : respondant[0], respondant_max : respondant[1] })
-  }
-  
-  
-  componentDidMount(){
-    this.setState({survey_component_list : this.props.survey_list
-      .map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
+    this.setState({
+      ...this.state, startDate: (!startDate ? startDate : startDate.hour(0)), endDate: (!endDate ? endDate : endDate.hour(0)), respondant_min: respondant[0], respondant_max: respondant[1],
+    });
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(this.props.survey_list!=prevProps.survey_list||this.state.startDate!=prevState.startDate||this.state.endDate!=prevState.endDate||this.state.respondant_min!=prevState.respondant_min||this.state.respondant_max!=prevState.respondant_max){
-      this.setState({survey_component_list : this.props.survey_list
-        .filter((survey) => (
-          (this.state.startDate==null? true : !this.state.startDate.isAfter(moment(survey.date)))
-          &&(this.state.endDate==null? true : !this.state.endDate.isBefore(moment(survey.date)))
-          &&(this.state.respondant_max==1000 ? true : this.state.respondant_max>=survey.response_count )
-          &&(this.state.respondant_min<=survey.response_count)))
-        .map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
+
+  componentDidMount() {
+    this.setState({
+      survey_component_list: this.props.survey_list
+        .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.survey_list != prevProps.survey_list || this.state.startDate != prevState.startDate || this.state.endDate != prevState.endDate || this.state.respondant_min != prevState.respondant_min || this.state.respondant_max != prevState.respondant_max) {
+      this.setState({
+        survey_component_list: this.props.survey_list
+          .filter((survey) => (
+            (this.state.startDate == null ? true : !this.state.startDate.isAfter(moment(survey.date)))
+          && (this.state.endDate == null ? true : !this.state.endDate.isBefore(moment(survey.date)))
+          && (this.state.respondant_max == 1000 ? true : this.state.respondant_max >= survey.response_count)
+          && (this.state.respondant_min <= survey.response_count)))
+          .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
+      });
     }
   }
 
   render() {
     return (
-      <div style = {{minWidth : '800px'}}>
-        <TopBar searchBar = {true} history  = {this.props.history} />
-        <Grid  columns = {2} divided padded>
-          <Grid.Row >
-            <Grid.Column centered style = {{minWidth : '430px', maxWidth : '430px'}}> <SearchFilter filterHandler = {this.filterHandler}/> </Grid.Column>
-            <Grid.Column width = {8}>{this.state.survey_component_list}</Grid.Column>
+      <div style={{ minWidth: '800px' }}>
+        <TopBar searchBar history={this.props.history} />
+        <Grid columns={2} divided padded>
+          <Grid.Row>
+            <Grid.Column centered style={{ minWidth: '430px', maxWidth: '430px' }}>
+              {' '}
+              <SearchFilter filterHandler={this.filterHandler} />
+              {' '}
+            </Grid.Column>
+            <Grid.Column width={8}>{this.state.survey_component_list}</Grid.Column>
           </Grid.Row>
         </Grid>
       </div>

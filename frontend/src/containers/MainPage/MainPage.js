@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Header, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
-import {connect} from 'react-redux';
 
 class MainPage extends Component {
   addSurveyHandler = () => {
@@ -20,7 +20,7 @@ class MainPage extends Component {
         </Grid.Row>
         <Grid.Row columns={2} style={{ height: '60.3vh' }} verticalAlign="middle">
           <Grid.Column>
-            <Header style={{ 'font-size': '4em', 'cursor':'pointer' }} size="huge" color="teal" textAlign="center">
+            <Header style={{ 'font-size': '4em', cursor: 'pointer' }} size="huge" color="teal" textAlign="center">
               surBing
             </Header>
             <SearchBar size="huge" />
