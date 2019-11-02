@@ -4,6 +4,13 @@ import Submit from '../../components/UploadPage/Submit/Submit';
 import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import TopBar from '../../components/TopBar/TopBar';
+
+function checkFilename(filename){
+    var filelen = filename.length;
+    var lastdot = filename.lastIndexOf('.');
+    var fileext = filename.substring(lastdot, filelen).toLowerCase();
+    return fileext;
+}
 class UploadPage extends Component{
     state = {
         admitCheck : false,
@@ -12,7 +19,6 @@ class UploadPage extends Component{
     componentDidMount = () => {
         this.setState({admitCheck:false, progress:0});
     }
-
     AdmitButtonHandler = () => {
         if (this.state.admitCheck == false) this.setState({...this.state, admitCheck: true});
         else this.setState({...this.state, admitCheck: false});
@@ -20,7 +26,21 @@ class UploadPage extends Component{
     UploadHandler = () => {
         if (this.state.progress == 0 ) this.setState({...this.state, progress: 1});
     }
-    //UploadButton = ()
+    inputButton = () => {
+        //const selectedFile = document.getElementById('input').files[0];
+        return(
+            <div 
+                class="ui icon input"
+                style={{"margin-top":"10px", "margin-left":"10px"}}
+            >
+                <input id="input" type="file" onChange={() => { this.fileHandler(document.getElementById('input').files[0]); }}/>
+                <i class="search icon"></i>
+            </div>
+        );
+    } 
+    fileHandler = (file) => {
+        if (checkFilename(file.name) == '.csv') alert('yeah');
+    }
     EditHandler = () => {
         if (this.state.progress == 1 ) this.setState({...this.state, progress: 2});
     }
@@ -33,6 +53,7 @@ class UploadPage extends Component{
             <TopBar/>
             <Segment style={{ minHeight: '10vh' }}>
                 <UploadFile 
+                    inputButton = {this.inputButton()}
                     uploadOnClick = {() => this.UploadHandler()}
                     progress={this.state.progress}
                 />
