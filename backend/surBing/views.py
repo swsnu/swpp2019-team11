@@ -41,3 +41,11 @@ def signup(request):    #create new
         return HttpResponse(status = 201)
     else:
         return HttpResponseBadRequest(['POST'])
+
+def survey(request, id):
+    if request.method == 'GET':
+        survey = list(Survey.objects.filter(title="test title").values('title'))
+        return JsonResponse(survey, safe=False)
+
+    else:
+        return HttpResponseBadRequest(['GET'])

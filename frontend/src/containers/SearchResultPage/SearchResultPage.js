@@ -20,7 +20,6 @@ const mapStateToProps = state => {
 }
 
 class SearchResultPage extends Component {
-
   state = {
     survey_component_list : [],
     startDate: null,
