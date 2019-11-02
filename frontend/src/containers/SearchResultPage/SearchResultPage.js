@@ -19,7 +19,6 @@ const mapStateToProps = state => {
 }
 
 class SearchResultPage extends Component {
-
   state = {
     filtered_list : [],
     survey_component_list : [],

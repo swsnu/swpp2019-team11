@@ -34,6 +34,11 @@ yarn-error.log*
 /backend/backend/__pycache__/
 /backend/surBing/__pycache__/
 =======
+<<<<<<< HEAD
+/backend/backend/__pycache__/
+/backend/surBing/__pycache__/
+=======
 backend/backend/__pycache__
 backend/surBing/__pycache__
 >>>>>>> master
+>>>>>>> origin/master
