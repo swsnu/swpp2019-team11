@@ -2,6 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import store from './store/store';
 import App from './App';
 import axios from 'axios';

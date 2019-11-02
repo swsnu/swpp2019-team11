@@ -5,6 +5,7 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
 import * as actionCreators from '../../store/actions/index'
 import {connect} from 'react-redux'
+import moment from 'moment'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -20,32 +21,38 @@ const mapStateToProps = state => {
 
 class SearchResultPage extends Component {
   state = {
-    filtered_list : [],
     survey_component_list : [],
-    startDate: '',
-    endDate: '',
+    startDate: null,
+    endDate: null,
     respondant_min : '1',
     respondant_max : '1000',
   }
 
   filterHandler = (startDate, endDate, respondant) => {
-    this.setState({...this.state, startDate : startDate, endDate: endDate, respondant_min : respondant[0], respondant_max : respondant[1] })
+    this.setState({...this.state, startDate : (!startDate ? startDate : startDate.hour(0) ) , endDate: (!endDate ? endDate : endDate.hour(0) ), respondant_min : respondant[0], respondant_max : respondant[1] })
   }
   
+  
   componentDidMount(){
-    this.state.filtered_list = this.props.survey_list
-    this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
+    this.setState({survey_component_list : this.props.survey_list
+      .map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props.survey_list!=prevProps.survey_list){
-      this.state.filtered_list = this.props.survey_list
-      this.setState({survey_component_list : this.state.filtered_list.map((survey) => <SurveyBlock search = {true} id = {survey.id} title = {survey.title} />)})
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.survey_list!=prevProps.survey_list||this.state.startDate!=prevState.startDate||this.state.endDate!=prevState.endDate||this.state.respondant_min!=prevState.respondant_min||this.state.respondant_max!=prevState.respondant_max){
+      this.setState({survey_component_list : this.props.survey_list
+        .filter((survey) => (
+          (this.state.startDate==null? true : !this.state.startDate.isAfter(moment(survey.date)))
+          &&(this.state.endDate==null? true : !this.state.endDate.isBefore(moment(survey.date)))
+          &&(this.state.respondant_max==1000 ? true : this.state.respondant_max>=survey.response_count )
+          &&(this.state.respondant_min<=survey.response_count)))
+        .map((survey) => <SurveyBlock search={true} id = {survey.id} title = {survey.title} />)})
     }
   }
 
+  
+
   render() {
-    console.log(this.state.survey_component_list)
     return (
       <div style = {{minWidth : '800px'}}>
         <TopBar searchBar = {true} history  = {this.props.history} />
