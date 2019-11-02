@@ -72,9 +72,9 @@ def signin(request):
         return HttpResponseNotAllowed(['POST'])
 
 # logout
+@check_logged_in
 def signout(request):
     if request.method == 'GET':
-        if not request.user.is_authenticated: return HttpResponse(status=401)
         logout(request)
         return HttpResponse(status=204)
     
@@ -95,15 +95,15 @@ def signout(request):
 # - 400 for bad json request
 # - 404 when there is no such survey with provided id
 #
-# DELETE
-# - delete survey from cart
+# PUT
+# - delete survey from cart (** DELETE cannot receive additional data **)
 # - argument : {id_list : [list of survey id]}
 # - 200 when succeed
-# @check_logged_in to test
+@check_logged_in
 def mycart(request):
     if request.method == 'GET':
         cart = request.user.cart
-        surveys = list(cart.survey.all())
+        surveys = list(cart.survey.all().values())
         return JsonResponse(surveys, safe=False, status=200)
     
     elif request.method == 'POST':
@@ -125,7 +125,7 @@ def mycart(request):
             cart.survey.add(survey)
             return HttpResponse(status=201)
 
-    elif request.method == 'DELETE':
+    elif request.method == 'PUT':
         try:
             req_data = json.loads(request.body.decode())
             id_list = req_data['id_list']
@@ -140,4 +140,31 @@ def mycart(request):
         return HttpResponse(status=200)
 
     else:
-        return HttpResponseBadRequest(['GET', 'POST', 'DELETE'])
+        return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
+
+# mock ml.
+# arbitrarily returns item lists in cart.
+@check_logged_in
+def ml(request):
+    if request.method == 'PUT':
+        try:
+            req_data = json.loads(request.body.decode())
+            id_list = req_data['id_list']
+        except (KeyError, json.decoder.JSONDecodeError):
+            return HttpResponse(status=400)
+        
+        cart = request.user.cart
+        survey_list = cart.survey.filter(id__in=id_list)
+        item_surveyId_list = []
+        tmp_list = []
+        for survey in survey_list:
+            for item in survey.item.all():
+                tmp_list.append({'surveyId': survey.id, 'title': item.title})
+                if len(tmp_list) >= 2:
+                    item_surveyId_list.append(tmp_list[:])
+                    tmp_list = []
+
+        return JsonResponse(item_surveyId_list, safe=False, status=200)
+
+    else:
+        return HttpResponseBadRequest(['GET'])

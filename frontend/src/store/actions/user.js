@@ -31,3 +31,15 @@ export const logIn = (username, password) => {
             });
     }
 }
+
+const logOut_ = () => {
+    return {type: actionTypes.LOGOUT};
+}
+export const logOut = () => {
+    return (dispatch) => {
+        return axios.get('/api/logout/')
+            .then((res) => {
+                dispatch(logOut_());
+            });
+    }
+}

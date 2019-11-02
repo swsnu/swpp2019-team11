@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { Grid, Header, Button } from 'semantic-ui-react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
@@ -9,7 +9,6 @@ class MainPage extends Component {
   addSurveyHandler = () => {
     this.props.history.push('/upload');
   }
-
 
   render() {
     return (
