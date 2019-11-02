@@ -35,6 +35,6 @@ module.exports = {
     "react/no-did-update-set-state" : [0],
     "react/no-access-state-in-setstate" : [0],
     "react/jsx-key" : [0],
-
+    "react/prop-types": [0],
   },
 };
