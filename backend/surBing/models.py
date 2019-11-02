@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import SurBingUser
 
 # Create your models here.
 class Survey(models.Model):
     title = models.CharField(max_length=120)
-    author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'author')
+    author = models.ForeignKey(SurBingUser, on_delete=models.CASCADE, related_name='author')
     date = models.TextField()
     content = models.TextField()
     response_count = models.IntegerField()
@@ -21,5 +21,4 @@ class Response(models.Model):
     content = models.TextField()
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
     survey = models.ManyToManyField('Survey')

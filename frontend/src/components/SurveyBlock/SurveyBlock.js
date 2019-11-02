@@ -1,6 +1,6 @@
 import React from 'react';
 import {Segment, Header, Button, Grid, Icon} from 'semantic-ui-react'
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router-dom'
 
 
 const SurveyBlock = (props) => {

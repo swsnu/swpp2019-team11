@@ -4,11 +4,11 @@ import { Grid, Header, Segment, Button, Icon } from 'semantic-ui-react';
 const MLResult = (props) => {
   // TODO : implement this part with better algorithm (using BBST-based data structure)
   let cartIdList = []
-  for(let i = 0; i < props.mlResult.length; i++){
-    let curSurveyId = props.mlResult[i].surveyId;
+  for(let i = 0; i < props.ml_result.length; i++){
+    let curSurveyId = props.ml_result[i].surveyId;
     let curCartId = -1;
-    for(let j = 0; j < props.cartEntry.length; j++){
-      if(curSurveyId === props.cartEntry[j].id){ curCartId = j; break; }
+    for(let j = 0; j < props.survey_list.length; j++){
+      if(curSurveyId === props.survey_list[j].id){ curCartId = j; break; }
     }
     if(curCartId === -1){
       return ( <Segment textAlign="center">INVALID</Segment> );
@@ -16,11 +16,11 @@ const MLResult = (props) => {
     cartIdList.push(curCartId);
   }
   
-  const similarList = props.mlResult.map((cur, index) => (
+  const similarList = props.ml_result.map((cur, index) => (
     <Grid.Row textAlign='center'>
       <Grid textAlign='center'>
-        <Grid.Row><p>{cur.item}</p></Grid.Row>
-        <Grid.Row><p style={{'color': '#808080'}}>{props.cartEntry[cartIdList[index]].title}</p></Grid.Row>
+        <Grid.Row><p>{cur.title}</p></Grid.Row>
+        <Grid.Row><p style={{'color': '#808080'}}>{props.survey_list[cartIdList[index]].title}</p></Grid.Row>
       </Grid>
     </Grid.Row>
   ));
