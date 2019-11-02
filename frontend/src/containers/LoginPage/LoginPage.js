@@ -20,7 +20,6 @@ class LoginPage extends Component {
     .catch((error) => {})
   };
 
-
   render() {
     return (
       <Grid textAlign="center" columns={2} divided>
