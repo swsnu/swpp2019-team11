@@ -43,8 +43,6 @@ def signup(request):    #create new
     else:
         return HttpResponseBadRequest(['POST'])
 
-<<<<<<< HEAD
-=======
 # login
 def signin(request):
     if request.method == 'POST':
@@ -175,4 +173,3 @@ def ml_analysis(request):
                     tmp_list = []
 
         return JsonResponse(item_surveyid_list, safe=False, status=200)
->>>>>>> master
