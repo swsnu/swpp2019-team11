@@ -5,6 +5,7 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter'
 import * as actionCreators from '../../store/actions/index'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom';
 import moment from 'moment'
 
 const mapDispatchToProps = dispatch => {
@@ -50,8 +51,6 @@ class SearchResultPage extends Component {
     }
   }
 
-  
-
   render() {
     return (
       <div style = {{minWidth : '800px'}}>
@@ -67,4 +66,4 @@ class SearchResultPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchResultPage));

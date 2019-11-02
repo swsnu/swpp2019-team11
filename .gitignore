@@ -6,11 +6,7 @@
 /frontend/.pnp.js
 
 # testing
-<<<<<<< HEAD
 /frontend/coverage
-=======
-/frontend/coverage/
->>>>>>> master
 
 # production
 /build
@@ -30,15 +26,4 @@ yarn-error.log*
 /ml/data/
 
 #backend
-<<<<<<< HEAD
-/backend/backend/__pycache__/
-/backend/surBing/__pycache__/
-=======
-<<<<<<< HEAD
-/backend/backend/__pycache__/
-/backend/surBing/__pycache__/
-=======
-backend/backend/__pycache__
-backend/surBing/__pycache__
->>>>>>> master
->>>>>>> origin/master
+__pycache__

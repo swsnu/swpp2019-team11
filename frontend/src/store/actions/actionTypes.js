@@ -9,6 +9,7 @@ export const EDIT_SURVEY = 'EDIT_SURVEY';
 export const DELETE_SURVEY = 'DELETE_SURVEY';
 
 export const GET_CART = 'GET_CART';
+export const ADD_CART = 'ADD_CART';
 export const DELETE_CART = 'DELETE_CART';
 export const GET_ML = 'GET_ML';
 

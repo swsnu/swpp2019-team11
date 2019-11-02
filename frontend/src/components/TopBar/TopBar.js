@@ -2,7 +2,7 @@ import React from 'react'
 import {Segment, Grid, Sticky, Header} from 'semantic-ui-react'
 import SearchBar from '../SearchBar/SearchBar'
 import ProfileButton from '../ProfileButton/ProfileButton'
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router-dom'
 
 const TopBar = (props) => {
   return(

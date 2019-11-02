@@ -1,14 +1,21 @@
 import React from 'react';
 import { Button, Dropdown, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import * as actionCreators from '../../store/actions/index';
+import { connect } from 'react-redux';
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut : (username, password) => dispatch(actionCreators.logOut()),
+  }
+}
 
 export const ProfileButton = (props) => {
   const myCartHandler = () => {
     props.history.push('/mycart');
   };
   const logoutHandler = () => {
-    props.history.push('/login');
+    props.logOut().then(() => { props.history.push('/login'); });
   };
 
   return (
@@ -27,4 +34,4 @@ export const ProfileButton = (props) => {
   );
 };
 
-export default withRouter(ProfileButton);
+export default connect(null, mapDispatchToProps)(withRouter(ProfileButton));
