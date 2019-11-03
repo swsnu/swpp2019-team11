@@ -18,13 +18,13 @@ class SignupPage extends Component {
 
   signupHandler = () => {
     if (this.state.password != this.state.password_confirmation) {
-      alert('Password Confiramtion is different!');
+      // alert('Password Confiramtion is different!');
     } else {
       this.props.signUp(this.state.username, this.state.email, this.state.password).then(() => {
         this.props.history.push('/login');
       })
-        .catch((res) => {
-          alert(res);
+        .catch(() => {
+          // alert(res);
         });
     }
   }

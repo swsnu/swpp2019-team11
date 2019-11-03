@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SIGNUP = 'SIGNUP';
+export const GET_USER = 'GET_USER';
 
 export const ADD_SURVEY = 'ADD_SURVEY';
 export const GET_SURVEY_LIST = 'GET_SURVEY_LIST';
@@ -15,3 +16,5 @@ export const GET_ML = 'GET_ML';
 
 export const GET_ITEM_ALL = 'GET_ITEM_ALL';
 export const RES_ALL = 'RES_ALL';
+
+export const DEFAULT = 'DEFAULT'; // To remove code smell

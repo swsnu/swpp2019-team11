@@ -1,17 +1,16 @@
-// import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   username: '',
   email: '',
-  password: '',
-
 };
 
-
-const UserReducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      break;
+const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
+  if (action === actionTypes.GET_USER) {
+    return {
+      username: action.target.username,
+      email: action.target.email,
+    };
   }
   return { ...state };
 };
