@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
-  if(action === actionTypes.GET_USER){
+  if (action === actionTypes.GET_USER) {
     return {
       username: action.target.username,
       email: action.target.email,
