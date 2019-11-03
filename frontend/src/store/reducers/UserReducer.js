@@ -8,7 +8,7 @@ const initialState = {
 };
 
 
-const UserReducer = (state = initialState, action = actionTypes.DEFALUT) => {
+const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   return { ...state };
 };
 

@@ -6,7 +6,7 @@ const initialState = {
 };
 
 
-const CartReducer = (state = initialState, action = actionTypes.DEFALUT) => {
+const CartReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   switch (action.type) {
     case actionTypes.GET_CART:
       return { ...state, survey_list: action.target };

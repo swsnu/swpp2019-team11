@@ -10,7 +10,7 @@ const initialState = {
 };
 
 
-const SurveyReducer = (state = initialState, action = actionTypes.DEFALUT) => {
+const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   let survey;
   switch (action.type) {
     case actionTypes.GET_SURVEY:

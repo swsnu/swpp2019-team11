@@ -7,7 +7,7 @@ const initialState = {
 };
 
 
-const SurveyListReducer = (state = initialState, action = actionTypes.DEFALUT) => {
+const SurveyListReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   switch (action.type) {
     case actionTypes.GET_SURVEY_LIST:
       return { ...state, survey_list: action.target };
