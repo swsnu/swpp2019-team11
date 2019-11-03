@@ -8,9 +8,12 @@ matrix:
     install:
     - yarn install
     - npm install
+    - npm install coveralls
     script:
     - ./node_modules/.bin/eslint src/
     - yarn test --coverage --watchAll=false
+    after_success:
+    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
   - language: python
     python:
     - '3.6'
@@ -20,8 +23,13 @@ matrix:
     - pip3 install django
     - pip3 install pylint
     - pip3 install pylint-django
+    - pip3 install coverage
+    - pip3 install coveralls
     script:
     - pylint **/*.py --load-plugins=pylint_django
+    - coverage run --source="./surBing/" manage.py test
+    after_success:
+    - coveralls
   - dist: trusty
     addons:
       sonarcloud:

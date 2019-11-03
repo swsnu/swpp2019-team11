@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [ # pylint: disable=invalid-name
     path('signup/', views.signup, name='signup'),
+    path('token/', views.token, name='token'),
     path('login/', views.signin, name='login'),
     path('logout/', views.signout, name='logout'),
     path('search/<str:keyword>/', views.search, name='search'),
