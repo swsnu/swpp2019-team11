@@ -5,9 +5,9 @@ from users.models import SurBingUser
 class Survey(models.Model):
     title = models.CharField(max_length=120)
     author = models.ForeignKey(SurBingUser, on_delete=models.CASCADE, related_name='author')
-    upload_date = models.CharField(max_length = 10)
-    survey_start_date = models.CharField(max_length = 10)
-    survey_end_date = models.CharField(max_length = 10)
+    upload_date = models.CharField(max_length=10)
+    survey_start_date = models.CharField(max_length=10)
+    survey_end_date = models.CharField(max_length=10)
     content = models.TextField()
     respondant_count = models.IntegerField()
     item = models.ManyToManyField('Item')
