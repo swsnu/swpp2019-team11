@@ -22,7 +22,7 @@ class UploadPage extends Component {
     }
 
     AdmitButtonHandler = () => {
-      if (this.state.admitCheck == false) this.setState({ ...this.state, admitCheck: true });
+      if (!this.state.admitCheck) this.setState({ ...this.state, admitCheck: true });
       else this.setState({ ...this.state, admitCheck: false });
     }
 

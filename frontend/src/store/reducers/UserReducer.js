@@ -8,11 +8,7 @@ const initialState = {
 };
 
 
-const UserReducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      break;
-  }
+const UserReducer = (state = initialState, action = actionTypes.DEFALUT) => {
   return { ...state };
 };
 

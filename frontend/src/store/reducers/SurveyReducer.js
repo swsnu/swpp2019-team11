@@ -10,10 +10,12 @@ const initialState = {
 };
 
 
-const SurveyReducer = (state = initialState, action) => {
+const SurveyReducer = (state = initialState, action = actionTypes.DEFALUT) => {
   let survey;
   switch (action.type) {
     case actionTypes.GET_SURVEY:
+    case actionTypes.EDIT_SURVEY:
+    case actionTypes.DELETE_SURVEY:
       return {
         ...state,
         title: action.target.title,
@@ -33,26 +35,6 @@ const SurveyReducer = (state = initialState, action) => {
         item_list: action.target.item_list,
       };
       return { ...state, ...survey };
-    case actionTypes.EDIT_SURVEY:
-      return {
-        ...state,
-        title: action.target.title,
-        date: action.target.date,
-        author_name: action.target.author_name,
-        content: action.target.content,
-        response_count: action.target.response_count,
-        item_list: action.target.item_list,
-      };
-    case actionTypes.DELETE_SURVEY:
-      return {
-        ...state,
-        title: action.target.title,
-        date: action.target.date,
-        author_name: action.target.author_name,
-        content: action.target.content,
-        response_count: action.target.response_count,
-        item_list: action.target.item_list,
-      };
     default:
       break;
   }

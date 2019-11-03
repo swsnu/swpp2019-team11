@@ -15,3 +15,5 @@ export const GET_ML = 'GET_ML';
 
 export const GET_ITEM_ALL = 'GET_ITEM_ALL';
 export const RES_ALL = 'RES_ALL';
+
+export const DEFALUT = 'DEFALUT'; // To remove code smell
