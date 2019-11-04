@@ -33,7 +33,7 @@ const CSVconverter = (func, data, type) => {
     return_data.item = parse_data(results.data);
     return_data.title = file.name;
     return_data.author = null;
-    return_data.upload_data = moment(new Date()).format('YYYY/MM/DD').toString();
+    return_data.upload_date = moment(new Date()).format('YYYY/MM/DD').toString();
     return_data.survey_start_date = null;
     return_data.survey_end_date = null;
     return_data.content = null;
