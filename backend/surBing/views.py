@@ -4,7 +4,7 @@ from functools import wraps
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Survey, Cart, SurBingUser
+from .models import Survey, Cart, SurBingUser, Item, Response
 
 # Create your views here.
 
@@ -74,6 +74,7 @@ def signout(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
+@check_logged_in
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
@@ -82,6 +83,55 @@ def search(request, keyword=''):
     else:
         return HttpResponseBadRequest(['GET'])
 
+# add new survey to the database
+# only accept POST
+# 201 if success
+@check_logged_in
+def surveys(request):
+    if request.method == 'POST':
+        try:
+            req_data = json.loads(request.body.decode())
+            items = req_data['item']
+            title = req_data['title']
+            upload_date = req_data['upload_date']
+            survey_start_date = req_data['survey_start_date']
+            survey_end_date = req_data['survey_end_date']
+            content = req_data['content']
+            respondant_count = req_data['respondant_count']
+        except (KeyError, JSONDecodeError):
+            return HttpResponse(status=400)
+        cur_survey = Survey(
+            title=title, author=request.user, upload_date=upload_date,
+            survey_start_date=survey_start_date,
+            survey_end_date=survey_end_date,
+            content=content, respondant_count=respondant_count
+        )
+        for item in items:
+            try:
+                responses = item['response']
+                title = item['title']
+                question_type = item['question_type']
+            except KeyError:
+                return HttpResponse(status=400)
+            cur_item = Item(title=title, question_type=question_type)
+            for response in responses:
+                try:
+                    respondant_id = response['respondant_id']
+                    content = response['content']
+                except KeyError:
+                    return HttpResponse(status=400)
+                cur_response = Response(respondant_id=respondant_id, content=content)
+                cur_response.save()
+                cur_item.response.add(cur_response)
+            cur_item.save()
+            cur_survey.item.add(cur_item)
+        cur_survey.save()
+        return HttpResponse(status=201)
+
+    else:
+        return HttpResponseBadRequest(['POST'])
+
+@check_logged_in
 def survey(request, survey_id):
     if request.method == 'GET':
         survey = list(Survey.objects.filter(id=survey_id).values())[0]
