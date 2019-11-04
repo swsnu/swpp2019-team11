@@ -12,7 +12,7 @@ class UploadPage extends Component {
     state = {
       admitCheck: false,
       progress: 0,
-      parsed_file : null,
+      parsed_file: null,
     }
 
     componentDidMount = () => {
@@ -25,9 +25,10 @@ class UploadPage extends Component {
     }
 
     UploadHandler = (file) => {
-      if (this.state.progress == 0) this.setState({ ...this.state, progress: 1, parsed_file : file });
+      if (this.state.progress == 0) {
+        this.setState({ ...this.state, progress: 1, parsed_file: file });
+      }
     }
-
 
 
     EditHandler = () => {
