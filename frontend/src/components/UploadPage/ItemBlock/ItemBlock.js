@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {Button, Grid, Header, Segment} from 'semantic-ui-react'
 import Response from './Response/Response'
+import ScrollArea from 'react-scrollbar'
 
 
 
 class ItemBlock extends Component{
 
   state = {
-    checked : false,
+    checked : true,
     response_block : []
   }
 
@@ -29,9 +30,11 @@ class ItemBlock extends Component{
             </Header>
           </Grid.Row>
         </Grid>
-        <Segment style = {{padding : -20, height}}>
-          {this.state.response_block}
-        </Segment>
+        <ScrollArea speed={0.8} horizontal={false} style = {{maxHeight : 250, border : 'none'}}>
+          <Segment style = {{padding : -20, border : 'none'}}>
+            {this.state.response_block}
+          </Segment>
+        </ScrollArea>
       </Segment>
     )
   }

@@ -7,24 +7,40 @@ class EditItem extends Component{
   state = {
     item : [
       {
-        title : 'this is test title1',
+        title : 'this is test question1',
         response : [
-          {respondant_id : '1', content :  'haha1'},
-          {respondant_id : '2', content :  'hoho2'}
+          {respondant_id : '1', content :  'hahwa1'},
+          {respondant_id : '2', content :  'haawdwdha1'},
+          {respondant_id : '3', content :  'hahaw1'},
+          {respondant_id : '4', content :  'hahasad1'},
+          {respondant_id : '5', content :  'hoasdho2'},
+          {respondant_id : '1', content :  'hahwa1'},
+          {respondant_id : '2', content :  'haawdwdha1'},
+          {respondant_id : '3', content :  'hahaw1'},
+          {respondant_id : '4', content :  'hahasad1'},
+          {respondant_id : '5', content :  'hoasdho2'},
         ]
       },
     ]
   }
 
+
+
   render(){
     if (this.props.progress >= 1) {
+      this.props.survey.item.map((item, item_index) => {
+        this.state.item[item_index]=<ItemBlock title = {item.title} id = {item_index+1} response = {item.response} />
+        return item
+      })
       return (
-        <Segment  color='olive'>
+        <Segment color='olive'>
           <Header style={{ 'font-size': '2em', 'margin-left': '10px' }} size="huge" color="olive">2. Edit Your Survey</Header>
-          <Segment>
-            
+          <Segment style = {{height : 100}}>
+            <Header floated = 'left' color = 'olive' style={{'font-size': '22px'}}>
+              Title: {this.props.survey.title}
+            </Header>
           </Segment>
-          <ItemBlock title = {this.state.item[0].title} id = {0+1} response = {this.state.item[0].response} />
+          {this.state.item}
           <Grid columns={1}>
             <Grid.Row>
               <Grid.Column align="right">

@@ -28,7 +28,7 @@ class UploadFile extends Component {
           <Button
             align="right"
             style={{ marginRight: '20pt', width: '100pt' }}
-            onClick={() => { this.props.uploadOnClick(this.state.converted_file); }}
+            onClick={() => { console.log(this.state); this.props.uploadOnClick(this.state.converted_file); }}
             disabled={this.props.progress != 0}
           >
           Continue

@@ -15,11 +15,12 @@ class UploadPage extends Component {
     }
 
     componentDidMount = () => {
-      this.setState({ progress: 1 });
+      this.setState({ progress: 0 });
     }
 
     UploadHandler = (file) => {
       if (this.state.progress == 0) {
+        console.log(file)
         this.setState({ ...this.state, progress: 1, parsed_file: file });
       }
     }
@@ -45,7 +46,7 @@ class UploadPage extends Component {
               uploadOnClick={this.UploadHandler}
               progress={this.state.progress}
             />
-            <EditItem progress={this.state.progress} backOnClick = {this.BackHandler} editOnClick={this.EditHandler} />
+            <EditItem survey = {this.state.parsed_file} progress={this.state.progress} backOnClick = {this.BackHandler} editOnClick={this.EditHandler} />
             <Submit progress={this.state.progress} backOnClick = {this.BackHandler} submitOnClick={this.SubmitHandler} />
           </Segment>
         </div>
