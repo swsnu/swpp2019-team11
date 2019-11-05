@@ -1,29 +1,41 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import { Table } from 'semantic-ui-react';
 import ItemResponse from './ItemResponse/ItemResponse';
-import * as actionCreators from '../../../store/actions/index';
 
-const mapDispatchToProps = (dispatch) => ({
-  onGetItems: () => dispatch(actionCreators.getItems()),
-  onItemResponses: (id) => dispatch(actionCreators.getItemResponses(id)),
-});
+function SurveyItem(props) {
+  const responses = props.response.map(rs => {
+    return (
+        <ItemResponse
+            respondant_id={rs.respondant_id}
+            content={rs.content}
+        />
+    );
+  });
 
-const SurveyItem = (props) => (
-  <div>
-    <Message style={{
-      'min-width': '800px', margin: 20, background: '#FFFFFF', border: '1px solid grey', 'box-shadow': '5px 3px 3px #BDBDBD', borderRadius: 10, 'font-size': '1.5em',
+  return(
+  <div style = {{width : '1000px'}}>
+    <Table celled color={'teal'} style={{
+      width: '800px', margin: 20,'font-size': '1.5em',
     }}
     >
-      <Message.Header style={{ 'margin-bottom': 10, color: '#00B5AD' }}>
-        {props.title}
-      </Message.Header>
-      <ItemResponse
-        id={props.id}
-      />
-    </Message>
+      <Table.Header>
+        <Table.Row>
+        <Table.HeaderCell style={{color: '#00B5AD'}}>
+          Q. {props.title} <br />
+        </Table.HeaderCell>
+        <Table.Cell style={{ width : '230px','font-size':'0.7em'}}>
+          question_type : {props.question_type}
+        </Table.Cell>
+
+        </Table.Row>
+      </Table.Header>
+      <Table.Body style = {{width : '790px'}}>
+      {responses}
+      </Table.Body>
+    </Table>
 
   </div>
-);
+  )
+};
 
-export default connect(null, mapDispatchToProps)(SurveyItem);
+export default SurveyItem;

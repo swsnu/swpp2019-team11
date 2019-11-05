@@ -9,9 +9,10 @@ export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/$
   dispatch(getSurveyList_(res.data));
 });
 
-
 export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: survey });
 
-export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/${id}/`).then((res) => {
-  dispatch(getSurvey_(res.data));
-});
+export const getSurvey = (id) => (dispatch) =>
+  axios.get(`/api/survey/${id}/`)
+    .then((res) => {
+      dispatch(getSurvey_(res.data));
+    })

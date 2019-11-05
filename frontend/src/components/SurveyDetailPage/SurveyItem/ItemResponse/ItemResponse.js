@@ -1,22 +1,14 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 
 
 const ItemResponse = (props) => (
   <div className="ItemResponse">
-    <Message.List
-      color="#F8FFFF"
-      style={{
-        'min-width': '700px', border: '1.5px solid #CFCFCF', background: '#e1fff5', borderRadius: 5, 'font-size': '0.8em', color: '#484749',
-      }}
-    >
-      <Message.Item style={{ 'margin-top': 10, 'margin-left': 30 }}>
-        {props.id}
-      </Message.Item>
-      <Message.Item style={{ 'margin-bottom': 10, 'margin-left': 30 }}>
-        {props.id}
-      </Message.Item>
-    </Message.List>
+
+      <Table.Row style={{ width: '790px', marginLeft: 20, 'font-size' : '0.5em' }}>
+        <Table.Cell>{props.respondant_id}</Table.Cell>
+        <Table.Cell>{props.content}</Table.Cell>
+      </Table.Row>
 
   </div>
 );
