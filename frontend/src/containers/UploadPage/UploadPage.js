@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index';
-import moment from 'moment'
 
 import UploadFile from '../../components/UploadPage/UploadFile/UploadFile';
 import EditItem from '../../components/UploadPage/EditItem/EditItem';
@@ -38,12 +37,15 @@ class UploadPage extends Component {
     EditHandler = (check_list, type_list, title, startDate, endDate) => {
       if (this.state.progress == 1) {
         this.state.parsed_file.title = title;
-        this.state.parsed_file.survey_start_date = (startDate ? startDate.format("YYYY/MM/DD") : null)
-        this.state.parsed_file.survey_end_date = (endDate ? endDate.format("YYYY/MM/DD") : null)
+        this.state.parsed_file.survey_start_date = (startDate ? startDate.format('YYYY/MM/DD') : null);
+        this.state.parsed_file.survey_end_date = (endDate ? endDate.format('YYYY/MM/DD') : null);
         this.state.parsed_file.item.map((item, item_index) => {
-          item['question_type'] = (type_list[item_index] ? 'Subjective' : 'Selection') ; 
-        })
-        this.state.parsed_file.item = this.state.parsed_file.item.filter((item, item_index) => check_list[item_index] );
+          const temp = item;
+          temp.question_type = (type_list[item_index] ? 'Subjective' : 'Selection');
+          return temp;
+        });
+        this.state.parsed_file.item = this.state.parsed_file.item
+          .filter((item, item_index) => (check_list[item_index]));
         this.setState({ ...this.state, progress: 2 });
       }
     }

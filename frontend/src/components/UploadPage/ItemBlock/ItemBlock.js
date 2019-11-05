@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Grid, Header, Segment, Checkbox, Button
+  Grid, Header, Segment, Button,
 } from 'semantic-ui-react';
 import ScrollArea from 'react-scrollbar';
 import Response from './Response/Response';
@@ -15,7 +15,7 @@ class ItemBlock extends Component {
 
   componentDidMount() {
     this.props.check(this.props.id, this.state.checked);
-    this.props.type(this.props.id, this.state.type)
+    this.props.type(this.props.id, this.state.type);
   }
 
   render() {
@@ -30,29 +30,38 @@ class ItemBlock extends Component {
     });
     return (
       <Segment
-        style = {this.state.checked ? {backgroundColor : '#F15F5F'} : {backgroundColor : '#E4F7BA'}}
+        style={this.state.checked ? { backgroundColor: '#F15F5F' } : { backgroundColor: '#E4F7BA' }}
         padded
       >
         <Grid columns={1}>
-          <Grid.Row onClick={() => {
-          this.props.check(this.props.id, !this.state.checked);
-          this.setState({...this.state, checked : !this.state.checked})
-        }} verticlaAlign="middle">
+          <Grid.Row
+            onClick={() => {
+              this.props.check(this.props.id, !this.state.checked);
+              this.setState({ ...this.state, checked: !this.state.checked });
+            }}
+            verticlaAlign="middle"
+          >
             <Header floated="left" color="olive" style={{ 'font-size': '22px', 'margin-left': '17px' }}>
               Q
-              {this.props.id + 1}:
+              {this.props.id + 1}
+:
             </Header>
             <Header floated="left" color="black" style={{ 'font-size': '22px' }}>
               {this.props.title}
             </Header>
           </Grid.Row>
-          <Grid.Row style = {{marginTop : -30, marginBottom : 20}}>
-            <Header floated="left" color="olive" style={{ 'font-size': '22px', 'margin-left': '17px'}}>
-              Question Type: 
-              <Button style = {{marginLeft : 5}} basic color = 'olive' onClick = {() => {
-                this.props.type(this.props.id, !this.state.type);
-                this.setState({...this.state, type : !this.state.type})}
-              }>
+          <Grid.Row style={{ marginTop: -30, marginBottom: 20 }}>
+            <Header floated="left" color="olive" style={{ 'font-size': '22px', 'margin-left': '17px' }}>
+              Question Type:
+              <Button
+                style={{ marginLeft: 5 }}
+                basic
+                color="olive"
+                onClick={() => {
+                  this.props.type(this.props.id, !this.state.type);
+                  this.setState({ ...this.state, type: !this.state.type });
+                }}
+              >
                 {this.state.type ? 'Subjective' : 'Selection'}
               </Button>
             </Header>
