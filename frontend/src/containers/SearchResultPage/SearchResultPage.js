@@ -39,7 +39,7 @@ class SearchResultPage extends Component {
   componentDidMount() {
     this.setState({
       survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search={true} survey={survey} />),
+        .map((survey) => <SurveyBlock search survey={survey} />),
     });
   }
 
@@ -59,7 +59,7 @@ class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock search={true} survey={survey} />),
+          .map((survey) => <SurveyBlock search survey={survey} />),
       });
     }
   }

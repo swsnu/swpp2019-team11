@@ -31,7 +31,10 @@ const SurveyBlock = (props) => {
           <Grid divided>
             <Grid.Column width={11}>
               <Header size="big">{props.survey.title}</Header>
-              <Header size="small"> <Icon name="user" /> {props.survey.author} </Header>
+              <Header size="small">
+                <Icon name="user" />
+                {props.survey.author}
+              </Header>
             </Grid.Column>
             <Grid.Column width={5} verticalAlign="top">
               <Grid.Row>
@@ -44,7 +47,8 @@ const SurveyBlock = (props) => {
               </Grid.Row>
               <Grid.Row>
                 <Icon name="calendar check outline" />
-                {props.survey.survey_start_date} ~
+                {props.survey.survey_start_date}
+                ~
                 {props.survey.survey_end_date}
               </Grid.Row>
             </Grid.Column>
