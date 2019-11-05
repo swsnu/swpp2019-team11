@@ -5,31 +5,32 @@ import ItemBlock from '../ItemBlock/ItemBlock';
 class EditItem extends Component{
 
   state = {
-    item : [
-      {
-        title : 'this is test question1',
-        response : [
-          {respondant_id : '1', content :  'hahwa1'},
-          {respondant_id : '2', content :  'haawdwdha1'},
-          {respondant_id : '3', content :  'hahaw1'},
-          {respondant_id : '4', content :  'hahasad1'},
-          {respondant_id : '5', content :  'hoasdho2'},
-          {respondant_id : '1', content :  'hahwa1'},
-          {respondant_id : '2', content :  'haawdwdha1'},
-          {respondant_id : '3', content :  'hahaw1'},
-          {respondant_id : '4', content :  'hahasad1'},
-          {respondant_id : '5', content :  'hoasdho2'},
-        ]
-      },
-    ]
+    item : [],
+    check : []
   }
 
+  check = (id, value) => {
+    this.state.check[id]=value
+    this.setState({...this.state})
+    console.log(this.state.check)
+  }
 
+  componentDidUpdate(prevProps) {
+    
+    if(prevProps!=this.props&&this.props.survey!=null){
+      let check_dummy = this.state.check
+      this.props.survey.item.map((item, item_index) => {
+        check_dummy[item_index] = true;
+        return item
+      })
+      this.setState({...this.state, check : check_dummy})
+    }
+  }
 
   render(){
     if (this.props.progress >= 1) {
       this.props.survey.item.map((item, item_index) => {
-        this.state.item[item_index]=<ItemBlock title = {item.title} id = {item_index+1} response = {item.response} />
+        this.state.item[item_index]=<ItemBlock check = {this.check} title = {item.title} id = {item_index} response = {item.response} />
         return item
       })
       return (
@@ -47,7 +48,7 @@ class EditItem extends Component{
                 <Button
                   align="right"
                   style={{ marginTop: '15px', marginRight: '20pt' }}
-                  onClick={this.props.editOnClick}
+                  onClick={() => {this.props.editOnClick(this.state.check)}}
                   disabled={this.props.progress != 1}
                 >
                 Continue
@@ -65,9 +66,9 @@ class EditItem extends Component{
       );
     }
     else{
-      return (
-        <div />
-      );
+      this.state.item = []
+      this.state.check = []
+      return (null);
     }
   }
 };
