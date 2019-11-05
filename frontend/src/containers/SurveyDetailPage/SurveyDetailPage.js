@@ -26,8 +26,6 @@ class SurveyDetailPage extends Component {
   }
 
   render() {
-    // console.log(this.props.title);
-    // this.setState({ ...this.state, title: this.props.title });
     return (
       <div className="SurveyDetailPage">
         <TopBar searchBar />

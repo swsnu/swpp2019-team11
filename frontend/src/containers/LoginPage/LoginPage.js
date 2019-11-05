@@ -8,10 +8,8 @@ import * as actionCreators from '../../store/actions/index';
 
 class LoginPage extends Component {
   state = {
-
     username: '',
     password: '',
-
   };
 
   loginHandler = () => {

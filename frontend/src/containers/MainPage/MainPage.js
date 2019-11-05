@@ -38,6 +38,7 @@ class MainPage extends Component {
     );
   }
 }
+
 const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
 });

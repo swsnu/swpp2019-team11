@@ -189,7 +189,7 @@ def survey(request, survey_id):
 # - delete survey from cart (** DELETE cannot receive additional data **)
 # - argument : {id_list : [list of survey id]}
 # - 200 when succeed
-#@check_logged_in
+@check_logged_in
 def mycart(request):
     if request.method == 'GET':
         cart = request.user.cart
