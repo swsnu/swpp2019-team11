@@ -24,8 +24,8 @@ class CartPage extends Component {
   }
 
   componentDidMount() {
-    this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
-    this.props.getCartSurveyList().then(() => { this.configureState(); });
+    this.props.checklogIn().
+      then(() => this.props.getCartSurveyList().then(() => { this.configureState(); }) ).catch(() => {this.props.history.push('/login/')});
   }
 
   onClickAnalysis = () => {
