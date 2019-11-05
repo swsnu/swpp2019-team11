@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
@@ -9,7 +9,8 @@ import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchF
 import * as actionCreators from '../../store/actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
-  onSurveyDetail: (id) => { dispatch(actionCreators.getSurvey(id)); },
+  onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
+  onAddCart: (id) => dispatch(actionCreators.addCart(id)),
 });
 
 const mapStateToProps = (state) => ({
@@ -23,6 +24,8 @@ class SearchResultPage extends Component {
     endDate: null,
     respondant_min: '1',
     respondant_max: '1000',
+    cartPopup: false,
+    cartPopupName: ''
   }
 
   filterHandler = (startDate, endDate, respondant) => {
@@ -35,11 +38,20 @@ class SearchResultPage extends Component {
     });
   }
 
+  onClickCart = (id, title) => {
+    this.props.onAddCart(id).then(() => {
+      this.setState({...this.state, cartPopup: true, cartPopupName: title});
+    });
+  }
+
+  onClickPopupOff = () => {
+    this.setState({...this.state, cartPopup: false});
+  }
 
   componentDidMount() {
     this.setState({
       survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search survey={survey} />),
+        .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart}/>),
     });
   }
 
@@ -59,10 +71,23 @@ class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock search survey={survey} />),
+          .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart}/>),
       });
     }
   }
+
+  getCartPopup = () => (
+    <Segment style={{ width: '850px' }}>
+      <Grid>
+        <Grid.Column width={15}>
+          survey "{this.state.cartPopupName}" has added to my cart. 
+        </Grid.Column>
+        <Grid.Column width={1} textAlign="right">
+          <Icon name="x" onClick={() => {this.onClickPopupOff();}}/>
+        </Grid.Column>
+      </Grid>
+    </Segment>
+  )
 
   render() {
     return (
@@ -75,7 +100,10 @@ class SearchResultPage extends Component {
               <SearchFilter filterHandler={this.filterHandler} />
               {' '}
             </Grid.Column>
-            <Grid.Column width={8}>{this.state.survey_component_list}</Grid.Column>
+            <Grid.Column width={8}>
+              {this.state.cartPopup ? this.getCartPopup() : null}
+              {this.state.survey_component_list}
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
