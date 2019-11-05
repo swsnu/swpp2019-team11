@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index';
-
+import moment from 'moment'
 
 import UploadFile from '../../components/UploadPage/UploadFile/UploadFile';
 import EditItem from '../../components/UploadPage/EditItem/EditItem';
@@ -35,8 +35,11 @@ class UploadPage extends Component {
       else if (this.state.progress == 2) this.setState({ ...this.state, progress: 1 });
     }
 
-    EditHandler = (check_list) => {
+    EditHandler = (check_list, title, startDate, endDate) => {
       if (this.state.progress == 1) {
+        this.state.parsed_file.title = title;
+        this.state.parsed_file.startDate = (startDate ? startDate.format("YYYY/MM/DD") : null)
+        this.state.parsed_file.endDate = (endDate ? endDate.format("YYYY/MM/DD") : null)
         this.state.parsed_file.item = this.state.parsed_file.item
           .filter((item, item_index) => check_list[item_index]);
         this.setState({ ...this.state, progress: 2 });
