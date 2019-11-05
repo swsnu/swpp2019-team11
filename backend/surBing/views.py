@@ -136,8 +136,29 @@ def survey(request, survey_id):
     if request.method == 'GET':
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
-        survey = list(Survey.objects.filter(id=survey_id).values())[0]
-        return JsonResponse(survey, safe=False)
+        survey = Survey.objects.get(id=survey_id)
+        survey_dict = {
+            'title': survey.title, 'author': survey.author,
+            'upload_date': survey.upload_date,
+            'survey_start_date': survey.survey_start_date,
+            'survey_end_date': survey.survey_end_date,
+            'content': survey.content,
+            'respondant_count': survey.respondant_count,
+            'item': [],
+        }
+        for item in survey.item.all():
+            item_dict = {
+                'title': item.title,
+                'question_type': item.question_type,
+                'response': [],
+            }
+            for response in item.response.all():
+                item_dict['response'].append({
+                    'respondant_id': response.respondant_id,
+                    'content': response.content,
+                })
+            survey_dict['item'].append(item_dict)
+        return JsonResponse(survey_dict, safe=False)
 
     else:
         return HttpResponseBadRequest(['GET'])
