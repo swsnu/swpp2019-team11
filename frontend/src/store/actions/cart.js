@@ -11,8 +11,9 @@ const addCart_ = () => ({ type: actionTypes.ADD_CART });
 export const addCart = (id) => (dispatch) => {
   const data = { id };
   return axios.post('/api/mycart/', data)
-    .then(() => {
+    .then((res) => {
       dispatch(addCart_());
+      return res;
     });
 };
 
