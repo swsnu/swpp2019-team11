@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, Http
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Survey, Cart, SurBingUser, Item, Response
-
 # Create your views here.
 
 def check_logged_in(func):
@@ -74,7 +73,7 @@ def signout(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-@check_logged_in
+#@check_logged_in
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
@@ -184,7 +183,7 @@ def survey(request, survey_id):
 # - delete survey from cart (** DELETE cannot receive additional data **)
 # - argument : {id_list : [list of survey id]}
 # - 200 when succeed
-@check_logged_in
+#@check_logged_in
 def mycart(request):
     if request.method == 'GET':
         cart = request.user.cart
