@@ -30,3 +30,9 @@ export const logOut = () => (dispatch) => axios.get('/api/logout/')
   .then(() => {
     dispatch(logOut_());
   });
+
+const checklogIn_ = () => ({ type: actionTypes.CHECK_LOGIN});
+export const checklogIn = () => (dispatch) => axios.get('/api/checklogin/')
+  .then(() => {
+    dispatch(checklogIn_());
+  });

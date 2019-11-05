@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
-
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 import UploadFile from '../../components/UploadPage/UploadFile/UploadFile';
 import EditItem from '../../components/UploadPage/EditItem/EditItem';
 import Submit from '../../components/UploadPage/Submit/Submit';
@@ -16,6 +17,7 @@ class UploadPage extends Component {
     }
 
     componentDidMount = () => {
+      this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
       this.setState({ admitCheck: false, progress: 0 });
     }
 
@@ -55,4 +57,7 @@ class UploadPage extends Component {
       );
     }
 }
-export default UploadPage;
+const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),  
+});
+export default connect(null, mapDispatchToProps)(withRouter(UploadPage));

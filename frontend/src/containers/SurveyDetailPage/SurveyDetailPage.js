@@ -6,6 +6,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
 });
 
@@ -19,6 +20,7 @@ class SurveyDetailPage extends Component {
   };
 
   componentDidMount() {
+    this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
     this.props.onSurveyDetail(this.props.match.params.id);
     this.setState({ ...this.state, title: this.props.title });
   }

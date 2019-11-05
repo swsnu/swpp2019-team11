@@ -24,6 +24,7 @@ class CartPage extends Component {
   }
 
   componentDidMount() {
+    this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
     this.props.getCartSurveyList().then(() => { this.configureState(); });
   }
 
@@ -193,6 +194,7 @@ button.
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCartSurveyList: () => dispatch(actionCreators.getCart()),
   deleteCart: (id_list) => dispatch(actionCreators.deleteCart(id_list)),
   getMLResult: (id_list) => dispatch(actionCreators.getML(id_list)),
