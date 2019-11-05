@@ -78,6 +78,10 @@ def signout(request):
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
+        for survey in surveys:
+            survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
+            del survey['author_id']
+        print(surveys)
         return JsonResponse(surveys, safe=False)
 
     else:

@@ -81,7 +81,7 @@ class CartPage extends Component {
     <Grid verticalAlign="middle" style={{ height: `${height}px` }}>
       <Grid.Row style={{ minWidth: 1200 }}>
         <Grid.Column style={{ width: 200, marginRight: 230 }}>
-          <Header style={{ fontSize: '3em' }} textAlign="center" size="huge">
+          <Header style={{ fontSize: '3em' }} textAlign="center" size="huge" color="teal">
             Cart
           </Header>
         </Grid.Column>
@@ -113,7 +113,7 @@ class CartPage extends Component {
       <Grid padded>
         <Grid.Row>
           <Grid.Column textAlign="center" width={16}>
-            <Header style={{ fontSize: '2em' }} size="medium" textAlign="center">
+            <Header style={{ fontSize: '2em' }} size="medium" textAlign="center" color="teal">
               Analysis Result
             </Header>
           </Grid.Column>
@@ -154,7 +154,7 @@ button.
           />
         </Grid.Column>
         <Grid.Column style={{ minWidth: 740 }}>
-          <SurveyBlock id={cur.id} title={cur.title} search={false} />
+          <SurveyBlock survey={cur} search={false} />
         </Grid.Column>
       </Grid.Row>
     ));

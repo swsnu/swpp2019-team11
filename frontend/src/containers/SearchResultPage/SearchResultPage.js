@@ -39,7 +39,7 @@ class SearchResultPage extends Component {
   componentDidMount() {
     this.setState({
       survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
+        .map((survey) => <SurveyBlock search={true} survey={survey} />),
     });
   }
 
@@ -53,13 +53,13 @@ class SearchResultPage extends Component {
         survey_component_list: this.props.survey_list
           .filter((survey) => (
             (this.state.startDate == null
-              ? true : !this.state.startDate.isAfter(moment(survey.date)))
+              ? true : !this.state.startDate.isAfter(moment(survey.survey_end_date)))
           && (this.state.endDate == null
-            ? true : !this.state.endDate.isBefore(moment(survey.date)))
+            ? true : !this.state.endDate.isBefore(moment(survey.survey_start_date)))
           && (this.state.respondant_max == 1000
-            ? true : this.state.respondant_max >= survey.response_count)
-          && (this.state.respondant_min <= survey.response_count)))
-          .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
+            ? true : this.state.respondant_max >= survey.respondant_count)
+          && (this.state.respondant_min <= survey.respondant_count)))
+          .map((survey) => <SurveyBlock search={true} survey={survey} />),
       });
     }
   }
