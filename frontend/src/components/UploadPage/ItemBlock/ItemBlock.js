@@ -32,6 +32,7 @@ class ItemBlock extends Component {
           this.setState({ ...this.state, checked: !this.state.checked });
           this.props.check(this.props.id, this.state.checked);
         }}
+        style = {this.state.checked ? {backgroundColor : '#F15F5F'} : {backgroundColor : '#E4F7BA'}}
         disabled={this.state.checked}
         padded
       >
@@ -42,7 +43,7 @@ class ItemBlock extends Component {
               {this.props.id + 1}
 :
             </Header>
-            <Header floated="left" color="grey" style={{ 'font-size': '22px' }}>
+            <Header floated="left" color="black" style={{ 'font-size': '22px' }}>
               {this.props.title}
             </Header>
           </Grid.Row>
