@@ -24,4 +24,3 @@ class Response(models.Model):
 
 class Cart(models.Model):
     survey = models.ManyToManyField('Survey')
-    
