@@ -49,7 +49,7 @@ class SearchResultPage extends Component {
       || this.state.endDate != prevState.endDate
       || this.state.respondant_min != prevState.respondant_min
       || this.state.respondant_max != prevState.respondant_max) {
-      this.state.survey_component_list= this.props.survey_list
+      this.state.survey_component_list = this.props.survey_list
         .filter((survey) => (
           (this.state.startDate == null
             ? true : !this.state.startDate.isAfter(moment(survey.upload.date)))
@@ -58,8 +58,8 @@ class SearchResultPage extends Component {
         && (this.state.respondant_max == 1000
           ? true : this.state.respondant_max >= survey.respondant_count)
         && (this.state.respondant_min <= survey.respondant_count)))
-        .map((survey) => {return <SurveyBlock search id={survey.id} title={survey.title} />})
-      this.forceUpdate()
+        .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />);
+      this.forceUpdate();
     }
   }
 

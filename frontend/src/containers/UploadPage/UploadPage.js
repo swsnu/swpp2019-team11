@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
-import {connect} from 'react-redux'
-import * as actionCreators from '../../store/actions/index'
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 
 
 import UploadFile from '../../components/UploadPage/UploadFile/UploadFile';
@@ -10,12 +10,9 @@ import Submit from '../../components/UploadPage/Submit/Submit';
 import TopBar from '../../components/TopBar/TopBar';
 
 
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onUpload : (survey) => {dispatch(actionCreators.uploadSurvey(survey))}
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onUpload: (survey) => { dispatch(actionCreators.uploadSurvey(survey)); },
+});
 
 class UploadPage extends Component {
     state = {
@@ -28,27 +25,27 @@ class UploadPage extends Component {
     }
 
     UploadHandler = (file) => {
-      if (this.state.progress == 0 && file!=null) {
+      if (this.state.progress == 0 && file != null) {
         this.setState({ ...this.state, progress: 1, parsed_file: file });
       }
     }
+
     BackHandler = () => {
-      if(this.state.progress==1) this.setState({...this.state, progress : 0})
-      else if(this.state.progress==2) this.setState({...this.state, progress : 1})
+      if (this.state.progress == 1) this.setState({ ...this.state, progress: 0 });
+      else if (this.state.progress == 2) this.setState({ ...this.state, progress: 1 });
     }
 
     EditHandler = (check_list) => {
-      if (this.state.progress == 1){
-        this.state.parsed_file['item'] = this.state.parsed_file['item']
-          .filter((item, item_index) => check_list[item_index] )
-        this.setState({ ...this.state, progress: 2});
+      if (this.state.progress == 1) {
+        this.state.parsed_file.item = this.state.parsed_file.item
+          .filter((item, item_index) => check_list[item_index]);
+        this.setState({ ...this.state, progress: 2 });
       }
     }
 
     SubmitHandler = () => {
-      if (this.state.progress == 2){
-        console.log(this.state.parsed_file)
-        this.props.onUpload(this.state.parsed_file)
+      if (this.state.progress == 2) {
+        this.props.onUpload(this.state.parsed_file);
         this.props.history.push('/main/');
       }
     }
@@ -62,8 +59,17 @@ class UploadPage extends Component {
               uploadOnClick={this.UploadHandler}
               progress={this.state.progress}
             />
-            <EditItem survey = {this.state.parsed_file} progress={this.state.progress} backOnClick = {this.BackHandler} editOnClick={this.EditHandler} />
-            <Submit progress={this.state.progress} backOnClick = {this.BackHandler} submitOnClick={this.SubmitHandler} />
+            <EditItem
+              survey={this.state.parsed_file}
+              progress={this.state.progress}
+              backOnClick={this.BackHandler}
+              editOnClick={this.EditHandler}
+            />
+            <Submit
+              progress={this.state.progress}
+              backOnClick={this.BackHandler}
+              submitOnClick={this.SubmitHandler}
+            />
           </Segment>
         </div>
       );
