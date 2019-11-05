@@ -25,6 +25,7 @@ class SearchResultPage extends Component {
     respondant_min: '1',
     respondant_max: '1000',
     cartPopup: false,
+    cartPopupStatus: 0,
     cartPopupName: '',
   }
 
@@ -39,8 +40,10 @@ class SearchResultPage extends Component {
   }
 
   onClickCart = (id, title) => {
-    this.props.onAddCart(id).then(() => {
-      this.setState({ ...this.state, cartPopup: true, cartPopupName: title });
+    this.props.onAddCart(id).then((res) => {
+      this.setState({
+        ...this.state, cartPopup: true, cartPopupStatus: res.status, cartPopupName: title,
+      });
     });
   }
 
@@ -82,7 +85,11 @@ class SearchResultPage extends Component {
         <Grid.Column width={15}>
           survey
           {` "${this.state.cartPopupName}" `}
-          has added to my cart.
+          {
+            this.state.cartPopupStatus === 201
+              ? 'has added to my cart.'
+              : 'is already in my cart.'
+          }
         </Grid.Column>
         <Grid.Column width={1} textAlign="right">
           <Icon name="x" onClick={() => { this.onClickPopupOff(); }} />
