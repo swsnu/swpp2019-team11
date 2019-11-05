@@ -138,7 +138,7 @@ def survey(request, survey_id):
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
         survey_dict = {
-            'title': survey.title, 'author': survey.author,
+            'title': survey.title, 'author': survey.author.username,
             'upload_date': survey.upload_date,
             'survey_start_date': survey.survey_start_date,
             'survey_end_date': survey.survey_end_date,
