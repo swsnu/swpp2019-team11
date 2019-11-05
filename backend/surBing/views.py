@@ -134,6 +134,8 @@ def surveys(request):
 @check_logged_in
 def survey(request, survey_id):
     if request.method == 'GET':
+        if not Survey.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
         survey = list(Survey.objects.filter(id=survey_id).values())[0]
         return JsonResponse(survey, safe=False)
 
