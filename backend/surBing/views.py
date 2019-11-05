@@ -23,12 +23,6 @@ def token(request):
         return HttpResponseNotAllowed(['GET'])
 
 def checklogin(request):
-    """try:
-        req_data = json.loads(request.body.decode())
-        username = req_data['username']
-    except (KeyError, json.decoder.JSONDecodeError):
-        return HttpResponse(status=400)
-    """
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
@@ -85,7 +79,7 @@ def signout(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-#@check_logged_in
+@check_logged_in
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
