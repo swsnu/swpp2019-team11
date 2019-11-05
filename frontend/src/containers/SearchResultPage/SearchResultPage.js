@@ -25,7 +25,7 @@ class SearchResultPage extends Component {
     respondant_min: '1',
     respondant_max: '1000',
     cartPopup: false,
-    cartPopupName: ''
+    cartPopupName: '',
   }
 
   filterHandler = (startDate, endDate, respondant) => {
@@ -40,18 +40,18 @@ class SearchResultPage extends Component {
 
   onClickCart = (id, title) => {
     this.props.onAddCart(id).then(() => {
-      this.setState({...this.state, cartPopup: true, cartPopupName: title});
+      this.setState({ ...this.state, cartPopup: true, cartPopupName: title });
     });
   }
 
   onClickPopupOff = () => {
-    this.setState({...this.state, cartPopup: false});
+    this.setState({ ...this.state, cartPopup: false });
   }
 
   componentDidMount() {
     this.setState({
       survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart}/>),
+        .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />),
     });
   }
 
@@ -71,7 +71,7 @@ class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart}/>),
+          .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />),
       });
     }
   }
@@ -80,10 +80,12 @@ class SearchResultPage extends Component {
     <Segment style={{ width: '850px' }}>
       <Grid>
         <Grid.Column width={15}>
-          survey "{this.state.cartPopupName}" has added to my cart. 
+          survey
+          {` "${this.state.cartPopupName}" `}
+          has added to my cart.
         </Grid.Column>
         <Grid.Column width={1} textAlign="right">
-          <Icon name="x" onClick={() => {this.onClickPopupOff();}}/>
+          <Icon name="x" onClick={() => { this.onClickPopupOff(); }} />
         </Grid.Column>
       </Grid>
     </Segment>

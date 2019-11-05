@@ -64,7 +64,7 @@ const SurveyBlock = (props) => {
             style={{
               width: '50px', height: '99px', verticalAlign: 'middle', 'border-top-right-radius': '20px', 'border-bottom-right-radius': '20px', 'padding-top': '35px',
             }}
-            onClick={() => {props.onClickCart(props.survey.id, props.survey.title);}}
+            onClick={() => { props.onClickCart(props.survey.id, props.survey.title); }}
           >
             <Icon name="cart arrow down" />
           </Button>
