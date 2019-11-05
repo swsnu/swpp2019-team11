@@ -10,6 +10,7 @@ class EditItem extends Component {
   state = {
     item: [],
     check: [],
+    type: [],
     title : '',
     startDate: null,
     endDate: null,
@@ -18,6 +19,11 @@ class EditItem extends Component {
 
   check = (id, value) => {
     this.state.check[id] = value;
+    this.setState({ ...this.state });
+  }
+
+  type = (id, value) => {
+    this.state.type[id] = value;
     this.setState({ ...this.state });
   }
 
@@ -32,6 +38,7 @@ class EditItem extends Component {
       this.props.survey.item.map((item, item_index) => {
         this.state.item[item_index] = (
           <ItemBlock
+            type={this.type}
             check={this.check}
             title={item.title}
             id={item_index}
@@ -77,7 +84,7 @@ class EditItem extends Component {
                 <Button
                   align="right"
                   style={{ marginTop: '15px', marginRight: '20pt' }}
-                  onClick={() => { this.props.editOnClick(this.state.check, this.state.title, this.state.startDate, this.state.endDate); }}
+                  onClick={() => { this.props.editOnClick(this.state.check, this.state.type, this.state.title, this.state.startDate, this.state.endDate); }}
                   disabled={this.props.progress != 1}
                 >
                 Continue

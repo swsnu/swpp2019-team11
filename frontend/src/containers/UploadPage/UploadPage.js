@@ -35,13 +35,15 @@ class UploadPage extends Component {
       else if (this.state.progress == 2) this.setState({ ...this.state, progress: 1 });
     }
 
-    EditHandler = (check_list, title, startDate, endDate) => {
+    EditHandler = (check_list, type_list, title, startDate, endDate) => {
       if (this.state.progress == 1) {
         this.state.parsed_file.title = title;
-        this.state.parsed_file.startDate = (startDate ? startDate.format("YYYY/MM/DD") : null)
-        this.state.parsed_file.endDate = (endDate ? endDate.format("YYYY/MM/DD") : null)
-        this.state.parsed_file.item = this.state.parsed_file.item
-          .filter((item, item_index) => check_list[item_index]);
+        this.state.parsed_file.survey_start_date = (startDate ? startDate.format("YYYY/MM/DD") : null)
+        this.state.parsed_file.survey_end_date = (endDate ? endDate.format("YYYY/MM/DD") : null)
+        this.state.parsed_file.item.map((item, item_index) => {
+          item['question_type'] = (type_list[item_index] ? 'Subjective' : 'Selection') ; 
+        })
+        this.state.parsed_file.item = this.state.parsed_file.item.filter((item, item_index) => check_list[item_index] );
         this.setState({ ...this.state, progress: 2 });
       }
     }
