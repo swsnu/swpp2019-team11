@@ -79,16 +79,16 @@ class CartPage extends Component {
 
   getCartBar = (height) => (
     <Grid verticalAlign="middle" style={{ height: `${height}px` }}>
-      <Grid.Row style={{ minWidth: 1200 }}>
+      <Grid.Row style={{ minWidth: 1290 }}>
         <Grid.Column style={{ width: 200, marginRight: 230 }}>
-          <Header style={{ fontSize: '3em' }} textAlign="center" size="huge">
+          <Header style={{ fontSize: '3em' }} textAlign="center" size="huge" color="teal">
             Cart
           </Header>
         </Grid.Column>
         <Grid.Column style={{ width: 200 }}>
           <Checkbox label="Select All" checked={this.state.isTotalChecked} onChange={() => { this.onToggleTotal(); }} />
         </Grid.Column>
-        <Grid.Column style={{ width: 570 }} textAlign="right">
+        <Grid.Column style={{ width: 660 }} textAlign="right">
           <Button onClick={() => { this.onClickAnalysis(); }}>ANALYSIS</Button>
           {' '}
           {' '}
@@ -113,7 +113,7 @@ class CartPage extends Component {
       <Grid padded>
         <Grid.Row>
           <Grid.Column textAlign="center" width={16}>
-            <Header style={{ fontSize: '2em' }} size="medium" textAlign="center">
+            <Header style={{ fontSize: '2em' }} size="medium" textAlign="center" color="teal">
               Analysis Result
             </Header>
           </Grid.Column>
@@ -153,8 +153,8 @@ button.
             onClick={() => { this.onToggleSelected([index], this.TOGGLE); }}
           />
         </Grid.Column>
-        <Grid.Column style={{ minWidth: 740 }}>
-          <SurveyBlock id={cur.id} title={cur.title} search={false} />
+        <Grid.Column style={{ minWidth: 800 }}>
+          <SurveyBlock survey={cur} search={false} />
         </Grid.Column>
       </Grid.Row>
     ));
@@ -167,11 +167,11 @@ button.
   }
 
   getContents = () => (
-    <Grid columns={2} divided style={{ minWidth: 1200 }}>
+    <Grid columns={2} divided style={{ minWidth: 1260 }}>
       <Grid.Column style={{ width: 430 }}>
         {this.getAnalysisRes()}
       </Grid.Column>
-      <Grid.Column style={{ minWidth: 770 }}>
+      <Grid.Column style={{ minWidth: 830 }}>
         {this.getCartEntries()}
       </Grid.Column>
     </Grid>

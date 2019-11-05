@@ -78,6 +78,9 @@ def signout(request):
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
+        for survey in surveys:
+            survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
+            del survey['author_id']
         return JsonResponse(surveys, safe=False)
 
     else:
@@ -187,6 +190,9 @@ def mycart(request):
     if request.method == 'GET':
         cart = request.user.cart
         surveys = list(cart.survey.all().values())
+        for survey in surveys:
+            survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
+            del survey['author_id']
         return JsonResponse(surveys, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -218,7 +224,7 @@ def mycart(request):
         cart = request.user.cart
         to_delete_list = cart.survey.filter(id__in=id_list)
         for survey in to_delete_list:
-            survey.delete()
+            cart.survey.remove(survey)
 
         return HttpResponse(status=200)
 
