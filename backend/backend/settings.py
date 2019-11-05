@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 
 # custom user
 AUTH_USER_MODEL = 'users.SurBingUser'
+
+# use token
+CSRF_COOKIE_NAME = "csrftoken"

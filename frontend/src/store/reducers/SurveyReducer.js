@@ -2,48 +2,33 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   title: '',
-  date: '',
-  author_name: '',
+  author: '',
+  upload_date: '',
+  survey_start_date: '',
+  survey_end_date: '',
   content: '',
-  response_count: '',
-  item_list: [],
+  respondant_count: 0,
+  item: [],
 };
 
 
 const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
-  let survey;
   switch (action.type) {
     case actionTypes.GET_SURVEY:
-        return {
-          ...state,
-          title: action.target.title,
-          date: action.target.date,
-          author_name: action.target.author_name,
-          content: action.target.content,
-          response_count: action.target.response_count,
-          item_list: action.target.item_list,
-        };
+      return {
+        title: action.target.title,
+        author: action.target.author,
+        upload_date: action.target.upload_date,
+        survey_start_date: action.target.survey_start_date,
+        survey_end_date: action.target.survey_end_date,
+        content: action.target.content,
+        respondant_count: action.target.respondant_count,
+        item: action.target.item,
+      };
     case actionTypes.EDIT_SURVEY:
     case actionTypes.DELETE_SURVEY:
-      return {
-        ...state,
-        title: action.target.title,
-        date: action.target.date,
-        author_name: action.target.author_name,
-        content: action.target.content,
-        response_count: action.target.response_count,
-        item_list: action.target.item_list,
-      };
     case actionTypes.ADD_SURVEY:
-      survey = {
-        title: action.target.title,
-        date: action.target.date,
-        author_name: action.target.author_name,
-        content: action.target.content,
-        response_count: action.target.response_count,
-        item_list: action.target.item_list,
-      };
-      return { ...state, ...survey };
+      
     default:
       break;
   }
