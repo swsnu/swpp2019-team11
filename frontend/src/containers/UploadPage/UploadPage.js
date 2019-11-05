@@ -27,6 +27,7 @@ class UploadPage extends Component {
     UploadHandler = (file) => {
       if (this.state.progress == 0) {
         this.setState({ ...this.state, progress: 1, parsed_file: file });
+        console.log(file)
       }
     }
 
