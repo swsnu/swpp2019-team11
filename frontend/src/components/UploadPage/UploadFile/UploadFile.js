@@ -7,7 +7,7 @@ import CSVconverter from '../../CSVconverter/CSVconverter';
 class UploadFile extends Component {
   state = {
     converted_file: '',
-    filename : 'null'
+    filename : 'upload your file!'
 
   }
 
@@ -17,13 +17,13 @@ class UploadFile extends Component {
 
   render() {
     return (
-      <Segment color = 'yellow'>
-        <Header style={{ 'font-size': '2em', 'margin-left': '10px' }} size="huge" color="yellow">1. Upload</Header>
-        <div style={{ 'font-size': '20px', color: '#663300', 'margin-left': '20px' }}><strong>.csv file</strong></div>
+      <Segment disabled={this.props.progress != 0} style = {{height : 150}} color = 'yellow'>
+        <Header style={{ 'fontSize': '2em', 'marginLeft': '10px' }} size="huge" color="yellow">1. Upload</Header>
+        <div style={{ 'font-size': '20px', color: '#663300', 'marginLeft': '20px' }}><strong>.csv file</strong></div>
         <ReactFileReader handleFiles={(file) => { CSVconverter(this.converter, file[0] , true); this.setState({ ...this.state, filename: file[0].name })}} fileTypes={['.csv']} multipleFiles={false}>
-          <Button floated = 'left' style={{ margin: '10px' }}>Upload</Button>
-          <Header floated = 'left' style = {{'padding-left' : 50}} color = 'teal'>{this.state.filename}</Header>
+          <Button disabled={this.props.progress != 0} floated = 'left' style={{ margin: '10px' }}>Upload</Button>
         </ReactFileReader>
+        <Header size = 'big' floated = 'left' style = {{'paddingTop' : 15}} color = 'teal'>{this.state.filename}</Header>
         <div align="right">
           <Button
             align="right"

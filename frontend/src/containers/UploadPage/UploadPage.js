@@ -10,27 +10,23 @@ import TopBar from '../../components/TopBar/TopBar';
 
 class UploadPage extends Component {
     state = {
-      admitCheck: false,
       progress: 0,
       parsed_file: null,
     }
 
     componentDidMount = () => {
-      this.setState({ admitCheck: false, progress: 0 });
-    }
-
-    AdmitButtonHandler = () => {
-      if (!this.state.admitCheck) this.setState({ ...this.state, admitCheck: true });
-      else this.setState({ ...this.state, admitCheck: false });
+      this.setState({ progress: 1 });
     }
 
     UploadHandler = (file) => {
       if (this.state.progress == 0) {
         this.setState({ ...this.state, progress: 1, parsed_file: file });
-        console.log(file)
       }
     }
-
+    BackHandler = () => {
+      if(this.state.progress==1) this.setState({...this.state, progress : 0})
+      else if(this.state.progress==2) this.setState({...this.state, progress : 1})
+    }
 
     EditHandler = () => {
       if (this.state.progress == 1) this.setState({ ...this.state, progress: 2 });
@@ -49,8 +45,8 @@ class UploadPage extends Component {
               uploadOnClick={this.UploadHandler}
               progress={this.state.progress}
             />
-            <EditItem progress={this.state.progress} editOnClick={() => this.EditHandler()} />
-            <Submit progress={this.state.progress} submitOnClick={() => this.SubmitHandler()} />
+            <EditItem progress={this.state.progress} backOnClick = {this.BackHandler} editOnClick={this.EditHandler} />
+            <Submit progress={this.state.progress} backOnClick = {this.BackHandler} submitOnClick={this.SubmitHandler} />
           </Segment>
         </div>
       );

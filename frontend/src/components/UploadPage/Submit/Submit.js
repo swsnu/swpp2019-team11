@@ -1,31 +1,52 @@
-import React from 'react';
-import { Grid, Header, Button } from 'semantic-ui-react';
+import React, {Component} from 'react';
+import { Grid, Header, Button, Segment, Checkbox } from 'semantic-ui-react';
 
-const Submit = (props) => {
-  if (props.progress >= 2) {
-    return (
-      <div className="ui green segment">
-        <Header style={{ 'font-size': '2em', 'margin-left': '8px' }} size="huge" color="green">3. Warning & Confirm</Header>
-        <Grid columns={2}>
-          <Grid.Row>
-            <Grid.Column>
-              <div style={{ 'font-size': '20px', color: '#ff0000', 'margin-left': '19px' }}><strong>You cannot delete privacy after upload.</strong></div>
-            </Grid.Column>
-            <Grid.Column align="right">
-              <div className="ui checkbox" style={{ 'margin-right': '120px', 'font-size': '1em' }} align="right">
-                <input type="checkbox" align="right" name="example" fontSize="1em" style={{ fontSize: '30pt' }} />
-                <div align="right"> Yes, I will Admit. </div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <div align="right">
-          <Button style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}> Continue </Button>
-        </div>
-      </div>
-    );
+class Submit extends Component{
+
+  state = {
+    checked : false
   }
 
-  return (<div />);
-};
+  toggle = () => {
+    this.setState({checked : !this.state.checked})
+  }
+  checkValidation = () => {
+    if(this.state.checked)
+      this.props.submitOnClick()
+    else
+      alert('Please check in the checkbox')
+  }
+
+  render(){
+    if (this.props.progress >= 2) {
+      return (
+        <Segment color='green'>
+          <Header style={{ 'font-size': '2em', 'margin-left': '8px' }} size="huge" color="green">3. Warning & Confirm</Header>
+          <Grid columns={2}>
+            <Grid.Row>
+              <Grid.Column>
+                <Header color = 'red' style={{ 'font-size': '15px', 'margin-left': '19px' }}>
+                  surBing shall not be liable for all legal obligations arising out of
+                  uploading data containing sensitive personal information.
+                </Header>
+              </Grid.Column>
+              <Grid.Column align="right">
+              </Grid.Column>
+            </Grid.Row>
+            <Checkbox onClick = {this.toggle} checked = {this.state.checked} label='Yes I agree' floated style={{ 'marginLeft': '18px', 'font-size': '1em' }} align="right"/>
+          </Grid>
+          <div align="right">
+            <Button onClick = {this.checkValidation} style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}> Yes I admit </Button>
+            <Button onClick = {this.props.backOnClick}>Back</Button>
+          </div>
+        </Segment>
+      )
+    }
+    else{
+      return null
+    }
+  }
+}
+
+
 export default Submit;
