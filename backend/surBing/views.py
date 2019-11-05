@@ -82,9 +82,9 @@ def search(request, keyword=''):
     else:
         return HttpResponseBadRequest(['GET'])
 
-def survey(request, survey_id):
+def survey(request, id):
     if request.method == 'GET':
-        survey = list(Survey.objects.filter(id=survey_id).values())[0]
+        survey = list(Survey.objects.filter(id=id).values())[0]
         return JsonResponse(survey, safe=False)
 
     else:
