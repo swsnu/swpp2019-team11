@@ -46,9 +46,11 @@ class UploadPage extends Component {
     }
 
     SubmitHandler = () => {
-      console.log(this.state)
-      if (this.state.progress == 2) 
+      if (this.state.progress == 2){
+        console.log(this.state.parsed_file)
+        this.props.onUpload(this.state.parsed_file)
         this.props.history.push('/main/');
+      }
     }
 
     render() {
@@ -67,4 +69,5 @@ class UploadPage extends Component {
       );
     }
 }
-export default connect(null, mapDiapatchToProps)(UploadPage);
+
+export default connect(null, mapDispatchToProps)(UploadPage);

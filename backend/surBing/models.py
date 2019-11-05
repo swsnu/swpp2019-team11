@@ -8,13 +8,13 @@ class Survey(models.Model):
     upload_date = models.CharField(max_length=10, null=True)
     survey_start_date = models.CharField(max_length=10, null=True)
     survey_end_date = models.CharField(max_length=10, null=True)
-    content = models.TextField()
+    content = models.TextField(null=True)
     respondant_count = models.IntegerField()
     item = models.ManyToManyField('Item')
 
 class Item(models.Model):
     title = models.CharField(max_length=120)
-    question_type = models.CharField(max_length=10)
+    question_type = models.CharField(max_length=10, null=True)
     response = models.ManyToManyField('Response')
 
 class Response(models.Model):

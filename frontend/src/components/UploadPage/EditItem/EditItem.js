@@ -12,7 +12,6 @@ class EditItem extends Component{
   check = (id, value) => {
     this.state.check[id]=value
     this.setState({...this.state})
-    console.log(this.state.check)
   }
 
   componentDidUpdate(prevProps) {

@@ -21,8 +21,8 @@ class SearchResultPage extends Component {
     survey_component_list: [],
     startDate: null,
     endDate: null,
-    respondant_min: '1',
-    respondant_max: '1000',
+    respondant_min: 1,
+    respondant_max: 1000,
   }
 
   filterHandler = (startDate, endDate, respondant) => {
@@ -49,18 +49,17 @@ class SearchResultPage extends Component {
       || this.state.endDate != prevState.endDate
       || this.state.respondant_min != prevState.respondant_min
       || this.state.respondant_max != prevState.respondant_max) {
-      this.setState({
-        survey_component_list: this.props.survey_list
-          .filter((survey) => (
-            (this.state.startDate == null
-              ? true : !this.state.startDate.isAfter(moment(survey.date)))
-          && (this.state.endDate == null
-            ? true : !this.state.endDate.isBefore(moment(survey.date)))
-          && (this.state.respondant_max == 1000
-            ? true : this.state.respondant_max >= survey.response_count)
-          && (this.state.respondant_min <= survey.response_count)))
-          .map((survey) => <SurveyBlock search id={survey.id} title={survey.title} />),
-      });
+      this.state.survey_component_list= this.props.survey_list
+        .filter((survey) => (
+          (this.state.startDate == null
+            ? true : !this.state.startDate.isAfter(moment(survey.upload.date)))
+        && (this.state.endDate == null
+          ? true : !this.state.endDate.isBefore(moment(survey.upload.date)))
+        && (this.state.respondant_max == 1000
+          ? true : this.state.respondant_max >= survey.respondant_count)
+        && (this.state.respondant_min <= survey.respondant_count)))
+        .map((survey) => {return <SurveyBlock search id={survey.id} title={survey.title} />})
+      this.forceUpdate()
     }
   }
 

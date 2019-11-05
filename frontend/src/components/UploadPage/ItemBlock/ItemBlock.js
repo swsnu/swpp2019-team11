@@ -13,7 +13,6 @@ class ItemBlock extends Component{
   }
 
   componentDidMount(){
-    console.log(this.props.checked)
     this.props.check(this.props.id, this.state.checked)
   }
 
