@@ -21,11 +21,11 @@ class SurveyDetailPage extends Component {
 
   componentDidMount() {
     this.props.checklogIn()
-    .then(() => {
-      this.props.onSurveyDetail(this.props.match.params.id);
-      this.setState({ ...this.state, title: this.props.title });
-    })
-    .catch(() => { this.props.history.push('/login/'); });
+      .then(() => {
+        this.props.onSurveyDetail(this.props.match.params.id);
+        this.setState({ ...this.state, title: this.props.title });
+      })
+      .catch(() => { this.props.history.push('/login/'); });
     
   }
 

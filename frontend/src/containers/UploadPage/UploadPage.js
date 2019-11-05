@@ -17,8 +17,8 @@ class UploadPage extends Component {
 
     componentDidMount = () => {
       this.props.checklogIn()
-        .then(() => {this.setState({ admitCheck: false, progress: 0 });})
-        .catch(() => {this.props.history.push('/login/')});
+        .then(() => { this.setState({ admitCheck: false, progress: 0 }); })
+        .catch(() => { this.props.history.push('/login/'); });
     }
 
     AdmitButtonHandler = () => {
