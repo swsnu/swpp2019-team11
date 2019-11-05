@@ -8,7 +8,6 @@ import EditItem from '../../components/UploadPage/EditItem/EditItem';
 import Submit from '../../components/UploadPage/Submit/Submit';
 import TopBar from '../../components/TopBar/TopBar';
 
-
 class UploadPage extends Component {
     state = {
       admitCheck: false,
@@ -17,8 +16,9 @@ class UploadPage extends Component {
     }
 
     componentDidMount = () => {
-      this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
-      this.setState({ admitCheck: false, progress: 0 });
+      this.props.checklogIn()
+        .then(() => {this.setState({ admitCheck: false, progress: 0 });})
+        .catch(() => {this.props.history.push('/login/')});
     }
 
     AdmitButtonHandler = () => {

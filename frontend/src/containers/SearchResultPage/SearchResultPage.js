@@ -54,11 +54,11 @@ class SearchResultPage extends Component {
 
   componentDidMount() {
     this.props.checklogIn()
-    .then(() => {this.setState({
-      survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />),
-    });})
-    .catch(() => {this.props.history.push('/login/')});
+      .then(() => { this.setState({
+        survey_component_list: this.props.survey_list
+          .map((survey) => <SurveyBlock search survey={survey} onClickCart={ this.onClickCart} />),
+      }); })
+      .catch(() => { this.props.history.push('/login/'); });
     
   }
 

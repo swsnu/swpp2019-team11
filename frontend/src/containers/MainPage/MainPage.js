@@ -8,7 +8,7 @@ import * as actionCreators from '../../store/actions/index';
 
 class MainPage extends Component {
   componentDidMount() {
-    this.props.checklogIn().then(() => {}).catch(() => {this.props.history.push('/login/')});
+    this.props.checklogIn().then(() => {}).catch(() => { this.props.history.push('/login/'); });
   }
 
   addSurveyHandler = () => {

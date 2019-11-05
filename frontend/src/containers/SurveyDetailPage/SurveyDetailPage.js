@@ -25,7 +25,7 @@ class SurveyDetailPage extends Component {
       this.props.onSurveyDetail(this.props.match.params.id);
       this.setState({ ...this.state, title: this.props.title });
     })
-    .catch(() => {this.props.history.push('/login/')});
+    .catch(() => { this.props.history.push('/login/'); });
     
   }
 
@@ -58,5 +58,4 @@ class SurveyDetailPage extends Component {
     );
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(SurveyDetailPage);
