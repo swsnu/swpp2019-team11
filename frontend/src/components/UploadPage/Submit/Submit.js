@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Grid, Header, Button, Segment, Checkbox
+  Grid, Header, Button, Segment, Checkbox,
 } from 'semantic-ui-react';
 
 class Submit extends Component {
@@ -35,7 +35,7 @@ class Submit extends Component {
             <Checkbox onClick={this.toggle} checked={this.state.checked} label="Yes I agree" floated style={{ marginLeft: '18px', 'font-size': '1em' }} align="right" />
           </Grid>
           <div align="right">
-            
+
             <Button onClick={this.checkValidation} style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}> Yes I admit </Button>
             <Button onClick={this.props.backOnClick}>Back</Button>
           </div>
