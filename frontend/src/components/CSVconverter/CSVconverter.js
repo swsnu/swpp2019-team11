@@ -47,7 +47,6 @@ const CSVconverter = (func, data, type) => {
       header: false,
     });
   } else {
-    console.log(data);
     const col_num = data.item.length;
     const row_num = data.item[0].response.length + 1;
     const return_array = Array(row_num);

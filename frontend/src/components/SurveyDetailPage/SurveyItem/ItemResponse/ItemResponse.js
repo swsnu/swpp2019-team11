@@ -1,17 +1,16 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
-function ItemResponse(props){
-  return(
+function ItemResponse(props) {
+  return (
     <div className="ItemResponse">
-      <Table.Row style={{ width: '790px', marginLeft: 20, 'font-size' : '0.7em' }}>
+      <Table.Row style={{ width: '790px', marginLeft: 20, 'font-size': '0.7em' }}>
         <Table.Cell>{props.respondant_id}</Table.Cell>
         <Table.Cell>{props.content}</Table.Cell>
       </Table.Row>
 
-  </div>
-  )
-
-};
+    </div>
+  );
+}
 
 export default ItemResponse;
