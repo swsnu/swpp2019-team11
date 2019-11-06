@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   Grid, Header, Segment, Checkbox, Button, Divider, Label,
 } from 'semantic-ui-react';
-import { JSZip } from 'jszip';
 import { saveAs } from 'file-saver';
 import MLResult from '../../components/CartPage/MLResult/MLResult';
 import TopBar from '../../components/TopBar/TopBar';
@@ -42,13 +41,14 @@ class CartPage extends Component {
 
   getCSV = (id) => new Promise((resolve, reject) => {
     this.props.getSurvey(id)
-      .then((res) => { CSVconverter(resolve, res.data, false); })
+      .then((res) => { console.log(res); CSVconverter(resolve, res.data, false); })
       .catch((error) => { reject(error); });
   });
 
   onClickDownload = () => {
+    console.log('asdf');
     const len = this.state.isChecked.length;
-    const zip = new JSZip();
+    const zip = require('jszip')();
     for (let i = 0; i < len; i++) {
       if (this.state.isChecked[i]) {
         const cur_survey = this.props.survey_list[i];
