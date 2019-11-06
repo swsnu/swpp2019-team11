@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Header, Icon, Grid } from 'semantic-ui-react';
+import {
+  Icon, Grid, Label, Table, Button,
+} from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { saveAs } from 'file-saver';
 import SurveyItem from '../../components/SurveyDetailPage/SurveyItem/SurveyItem';
 import TopBar from '../../components/TopBar/TopBar';
+import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import * as actionCreators from '../../store/actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -11,48 +15,101 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  title: state.sv.title,
+  survey: state.sv.survey,
 });
 
 class SurveyDetailPage extends Component {
   state = {
-    title: '',
   };
 
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
         this.props.onSurveyDetail(this.props.match.params.id);
-        this.setState({ ...this.state, title: this.props.title });
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
 
+  onClickDownload() {
+    let csv = '';
+    CSVconverter((res) => { csv = res; }, this.props.survey, false);
+    saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`);
+  }
+
   render() {
+    if (this.props.survey === undefined || this.props.survey.item === undefined) {
+      return <div />;
+    }
+
+    const items = this.props.survey.item.map((it) => (
+      <SurveyItem
+        title={it.title}
+        question_type={it.question_type}
+        response={it.response}
+      />
+    ));
+
     return (
       <div className="SurveyDetailPage">
         <TopBar searchBar />
-        <Grid columns={2} style={{ 'min-width': 800 }} divided>
-          <Grid.Row
-            verticalAlign="middle"
-            style={{
-              margin: 30, height: 130, border: '1px solid grey', 'box-shadow': '5px 3px 3px #BDBDBD', borderRadius: 10,
-            }}
-          >
-            <Grid.Column style={{ width: '65%', 'font-size': '3.5em' }}>
-              <Header style={{ color: '#00B5AD' }} textAlign="center" vertical-align="middle">
-                {this.state.title}
-              </Header>
+        <Grid columns={2} style={{ minWidth: '800px', maxWidth: '800px' }}>
+          <Grid.Row>
+            <Grid.Column style={{ width: '400px' }}>
+              <Table celled style={{ margin: 20, height: 200, width: '450px' }}>
+                <Table.Header color="teal">
+                  <Table.Row>
+                    <Table.HeaderCell style={{ textColor: 'teal' }}>
+                      <Label ribbon style={{ color: '#00B5AD', 'font-size': '2em' }}>
+                        {' '}
+                        {this.props.survey.title}
+                        {' '}
+                      </Label>
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body style={{ 'font-size': '1.2em' }}>
+                  <Table.Row>
+                    <Table.Cell>
+                    Upload Date :
+                      {' '}
+                      {this.props.survey.upload_date}
+                      {' '}
+                      <br />
+                    Survey date :
+                      {' '}
+                      {this.props.survey.survey_start_date}
+~
+                      {this.props.survey.survey_end_date}
+                      {' '}
+                      <br />
+                    author :
+                      {' '}
+                      {this.props.survey.author}
+                      {' '}
+                      <br />
+                    respondant_count :
+                      {' '}
+                      {this.props.survey.respondant_count}
+                      {' '}
+                      <br />
+                    Description :
+                      {' '}
+                      {this.props.survey.content}
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </Grid.Column>
-            <Grid.Column textAlign="center" style={{ width: '35%', 'font-size': '4em' }}>
-              <Icon size="large" name="hand point right outline" color="teal" />
-              <Icon size="large" name="hand point left outline" color="teal" />
+            <Grid.Column verticalAlign="center" textAlign="middle">
+              <Button onClick={() => { this.onClickDownload(); }}>
+                <Icon size="large" name="file outline" />
+                {' '}
+Download
+              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <SurveyItem
-          id={this.props.match.params.id}
-        />
+        {items}
       </div>
     );
   }

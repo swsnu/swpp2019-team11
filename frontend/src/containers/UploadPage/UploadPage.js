@@ -21,7 +21,7 @@ class UploadPage extends Component {
     }
 
     UploadHandler = (file) => {
-      if (this.state.progress == 0 && file != null) {
+      if (this.state.progress == 0 && file !== null) {
         this.setState({ ...this.state, progress: 1, parsed_file: file });
       }
     }
@@ -34,6 +34,7 @@ class UploadPage extends Component {
     EditHandler = (check_list, type_list, title, content, startDate, endDate) => {
       if (this.state.progress == 1) {
         this.state.parsed_file.title = title;
+        this.state.parsed_file.content = content;
         this.state.parsed_file.survey_start_date = (startDate ? startDate.format('YYYY/MM/DD') : null);
         this.state.parsed_file.survey_end_date = (endDate ? endDate.format('YYYY/MM/DD') : null);
         this.state.parsed_file.item.map((item, item_index) => {

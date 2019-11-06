@@ -1,29 +1,62 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import { Table, Segment } from 'semantic-ui-react';
+import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
-import * as actionCreators from '../../../store/actions/index';
+import ItemResponseShort from './ItemResponse/ItemResponseShort';
 
-const mapDispatchToProps = (dispatch) => ({
-  onGetItems: () => dispatch(actionCreators.getItems()),
-  onItemResponses: (id) => dispatch(actionCreators.getItemResponses(id)),
-});
-
-const SurveyItem = (props) => (
-  <div>
-    <Message style={{
-      'min-width': '800px', margin: 20, background: '#FFFFFF', border: '1px solid grey', 'box-shadow': '5px 3px 3px #BDBDBD', borderRadius: 10, 'font-size': '1.5em',
-    }}
-    >
-      <Message.Header style={{ 'margin-bottom': 10, color: '#00B5AD' }}>
-        {props.title}
-      </Message.Header>
-      <ItemResponse
-        id={props.id}
+function SurveyItem(props) {
+  const responses = props.response.map((rs) => {
+    if (props.question_type === 'Selection') {
+      return (
+        <ItemResponse
+          respondant_id={rs.respondant_id}
+          content={rs.content}
+        />
+      );
+    }
+    return (
+      <ItemResponseShort
+        respondant_id={rs.respondant_id}
+        content={rs.content}
       />
-    </Message>
+    );
+  });
 
-  </div>
-);
+  return (
+    <div style={{ width: '1000px' }}>
+      <Table
+        celled
+        color="teal"
+        style={{
+          width: '800px', margin: 20, 'font-size': '2em',
+        }}
+      >
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell style={{ color: '#00B5AD' }}>
+          Q.
+              {' '}
+              {props.title}
+              <p style={{ textAlign: 'right', color: 'black', 'font-size': '0.7em' }}>
+            type :
+                {' '}
+                {props.question_type}
+              </p>
+            </Table.HeaderCell>
 
-export default connect(null, mapDispatchToProps)(SurveyItem);
+          </Table.Row>
+        </Table.Header>
+        <Table.Body style={{ width: '790px' }}>
+          <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 250, border: 'none' }}>
+            <Segment style={{ padding: -20, border: 'none' }}>
+              {responses}
+            </Segment>
+          </ScrollArea>
+        </Table.Body>
+      </Table>
+
+    </div>
+  );
+}
+
+export default SurveyItem;
