@@ -40,6 +40,7 @@ class SurveyDetailPage extends Component {
     ],
   };
 
+
   componentDidMount() {
     this.props.onSurveyDetail(this.props.match.params.id);
   }
@@ -75,34 +76,33 @@ class SurveyDetailPage extends Component {
         <Grid columns={2} style = {{minWidth: '800px', maxWidth : '800px'}}>
           <Grid.Row>
             <Grid.Column style = {{width: '400px'}}>
-            <Table celled style = {{margin: 20, height:200, maxWidth :'350px', minWidth :'350px'}}>
+            <Table celled style = {{margin: 20, height:200, width :'450px'}}>
               <Table.Header color = 'teal'>
-              <Table.Row>
-              <Table.HeaderCell style = {{textColor:'teal'}}>
-                <Label ribbon style = {{color: '#00B5AD', 'font-size' : '2em'}}>
-                  title: {this.state.title}
-                </Label>
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body style={{'font-size': '0.8em' }}>
-            <Table.Row>
-              <Table.Cell>
-                date : {this.state.start_date}~{this.state.end_date}<br />
-              author_name : {this.state.author_name}<br />
-              content : {this.state.content}<br />
-              respondant_count: {this.state.respondant_count}
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table>
+                <Table.Row>
+                  <Table.HeaderCell style = {{textColor:'teal'}}>
+                    <Label ribbon style = {{color: '#00B5AD', 'font-size' : '2em'}}>
+                      " {this.state.title} "
+                    </Label>
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body style={{'font-size': '0.8em' }}>
+                <Table.Row>
+                  <Table.Cell>
+                    date : {this.state.start_date}~{this.state.end_date}<br />
+                    author_name : {this.state.author_name}<br />
+                    content : {this.state.content}<br />
+                    respondant_count: {this.state.respondant_count}
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
             </Grid.Column>
             <Grid.Column  verticalAlign = 'center' textAlign = 'middle'>
               <Icon size = 'huge' name = 'file outline' />
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        
         {items}
       </div>
     );

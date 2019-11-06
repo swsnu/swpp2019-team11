@@ -1,16 +1,31 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Segment } from 'semantic-ui-react';
 import ItemResponse from './ItemResponse/ItemResponse';
+import ItemResponse_short from './ItemResponse/ItemResponse_short';
+import ScrollArea from 'react-scrollbar';
 
 function SurveyItem(props) {
   const responses = props.response.map(rs => {
-    return (
+    if(props.question_type == '객관식')
+    {
+      return (
         <ItemResponse
             respondant_id={rs.respondant_id}
             content={rs.content}
         />
-    );
-  });
+      )
+    }
+
+    else {
+      return(
+        <ItemResponse_short
+          respondant_id={rs.respondant_id}
+          content={rs.content}
+        />
+      )
+    }
+  }
+  )
 
   return(
   <div style = {{width : '1000px'}}>
@@ -21,16 +36,20 @@ function SurveyItem(props) {
       <Table.Header>
         <Table.Row>
         <Table.HeaderCell style={{color: '#00B5AD'}}>
-          Q. {props.title} <br />
+          Q. {props.title} 
+          <p style = {{textAlign: 'right', color: 'black', 'font-size': '0.7em'}}>
+            type : {props.question_type}
+          </p>
         </Table.HeaderCell>
-        <Table.Cell style={{ width : '230px','font-size':'0.7em'}}>
-          question_type : {props.question_type}
-        </Table.Cell>
 
         </Table.Row>
       </Table.Header>
       <Table.Body style = {{width : '790px'}}>
-      {responses}
+      <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 250, border: 'none' }}>
+          <Segment style={{ padding: -20, border: 'none' }}>
+            {responses}
+          </Segment>
+        </ScrollArea>
       </Table.Body>
     </Table>
 
