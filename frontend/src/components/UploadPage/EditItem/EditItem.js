@@ -104,6 +104,7 @@ class EditItem extends Component {
             <Grid.Row>
               <Grid.Column align="right">
                 <Button
+                  color='olive'
                   align="right"
                   style={{ marginTop: '15px', marginRight: '20pt' }}
                   onClick={() => {
@@ -121,6 +122,7 @@ class EditItem extends Component {
                 Continue
                 </Button>
                 <Button
+                  color='olive'
                   onClick={this.props.backOnClick}
                   disabled={this.props.progress != 1}
                 >

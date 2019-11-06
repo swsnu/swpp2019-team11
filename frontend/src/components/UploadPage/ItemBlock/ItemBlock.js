@@ -9,7 +9,7 @@ import Response from './Response/Response';
 class ItemBlock extends Component {
   state = {
     type: true,
-    checked: false,
+    checked: true,
     response_block: [],
   }
 
@@ -30,7 +30,7 @@ class ItemBlock extends Component {
     });
     return (
       <Segment
-        style={this.state.checked ? { backgroundColor: '#F15F5F' } : { backgroundColor: '#E4F7BA' }}
+        style={this.state.checked ? { backgroundColor: '#E4F7BA' } : { backgroundColor: '#F15F5F' } }
         padded
       >
         <Grid columns={1}>
@@ -56,7 +56,7 @@ class ItemBlock extends Component {
               <Button
                 style={{ marginLeft: 5 }}
                 basic
-                color="olive"
+                color="black"
                 onClick={() => {
                   this.props.type(this.props.id, !this.state.type);
                   this.setState({ ...this.state, type: !this.state.type });
