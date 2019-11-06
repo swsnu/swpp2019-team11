@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Button } from 'semantic-ui-react';
+import { Header, Button, Segment } from 'semantic-ui-react';
 import ReactFileReader from 'react-file-reader';
 import CSVconverter from '../../CSVconverter/CSVconverter';
 
@@ -7,29 +7,35 @@ import CSVconverter from '../../CSVconverter/CSVconverter';
 class UploadFile extends Component {
   state = {
     converted_file: '',
+    filename: 'upload your file!',
 
+  }
+
+  converter = (file) => {
+    this.setState({ ...this.state, converted_file: file });
   }
 
   render() {
     return (
-      <div className="ui yellow segment">
-        <Header style={{ 'font-size': '2em', 'margin-left': '10px' }} size="huge" color="yellow">1. Upload</Header>
-        <div style={{ 'font-size': '20px', color: '#663300', 'margin-left': '20px' }}><strong>.csv file</strong></div>
-        <ReactFileReader handleFiles={(file) => { this.setState({ ...this.state, converted_file: CSVconverter(file[0], true), filename: file[0].filename }); }} fileTypes={['.csv']} multipleFiles={false}>
-          <Button style={{ margin: '10px' }}>Upload</Button>
-          {this.state.filename}
+      <Segment disabled={this.props.progress != 0} style={{ height: 150 }} color="yellow">
+        <Header style={{ fontSize: '2em', marginLeft: '10px' }} size="huge" color="yellow">1. Upload</Header>
+        <div style={{ 'font-size': '20px', color: '#663300', marginLeft: '20px' }}><strong>.csv file</strong></div>
+        <ReactFileReader handleFiles={(file) => { CSVconverter(this.converter, file[0], true); this.setState({ ...this.state, filename: file[0].name }); }} fileTypes={['.csv']} multipleFiles={false}>
+          <Button color="yellow" disabled={this.props.progress != 0} floated="left" style={{ margin: '10px' }}>Upload</Button>
         </ReactFileReader>
+        <Header size="big" floated="left" style={{ paddingTop: 15 }} color="black">{this.state.filename}</Header>
         <div align="right">
           <Button
+            color="yellow"
             align="right"
             style={{ marginRight: '20pt', width: '100pt' }}
             onClick={() => { this.props.uploadOnClick(this.state.converted_file); }}
             disabled={this.props.progress != 0}
           >
-        Continue
+          Continue
           </Button>
         </div>
-      </div>
+      </Segment>
     );
   }
 }
