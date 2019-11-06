@@ -6,7 +6,7 @@ import CSVconverter from '../../CSVconverter/CSVconverter';
 
 class UploadFile extends Component {
   state = {
-    converted_file: '',
+    converted_file: null,
     filename: 'upload your file!',
 
   }

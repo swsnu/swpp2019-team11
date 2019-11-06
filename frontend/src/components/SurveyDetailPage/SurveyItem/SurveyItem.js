@@ -6,7 +6,7 @@ import ScrollArea from 'react-scrollbar';
 
 function SurveyItem(props) {
   const responses = props.response.map(rs => {
-    if(props.question_type == '객관식')
+    if(props.question_type === 'Selection')
     {
       return (
         <ItemResponse
