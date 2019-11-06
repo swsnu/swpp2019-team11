@@ -34,7 +34,7 @@ class UploadPage extends Component {
       else if (this.state.progress == 2) this.setState({ ...this.state, progress: 1 });
     }
 
-    EditHandler = (check_list, type_list, title, startDate, endDate) => {
+    EditHandler = (check_list, type_list, title, content, startDate, endDate) => {
       if (this.state.progress == 1) {
         this.state.parsed_file.title = title;
         this.state.parsed_file.survey_start_date = (startDate ? startDate.format('YYYY/MM/DD') : null);

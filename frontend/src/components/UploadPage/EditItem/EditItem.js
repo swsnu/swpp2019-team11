@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DateRangePicker } from 'react-dates';
 import {
-  Grid, Header, Button, Segment, Input,
+  Grid, Header, Button, Segment, Input, TextArea, Form,
 } from 'semantic-ui-react';
 import ItemBlock from '../ItemBlock/ItemBlock';
 
@@ -12,6 +12,7 @@ class EditItem extends Component {
     check: [],
     type: [],
     title: '',
+    content: '',
     startDate: null,
     endDate: null,
     focusedInput: null,
@@ -56,7 +57,7 @@ class EditItem extends Component {
           >
 2. Edit Your Survey
           </Header>
-          <Segment style={{ height: 165 }}>
+          <Segment style={{ height: 450 }}>
             <Grid>
               <Grid.Row>
                 <Header floated="left" color="olive" style={{ 'font-size': '22px', marginLeft: '20px' }}>
@@ -88,6 +89,14 @@ class EditItem extends Component {
                   />
                 </Header>
               </Grid.Row>
+              <Grid.Row>
+                <Header floated="left" color="olive" style={{ 'font-size': '22px', marginLeft: '20px' }}>
+                  Brief Description:
+                </Header>
+                <Form style={{ height: '200px', width: '600px' }}>
+                  <TextArea onChange={(e) => { this.setState({ ...this.state, content: e.target.value }); }} style={{ height: '200px', width: '600px' }} />
+                </Form>
+              </Grid.Row>
             </Grid>
           </Segment>
           {this.state.item}
@@ -102,6 +111,7 @@ class EditItem extends Component {
                       this.state.check,
                       this.state.type,
                       this.state.title,
+                      this.state.content,
                       this.state.startDate,
                       this.state.endDate,
                     );
