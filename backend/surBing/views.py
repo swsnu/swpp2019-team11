@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, Http
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Survey, Cart, SurBingUser, Item, Response
-
 # Create your views here.
 
 def check_logged_in(func):
@@ -22,6 +21,12 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
+
+def checklogin(request):
+    if request.user.is_authenticated:
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=401)
 
 def signup(request):    #create new
     if request.method == 'POST':
@@ -109,6 +114,7 @@ def surveys(request):
             survey_end_date=survey_end_date,
             content=content, respondant_count=respondant_count
         )
+        cur_survey.save()
         for item in items:
             try:
                 responses = item['response']
@@ -117,6 +123,7 @@ def surveys(request):
             except KeyError:
                 return HttpResponse(status=400)
             cur_item = Item(title=title, question_type=question_type)
+            cur_item.save()
             for response in responses:
                 try:
                     respondant_id = response['respondant_id']
@@ -141,6 +148,7 @@ def survey(request, survey_id):
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
         survey_dict = {
+            'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
             'upload_date': survey.upload_date,
             'survey_start_date': survey.survey_start_date,
@@ -162,7 +170,6 @@ def survey(request, survey_id):
                 })
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
-
     else:
         return HttpResponseBadRequest(['GET'])
 
