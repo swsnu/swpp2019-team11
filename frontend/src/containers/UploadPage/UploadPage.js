@@ -58,6 +58,6 @@ class UploadPage extends Component {
     }
 }
 const mapDispatchToProps = (dispatch) => ({
-  checklogIn: () => dispatch(actionCreators.checklogIn()),  
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
 });
 export default connect(null, mapDispatchToProps)(withRouter(UploadPage));

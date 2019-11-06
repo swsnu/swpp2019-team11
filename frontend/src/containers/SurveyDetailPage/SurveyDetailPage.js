@@ -26,7 +26,6 @@ class SurveyDetailPage extends Component {
         this.setState({ ...this.state, title: this.props.title });
       })
       .catch(() => { this.props.history.push('/login/'); });
-    
   }
 
   render() {
