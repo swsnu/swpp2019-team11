@@ -36,8 +36,8 @@ class Submit extends Component {
           </Grid>
           <div align="right">
 
-            <Button color = 'green'  onClick={this.checkValidation} style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}> Yes I admit </Button>
-            <Button color = 'green' onClick={this.props.backOnClick}>Back</Button>
+            <Button color="green" onClick={this.checkValidation} style={{ 'margin-top': '15px', marginRight: '20pt', width: '100pt' }}> Yes I admit </Button>
+            <Button color="green" onClick={this.props.backOnClick}>Back</Button>
           </div>
         </Segment>
       );

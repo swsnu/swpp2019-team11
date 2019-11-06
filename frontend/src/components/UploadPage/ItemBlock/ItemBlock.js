@@ -30,7 +30,7 @@ class ItemBlock extends Component {
     });
     return (
       <Segment
-        style={this.state.checked ? { backgroundColor: '#E4F7BA' } : { backgroundColor: '#F15F5F' } }
+        style={this.state.checked ? { backgroundColor: '#E4F7BA' } : { backgroundColor: '#F15F5F' }}
         padded
       >
         <Grid columns={1}>
