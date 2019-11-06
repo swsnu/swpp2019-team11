@@ -34,6 +34,11 @@ class SearchBar extends Component {
     }
   }
 
+  enterListener = (event) => {
+    const code = event.keyCode || event.which;
+    if (code === 13) this.clickListener();
+  }
+
   render() {
     return (
       <Input
@@ -42,6 +47,7 @@ class SearchBar extends Component {
         fluid
         value={this.state.value}
         onChange={(e) => this.setState({ ...this.state, value: e.target.value })}
+        onKeyPress={(e) => { this.enterListener(e); }}
         action={{
           icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
         }}
