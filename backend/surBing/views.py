@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, Http
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Survey, Cart, SurBingUser, Item, Response
-
 # Create your views here.
 
 def check_logged_in(func):
@@ -22,6 +21,12 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
+
+def checklogin(request):
+    if request.user.is_authenticated:
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=401)
 
 def signup(request):    #create new
     if request.method == 'POST':

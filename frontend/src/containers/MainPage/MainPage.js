@@ -4,8 +4,13 @@ import { Grid, Header, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
+import * as actionCreators from '../../store/actions/index';
 
 class MainPage extends Component {
+  componentDidMount() {
+    this.props.checklogIn().then(() => {}).catch(() => { this.props.history.push('/login/'); });
+  }
+
   addSurveyHandler = () => {
     this.props.history.push('/upload');
   }
@@ -34,4 +39,8 @@ class MainPage extends Component {
   }
 }
 
-export default connect(null, null)(withRouter(MainPage));
+const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
+});
+
+export default connect(null, mapDispatchToProps)(withRouter(MainPage));

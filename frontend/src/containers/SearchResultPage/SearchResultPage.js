@@ -9,6 +9,7 @@ import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchF
 import * as actionCreators from '../../store/actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
   onAddCart: (id) => dispatch(actionCreators.addCart(id)),
 });
@@ -52,10 +53,16 @@ class SearchResultPage extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      survey_component_list: this.props.survey_list
-        .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />),
-    });
+    this.props.checklogIn()
+      .then(() => {
+        this.setState({
+          survey_component_list: this.props.survey_list
+            .map((survey) => (
+              <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />
+            )),
+        });
+      })
+      .catch(() => { this.props.history.push('/login/'); });
   }
 
   componentDidUpdate(prevProps, prevState) {

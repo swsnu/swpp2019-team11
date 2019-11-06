@@ -8,11 +8,6 @@ import EditItem from '../../components/UploadPage/EditItem/EditItem';
 import Submit from '../../components/UploadPage/Submit/Submit';
 import TopBar from '../../components/TopBar/TopBar';
 
-
-const mapDispatchToProps = (dispatch) => ({
-  onUpload: (survey) => { dispatch(actionCreators.uploadSurvey(survey)); },
-});
-
 class UploadPage extends Component {
     state = {
       progress: 0,
@@ -20,7 +15,9 @@ class UploadPage extends Component {
     }
 
     componentDidMount = () => {
-      this.setState({ progress: 0 });
+      this.props.checklogIn()
+        .then(() => { this.setState({ progress: 0 }); })
+        .catch(() => { this.props.history.push('/login/'); });
     }
 
     UploadHandler = (file) => {
@@ -82,5 +79,10 @@ class UploadPage extends Component {
       );
     }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  checklogIn: () => dispatch(actionCreators.checklogIn()),
+  onUpload: (survey) => { dispatch(actionCreators.uploadSurvey(survey)); },
+});
 
 export default connect(null, mapDispatchToProps)(UploadPage);
