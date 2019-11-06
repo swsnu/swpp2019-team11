@@ -114,6 +114,7 @@ def surveys(request):
             survey_end_date=survey_end_date,
             content=content, respondant_count=respondant_count
         )
+        cur_survey.save()
         for item in items:
             try:
                 responses = item['response']
@@ -122,6 +123,7 @@ def surveys(request):
             except KeyError:
                 return HttpResponse(status=400)
             cur_item = Item(title=title, question_type=question_type)
+            cur_item.save()
             for response in responses:
                 try:
                     respondant_id = response['respondant_id']
@@ -167,7 +169,6 @@ def survey(request, survey_id):
                 })
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
-
     else:
         return HttpResponseBadRequest(['GET'])
 
