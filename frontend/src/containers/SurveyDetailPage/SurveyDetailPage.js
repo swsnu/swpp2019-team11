@@ -37,6 +37,10 @@ class SurveyDetailPage extends Component {
   }
 
   render() {
+    if (this.props.survey === undefined) {
+      return <div />;
+    }
+
     const items = this.props.survey.item.map((it) => (
       <SurveyItem
         title={it.title}
