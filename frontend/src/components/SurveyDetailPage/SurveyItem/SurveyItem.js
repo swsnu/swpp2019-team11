@@ -28,7 +28,7 @@ function SurveyItem(props) {
         celled
         color="teal"
         style={{
-          width: '800px', margin: 20, 'font-size': '1.5em',
+          width: '800px', margin: 20, 'font-size': '2em',
         }}
       >
         <Table.Header>

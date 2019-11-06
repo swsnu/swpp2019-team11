@@ -63,7 +63,7 @@ class SurveyDetailPage extends Component {
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
-                <Table.Body style={{ 'font-size': '0.8em' }}>
+                <Table.Body style={{ 'font-size': '1.2em' }}>
                   <Table.Row>
                     <Table.Cell>
                     Upload Date :
