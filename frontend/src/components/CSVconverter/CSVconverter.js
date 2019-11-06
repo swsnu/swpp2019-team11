@@ -59,9 +59,7 @@ const CSVconverter = (func, data, type) => {
       });
       return item;
     });
-    
-    return_data = return_array.map(e => e.join(',')).join('\n');
-
+    return_data = return_array.map((e) => e.join(',')).join('\n');
     func(return_data);
   }
 };

@@ -41,14 +41,13 @@ class CartPage extends Component {
 
   getCSV = (id) => new Promise((resolve, reject) => {
     this.props.getSurvey(id)
-      .then((res) => { console.log(res); CSVconverter(resolve, res.data, false); })
+      .then((res) => { CSVconverter(resolve, res.data, false); })
       .catch((error) => { reject(error); });
   });
 
   onClickDownload = () => {
-    console.log('asdf');
     const len = this.state.isChecked.length;
-    const zip = require('jszip')();
+    const zip = require('jszip')(); // eslint-disable-line
     for (let i = 0; i < len; i++) {
       if (this.state.isChecked[i]) {
         const cur_survey = this.props.survey_list[i];
