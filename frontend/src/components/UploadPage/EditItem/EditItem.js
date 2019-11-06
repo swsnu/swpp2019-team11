@@ -49,7 +49,7 @@ class EditItem extends Component {
         return item;
       });
       return (
-        <Segment color="olive">
+        <Segment disabled = {this.props.progress==2} color="olive">
           <Header
             style={{ 'font-size': '2em', 'margin-left': '10px' }}
             size="huge"
