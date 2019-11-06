@@ -37,7 +37,7 @@ class SurveyDetailPage extends Component {
   }
 
   render() {
-    if (this.props.survey === undefined) {
+    if (this.props.survey === undefined || this.props.survey.item === undefined) {
       return <div />;
     }
 
