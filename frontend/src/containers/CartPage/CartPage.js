@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import {
   Grid, Header, Segment, Checkbox, Button, Divider, Label,
 } from 'semantic-ui-react';
+import { saveAs } from 'file-saver';
 import MLResult from '../../components/CartPage/MLResult/MLResult';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
 import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
+import CSVconverter from '../../components/CSVconverter/CSVconverter';
 
 class CartPage extends Component {
   state = {
@@ -37,7 +39,23 @@ class CartPage extends Component {
     this.props.getMLResult(id_list);
   }
 
+  getCSV = (id) => new Promise((resolve, reject) => {
+    this.props.getSurvey(id)
+      .then((res) => { CSVconverter(resolve, res.data, false); })
+      .catch((error) => { reject(error); });
+  });
+
   onClickDownload = () => {
+    const len = this.state.isChecked.length;
+    const zip = require('jszip')(); // eslint-disable-line
+    for (let i = 0; i < len; i++) {
+      if (this.state.isChecked[i]) {
+        const cur_survey = this.props.survey_list[i];
+        const filename = `${cur_survey.id}_${cur_survey.title.replace(/ /g, '_')}.csv`;
+        zip.file(filename, this.getCSV(cur_survey.id), { binary: true });
+      }
+    }
+    zip.generateAsync({ type: 'blob' }).then((blob) => { saveAs(blob, 'surveys.zip'); });
   }
 
   onClickDeleteFromCart = () => {
@@ -196,6 +214,7 @@ button.
 const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCartSurveyList: () => dispatch(actionCreators.getCart()),
+  getSurvey: (id) => dispatch(actionCreators.getSurvey(id)),
   deleteCart: (id_list) => dispatch(actionCreators.deleteCart(id_list)),
   getMLResult: (id_list) => dispatch(actionCreators.getML(id_list)),
 });
@@ -203,6 +222,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   survey_list: state.ct.survey_list,
   ml_result: state.ct.ml_result,
+  survey: state.sv.survey,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CartPage));

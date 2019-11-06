@@ -14,6 +14,7 @@ export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: s
 
 export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/${id}/`).then((res) => {
   dispatch(getSurvey_(res.data));
+  return res;
 });
 
 export const uploadSurvey_ = (survey) => ({ type: actionTypes.ADD_SURVEY, target: survey });
