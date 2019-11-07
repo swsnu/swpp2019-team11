@@ -35,25 +35,26 @@ class ItemBlock extends Component {
       >
         <Grid columns={1}>
           <Grid.Row
+            style = {{cursor:'pointer'}}
             onClick={() => {
               this.props.check(this.props.id, !this.state.checked);
               this.setState({ ...this.state, checked: !this.state.checked });
             }}
             verticlaAlign="middle"
           >
-            <Header floated="left" color="olive" style={{ 'font-size': '22px', 'margin-left': '17px' }}>
+            <Header floated="left" color={ this.state.checked ? "olive" : "red"} style={{ 'font-size': '22px', 'margin-left': '17px' }}>
               Q
-              {this.props.id + 1}
-:
+              {this.props.id + 1}:
             </Header>
             <Header floated="left" color="black" style={{ 'font-size': '22px' }}>
               {this.props.title}
             </Header>
           </Grid.Row>
           <Grid.Row style={{ marginTop: -30, marginBottom: 20 }}>
-            <Header floated="left" color="olive" style={{ 'font-size': '22px', 'margin-left': '17px' }}>
+            <Header floated="left" color={ this.state.checked ? "olive" : "red"} style={{ 'font-size': '22px', 'margin-left': '17px' }}>
               Question Type:
               <Button
+                disabled = {!this.state.checked}
                 style={{ marginLeft: 5 }}
                 basic
                 color="black"
@@ -67,7 +68,7 @@ class ItemBlock extends Component {
             </Header>
           </Grid.Row>
         </Grid>
-        <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 250, border: 'none' }}>
+        <ScrollArea speed={0.8} horizontal={false} style={{maxHeight: 250, border: 'none' }}>
           <Segment style={{ padding: -20, border: 'none' }}>
             {this.state.response_block}
           </Segment>
