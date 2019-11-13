@@ -41,8 +41,9 @@ class SurveyDetailPage extends Component {
       return <div />;
     }
 
-    const items = this.props.survey.item.map((it) => (
+    const items = this.props.survey.item.map((it, it_index) => (
       <SurveyItem
+        number={it_index + 1}
         title={it.title}
         question_type={it.question_type}
         response={it.response}
@@ -52,7 +53,7 @@ class SurveyDetailPage extends Component {
     return (
       <div className="SurveyDetailPage">
         <TopBar searchBar />
-        <Grid columns={2} style={{ minWidth: '800px', maxWidth: '800px' }}>
+        <Grid columns={2} style={{ maxWidth: '1000px' }}>
           <Grid.Row>
             <Grid.Column style={{ width: '400px' }}>
               <Table celled style={{ margin: 20, height: 200, width: '450px' }}>
@@ -82,12 +83,12 @@ class SurveyDetailPage extends Component {
                       {this.props.survey.survey_end_date}
                       {' '}
                       <br />
-                    author :
+                    Author :
                       {' '}
                       {this.props.survey.author}
                       {' '}
                       <br />
-                    respondant_count :
+                    Number of Respondants :
                       {' '}
                       {this.props.survey.respondant_count}
                       {' '}

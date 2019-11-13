@@ -11,7 +11,7 @@ class SearchFilter extends Component {
     startDate: null,
     endDate: null,
     focusedInput: null,
-    respondant: [10, 1000],
+    respondant: [1, 1000],
 
   }
 
