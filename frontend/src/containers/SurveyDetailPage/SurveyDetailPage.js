@@ -43,7 +43,7 @@ class SurveyDetailPage extends Component {
 
     const items = this.props.survey.item.map((it, it_index) => (
       <SurveyItem
-        number = {it_index+1}
+        number={it_index + 1}
         title={it.title}
         question_type={it.question_type}
         response={it.response}
@@ -60,7 +60,7 @@ class SurveyDetailPage extends Component {
                 <Table.Header color="teal">
                   <Table.Row>
                     <Table.HeaderCell style={{ textColor: 'teal' }}>
-                      <Label ribbon style={{ color: '#00B5AD', 'font-size': '2em'}}>
+                      <Label ribbon style={{ color: '#00B5AD', 'font-size': '2em' }}>
                         {' '}
                         {this.props.survey.title}
                         {' '}

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Table, Segment, Header, Grid } from 'semantic-ui-react';
+import {
+  Table, Segment, Header, Grid,
+} from 'semantic-ui-react';
 import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
 import ItemResponseShort from './ItemResponse/ItemResponseShort';
@@ -27,15 +29,21 @@ function SurveyItem(props) {
       <Table
         celled
         color="teal"
-        size = 'huge'
+        size="huge"
         style={{
-          margin: 30, 'font-size': '1em', 
+          margin: 30, 'font-size': '1em',
         }}
       >
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell >
-              <Header style={{ color: '#00B5AD', 'font-size' : '2em' }}>Q{props.number}.{' '}{props.title}</Header>
+            <Table.HeaderCell>
+              <Header style={{ color: '#00B5AD', 'font-size': '2em' }}>
+Q
+                {props.number}
+.
+                {' '}
+                {props.title}
+              </Header>
               <p style={{ textAlign: 'right', color: 'black', 'font-size': '1.4em' }}>
             type :
                 {' '}
