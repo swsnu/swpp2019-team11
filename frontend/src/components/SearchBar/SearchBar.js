@@ -42,7 +42,7 @@ export class SearchBar extends Component {
   render() {
     return (
       <Input
-        className = 'SearchBar'
+        className="SearchBar"
         style={{ width: this.props.width, minWidth: this.props.minWidth }}
         size={this.props.size}
         fluid
@@ -50,7 +50,7 @@ export class SearchBar extends Component {
         onChange={(e) => this.setState({ ...this.state, value: e.target.value })}
         onKeyPress={(e) => { this.enterListener(e); }}
         action={{
-          className : 'searchButton',icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
+          className: 'searchButton', icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
         }}
         placeholder="Search..."
       />

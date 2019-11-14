@@ -32,7 +32,6 @@ export class SurveyDetailPage extends Component {
 
   onClickDownload() {
     CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`); }, this.props.survey, false);
-    
   }
 
   render() {
@@ -101,7 +100,7 @@ export class SurveyDetailPage extends Component {
               </Table>
             </Grid.Column>
             <Grid.Column verticalAlign="center" textAlign="middle">
-              <Button className = 'downloadButton' onClick={() => this.onClickDownload()}>
+              <Button className="downloadButton" onClick={() => this.onClickDownload()}>
                 <Icon size="large" name="file outline" />
                 {' '}
 Download

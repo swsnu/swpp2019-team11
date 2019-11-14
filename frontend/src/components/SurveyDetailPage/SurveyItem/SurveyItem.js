@@ -16,18 +16,17 @@ function SurveyItem(props) {
         />
       );
     }
-    else{
-      return (
-        <ItemResponseShort
-          respondant_id={rs.respondant_id}
-          content={rs.content}
-        />
-      ); 
-    }
+
+    return (
+      <ItemResponseShort
+        respondant_id={rs.respondant_id}
+        content={rs.content}
+      />
+    );
   });
 
   return (
-    <Grid className = 'SurveyItem'>
+    <Grid className="SurveyItem">
       <Table
         celled
         color="teal"
