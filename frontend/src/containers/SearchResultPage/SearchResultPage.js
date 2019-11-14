@@ -75,9 +75,9 @@ export class SearchResultPage extends Component {
         survey_component_list: this.props.survey_list
           .filter((survey) => (
             (this.state.startDate == null
-              ? true : !this.state.startDate.isAfter(moment(survey.survey_end_date)))
+              ? true : !moment(this.state.startDate).isAfter(moment(survey.survey_end_date)))
           && (this.state.endDate == null
-            ? true : !this.state.endDate.isBefore(moment(survey.survey_start_date)))
+            ? true : !moment(this.state.endDate).isBefore(moment(survey.survey_start_date)))
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))

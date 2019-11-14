@@ -39,7 +39,22 @@ describe("<SearchResultPage />", () => {
   
 })
 
-jest.mock('../../components/')
+
+jest.mock('../../components/TopBar/TopBar', () => {
+  return jest.fn(props => null)
+})
+jest.mock('../../components/SurveyBlock/SurveyBlock.js', () => {
+  return jest.fn(props => null)
+})
+jest.mock('../../components/SearchResultPage/SearchFilter/SearchFilter.js', () => {
+  return jest.fn(props => null)
+})
+jest.mock('moment', () => {
+  return () => ({ 
+    isAfter : jest.fn(props => false),
+    isBefore : jest.fn(props => false)
+  })
+})
 
 describe("component lifecycle methods test", () => {
   beforeEach(() => { jest.clearAllMocks(); });
@@ -58,10 +73,11 @@ describe("component lifecycle methods test", () => {
       survey_end_date : '2018-12-12'
     }]
   };
-  var component = mount(<Provider store = {svl : []}><MemoryRouter><SearchResultPage {...props} /></MemoryRouter></Provider>);
+  var component = mount(<SearchResultPage {...props} />);
   var instance = component.instance();
-  it("componentDidMount test", () => {
+  it("componentDidMount test", (done) => {
     expect(mockCheckLogIn).toHaveBeenCalledTimes(1)
+    done()
   })
   it("component update test", () => {
     instance.setState({startDate : '2020-01-01'})
@@ -69,6 +85,10 @@ describe("component lifecycle methods test", () => {
     const wrapper = component.find('.surveyBlock')
     expect(wrapper.length).toBe(0)
     
+  })
+  it("test filter handler", () => {
+    instance.filterHandler(null, null, [10, 100])
+    expect(instance.state.respondant_min).toEqual(10)
   })
 })
 
