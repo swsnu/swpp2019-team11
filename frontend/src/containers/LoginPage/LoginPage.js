@@ -6,6 +6,10 @@ import {
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
+export const mapDispatchToProps = (dispatch) => ({
+  logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
+});
+
 export class LoginPage extends Component {
   state = {
     username: '',
@@ -62,8 +66,5 @@ export class LoginPage extends Component {
   }
 }
 
-export const mapDispatchToProps = (dispatch) => ({
-  logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
-});
-
-export default connect(null, mapDispatchToProps)(withRouter(LoginPage));
+export default connect (null, mapDispatchToProps)(withRouter(LoginPage));
+//export default LoginPage;
