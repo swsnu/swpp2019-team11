@@ -8,6 +8,8 @@ describe('<LoginPage/>', () => {
     password:"1234"
   }
   it('asdf', () => {
-    const component =  shallow(<LoginPage/>);
+    const component = mount(<LoginPage/>);
+    const wrapper = component.find('.login');
+    expect(wrapper.length).toBe(1);
   })
 })
