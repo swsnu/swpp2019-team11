@@ -1,35 +1,40 @@
 matrix:
   include:
-  - language: node_js
+  - language: 
+    - python
+    cache:
+      yarn: true
+      pip: true
     node_js:
     - '10'
-    before_install:
-    - cd frontend
-    install:
-    - yarn install
-    - npm install
-    - npm install coveralls
-    script:
-    - ./node_modules/.bin/eslint src/
-    - yarn test --coverage --watchAll=false
-    after_success:
-    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - language: python
     python:
     - '3.6'
-    before_install:
-    - cd backend
     install:
+    - cd frontend
+    - npm install
+    - npm install coveralls
+    - gem install coveralls-lcov
+    - cd ../backend
     - pip3 install django
     - pip3 install pylint
     - pip3 install pylint-django
     - pip3 install coverage
     - pip3 install coveralls
+    - cd ..
     script:
+    - cd frontend
+    - ./node_modules/.bin/eslint src/
+    - yarn test --coverage --watchAll=false
+    - cd ../backend
     - pylint **/*.py --load-plugins=pylint_django
-    - coverage run --source="./surBing/" manage.py test
+    - coverage run --source='.' manage.py test
+    - coverage xml
+    - cd ..
     after_success:
-    - coveralls
+    - cd frontend
+    - coveralls-lcov -v -n coverage/lcov.info > coverage.json
+    - cd ../backend
+    - coveralls --merge=../frontend/coverage.json
   - dist: trusty
     addons:
       sonarcloud:
