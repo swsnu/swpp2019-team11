@@ -7,7 +7,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
-class SignupPage extends Component {
+export class SignupPage extends Component {
   state = {
     email: '',
     username: '',
