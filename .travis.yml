@@ -16,13 +16,17 @@ matrix:
     - gem install coveralls-lcov
     - cd ../backend
     - pip3 install django
+    - pip3 install pylint
+    - pip3 install pylint-django
     - pip3 install coverage
     - pip3 install coveralls
     - cd ..
     script:
     - cd frontend
+    - ./node_modules/.bin/eslint src/
     - yarn test --coverage --watchAll=false
     - cd ../backend
+    - pylint **/*.py --load-plugins=pylint_django
     - coverage run --source='.' manage.py test
     - coverage xml
     - cd ..
@@ -31,15 +35,6 @@ matrix:
     - coveralls-lcov -v -n coverage/lcov.info > coverage.json
     - cd ../backend
     - coveralls --merge=../frontend/coverage.json
-  - language: node_js
-    node_js:
-    - '10'
-    before_install:
-    - cd frontend
-    install:
-    - npm install
-    script:
-    - ./node_modules/.bin/eslint src/
   - dist: trusty
     addons:
       sonarcloud:
@@ -48,14 +43,3 @@ matrix:
           secure: "WPXukULFRPxdzkTYVdRmv9Cp00fSIAncSmgATCB0roFsojHh0Qvcnt3EjW0nsQ6huocI8kiuchhtIg/oKXljTQeBw3jMfI8VUhpGf2uvGiZI/sG50uFZSvPepB9OTUDohlsTUkhm7hjEAYCqCoaO1lEnOZKrTZobF+UZz6ICjuCYnmc0fvJDpPjMZ7sWaM/16SOsQQk3ATcJs2bzyPlJFsYiPQIY7gyoBxdcXpojDtNPZx70DisRcUhCl//Z0jqx1UQlrsG1hRSSoyRr534GvfLDJvXMZ2aCmOU2b7hz2ZDAhLMpIV9VmtYXlJxz9lRNtcI9NVqdis5qXtTPE3A5TIQyesRMiePXMCV+/mEa6nw8ghQrLKSrIbfkwcS6kwfiTV3ZrGEZ69QHaiBj5pY1GJw5HI97tK7iFxDqaRziVPxW/yS7BSWvd8fWRvVERkPONkypdrSmD5q5cMnnKxNP55GzkvOBrbj5XqSTXMnuPiY0mqk9GerHjH2iIfTTo9e5BOZIcFnqZlsz/kGIxREeSijkt0Blw+DjxGBK/z5FT2kO3PqUR7dCKmz1g6g9sVTHsXDicq3dYWWCZKWmkcl9tDgYGEmBdDohqvwLyyd+krqfwaVVsYelRwNajr5hNS2/XwaqUE6NTBUE2Afi9vIvSnT5kIoUcJJjKfW6OgQ3flg="
     script:
     - sonar-scanner
-  - language: python
-    python:
-    - '3.6'
-    before_install:
-    - cd backend
-    install:
-    - pip3 install django
-    - pip3 install pylint
-    - pip3 install pylint-django
-    script:
-    - pylint **/*.py --load-plugins=pylint_django
