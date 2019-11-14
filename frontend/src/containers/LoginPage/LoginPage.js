@@ -37,7 +37,7 @@ class LoginPage extends Component {
                   placeholder="Username"
                 />
                 <Form.Input
-                  fluid
+                  fluid 
                   icon="lock"
                   iconPosition="left"
                   placeholder="Password"
