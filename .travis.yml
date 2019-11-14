@@ -8,7 +8,7 @@ matrix:
     node_js:
     - '10'
     python:
-    - '3.6.8'
+    - '3.6'
     dist: trusty
     addons:
       sonarcloud:
