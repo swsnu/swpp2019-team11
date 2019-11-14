@@ -30,8 +30,9 @@ matrix:
     script:
     install:
     - cd frontend
-    - yarn install
     - npm install
+    - npm install yarn
+    - yarn install
     - npm install coveralls
     - gem install coveralls-lcov
     - pip3 install django
