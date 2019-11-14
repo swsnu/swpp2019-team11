@@ -59,7 +59,7 @@ export class SignupPage extends Component {
                   value={this.state.password_confirmation}
                   onChange={(e) => this.setState({ password_confirmation: e.target.value })}
                 />
-                <Button color="teal" fluid size="large" onClick={() => this.signupHandler()}>
+                <Button id = "signupButton" color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
               </Segment>
