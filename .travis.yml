@@ -1,27 +1,6 @@
 matrix:
   include:
-  - language: node_js
-    node_js:
-    - '10'
-    before_install:
-    - cd frontend
-    install:
-    - yarn install
-    - npm install
-    script:
-    - ./node_modules/.bin/eslint src/
-  - language: python
-    python:
-    - '3.6'
-    before_install:
-    - cd backend
-    install:
-    - pip3 install django
-    - pip3 install pylint
-    - pip3 install pylint-django
-    script:
-    - pylint **/*.py --load-plugins=pylint_django
-  - node_js:
+   - node_js:
     - '10'
     python:
     - '3.6'
@@ -55,3 +34,24 @@ matrix:
     - coveralls-lcov -v -n coverage/lcov.info > coverage.json
     - cd ../backend
     - coveralls --merge=../frontend/coverage.json
+  - language: node_js
+    node_js:
+    - '10'
+    before_install:
+    - cd frontend
+    install:
+    - yarn install
+    - npm install
+    script:
+    - ./node_modules/.bin/eslint src/
+  - language: python
+    python:
+    - '3.6'
+    before_install:
+    - cd backend
+    install:
+    - pip3 install django
+    - pip3 install pylint
+    - pip3 install pylint-django
+    script:
+    - pylint **/*.py --load-plugins=pylint_django
