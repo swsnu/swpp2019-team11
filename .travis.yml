@@ -9,12 +9,6 @@ matrix:
     - '10'
     python:
     - '3.6'
-    dist: trusty
-    addons:
-      sonarcloud:
-        organization: "swsnu"
-        token:
-          secure: "WPXukULFRPxdzkTYVdRmv9Cp00fSIAncSmgATCB0roFsojHh0Qvcnt3EjW0nsQ6huocI8kiuchhtIg/oKXljTQeBw3jMfI8VUhpGf2uvGiZI/sG50uFZSvPepB9OTUDohlsTUkhm7hjEAYCqCoaO1lEnOZKrTZobF+UZz6ICjuCYnmc0fvJDpPjMZ7sWaM/16SOsQQk3ATcJs2bzyPlJFsYiPQIY7gyoBxdcXpojDtNPZx70DisRcUhCl//Z0jqx1UQlrsG1hRSSoyRr534GvfLDJvXMZ2aCmOU2b7hz2ZDAhLMpIV9VmtYXlJxz9lRNtcI9NVqdis5qXtTPE3A5TIQyesRMiePXMCV+/mEa6nw8ghQrLKSrIbfkwcS6kwfiTV3ZrGEZ69QHaiBj5pY1GJw5HI97tK7iFxDqaRziVPxW/yS7BSWvd8fWRvVERkPONkypdrSmD5q5cMnnKxNP55GzkvOBrbj5XqSTXMnuPiY0mqk9GerHjH2iIfTTo9e5BOZIcFnqZlsz/kGIxREeSijkt0Blw+DjxGBK/z5FT2kO3PqUR7dCKmz1g6g9sVTHsXDicq3dYWWCZKWmkcl9tDgYGEmBdDohqvwLyyd+krqfwaVVsYelRwNajr5hNS2/XwaqUE6NTBUE2Afi9vIvSnT5kIoUcJJjKfW6OgQ3flg="
     install:
     - cd frontend
     - npm install
@@ -33,7 +27,6 @@ matrix:
     - coverage run --source='.' manage.py test
     - coverage xml
     - cd ..
-    - sonar-scanner
     after_success:
     - cd frontend
     - coveralls-lcov -v -n coverage/lcov.info > coverage.json
@@ -60,3 +53,11 @@ matrix:
     - pip3 install pylint-django
     script:
     - pylint **/*.py --load-plugins=pylint_django
+  - dist: trusty
+    addons:
+      sonarcloud:
+        organization: "swsnu"
+        token:
+          secure: "WPXukULFRPxdzkTYVdRmv9Cp00fSIAncSmgATCB0roFsojHh0Qvcnt3EjW0nsQ6huocI8kiuchhtIg/oKXljTQeBw3jMfI8VUhpGf2uvGiZI/sG50uFZSvPepB9OTUDohlsTUkhm7hjEAYCqCoaO1lEnOZKrTZobF+UZz6ICjuCYnmc0fvJDpPjMZ7sWaM/16SOsQQk3ATcJs2bzyPlJFsYiPQIY7gyoBxdcXpojDtNPZx70DisRcUhCl//Z0jqx1UQlrsG1hRSSoyRr534GvfLDJvXMZ2aCmOU2b7hz2ZDAhLMpIV9VmtYXlJxz9lRNtcI9NVqdis5qXtTPE3A5TIQyesRMiePXMCV+/mEa6nw8ghQrLKSrIbfkwcS6kwfiTV3ZrGEZ69QHaiBj5pY1GJw5HI97tK7iFxDqaRziVPxW/yS7BSWvd8fWRvVERkPONkypdrSmD5q5cMnnKxNP55GzkvOBrbj5XqSTXMnuPiY0mqk9GerHjH2iIfTTo9e5BOZIcFnqZlsz/kGIxREeSijkt0Blw+DjxGBK/z5FT2kO3PqUR7dCKmz1g6g9sVTHsXDicq3dYWWCZKWmkcl9tDgYGEmBdDohqvwLyyd+krqfwaVVsYelRwNajr5hNS2/XwaqUE6NTBUE2Afi9vIvSnT5kIoUcJJjKfW6OgQ3flg="
+    script:
+    - sonar-scanner
