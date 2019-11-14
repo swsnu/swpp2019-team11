@@ -8,17 +8,17 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter';
 import * as actionCreators from '../../store/actions/index';
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
   onAddCart: (id) => dispatch(actionCreators.addCart(id)),
 });
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   survey_list: state.svl.survey_list,
 });
 
-class SearchResultPage extends Component {
+export class SearchResultPage extends Component {
   state = {
     survey_component_list: [],
     startDate: null,
@@ -81,13 +81,13 @@ class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />),
+          .map((survey) => <SurveyBlock className = "surveyBlock" search survey={survey} onClickCart={this.onClickCart} />),
       });
     }
   }
 
   getCartPopup = () => (
-    <Segment style={{ width: '850px' }}>
+    <Segment className = 'cartPopup' style={{ width: '850px' }}>
       <Grid>
         <Grid.Column width={15}>
           survey
@@ -99,7 +99,7 @@ class SearchResultPage extends Component {
           }
         </Grid.Column>
         <Grid.Column width={1} textAlign="right">
-          <Icon name="x" onClick={() => { this.onClickPopupOff(); }} />
+          <Icon name="x" onClick={this.onClickPopupOff} />
         </Grid.Column>
       </Grid>
     </Segment>
@@ -107,7 +107,7 @@ class SearchResultPage extends Component {
 
   render() {
     return (
-      <div style={{ minWidth: '800px' }}>
+      <div className = 'searchResultPage' style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
         <Grid columns={2} divided padded>
           <Grid.Row>

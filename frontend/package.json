@@ -68,7 +68,8 @@
     "react": "^16.11.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dates": "^21.3.1",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "redux-mock-store": "^1.5.3"
   },
   "jest": {
     "collectCoverageFrom": [
