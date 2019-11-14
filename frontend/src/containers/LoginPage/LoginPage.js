@@ -6,7 +6,7 @@ import {
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   state = {
     username: '',
     password: '',
@@ -20,7 +20,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <Grid textAlign="center" columns={2} divided>
+      <Grid className="login" textAlign="center" columns={2} divided>
         <Grid.Row style={{ height: '100vh' }} verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450, minWidth: 300 }}>
             <Header style={{ 'font-size': '4em' }} as="h1" color="teal" textAlign="center">
