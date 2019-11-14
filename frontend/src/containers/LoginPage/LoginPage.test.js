@@ -2,51 +2,56 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { LoginPage } from './LoginPage';
 import {mapDispatchToProps, mapStateToProps} from './LoginPage';
-//import { jssPreset } from '@material-ui/core';
 
-
-jest.mock('react-router-dom', () => {
+jest.mock('react-router-dom', () => { 
   return {
     NavLink : jest.fn(props => false),
     withRouter : jest.fn(cls => cls)
   }
 })
-/*jest.mock('react-redux', () => {
-  return {
-    connect: jest.fn((a,b)=> a)
-  }
-})*/
 
 describe('<LoginPage/>', () => {
   const state = {
     username:"un",
     password:"1234"
   }
-  const mocklogin = jest.fn();
+  const mocklogin = jest.fn((id1, id2)=> new Promise((res, rej)=>{if(id) res(); rej()}))
+  const mockpush = jest.fn();
+  const mockonchange = jest.fn();
   const props = {
-    logIn : mocklogin //mapdispatchtoprops
+    logIn : mocklogin, //mapdispatchtoprops
+    history : mockpush
   };
   
-  it('login', () => {
+  it('loginpage call', () => {
     const component = shallow(<LoginPage {...props}/>);
   })
+
+  it('loginHandler', () => {
+    const mockclick = jest.fn()
+    const component = shallow(<LoginPage {...props } loginHandler = {mockclick}/>);
+    const wrapper = component.find("#loginbutton");
+    expect(wrapper.length).toBe(1);
+    wrapper.simulate('click');
+    expect(mocklogin).toHaveBeenCalledTimes(1);
+  })
+
+  it('onchange', () => {
+    const mocksetState = jest.fn();
+    const component = mount(<LoginPage {...props} setState = {mocksetState}/>);
+    const event = {target: {username: "un"}}
+    const wrapper = component.find("#usernameinput");
+    expect(wrapper.length).toBe(4);
+  })
+
+
 })
 
 
 describe('mapdispatchtoprops', () => {
-  /*const mockPush = jest.fn();
-  const state = {
-    username: "jj",
-    password: "pw"
-  }
-  const props = {
-    history: {push: mockPush}
-  }*/
-  const username = "jj"
-  const password = "pw"
   it ("dispatch", () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).logIn();
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch).toHaveBeenCalledTimes(1);
   })
 })
