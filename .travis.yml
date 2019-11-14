@@ -37,7 +37,6 @@ matrix:
     before_install:
     - cd frontend
     install:
-    - yarn install
     - npm install
     script:
     - ./node_modules/.bin/eslint src/
