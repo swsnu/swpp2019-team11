@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { LoginPage } from './LoginPage';
-import {mapDispatchToProps, mapStateToProps} from './LoginPage';
+import { mapDispatchToProps } from './LoginPage';
 
 jest.mock('react-router-dom', () => { 
   return {
@@ -11,10 +11,6 @@ jest.mock('react-router-dom', () => {
 })
 
 describe('<LoginPage/>', () => {
-  const state = {
-    username:"un",
-    password:"1234"
-  }
   const mocklogin = jest.fn((id1, id2)=> new Promise((res, rej)=>{if(id) res(); rej()}))
   const mockpush = jest.fn();
   const mockonchange = jest.fn();
