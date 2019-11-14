@@ -8,7 +8,7 @@ import {mapDispatchToProps, mapStateToProps} from './LoginPage';
 jest.mock('react-router-dom', () => {
   return {
     NavLink : jest.fn(props => false),
-    withRouter : jest.fn(props => false)
+    withRouter : jest.fn(cls => cls)
   }
 })
 /*jest.mock('react-redux', () => {
