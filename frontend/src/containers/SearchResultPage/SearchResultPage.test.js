@@ -39,8 +39,7 @@ describe("<SearchResultPage />", () => {
   
 })
 
-
-jest.mock('../../components/TopBar/TopBar', () => {
+jest.mock('../../components/TopBar/TopBar.js', () => {
   return jest.fn(props => null)
 })
 jest.mock('../../components/SurveyBlock/SurveyBlock.js', () => {
@@ -57,7 +56,7 @@ jest.mock('moment', () => {
 })
 
 describe("component lifecycle methods test", () => {
-  beforeEach(() => { jest.clearAllMocks(); });
+  
   const mockPush = jest.fn();
   const mockOnAddCart = jest.fn((id) => new Promise((res, rej)=>{if(id) res(); rej()}))
   const mockOnSurveyDetail = jest.fn()
@@ -75,9 +74,9 @@ describe("component lifecycle methods test", () => {
   };
   var component = mount(<SearchResultPage {...props} />);
   var instance = component.instance();
-  it("componentDidMount test", (done) => {
+  it("componentDidMount test", () => {
+    mount(<SearchResultPage {...props} />)
     expect(mockCheckLogIn).toHaveBeenCalledTimes(1)
-    done()
   })
   it("component update test", () => {
     instance.setState({startDate : '2020-01-01'})
