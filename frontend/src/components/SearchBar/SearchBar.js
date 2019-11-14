@@ -16,12 +16,12 @@ import * as actionCreators from '../../store/actions/index';
 
 */
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onSearch: (keyword) => { dispatch(actionCreators.getSurveyList(keyword)); },
 });
 
 
-class SearchBar extends Component {
+export class SearchBar extends Component {
   state = {
     value: '',
   }
@@ -42,6 +42,7 @@ class SearchBar extends Component {
   render() {
     return (
       <Input
+        className = 'SearchBar'
         style={{ width: this.props.width, minWidth: this.props.minWidth }}
         size={this.props.size}
         fluid
@@ -49,7 +50,7 @@ class SearchBar extends Component {
         onChange={(e) => this.setState({ ...this.state, value: e.target.value })}
         onKeyPress={(e) => { this.enterListener(e); }}
         action={{
-          icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
+          className : 'searchButton',icon: 'search', size: this.props.size, color: 'teal', onClick: () => this.clickListener(),
         }}
         placeholder="Search..."
       />

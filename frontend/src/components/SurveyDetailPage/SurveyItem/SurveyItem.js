@@ -8,7 +8,7 @@ import ItemResponseShort from './ItemResponse/ItemResponseShort';
 
 function SurveyItem(props) {
   const responses = props.response.map((rs) => {
-    if (props.question_type === 'Selection') {
+    if (props.question_type == 'Selection') {
       return (
         <ItemResponse
           respondant_id={rs.respondant_id}
@@ -16,16 +16,18 @@ function SurveyItem(props) {
         />
       );
     }
-    return (
-      <ItemResponseShort
-        respondant_id={rs.respondant_id}
-        content={rs.content}
-      />
-    );
+    else{
+      return (
+        <ItemResponseShort
+          respondant_id={rs.respondant_id}
+          content={rs.content}
+        />
+      ); 
+    }
   });
 
   return (
-    <Grid>
+    <Grid className = 'SurveyItem'>
       <Table
         celled
         color="teal"
