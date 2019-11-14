@@ -12,6 +12,8 @@ matrix:
     script:
     - ./node_modules/.bin/eslint src/
     - yarn test --coverage --watchAll=false
+    after_success:
+    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.json
   - language: python
     python:
     - '3.6'
@@ -26,6 +28,8 @@ matrix:
     script:
     - pylint **/*.py --load-plugins=pylint_django
     - coverage run --source="./surBing/" manage.py test
+    after_success:
+    - coveralls
   - dist: trusty
     addons:
       sonarcloud:
