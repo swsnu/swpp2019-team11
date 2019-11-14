@@ -17,7 +17,7 @@ describe('<signupPage/>', () => {
   }
 
   it('signupPage call', () => {
-    const component = shallow(< SignupPage {...props}/>);
+    const component = shallow(< SignupPage {...props}/>);  //그래도 cover는 되더라고?
   });
 
   it('onclick cover', () => {
