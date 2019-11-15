@@ -11,33 +11,52 @@ jest.mock('react-router-dom', () => {
 })
 
 describe('<signupPage/>', () => {
-  const mockSignup = jest.fn((id1, id2, id3)=> new Promise((res, rej)=>{if(id) res(); rej()}))
+  const mockSignup = jest.fn(()=> new Promise((res)=>{res()}))
   const props = {
     signUp: mockSignup
   }
 
   it('signupPage call', () => {
-    const component = shallow(< SignupPage {...props}/>);  //그래도 cover는 되더라고?
+    shallow(< SignupPage {...props}/>); 
   });
 
   it('onclick cover', () => {
-    const mockclick = jest.fn()
-    const component = shallow(< SignupPage {...props} signupHandler = {mockclick} />)
+    const component = shallow(< SignupPage {...props}/>)
     const wrapper = component.find("#signupButton");
     expect(wrapper.length).toBe(1);
     wrapper.simulate('click');
   });
 
-  it('onchange input', () => {
-    const state = {
-      username : ''
-    }
-    const mocksetState = jest.fn();
-    const component = mount(<SignupPage {...props} setState = {mocksetState}/>);
-    const wrapper = component.find("#emailinput");
-    //expect(wrapper.length).toBe(6);
+  it('onchange email input', () => {
+    const component = shallow(<SignupPage {...props}/>);
+    const instance = component.instance()
+    const wrapper = component.find(".Email");
+    wrapper.simulate('change', {target : {value : 'test'}})
+    expect(instance.state.email).toEqual('test')
+  });
+  it('onchange PC input', () => {
+    const component = shallow(<SignupPage {...props}/>);
+    const instance = component.instance()
+    const wrapper = component.find(".PasswordComfirmation");
+    wrapper.simulate('change', {target : {value : 'test'}})
+    expect(instance.state.password_confirmation).toEqual('test')
+  });
+  it('onchange Password input', () => {
+    const component = shallow(<SignupPage {...props}/>);
+    const instance = component.instance()
+    const wrapper = component.find(".Password");
+    wrapper.simulate('change', {target : {value : 'test'}})
+    expect(instance.state.password).toEqual('test')
+  });
+  it('onchange username input', () => {
+    const component = shallow(<SignupPage {...props}/>);
+    const instance = component.instance()
+    const wrapper = component.find(".UserName");
+    wrapper.simulate('change', {target : {value : 'test'}})
+    expect(instance.state.username).toEqual('test')
   });
 })
+
 
 describe('mapDispatchToProps', () => {
   it('call', () => {

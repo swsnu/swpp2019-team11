@@ -13,14 +13,13 @@ jest.mock('react-router-dom', () => {
 describe('<LoginPage/>', () => {
   const mocklogin = jest.fn((id1, id2)=> new Promise((res, rej)=>{if(id) res(); rej()}))
   const mockpush = jest.fn();
-  const mockonchange = jest.fn();
   const props = {
-    logIn : mocklogin, //mapdispatchtoprops
+    logIn : mocklogin, 
     history : mockpush
   };
   
   it('loginpage call', () => {
-    const component = shallow(<LoginPage {...props}/>);
+    shallow(<LoginPage {...props}/>);
   })
 
   it('loginHandler', () => {
@@ -33,19 +32,13 @@ describe('<LoginPage/>', () => {
   })
 
   it('onchange', () => {
-    const state = {
-      username: ''
-    }
-    const mocksetState = jest.fn();
     const mockonchange = jest.fn(() => mocksetState);
-    const component = mount(<LoginPage {...props} onChange = {mockonchange}/>);
-    const event = {target: {username: "un"}}
-    const wrapper = component.find("#usernameinput").first();
-    wrapper.simulate('change', event);
-    //expect(state.username).toEqual("un")
-    //expect(mockonchange).toHaveBeenCalledTimes(1);
-    //expect(mocksetState).toHaveBeenCalledTimes(1);
-    //expect(wrapper.length).toBe(4);
+    const component = shallow(<LoginPage {...props} onChange = {mockonchange}/>);
+    const wrapper = component.find(".UserName").first();
+    wrapper.simulate('change', {target : {value : 'test'}});
+    expect(component.instance().state.username).toEqual('test')
+
+
   })
 
 

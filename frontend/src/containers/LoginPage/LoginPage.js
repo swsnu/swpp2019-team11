@@ -33,8 +33,7 @@ export class LoginPage extends Component {
             <Form size="large" >
               <Segment stacked>
                 <Form.Input
-                  {...console.log("username")}
-                  id = "usernameinput"
+                  className = "UserName"
                   onChange={(event) => this.setState({ username: event.target.value })}
                   value={this.state.username}
                   fluid
