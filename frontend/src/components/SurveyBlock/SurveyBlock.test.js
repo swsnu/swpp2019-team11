@@ -22,7 +22,6 @@ describe('SurveyBlock', () => {
   };
   const component = shallow(<SurveyBlock {...props} />);
   it('should render without error', () => {
-    
     const wrapper = component.find('.SurveyBlock');
     expect(wrapper.length).toBe(1);
   });
@@ -31,7 +30,7 @@ describe('SurveyBlock', () => {
     wrapper.simulate('click');
     expect(mockPush).toHaveBeenCalledTimes(1);
   });
-  it('cart button should be pressed', () => {]
+  it('cart button should be pressed', () => {
     const wrapper = component.find('.cartButton');
     wrapper.simulate('click');
     expect(mockOnClickCart).toHaveBeenCalledTimes(1);
