@@ -18,7 +18,7 @@ def check_logged_in(func):
 @ensure_csrf_cookie
 def token(request):
     if request.method == 'GET':
-        return HttpResponse(status=204)
+        return HttpResponse(status=204) 
     else:
         return HttpResponseNotAllowed(['GET'])
 
@@ -67,7 +67,7 @@ def signin(request):
             return HttpResponse(status=401)
 
     else:
-        return HttpResponseNotAllowed(['POST'])
+        return HttpResponseBadRequest(['POST'])
 
 # logout
 @check_logged_in
@@ -77,7 +77,7 @@ def signout(request):
         return HttpResponse(status=204)
 
     else:
-        return HttpResponseNotAllowed(['GET'])
+        return HttpResponseBadRequest(['GET'])
 
 @check_logged_in
 def search(request, keyword=''):

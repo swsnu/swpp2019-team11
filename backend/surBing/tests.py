@@ -36,3 +36,6 @@ class SurBingTestCase(TestCase):
         #signin decode error
         response = client.post('/api/login/', json.dumps({'userndame':'jomjung', 'password':'1234'}), content_type='application/json')
         self.assertEqual(response.status_code, 400)
+        #signin bad request
+        response = client.get('/api/login/')
+        self.assertEqual(response.status_code, 400)
