@@ -26,6 +26,9 @@ class SurBingTestCase(TestCase):
         #signup existing username error
         response = client.post('/api/signup/', json.dumps({'username':'jomjung', 'password':'1234', 'email':'qwerty@gmail.com'}), content_type='application/json')
         self.assertEqual(response.status_code, 400)
+        #signup bad request
+        response = client.get('/api/signup/')
+        self.assertEqual(response.status_code, 400)
 
         
 
