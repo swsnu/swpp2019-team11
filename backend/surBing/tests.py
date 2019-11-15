@@ -43,7 +43,12 @@ class SurBingTestCase(TestCase):
         response = client.get('/api/login/')
         self.assertEqual(response.status_code, 400)
         
+        #signout bad request
+        response = client.delete('/api/logout/')
+        self.assertEqual(response.status_code, 400)
         #signout test
         response = client.get('/api/logout/')
         self.assertEqual(response.status_code, 204)
+        
+
 
