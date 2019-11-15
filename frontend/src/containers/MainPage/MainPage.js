@@ -6,9 +6,9 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import * as actionCreators from '../../store/actions/index';
 
-class MainPage extends Component {
+export class MainPage extends Component {
   componentDidMount() {
-    this.props.checklogIn().then(() => {}).catch(() => { this.props.history.push('/login/'); });
+    this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
   addSurveyHandler = () => {
@@ -17,7 +17,7 @@ class MainPage extends Component {
 
   render() {
     return (
-      <Grid textAlign="center">
+      <Grid className="MainPage" textAlign="center">
         <Grid.Row textAlign="right" colums={1}>
           <Grid.Column>
             <ProfileButton style={{ margin: '25px' }} />
@@ -30,7 +30,7 @@ class MainPage extends Component {
             </Header>
             <SearchBar size="huge" />
             <br />
-            <Button size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add Your Survey</Button>
+            <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add Your Survey</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -39,7 +39,7 @@ class MainPage extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
 });
 

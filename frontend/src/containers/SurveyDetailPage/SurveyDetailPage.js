@@ -9,16 +9,16 @@ import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import * as actionCreators from '../../store/actions/index';
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
 });
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   survey: state.sv.survey,
 });
 
-class SurveyDetailPage extends Component {
+export class SurveyDetailPage extends Component {
   state = {
   };
 
@@ -31,9 +31,7 @@ class SurveyDetailPage extends Component {
   }
 
   onClickDownload() {
-    let csv = '';
-    CSVconverter((res) => { csv = res; }, this.props.survey, false);
-    saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`);
+    CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`); }, this.props.survey, false);
   }
 
   render() {
@@ -51,7 +49,7 @@ class SurveyDetailPage extends Component {
     ));
 
     return (
-      <div className="SurveyDetailPage">
+      <div className="surveyDetailPage">
         <TopBar searchBar />
         <Grid columns={2} style={{ maxWidth: '1000px' }}>
           <Grid.Row>
@@ -102,7 +100,7 @@ class SurveyDetailPage extends Component {
               </Table>
             </Grid.Column>
             <Grid.Column verticalAlign="center" textAlign="middle">
-              <Button onClick={() => { this.onClickDownload(); }}>
+              <Button className="downloadButton" onClick={() => this.onClickDownload()}>
                 <Icon size="large" name="file outline" />
                 {' '}
 Download

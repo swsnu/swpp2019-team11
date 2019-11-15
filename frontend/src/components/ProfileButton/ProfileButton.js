@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index';
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   logOut: () => dispatch(actionCreators.logOut()),
 });
 
-const ProfileButton = (props) => {
+export const ProfileButton = (props) => {
   const myCartHandler = () => {
     props.history.push('/mycart');
   };

@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   survey_list: [],
-  ml_result: [],
 };
 
 
@@ -18,10 +17,8 @@ const CartReducer = (state = initialState, action = actionTypes.DEFAULT) => {
           (survey) => (action.target.indexOf(survey.id) === -1),
         ),
       };
-
-    case actionTypes.GET_ML:
-      return { ...state, ml_result: action.target };
-
+    case actionTypes.ADD_CART:
+      return { ...state };
     default:
       break;
   }

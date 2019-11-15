@@ -39,6 +39,8 @@ module.exports = {
     "camelcase": [0],
     "no-plusplus": [0],
     "react/sort-comp": [0],
-    "react/no-direct-mutation-state": [0]
+    "react/no-direct-mutation-state": [0],
+    "import/no-named-as-default": [0],
+    "no-shadow": [0],
   },
 };
