@@ -81,13 +81,13 @@ export class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock className = "surveyBlock" search survey={survey} onClickCart={this.onClickCart} />),
+          .map((survey) => <SurveyBlock className="surveyBlock" search survey={survey} onClickCart={this.onClickCart} />),
       });
     }
   }
 
   getCartPopup = () => (
-    <Segment className = 'cartPopup' style={{ width: '850px' }}>
+    <Segment className="cartPopup" style={{ width: '850px' }}>
       <Grid>
         <Grid.Column width={15}>
           survey
@@ -107,7 +107,7 @@ export class SearchResultPage extends Component {
 
   render() {
     return (
-      <div className = 'searchResultPage' style={{ minWidth: '800px' }}>
+      <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
         <Grid columns={2} divided padded>
           <Grid.Row>

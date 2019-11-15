@@ -5,7 +5,7 @@ import {
 import { withRouter } from 'react-router-dom';
 
 
-const SurveyBlock = (props) => {
+export const SurveyBlock = (props) => {
   const search_css = {
     cursor: 'pointer',
     height: '100px',
@@ -25,9 +25,9 @@ const SurveyBlock = (props) => {
 
 
   return (
-    <Grid padded>
+    <Grid className="SurveyBlock" padded>
       <Grid.Row style={{ minWidth: '1000px' }} verticalAlign="middle">
-        <Segment style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.history.push(`/survey/${props.survey.id}`); }}>
+        <Segment className="clickSegment" style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.history.push(`/survey/${props.survey.id}`); }}>
           <Grid divided>
             <Grid.Column width={11}>
               <Header size="big">{props.survey.title}</Header>
@@ -56,6 +56,7 @@ const SurveyBlock = (props) => {
         </Segment>
         {props.search ? (
           <Button
+            className="cartButton"
             color="teal"
             verticalAlign="middle"
             floated="right"

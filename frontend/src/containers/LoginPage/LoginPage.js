@@ -43,8 +43,7 @@ export class LoginPage extends Component {
                   placeholder="Username"
                 />
                 <Form.Input
-                  {...console.log("password")}
-                  fluid 
+                  fluid
                   icon="lock"
                   iconPosition="left"
                   placeholder="Password"
