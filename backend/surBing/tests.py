@@ -29,6 +29,7 @@ class SurBingTestCase(TestCase):
         #signup bad request
         response = client.get('/api/signup/')
         self.assertEqual(response.status_code, 400)
-
         
-
+        #signin test
+        response = client.post('/api/login/', json.dumps({'username':'jomjung', 'password':'1234'}), content_type='application/json')
+        self.assertEqual(response.status_code, 204)
