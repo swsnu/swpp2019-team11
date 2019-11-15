@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, Http
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Survey, Cart, SurBingUser, Item, Response
-# Create your views here.
+# Create your views here. 
 
 def check_logged_in(func):
     @wraps(func)
