@@ -25,12 +25,3 @@ export const deleteCart = (id_list) => (dispatch) => {
       dispatch(deleteCart_(id_list));
     });
 };
-
-const getML_ = (data) => ({ type: actionTypes.GET_ML, target: data });
-export const getML = (id_list) => (dispatch) => {
-  const data = { id_list };
-  return axios.put('/api/ml/', data)
-    .then((res) => {
-      dispatch(getML_(res.data));
-    });
-};

@@ -2,23 +2,25 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { SearchResultPage, mapDispatchToProps, mapStateToProps } from './SearchResultPage';
 
+const mockPush = jest.fn();
+const mockOnAddCart = jest.fn((id) => new Promise((res, rej) => { if (id) res(); rej(); }));
+const mockOnSurveyDetail = jest.fn();
+const mockCheckLogIn = jest.fn(() => new Promise((res, rej) => { rej(); }));
+const props = {
+  history: { push: mockPush },
+  onAddCart: mockOnAddCart,
+  checklogIn: mockCheckLogIn,
+  onSurveyDetail: mockOnSurveyDetail,
+  survey_list: [{
+    respondant_count: 10,
+    survey_start_date: '1999-10-15',
+    survey_end_date: '2018-12-12',
+  }],
+};
+
 describe('<SearchResultPage />', () => {
   beforeEach(() => { jest.clearAllMocks(); });
-  const mockPush = jest.fn();
-  const mockOnAddCart = jest.fn((id) => new Promise((res, rej) => { if (id) res(); rej(); }));
-  const mockOnSurveyDetail = jest.fn();
-  const mockCheckLogIn = jest.fn(() => new Promise((res, rej) => { rej(); }));
-  const props = {
-    history: { push: mockPush },
-    onAddCart: mockOnAddCart,
-    checklogIn: mockCheckLogIn,
-    onSurveyDetail: mockOnSurveyDetail,
-    survey_list: [{
-      respondant_count: 10,
-      survey_start_date: '1999-10-15',
-      survey_end_date: '2018-12-12',
-    }],
-  };
+
   const component = shallow(<SearchResultPage {...props} />);
   const instance = component.instance();
   it('should render without error', () => {
@@ -47,21 +49,6 @@ jest.mock('moment', () => () => ({
 }));
 
 describe('component lifecycle methods test', () => {
-  const mockPush = jest.fn();
-  const mockOnAddCart = jest.fn((id) => new Promise((res, rej) => { if (id) res(); rej(); }));
-  const mockOnSurveyDetail = jest.fn();
-  const mockCheckLogIn = jest.fn(() => new Promise((res, rej) => { rej(); }));
-  const props = {
-    history: { push: mockPush },
-    onAddCart: mockOnAddCart,
-    checklogIn: mockCheckLogIn,
-    onSurveyDetail: mockOnSurveyDetail,
-    survey_list: [{
-      respondant_count: 10,
-      survey_start_date: '1999-10-15',
-      survey_end_date: '2018-12-12',
-    }],
-  };
   const component = mount(<SearchResultPage {...props} />);
   const instance = component.instance();
   it('componentDidMount test', () => {

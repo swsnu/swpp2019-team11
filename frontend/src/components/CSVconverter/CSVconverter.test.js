@@ -1,12 +1,21 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import  CSVconverter  from './CSVconverter';
+import CSVconverter from './CSVconverter';
+
+jest.mock('papaparse', () => ({
+  parse: jest.fn(),
+}));
 
 describe('CSVconverter testing', () => {
   it('mount test', () => {
-    const props = {
-      
-    }
-    const component = shallow(< CSVconverter {...props} />)
-  })
-})
+    const mockFunk = jest.fn();
+    const data = {
+      item: [
+        {
+          response: [],
+        },
+      ],
+    };
+
+    CSVconverter(mockFunk, data, true);
+    CSVconverter(mockFunk, data, false);
+  });
+});

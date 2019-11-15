@@ -17,7 +17,7 @@ export class MainPage extends Component {
 
   render() {
     return (
-      <Grid className = 'MainPage' textAlign="center">
+      <Grid className="MainPage" textAlign="center">
         <Grid.Row textAlign="right" colums={1}>
           <Grid.Column>
             <ProfileButton style={{ margin: '25px' }} />
@@ -30,7 +30,7 @@ export class MainPage extends Component {
             </Header>
             <SearchBar size="huge" />
             <br />
-            <Button className = 'AddSurveyButton' size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add Your Survey</Button>
+            <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add Your Survey</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
