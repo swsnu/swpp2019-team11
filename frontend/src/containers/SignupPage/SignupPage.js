@@ -39,7 +39,7 @@ export class SignupPage extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Form.Input fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
+                <Form.Input id = "emailinput" fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
                 <Form.Input fluid icon="user" iconPosition="left" placeholder="Username" value={this.state.username} onChange={(e) => this.setState({ username: e.target.value })} />
                 <Form.Input
                   fluid

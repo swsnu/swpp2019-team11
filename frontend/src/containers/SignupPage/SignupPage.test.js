@@ -27,6 +27,16 @@ describe('<signupPage/>', () => {
     expect(wrapper.length).toBe(1);
     wrapper.simulate('click');
   });
+
+  it('onchange input', () => {
+    const state = {
+      username : ''
+    }
+    const mocksetState = jest.fn();
+    const component = mount(<SignupPage {...props} setState = {mocksetState}/>);
+    const wrapper = component.find("#emailinput");
+    //expect(wrapper.length).toBe(6);
+  });
 })
 
 describe('mapDispatchToProps', () => {

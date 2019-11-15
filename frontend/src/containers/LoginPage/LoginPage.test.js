@@ -33,11 +33,19 @@ describe('<LoginPage/>', () => {
   })
 
   it('onchange', () => {
+    const state = {
+      username: ''
+    }
     const mocksetState = jest.fn();
-    const component = mount(<LoginPage {...props} setState = {mocksetState}/>);
+    const mockonchange = jest.fn(() => mocksetState);
+    const component = mount(<LoginPage {...props} onChange = {mockonchange}/>);
     const event = {target: {username: "un"}}
-    const wrapper = component.find("#usernameinput");
-    expect(wrapper.length).toBe(4);
+    const wrapper = component.find("#usernameinput").first();
+    wrapper.simulate('change', event);
+    //expect(state.username).toEqual("un")
+    //expect(mockonchange).toHaveBeenCalledTimes(1);
+    //expect(mocksetState).toHaveBeenCalledTimes(1);
+    //expect(wrapper.length).toBe(4);
   })
 
 
