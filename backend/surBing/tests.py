@@ -33,3 +33,6 @@ class SurBingTestCase(TestCase):
         #signin test
         response = client.post('/api/login/', json.dumps({'username':'jomjung', 'password':'1234'}), content_type='application/json')
         self.assertEqual(response.status_code, 204)
+        #signin decode error
+        response = client.post('/api/login/', json.dumps({'userndame':'jomjung', 'password':'1234'}), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
