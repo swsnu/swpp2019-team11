@@ -7,7 +7,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
-class SignupPage extends Component {
+export class SignupPage extends Component {
   state = {
     email: '',
     username: '',
@@ -39,7 +39,7 @@ class SignupPage extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Form.Input fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
+                <Form.Input id = "emailinput" fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
                 <Form.Input fluid icon="user" iconPosition="left" placeholder="Username" value={this.state.username} onChange={(e) => this.setState({ username: e.target.value })} />
                 <Form.Input
                   fluid
@@ -59,7 +59,7 @@ class SignupPage extends Component {
                   value={this.state.password_confirmation}
                   onChange={(e) => this.setState({ password_confirmation: e.target.value })}
                 />
-                <Button color="teal" fluid size="large" onClick={() => this.signupHandler()}>
+                <Button id = "signupButton" color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
               </Segment>

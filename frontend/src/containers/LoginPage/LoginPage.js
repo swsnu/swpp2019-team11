@@ -6,7 +6,11 @@ import {
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
-class LoginPage extends Component {
+export const mapDispatchToProps = (dispatch) => ({
+  logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
+});
+
+export class LoginPage extends Component {
   state = {
     username: '',
     password: '',
@@ -20,15 +24,17 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <Grid textAlign="center" columns={2} divided>
+      <Grid className="login" textAlign="center" columns={2} divided >
         <Grid.Row style={{ height: '100vh' }} verticalAlign="middle">
-          <Grid.Column style={{ maxWidth: 450, minWidth: 300 }}>
-            <Header style={{ 'font-size': '4em' }} as="h1" color="teal" textAlign="center">
+          <Grid.Column style={{ maxWidth: 450, minWidth: 300 }} >
+            <Header style={{ 'fontSize': '4em' }} as="h1" color="teal" textAlign="center">
             surBing
             </Header>
-            <Form size="large">
+            <Form size="large" >
               <Segment stacked>
                 <Form.Input
+                  {...console.log("username")}
+                  id = "usernameinput"
                   onChange={(event) => this.setState({ username: event.target.value })}
                   value={this.state.username}
                   fluid
@@ -45,7 +51,7 @@ class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                <Button disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} color="teal" fluid size="large">
+                <Button id = "loginbutton" disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} color="teal" fluid size="large">
               Login
                 </Button>
               </Segment>
@@ -62,8 +68,5 @@ class LoginPage extends Component {
   }
 }
 
-export const mapDispatchToProps = (dispatch) => ({
-  logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
-});
-
-export default connect(null, mapDispatchToProps)(withRouter(LoginPage));
+export default connect (null, mapDispatchToProps)(withRouter(LoginPage));
+//export default LoginPage;
