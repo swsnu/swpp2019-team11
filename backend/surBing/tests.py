@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 #from .models import surBing
 from django.contrib.auth.models import User
+from .models import Survey, Cart, Item, Response
 import unittest
 import json
 # Create your tests here.
@@ -42,13 +43,69 @@ class SurBingTestCase(TestCase):
         #signin bad request
         response = client.get('/api/login/')
         self.assertEqual(response.status_code, 400)
+        """
+        #surveys keyerror
+        response = client.post('/api/survey/', json.dumps({ 
+            'item': [{'title': 'Title', 'question_type': 'Subjective', 'response': [{ 'respondant_id': 1, 'content': 'Yes'}] }], 
+            'tittle': 'SurveyTitle', 
+            'upload_date': '2019/09/31', 
+            'survey_start_date': '1999/03/15', 
+            'survey_end_date': '2019/03/15', 
+            'content': 'SurveyContent', 
+            'respondant_count': 1 }), 
+            content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        #item keyerror
+        response = client.post('/api/survey/', json.dumps({ 
+            'item': [{'title': 'Title', 'question_type': 'Subjective', 'response': [{ 'respondant_id': 1, 'content': 'Yes'}] }], 
+            'tittle': 'SurveyTitle', 
+            'upload_date': '2019/09/31', 
+            'survey_start_date': '1999/03/15', 
+            'survey_end_date': '2019/03/15', 
+            'content': 'SurveyContent', 
+            'respondant_count': 1 }), 
+            content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        #response keyerror
+        response = client.post('/api/survey/', json.dumps({ 
+            'item': [{'title': 'Title', 'question_type': 'Subjective', 'response': [{ 'respondant_idd': 1, 'content': 'Yes'}] }], 
+            'tittle': 'SurveyTitle', 
+            'upload_date': '2019/09/31', 
+            'survey_start_date': '1999/03/15', 
+            'survey_end_date': '2019/03/15', 
+            'content': 'SurveyContent', 
+            'respondant_count': 1 }), 
+            content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        #surveys
+        response = client.post('/api/survey/', json.dumps({ 
+            'item': [{'title': 'Title', 'question_type': 'Subjective', 'response': [{ 'respondant_id': 1, 'content': 'Yes'}] }], 
+            'title': 'SurveyTitle', 
+            'upload_date': '2019/09/31', 
+            'survey_start_date': '1999/03/15', 
+            'survey_end_date': '2019/03/15', 
+            'content': 'SurveyContent', 
+            'respondant_count': 1 }), 
+            content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        """
+        #survey bad request
+        response = client.get('/api/survey/')
+        self.assertEqual(response.status_code, 400)
+
         
+
+
+
+
         #signout bad request
         response = client.delete('/api/logout/')
         self.assertEqual(response.status_code, 400)
         #signout test
         response = client.get('/api/logout/')
         self.assertEqual(response.status_code, 204)
+
+    
         
 
 

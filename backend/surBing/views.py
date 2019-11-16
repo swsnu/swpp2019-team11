@@ -75,7 +75,6 @@ def signout(request):
     if request.method == 'GET':
         logout(request)
         return HttpResponse(status=204)
-
     else:
         return HttpResponseBadRequest(['GET'])
 
@@ -108,6 +107,7 @@ def surveys(request):
             respondant_count = req_data['respondant_count']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
+            
         cur_survey = Survey(
             title=title, author=request.user, upload_date=upload_date,
             survey_start_date=survey_start_date,
@@ -137,7 +137,6 @@ def surveys(request):
             cur_survey.item.add(cur_item)
         cur_survey.save()
         return HttpResponse(status=201)
-
     else:
         return HttpResponseBadRequest(['POST'])
 
