@@ -238,6 +238,7 @@ def mycart(request):
 
 # mock ml.
 # arbitrarily returns item lists in cart.
+"""
 @check_logged_in
 def ml_analysis(request):
     if request.method == 'PUT':
@@ -262,3 +263,4 @@ def ml_analysis(request):
 
     else:
         return HttpResponseBadRequest(['PUT'])
+"""
