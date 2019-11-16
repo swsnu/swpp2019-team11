@@ -111,6 +111,12 @@ class SurBingTestCase(TestCase):
         #cart bad request
         response = client.delete('/api/mycart/')
         self.assertEqual(response.status_code, 400)
+        #cart post keyerror
+        response = client.post('/api/mycart/', json.dumps({'surveyee_id': 1}), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        #cart post not exist
+        response = client.post('/api/mycart/', json.dumps({'id': 2}), content_type='application/json')
+        self.assertEqual(response.status_code, 404)
 
 
         #signout bad request
