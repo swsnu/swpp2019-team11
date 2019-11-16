@@ -93,9 +93,24 @@ class SurBingTestCase(TestCase):
         response = client.get('/api/survey/')
         self.assertEqual(response.status_code, 400)
 
-        
+        #survey+id not exist
+        response = client.get('/api/survey/2/')
+        self.assertEqual(response.status_code, 404)
+        """
+        #survey+id test
+        response = client.get('/api/survey/1/')
+        self.assertEqual(response.status_code, 404)
+        """
+        #survey+id bad request
+        response = client.delete('/api/survey/1/')
+        self.assertEqual(response.status_code, 400)
 
-
+        #cart test
+        response = client.get('/api/mycart/')
+        self.assertEqual(response.status_code, 200)
+        #cart bad request
+        response = client.delete('/api/mycart/')
+        self.assertEqual(response.status_code, 400)
 
 
         #signout bad request
