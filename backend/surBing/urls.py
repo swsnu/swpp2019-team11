@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = [ # pylint: disable=invalid-name
+urlpatterns = [  # pylint: disable=invalid-name
     path('signup/', views.signup, name='signup'),
     path('token/', views.token, name='token'),
     path('checklogin/', views.checklogin, name='checklogin'),
@@ -12,5 +12,5 @@ urlpatterns = [ # pylint: disable=invalid-name
     path('survey/', views.surveys, name='surveys'),
     path('survey/<int:survey_id>/', views.survey, name='survey'),
     path('mycart/', views.mycart, name='mycart'),
-    path('ml/', views.ml_analysis, name='ml_analysis')
+    # path('ml/', views.ml_analysis, name='ml_analysis')
 ]

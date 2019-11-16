@@ -1,10 +1,14 @@
 import json
-from json import JSONDecodeError
 from functools import wraps
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
+from json import JSONDecodeError
+
 from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
+
 from .models import Survey, Cart, SurBingUser, Item, Response
+
+
 # Create your views here.
 
 def check_logged_in(func):
@@ -13,7 +17,9 @@ def check_logged_in(func):
         if args and args[0].user.is_authenticated:
             return func(*args, **kwargs)
         return HttpResponse(status=401)
+
     return wrapper
+
 
 @ensure_csrf_cookie
 def token(request):
@@ -22,13 +28,15 @@ def token(request):
     else:
         return HttpResponseNotAllowed(['GET'])
 
+
 def checklogin(request):
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=401)
 
-def signup(request):    #create new
+
+def signup(request):  # create new
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
@@ -49,6 +57,7 @@ def signup(request):    #create new
     else:
         return HttpResponseBadRequest(['POST'])
 
+
 # login
 def signin(request):
     if request.method == 'POST':
@@ -67,7 +76,8 @@ def signin(request):
             return HttpResponse(status=401)
 
     else:
-        return HttpResponseNotAllowed(['POST'])
+        return HttpResponseBadRequest(['POST'])
+
 
 # logout
 @check_logged_in
@@ -75,9 +85,9 @@ def signout(request):
     if request.method == 'GET':
         logout(request)
         return HttpResponse(status=204)
-
     else:
-        return HttpResponseNotAllowed(['GET'])
+        return HttpResponseBadRequest(['GET'])
+
 
 @check_logged_in
 def search(request, keyword=''):
@@ -90,6 +100,7 @@ def search(request, keyword=''):
 
     else:
         return HttpResponseBadRequest(['GET'])
+
 
 # add new survey to the database
 # only accept POST
@@ -108,6 +119,7 @@ def surveys(request):
             respondant_count = req_data['respondant_count']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
+
         cur_survey = Survey(
             title=title, author=request.user, upload_date=upload_date,
             survey_start_date=survey_start_date,
@@ -137,9 +149,9 @@ def surveys(request):
             cur_survey.item.add(cur_item)
         cur_survey.save()
         return HttpResponse(status=201)
-
     else:
         return HttpResponseBadRequest(['POST'])
+
 
 @check_logged_in
 def survey(request, survey_id):
@@ -172,6 +184,7 @@ def survey(request, survey_id):
         return JsonResponse(survey_dict, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
+
 
 # mycart : api for cart
 # GET
@@ -236,30 +249,3 @@ def mycart(request):
 
     else:
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
-
-# mock ml.
-# arbitrarily returns item lists in cart.
-@check_logged_in
-def ml_analysis(request):
-    if request.method == 'PUT':
-        try:
-            req_data = json.loads(request.body.decode())
-            id_list = req_data['id_list']
-        except (KeyError, json.decoder.JSONDecodeError):
-            return HttpResponse(status=400)
-
-        cart = request.user.cart
-        survey_list = cart.survey.filter(id__in=id_list)
-        item_surveyid_list = []
-        tmp_list = []
-        for survey in survey_list:
-            for item in survey.item.all():
-                tmp_list.append({'surveyId': survey.id, 'title': item.title})
-                if len(tmp_list) >= 2:
-                    item_surveyid_list.append(tmp_list[:])
-                    tmp_list = []
-
-        return JsonResponse(item_surveyid_list, safe=False, status=200)
-
-    else:
-        return HttpResponseBadRequest(['PUT'])
