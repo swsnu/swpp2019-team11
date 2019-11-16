@@ -117,6 +117,14 @@ class SurBingTestCase(TestCase):
         #cart post not exist
         response = client.post('/api/mycart/', json.dumps({'id': 2}), content_type='application/json')
         self.assertEqual(response.status_code, 404)
+        """
+        #cart test
+        response = client.post('/api/mycart/', json.dumps({'id': 1}), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+        #cart post exist at cart already
+        response = client.post('/api/mycart/', json.dumps({'id': 1}), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        """
 
 
         #signout bad request
