@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
+import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -14,7 +15,6 @@ export const mapDispatchToProps = (dispatch) => ({
 export const mapStateToProps = (state) => ({
 });
 */
-
 export class MyPage extends Component {
   state = {
     clickedMenu: 0
@@ -29,12 +29,11 @@ export class MyPage extends Component {
   }
   
   render() {
-    const noSurvey = (
+    const Cart = (
       <div>
-        <Header as='h3'>No Survey yet. Let's make a survey!</Header>
+        <h2>This is a Cart page...</h2>
       </div>
     );
-
 
     const selectmenu=()=>{
       if (this.state.clickedMenu == 0) return (
@@ -42,11 +41,15 @@ export class MyPage extends Component {
          <SurveyOngoing/>
         </div>
       );
-      else return noSurvey;
+      else if (this.state.clickedMenu == 1) return (
+        <div>
+         <SurveyCompleted/>
+        </div>
+      );
+      else return Cart;
     }
     
     return (
-      
       <div className="myPage">
         <TopBar searchBar />
         <Sidebar.Pushable as ={Segment}>
@@ -70,7 +73,6 @@ export class MyPage extends Component {
         </Sidebar>
         <Sidebar.Pusher>
           <Segment basic>
-            <Header as='h3'>Application Content</Header>
             {selectmenu()}
             <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
           </Segment>
