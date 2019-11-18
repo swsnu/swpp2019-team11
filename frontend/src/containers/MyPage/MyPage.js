@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Grid, Menu, Segment, Sidebar
+  Grid, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
-import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'; 
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -20,15 +20,13 @@ export const mapStateToProps = (state) => ({
 
 export class MyPage extends Component {
   state = {
-    clickedMenu: 0
+    clickedMenu: 0,
   }
-  componentDidMount() { 
-    /*this.props.checklogIn()
+  componentDidMount() {
+    this.props.checklogIn()
       .then(() => {
-        this.setState({clickedMenu : 0})
-        //this.props.onSurveyDetail(this.props.match.params.id);
       }) 
-      .catch(() => { this.props.history.push('/login/'); });*/
+      .catch(() => { this.props.history.push('/login/'); });
   }
 
   getContents = () => {
