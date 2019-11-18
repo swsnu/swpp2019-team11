@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Icon, Label, Menu, Table
+  Table
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
@@ -37,7 +37,7 @@ export class SurveyParticipate extends Component{
               {() => alert(this.props.survey_list.length)}
               <Table.Cell>{survey.title} </Table.Cell>
               <Table.Cell>{survey.upload_date} </Table.Cell>
-              <Table.Cell  onClick = {()=> { this.props.history.push(`/survey/${survey.id}`) }}>
+              <Table.Cell  /*onClick = {()=> { }}*/>
                 <button >
                 Participate
                 </button>
