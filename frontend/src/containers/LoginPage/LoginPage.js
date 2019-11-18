@@ -68,4 +68,4 @@ export class LoginPage extends Component {
 }
 
 export default connect(null, mapDispatchToProps)(withRouter(LoginPage));
-// export default LoginPage;
+
