@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
+import UtilBar from '../../components/UtilBar/UtilBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
@@ -32,7 +33,6 @@ export class MyPage extends Component {
   }
 
   getContents = () => {
-    
     if (this.props.survey_list.length != 0){ 
       var content = this.props.survey_list.map((cur) => (
         <Grid columns={1} >
@@ -49,11 +49,12 @@ export class MyPage extends Component {
 };
 
   render() {
-    const cartContents = this.getContents();
+    const cartContents = this.getContents(); 
+    //We may replace it with existed cartpage.
     const Cart = (
       <div>
         <h2>Cart page...</h2>
-        {cartContents}
+        {cartContents} 
       </div>
     );
 
