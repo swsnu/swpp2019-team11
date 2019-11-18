@@ -7,7 +7,7 @@ const initialState = {
   ongoing_survey_list: [
 
   ],
-}; 
+};
 
 
 const SurveyListReducer = (state = initialState, action = actionTypes.DEFAULT) => {
@@ -15,7 +15,7 @@ const SurveyListReducer = (state = initialState, action = actionTypes.DEFAULT) =
     case actionTypes.GET_SURVEY_LIST:
       return { ...state, survey_list: action.target };
     case actionTypes.GET_ONGOING_SURVEY_LIST:
-      return { ...state, ongoing_survey_list: action.target};
+      return { ...state, ongoing_survey_list: action.target };
     default:
       break;
   }
