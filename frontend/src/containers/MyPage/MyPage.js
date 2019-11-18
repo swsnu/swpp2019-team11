@@ -43,11 +43,10 @@ export class MyPage extends Component {
       var content = (<Grid><h2> The Cart is Empty! </h2></Grid>);
     }
     return (<Grid>{content}</Grid>);
-};
+  };
 
   render() {
-    const cartContents = this.getContents();
-    //We may replace it with existed cartpage.
+    const cartContents = this.getContents(); //We may replace it with existed cartpage.
     const Cart = (
       <div>
         <h2>Cart page...</h2>
@@ -56,48 +55,47 @@ export class MyPage extends Component {
     );
 
     const selectmenu = () => {
-      if (this.state.clickedMenu == 0) return (
+      if (this.state.clickedMenu == 0) { return (
         <div>
-         <SurveyOngoing/>
+          <SurveyOngoing />
         </div>
-      );
-      else if (this.state.clickedMenu == 1) return (
+      ); }
+      else if (this.state.clickedMenu == 1) { return (
         <div>
-         <SurveyCompleted/>
+          <SurveyCompleted />
         </div>
-      );
+      ); }
       else return Cart;
     };
-    
+
     return (
       <div className="myPage">
-        <TopBar searchBar style={{ 'backgroundColor': 'white', 'z-index': 1 }} />
-        <Sidebar.Pushable as ={ Segment } style={{ 'z-index': 2 }}>
-        <Sidebar
-          as={Menu}
-          icon='labeled'
-          inverted
-          visible
-          vertical
-          width='thin'
-        >
-          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 0}); } }>
-            My Ongoing Survey
-          </Menu.Item>
-          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 1}); } }>
-            My Completed Survey
-          </Menu.Item>
-          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 2}); } }>
-            Cart
-          </Menu.Item>
-        </Sidebar>
-        <Sidebar.Pusher style={{minHeight: 800}}>
-          <Segment basic>
-            {selectmenu()}
-          </Segment>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-        
+        <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} />
+        <Sidebar.Pushable as={Segment} style={{ 'z-index': 2 }}>
+          <Sidebar
+            as={Menu}
+            icon='labeled'
+            inverted
+            visible
+            vertical
+            width='thin'
+          >
+            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 0 }); } }>
+              My Ongoing Survey
+            </Menu.Item>
+            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 1 }); } }>
+              My Completed Survey
+            </Menu.Item>
+            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 2 }); } }>
+              Cart
+            </Menu.Item>
+          </Sidebar>
+          <Sidebar.Pusher style={{ minHeight: 800 }}>
+            <Segment basic>
+              {selectmenu()}
+            </Segment>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </div>
     );
   }
