@@ -11,7 +11,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('search/<str:keyword>/', views.search, name='search'),
     path('making/', views.making, name='surveys'),
     path('survey/<int:survey_id>/', views.survey, name='survey'),
-    path('making/', views.making, name'making'),
+    path('making/', views.making, name='making'),
     path('participating/', views.participating_list, name='participating_list'),
     #path('participating/<int:survey_id>', views.participating_survey, name='participating_survey'),
     path('mypage/cart/', views.mycart, name='mypage'),

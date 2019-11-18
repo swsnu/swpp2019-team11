@@ -14,7 +14,7 @@ class Survey(models.Model): #completed survey
 
 class SurveyOngoing(models.Model):  #not completed survey
     title = models.CharField(max_length=120)
-    author = models.ForeignKey(SurBingUser, on_delete=models.CASCADE, related_name='author')
+    author = models.ForeignKey(SurBingUser, on_delete=models.CASCADE, related_name='ongoing_author')
     survey_start_date = models.CharField(max_length=10, null=True)
     survey_end_date = models.CharField(max_length=10, null=True)
     content = models.TextField(null=True)

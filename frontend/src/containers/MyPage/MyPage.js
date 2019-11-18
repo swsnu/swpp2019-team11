@@ -35,21 +35,20 @@ export class MyPage extends Component {
       return (
         this.props.survey_list.map((cur) => (
           <Grid>
-            <Grid columns={1} >
+            <Grid columns={1}>
               <Grid.Column style={{ minWidth: 830 }}>
                 <SurveyBlock survey={cur} search={false} />
               </Grid.Column>
             </Grid>
           </Grid>
         ))
-      ); }
-    else{
+      ); }else {
       return (<Grid><h2> The Cart is Empty! </h2></Grid>);
     }
   };
-
+  //We may replace it with existed cartpage.
   render() {
-    const cartContents = this.getContents();//We may replace it with existed cartpage.
+    const cartContents = this.getContents();
     const Cart = (
       <div>
         <h2>Cart page...</h2>
@@ -58,7 +57,7 @@ export class MyPage extends Component {
     );
 
     const selectmenu = () => {
-      if (this.state.clickedMenu == 0) { 
+      if (this.state.clickedMenu == 0) {
         return (
           <div>
             <SurveyOngoing />
@@ -85,13 +84,13 @@ export class MyPage extends Component {
             vertical
             width='thin'
           >
-            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 0 }); }}>
+            <Menu.Item onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 1 }); }}>
+            <Menu.Item onClick={() => { this.setState({ clickedMenu: 1 }); }}>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 2 }); }}>
+            <Menu.Item onClick={() => { this.setState({ clickedMenu: 2 }); }}>
               Cart
             </Menu.Item>
           </Sidebar>
