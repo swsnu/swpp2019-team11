@@ -8,7 +8,7 @@ import * as actionCreators from '../../store/actions/index';
 
 export const mapDispatchToProps = (dispatch) => ({
   logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
-});
+}); 
 
 export class LoginPage extends Component {
   state = {
