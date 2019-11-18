@@ -6,6 +6,6 @@ export class MakingPage extends Component {
       <div>
         <h1>This is MakingPage</h1>
       </div>
-    );}
+    ); }
 }
 export default MakingPage;

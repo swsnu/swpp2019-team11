@@ -22,6 +22,7 @@ export class MyPage extends Component {
   state = {
     clickedMenu: 0,
   }
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
@@ -30,7 +31,7 @@ export class MyPage extends Component {
   }
 
   getContents = () => {
-    if (this.props.survey_list.length != 0){
+    if (this.props.survey_list.length != 0) {
       var content = this.props.survey_list.map((cur) => (
         <Grid columns={1} >
           <Grid.Column style={{ minWidth: 830 }}>
@@ -55,16 +56,20 @@ export class MyPage extends Component {
     );
 
     const selectmenu = () => {
-      if (this.state.clickedMenu == 0) { return (
-        <div>
-          <SurveyOngoing />
-        </div>
-      ); }
-      else if (this.state.clickedMenu == 1) { return (
-        <div>
-          <SurveyCompleted />
-        </div>
-      ); }
+      if (this.state.clickedMenu == 0) { 
+        return (
+          <div>
+            <SurveyOngoing />
+          </div>
+        ); 
+      }
+      else if (this.state.clickedMenu == 1) { 
+        return (
+          <div>
+            <SurveyCompleted />
+          </div>
+        ); 
+      }
       else return Cart;
     };
 
@@ -80,13 +85,13 @@ export class MyPage extends Component {
             vertical
             width='thin'
           >
-            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 0 }); } }>
+            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 0 }); } }>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 1 }); } }>
+            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 1 }); } }>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item as='a' onClick={ () => { this.setState({ clickedMenu: 2 }); } }>
+            <Menu.Item as='a' onClick={() => { this.setState({ clickedMenu: 2 }); } }>
               Cart
             </Menu.Item>
           </Sidebar>

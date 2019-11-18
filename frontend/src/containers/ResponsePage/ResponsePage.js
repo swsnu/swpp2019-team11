@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export class ResponsePage extends Component {
-  render(){
+  render() {
     return (
       <div>
         <h1>This is ResponsePage</h1>
