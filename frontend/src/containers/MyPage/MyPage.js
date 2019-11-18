@@ -73,8 +73,8 @@ export class MyPage extends Component {
     
     return (
       <div className="myPage">
-        <TopBar searchBar />
-        <Sidebar.Pushable as ={Segment}>
+        <TopBar searchBar style={{'backgroundColor': 'white', 'z-index':1}} />
+        <Sidebar.Pushable as ={Segment} style={{'z-index':2}}>
         <Sidebar
           as = {Menu}
           icon='labeled'
@@ -98,7 +98,6 @@ export class MyPage extends Component {
             {selectmenu()}
           </Segment>
         </Sidebar.Pusher>
-        
       </Sidebar.Pushable>
         
       </div>

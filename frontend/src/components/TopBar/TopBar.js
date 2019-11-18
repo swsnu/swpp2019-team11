@@ -7,7 +7,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import ProfileButton from '../ProfileButton/ProfileButton';
 
 export const TopBar = (props) => (
-  <Sticky className="TopBar">
+  <Sticky className="TopBar" style = {{backgroundColor : '#ffffff', 'x-index':1 }}>
     <Segment style={{ height: '100px' }}>
       <Grid colums={3} style={{ 'min-width': '800px' }}>
         <Grid.Row verticalAlign="middle" style={{marginBottom:'0px'}}>
@@ -17,28 +17,29 @@ export const TopBar = (props) => (
         </Grid.Row>
       </Grid>
     </Segment>
-    <Menu className = "UtilBar">
+    <Sticky>
+    <Menu className = "UtilBar" sytle = {{margin : '0px'}}>
         <Menu.Item
-          name='editorials'
-          //onClick={this.handleItemClick}
+          name='participate'
+          onClick={() => props.history.push('/participate')}
         >
-          Editorials
+          Participate Survey
         </Menu.Item>
 
         <Menu.Item
-          name='reviews'
-          //onClick={this.handleItemClick}
+          name='make'
         >
-          Reviews
+          Make Survey
         </Menu.Item>
 
         <Menu.Item
-          name='upcomingEvents'
-          //onClick={this.handleItemClick}
+          name='mypage'
+          onClick={() => props.history.push('/mypage')}
         >
-          Upcoming Events
+          MyPage
         </Menu.Item>
     </Menu>
+    </Sticky>
   </Sticky>
 );
 
