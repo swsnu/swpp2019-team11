@@ -11,6 +11,7 @@ import MyPage from './containers/MyPage/MyPage';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import SurveyParticipate from './containers/SurveyParticipate/SurveyParticipate';
+import MakingPage from './containers/MakingPage/MakingPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/survey/:id" exact component={SurveyDetailPage} />
         <Route path="/participate" exact component={SurveyParticipate} />
         <Route path="/mypage" exact component={MyPage} />
+        <Route path="/making" exact component={MakingPage} />
         <Redirect exact from="/" to="/login" />
       </Switch>
     </div>

@@ -21,7 +21,7 @@ export class SurveyParticipate extends Component{
 
   render(){
     return(
-      <div className = "SurveyParticipate">
+      <div className="SurveyParticipate">
         <TopBar/>
         <Table celled>
           <Table.Header>
@@ -35,8 +35,8 @@ export class SurveyParticipate extends Component{
           {this.props.survey_list.map((survey)=> (
             <Table.Row> 
               {() => alert(this.props.survey_list.length)}
-              <Table.Cell>{survey.title} </Table.Cell>
-              <Table.Cell>{survey.upload_date} </Table.Cell>
+              <Table.Cell>{ survey.title }</Table.Cell>
+              <Table.Cell>{ survey.upload_date }</Table.Cell>
               <Table.Cell  /*onClick = {()=> { }}*/>
                 <button >
                 Participate
