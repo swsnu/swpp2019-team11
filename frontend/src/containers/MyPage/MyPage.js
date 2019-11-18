@@ -7,19 +7,22 @@ import TopBar from '../../components/TopBar/TopBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
+  getCart: () => dispatch(actionCreators.getCart()),
 });
-/*
+
 export const mapStateToProps = (state) => ({
+  survey_list : state.ct.survey_list,
 });
-*/
+
 export class MyPage extends Component {
   state = {
     clickedMenu: 0
   }
-  componentDidMount() {
+  componentDidMount() { 
     /*this.props.checklogIn()
       .then(() => {
         this.setState({clickedMenu : 0})
@@ -27,11 +30,30 @@ export class MyPage extends Component {
       }) 
       .catch(() => { this.props.history.push('/login/'); });*/
   }
-  
+
+  getContents = () => {
+    
+    if (this.props.survey_list.length != 0){ 
+      var content = this.props.survey_list.map((cur) => (
+        <Grid columns={1} >
+          <Grid.Column style={{ minWidth: 830 }}>
+            <SurveyBlock survey={cur} search={false} />
+          </Grid.Column>
+        </Grid>
+      ));
+    }
+    else {
+      var content = (<Grid><h2> The Cart is Empty! </h2></Grid>);
+    }
+    return (<Grid>{content}</Grid>);
+};
+
   render() {
+    const cartContents = this.getContents();
     const Cart = (
       <div>
-        <h2>This is a Cart page...</h2>
+        <h2>Cart page...</h2>
+        {cartContents}
       </div>
     );
 
@@ -61,20 +83,19 @@ export class MyPage extends Component {
           vertical
           width='thin'
         >
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 0}); console.log(this.state.clickedMenu) } } >
+          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 0}); } } >
             My Ongoing Survey
           </Menu.Item>
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 1}); console.log(this.state.clickedMenu) } }>
+          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 1}); } }>
             My Completed Survey
           </Menu.Item>
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 2}); console.log(this.state.clickedMenu)} }>
+          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 2}); } }>
             Cart
           </Menu.Item>
         </Sidebar>
-        <Sidebar.Pusher>
+        <Sidebar.Pusher style={{minHeight: 800}}>
           <Segment basic>
             {selectmenu()}
-            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
           </Segment>
         </Sidebar.Pusher>
         
@@ -84,4 +105,4 @@ export class MyPage extends Component {
     );
   }
 }
-export default connect(null, mapDispatchToProps)(MyPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MyPage);
