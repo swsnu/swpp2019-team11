@@ -9,15 +9,13 @@ export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/$
   dispatch(getSurveyList_(res.data));
 });
 
-export const getOngoingSurveyList_ = 
-                    (ongoing_survey_list) => 
-                      ({ type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list });
+export const getOngoingSurveyList_ = (ongoing_survey_list) => ({ type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list });
 
 export const getOngoingSurveyList = () => (dispatch) => axios.get('/api/participating/')
   .then((res) => {
     dispatch(getOngoingSurveyList_(res.data));
     return res;
- });
+  });
 
 export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: survey });
 

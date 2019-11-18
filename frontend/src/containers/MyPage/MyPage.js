@@ -42,11 +42,12 @@ export class MyPage extends Component {
             </Grid>
           </Grid>
         ))
-      ); }else {
+      ); } else {
       return (<Grid><h2> The Cart is Empty! </h2></Grid>);
     }
   };
   //We may replace it with existed cartpage.
+
   render() {
     const cartContents = this.getContents();
     const Cart = (
@@ -67,8 +68,7 @@ export class MyPage extends Component {
         return (
           <div>
             <SurveyCompleted />
-          </div>
-        ); }
+          </div>); }
       else return Cart;
     };
 
