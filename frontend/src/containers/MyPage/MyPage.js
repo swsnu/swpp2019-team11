@@ -15,7 +15,7 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
-  survey_list : state.ct.survey_list,
+  survey_list: state.ct.survey_list,
 });
 
 export class MyPage extends Component {
@@ -25,12 +25,12 @@ export class MyPage extends Component {
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-      }) 
+      })
       .catch(() => { this.props.history.push('/login/'); });
   }
 
   getContents = () => {
-    if (this.props.survey_list.length != 0){ 
+    if (this.props.survey_list.length != 0){
       var content = this.props.survey_list.map((cur) => (
         <Grid columns={1} >
           <Grid.Column style={{ minWidth: 830 }}>
@@ -46,16 +46,16 @@ export class MyPage extends Component {
 };
 
   render() {
-    const cartContents = this.getContents(); 
+    const cartContents = this.getContents();
     //We may replace it with existed cartpage.
     const Cart = (
       <div>
         <h2>Cart page...</h2>
-        {cartContents} 
+        {cartContents}
       </div>
     );
 
-    const selectmenu=()=>{
+    const selectmenu = () => {
       if (this.state.clickedMenu == 0) return (
         <div>
          <SurveyOngoing/>
@@ -67,27 +67,27 @@ export class MyPage extends Component {
         </div>
       );
       else return Cart;
-    }
+    };
     
     return (
       <div className="myPage">
-        <TopBar searchBar style={{'backgroundColor': 'white', 'z-index':1}} />
-        <Sidebar.Pushable as ={Segment} style={{'z-index':2}}>
+        <TopBar searchBar style={{ 'backgroundColor': 'white', 'z-index': 1 }} />
+        <Sidebar.Pushable as ={ Segment } style={{ 'z-index': 2 }}>
         <Sidebar
-          as = {Menu}
+          as={Menu}
           icon='labeled'
           inverted
           visible
           vertical
           width='thin'
         >
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 0}); } } >
+          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 0}); } }>
             My Ongoing Survey
           </Menu.Item>
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 1}); } }>
+          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 1}); } }>
             My Completed Survey
           </Menu.Item>
-          <Menu.Item as='a' onClick = {() =>{ this.setState({clickedMenu : 2}); } }>
+          <Menu.Item as='a' onClick={() => { this.setState({clickedMenu: 2}); } }>
             Cart
           </Menu.Item>
         </Sidebar>

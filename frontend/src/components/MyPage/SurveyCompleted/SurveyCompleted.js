@@ -1,7 +1,6 @@
 import React from 'react';
 
-export const SurveyCompleted = ()=>
-{ 
+export const SurveyCompleted = () =>{ 
   return (
     <div>
       <h2>Completed Survey</h2>
