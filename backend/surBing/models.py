@@ -32,5 +32,4 @@ class Response(models.Model):
     content = models.TextField()
 
 class Cart(models.Model):
-    survey_completed = models.ManyToManyField('Survey')
-    survey_ongoing = models.ManyToManyField('SurveyOngoing')
+    survey = models.ManyToManyField('Survey')

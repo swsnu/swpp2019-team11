@@ -9,7 +9,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('login/', views.signin, name='login'),
     path('logout/', views.signout, name='logout'),
     path('search/<str:keyword>/', views.search, name='search'),
-    path('making/', views.making, name='surveys'),
+    path('survey/', views.making, name='surveys'),
     path('survey/<int:survey_id>/', views.survey, name='survey'),
     path('making/', views.making, name='making'),
     path('participating/', views.participating_list, name='participating_list'),
