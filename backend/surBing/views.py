@@ -10,7 +10,6 @@ from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response
 
 
 # Create your views here.
- 
 def check_logged_in(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -28,13 +27,11 @@ def token(request):
     else:
         return HttpResponseNotAllowed(['GET'])
  
-
 def checklogin(request):
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=401)
-
 
 def signup(request):  # create new
     if request.method == 'POST':
