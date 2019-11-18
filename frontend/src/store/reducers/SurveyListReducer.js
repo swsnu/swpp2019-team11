@@ -4,7 +4,7 @@ const initialState = {
   survey_list: [
 
   ],
-};
+}; 
 
 
 const SurveyListReducer = (state = initialState, action = actionTypes.DEFAULT) => {

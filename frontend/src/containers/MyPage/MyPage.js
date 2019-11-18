@@ -7,7 +7,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
-import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
+import SurveyBlock from '../../components/SurveyBlock/SurveyBlock'; 
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
