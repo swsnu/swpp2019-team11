@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Grid, Label, Table, Button, Header, Image, Icon, Menu, Segment, Sidebar
+  Grid, Menu, Segment, Sidebar
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
-import UtilBar from '../../components/UtilBar/UtilBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
