@@ -14,18 +14,20 @@ export class MakingPage extends Component {
         ],
     }
 
-    
     render() {
         const Items = this.state.item_list.map( items => {
             var onToggleHandler = () => {
                 if (items.question_type == 'Subjective') items.question_type = 'Selection';
                 else items.question_type = 'Subjective';
+                var el = document.getElementById("question");
+                el.innerHTML = items.question_type;
             }
+            
             return(
-                <MakingItem onToggle={ () => onToggleHandler() } />
+                <MakingItem questiontype={ items.question_type } onToggle={ () => onToggleHandler() } />
             );
         })
-        
+
         var insertHandler = () => {
             const new_list = [
                 ...this.state.item_list,

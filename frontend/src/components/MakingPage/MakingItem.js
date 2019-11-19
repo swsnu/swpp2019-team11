@@ -7,7 +7,8 @@ export const MakingItem = (props) => (
     Q:
     {'  '}
     <input />
-    <Checkbox toggle onChange={() => {props.onToggle()} }/>
+    <Checkbox toggle onChange={() => {props.onToggle();} }/>
+    <h3 id="question">{props.questiontype}</h3>
   </Segment>
 );
 export default withRouter(MakingItem);
