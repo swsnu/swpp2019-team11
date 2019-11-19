@@ -8,7 +8,7 @@ export class MakingItem extends Component {
     questiontype: 'Subjective',
   }
 
-  render () {
+  render() {
     const questionTypeHandler = () => {
       if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
       else this.setState({ questiontype: 'Subjective' });
@@ -22,12 +22,12 @@ export class MakingItem extends Component {
       <Segment style={{ 'min-height': '250px' }}>
         Q:
         {'  '}
-        <input/>
+        <input />
         <Checkbox toggle onChange={() => { this.props.onToggle(); questionTypeHandler(); }} />
         <h3>{this.props.questiontype}</h3>
         {
           (this.state.questiontype == 'Selection')
-        && this.props.optionList.map(() => { <div><MakingOptions /></div> } )
+        && this.props.optionList.map(() => { return( <div><MakingOptions /></div> ); })
         }
         {
           (this.state.questiontype == 'Selection')

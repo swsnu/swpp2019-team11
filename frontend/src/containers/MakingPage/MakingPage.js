@@ -5,7 +5,7 @@ import { Sticky, Segment } from 'semantic-ui-react';
 import MakingItem from '../../components/MakingPage/MakingItem';
 
 export class MakingPage extends Component {
-    state = {
+    state= {
         title: '',
         content: '',
         item_list: [

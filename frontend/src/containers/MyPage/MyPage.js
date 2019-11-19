@@ -63,8 +63,7 @@ export class MyPage extends Component {
           <div>
             <SurveyOngoing />
           </div>
-        ); }
-      else if (this.state.clickedMenu == 1) {
+        ); } else if (this.state.clickedMenu == 1) {
         return (
           <div>
             <SurveyCompleted />
