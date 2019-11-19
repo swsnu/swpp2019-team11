@@ -6,8 +6,8 @@ export const MakingItem = (props) => (
   <Segment style={{ 'min-height': '250px' }}>
     Q:
     {'  '}
-    <input />
-    <Checkbox toggle onChange={() => {props.onToggle();} }/>
+    <input type='text' />
+    <Checkbox toggle onChange={() => {props.onToggle()} }/>
     <h3 id="question">{props.questiontype}</h3>
   </Segment>
 );

@@ -23,7 +23,10 @@ export class MakingPage extends Component {
             }
             
             return (
-                <MakingItem questiontype={ items.question_type } onToggle={ () => onToggleHandler() } />
+                <MakingItem
+                    questiontype={ items.question_type }
+                    onToggle={ () => onToggleHandler() }
+                />
             );
         })
 
