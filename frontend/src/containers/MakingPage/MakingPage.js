@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Sticky, Segment, Form } from 'semantic-ui-react';
+import { Sticky, Segment } from 'semantic-ui-react';
 import MakingItem from '../../components/MakingPage/MakingItem';
 
 export class MakingPage extends Component {
     state = {
         title: '',
         content: '',
-        item_num: 1,
         item_list: [
             { question: '', question_type: 'Subjective' },
         ],
@@ -23,7 +22,7 @@ export class MakingPage extends Component {
                 el.innerHTML = items.question_type;
             }
             
-            return(
+            return (
                 <MakingItem questiontype={ items.question_type } onToggle={ () => onToggleHandler() } />
             );
         })
@@ -39,7 +38,6 @@ export class MakingPage extends Component {
             
             this.setState({
                 item_list: new_list,
-                item_num: this.state.item_num+1,
             })
         };
         
@@ -60,7 +58,7 @@ export class MakingPage extends Component {
                 <button onClick={ () => insertHandler() } >
                     Add Question Item
                 </button>
-                {Items}
+                { Items }
                 <button onClick={ () => this.props.history.push('/participate/') }>
                     Submit
                 </button>
