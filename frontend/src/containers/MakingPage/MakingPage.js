@@ -71,4 +71,3 @@ export class MakingPage extends Component {
 }
 
 export default connect(null, null)(withRouter(MakingPage));
-
