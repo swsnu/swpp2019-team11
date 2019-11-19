@@ -9,7 +9,7 @@ export class MakingPage extends Component {
         title: '',
         content: '',
         item_list: [
-            { question: '', question_type: 'Subjective' },
+            { question: '', question_type: 'Subjective', option_list: [ { 'content': '' } ] },
         ],
     }
 
@@ -21,16 +21,30 @@ export class MakingPage extends Component {
                 var el = document.getElementById("question");
                 el.innerHTML = items.question_type;
             }
-            
+
+            var insertOptionHandler = () => {
+                const new_list = [
+                    ...items.option_list,
+                    { 'content': '' }
+                ];
+
+                this.setState({
+                    option_list: new_list,
+                });
+                items.option_list = new_list;
+            };
+
             return (
                 <MakingItem
                     questiontype={ items.question_type }
+                    optionList={ items.option_list }
                     onToggle={ () => onToggleHandler() }
+                    onAddhandler={ () => insertOptionHandler() }
                 />
             );
         })
 
-        var insertHandler = () => {
+        var insertItemHandler = () => {
             const new_list = [
                 ...this.state.item_list,
                 {
@@ -38,12 +52,12 @@ export class MakingPage extends Component {
                     question_type: '',
                 }
             ];
-            
+
             this.setState({
                 item_list: new_list,
-            })
+            });
         };
-        
+
         return (
             <div>
                 <Sticky>
@@ -58,15 +72,15 @@ export class MakingPage extends Component {
                     {'    '}
                     <input type="text" onChange={(event) => this.setState({ content: event.target.value })} />
                 </Segment>
-                <button onClick={ () => insertHandler() } >
+                <button onClick={ () => { insertItemHandler() } } >
                     Add Question Item
                 </button>
                 { Items }
-                <button onClick={ () => this.props.history.push('/participate/') }>
+                <button onClick={ () => { this.props.history.push('/participate/'); } }>
                     Submit
                 </button>
             </div>
-        ); 
+        );
     }
 }
 
