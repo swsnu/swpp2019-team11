@@ -9,7 +9,7 @@ export class MakingPage extends Component {
       title: '',
       content: '',
       item_list: [
-        { question: '', question_type: 'Subjective', option_list: [ { 'content': '' } ] },
+        { question: '', question_type: 'Subjective', option_list: [{ 'content': '' }] },
       ],
     }
 
@@ -18,9 +18,9 @@ export class MakingPage extends Component {
         var onToggleHandler = () => {
           if (items.question_type == 'Subjective') items.question_type = 'Selection';
           else items.question_type = 'Subjective';
-          var el = document.getElementById("question");
+          var el = document.getElementById('question');
           el.innerHTML = items.question_type;
-        }
+        };
 
         var insertOptionHandler = () => {
           const new_list = [
@@ -36,10 +36,10 @@ export class MakingPage extends Component {
 
         return (
           <MakingItem
-            questiontype={ items.question_type }
-            optionList={ items.option_list }
-            onToggle={ () => onToggleHandler() }
-            onAddhandler={ () => insertOptionHandler() }
+            questiontype={items.question_type}
+            optionList={items.option_list}
+            onToggle={() => onToggleHandler()}
+            onAddhandler={() => insertOptionHandler()}
           />
         );
     })
