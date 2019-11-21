@@ -8,14 +8,14 @@ export class MakingItem extends Component {
     questiontype: 'Subjective',
   }
 
+  onAddhandler = () => {
+    this.props.onAddhandler();
+  };
+
   render() {
     const questionTypeHandler = () => {
       if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
       else this.setState({ questiontype: 'Subjective' });
-    };
-
-    const onAddhandler = () => {
-      this.props.onAddhandler();
     };
 
     return (
@@ -23,15 +23,15 @@ export class MakingItem extends Component {
         Q:
         {'  '}
         <input />
-        <Checkbox toggle onChange={() => {this.props.onToggle(); questionTypeHandler();}} />
+        <Checkbox toggle onChange={() => { this.props.onToggle(this.props.id); questionTypeHandler(); }} />
         <h3>{this.props.questiontype}</h3>
         {
           (this.state.questiontype == 'Selection')
-        && this.props.optionList.map(() => {return ( <div><MakingOptions /></div> );})
+        && this.props.optionList.map(() => { return ( <div><MakingOptions /></div> ); })
         }
         {
           (this.state.questiontype == 'Selection')
-          && <button onClick={() => onAddhandler()}>Add obtions</button>
+          && <button onClick={() => {this.onAddhandler() }}>Add obtions</button>
         }
       </Segment>
     );

@@ -3,60 +3,80 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Sticky, Segment } from 'semantic-ui-react';
 import MakingItem from '../../components/MakingPage/MakingItem';
+import * as actionCreators from '../../store/actions/index';
+
+export const mapDispatchToProps = (dispatch) => ({
+    checklogIn: () => dispatch(actionCreators.checklogIn()),
+})
 
 export class MakingPage extends Component {
     state= {
       title: '',
       content: '',
+      item_count: 1,
       item_list: [
-        { question: '', question_type: 'Subjective', option_list: [{ 'content': '' }] },
+        { id: 0, question: '', question_type: 'Subjective', option_list: [{ 'content': '' }] },
       ],
     }
 
-    render() {
-      const Items = this.state.item_list.map((items) => {
-        let onToggleHandler = () => {
-          var el = document.getElementById('question');
-          if (items.question_type == 'Subjective') items.question_type = 'Selection';
-          else items.question_type = 'Subjective';
-          el.innerHTML = items.question_type;
-        };
+    componentDidMount() {
+        this.props.checklogIn()
+      .then(() => {
+      })
+      .catch(() => { this.props.history.push('/login/'); });
+    }
 
-        const insertOptionHandler = () => {
-          const new_list = [
-            ...items.option_list,
-            { 'content': '' },
-          ];
+    onToggleHandler = (id) => {
+        if (this.state.item_list[id].question_type == 'Subjective') {
+            let new_list = this.state.item_list;
+            new_list[id].question_type = 'Selection';
+            this.setState({ item_list: new_list });
+        }
+        else {
+            let new_list = this.state.item_list;
+            new_list[id].question_type = 'Subjective';
+            this.setState({ item_list: new_list });
+        }
+    }
 
-          this.setState({
-            option_list: new_list,
-          });
-          items.option_list = new_list;
-        };
+    insertOptionHandler = (id) => {
+        let new_list = this.state.item_list;
+        new_list[id].option_list.push({ content: '' });
 
-        return (
-          <MakingItem
-            questiontype={items.question_type}
-            optionList={items.option_list}
-            onToggle={() => onToggleHandler()}
-            onAddhandler={() => insertOptionHandler()}
-          />
-        );
-      });
+        this.setState({
+          item_list: new_list
+        });
+    };
 
-      var insertItemHandler = () => {
+    insertItemHandler = () => {
         const new_list = [
           ...this.state.item_list,
           {
+            id: this.state.item_count,
             question: '',
-            question_type: '',
+            question_type: 'Subjective',
+            option_list: [{ content: '' }],
           },
         ];
 
         this.setState({
+          item_count: this.state.item_count + 1,
           item_list: new_list,
         });
       };
+
+    render() {
+      const Items = this.state.item_list.map((items, item_index) => {
+        return (
+          <MakingItem
+            id={item_index}
+            questiontype={items.question_type}
+            optionList={items.option_list}
+            onToggle={this.onToggleHandler}
+            onAddhandler={(id) => this.insertOptionHandler(id)}
+          />
+        );
+      });
 
       return (
         <div>
@@ -72,7 +92,13 @@ export class MakingPage extends Component {
             {'    '}
             <input type="text" onChange={(event) => this.setState({ content: event.target.value })} />
           </Segment>
-          <button onClick={() => { insertItemHandler(); }}>
+          <Segment>
+            <h3>Survey Target Settings:</h3>
+            <div>Gender:</div>
+            <input />
+            <div>Age:</div>
+          </Segment>
+          <button onClick={() => { this.insertItemHandler(); }}>
             Add Question Item
           </button>
           { Items }
@@ -84,4 +110,4 @@ export class MakingPage extends Component {
     }
 }
 
-export default connect(null, null)(withRouter(MakingPage));
+export default connect(null, mapDispatchToProps)(withRouter(MakingPage));
