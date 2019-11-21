@@ -23,11 +23,11 @@ export class MakingItem extends Component {
         Q:
         {'  '}
         <input />
-        <Checkbox toggle onChange={() => { this.props.onToggle(); questionTypeHandler(); }} />
+        <Checkbox toggle onChange={() => {this.props.onToggle(); questionTypeHandler();}} />
         <h3>{this.props.questiontype}</h3>
         {
           (this.state.questiontype == 'Selection')
-        && this.props.optionList.map(() => { return( <div><MakingOptions /></div> ); })
+        && this.props.optionList.map(() => {return ( <div><MakingOptions /></div> );})
         }
         {
           (this.state.questiontype == 'Selection')

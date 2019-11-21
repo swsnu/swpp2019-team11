@@ -22,10 +22,10 @@ export class MakingPage extends Component {
           el.innerHTML = items.question_type;
         };
 
-        let insertOptionHandler = () => {
+        const insertOptionHandler = () => {
           const new_list = [
             ...items.option_list,
-            { 'content': '', }
+            { 'content': '' },
           ];
 
           this.setState({
@@ -42,14 +42,14 @@ export class MakingPage extends Component {
             onAddhandler={() => insertOptionHandler()}
           />
         );
-    });
+      });
 
       var insertItemHandler = () => {
         const new_list = [
           ...this.state.item_list,
           {
-              question: '',
-              question_type: '',
+            question: '',
+            question_type: '',
           },
         ];
 
@@ -72,7 +72,7 @@ export class MakingPage extends Component {
             {'    '}
             <input type="text" onChange={(event) => this.setState({ content: event.target.value })} />
           </Segment>
-          <button onClick={() => { insertItemHandler() }}>
+          <button onClick={() => { insertItemHandler(); }}>
             Add Question Item
           </button>
           { Items }
