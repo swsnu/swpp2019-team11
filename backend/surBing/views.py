@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response
 
 
@@ -107,49 +108,49 @@ def making(request):
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
-            items = req_data['item']
             title = req_data['title']
             survey_start_date = req_data['survey_start_date']
             survey_end_date = req_data['survey_end_date']
             content = req_data['content']
-            respondant_count = req_data['respondant_count']
-            max_response = req_data['max_response']
+            target_respondant_count = req_data['target_respondant_count']
+            target_age = req_data['target_age']
+            target_gender = req_data['target_gender']
+            items = req_data['item']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
 
-        cur_survey = SurveyOngoing(
+        survey = SurveyOngoing(
             title=title, author=request.user,
             survey_start_date=survey_start_date,
             survey_end_date=survey_end_date,
-            content=content, respondant_count=respondant_count
+            content=content,
+            respondant_count=0,
+            target_repondant_count = target_respondant_count,
+            target_age_start = target_age[0],
+            target_age_end = target_age[1],
+            target_gender = target_gender
         )
-        cur_survey.save()
+        survey.save()
 
         for item in items:
             try:
                 title = item['title']
                 question_type = item['question_type']
+                selection_list = item['selection_list']
             except KeyError:
                 return HttpResponse(status=400)
 
             cur_item = Item(title=title, question_type=question_type)
             cur_item.save()
-            """
-            for response in responses:
-                try:
-                    content = response['content']
-                except KeyError:
-                    return HttpResponse(status=400)
-
-                cur_response = Response(respondant_id=respondant_id, content=content)
-                cur_response.save()
-                cur_item.response.add(cur_response)
+            for index, selection in enumerate(selection_list):
+                cur_selection = Selection(index=index+1, title = selection)
+                cur_selection.save()
+                cur_item.selection.add(cur_selection)
             
             cur_item.save()
-            """
-            cur_survey.item.add(cur_item)
+            survey.item.add(cur_item)
 
-        cur_survey.save()
+        survey.save()
         return HttpResponse(status=201)
 
     else:
@@ -257,7 +258,8 @@ def mycart(request):
 @check_logged_in
 def participating_list(request):
     if request.method == 'GET':
-        surveys = list(SurveyOngoing.all().values())
+        user = request.user
+        surveys = list(SurveyOngoing.filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age).values())
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
