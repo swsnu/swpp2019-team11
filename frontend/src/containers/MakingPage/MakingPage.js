@@ -19,12 +19,10 @@ export class MakingPage extends Component {
         target_check: [{ gender: 0 }, { age: 0 }],
         item_count: 1,
         item_list: [
-            { id: 0, question: '', question_type: 'Subjective', option_list: [{ 'content': '' }] },
+            { id: 0, question: '', question_type: 'Subjective', option_list: [{ id: 0, content: '' }] },
         ],
     }
-    /*parentCallBack = (dataFromChild) => {
-        this.setState({item_list: dataFromChild})
-    }*/
+
     componentDidMount() {
         this.props.checklogIn()
       .then(() => {
@@ -51,9 +49,10 @@ export class MakingPage extends Component {
         this.setState({ target_check: new_check });
     }
 
-    insertOptionHandler = (id) => {
+    insertOptionHandler = (item_id) => {
         let new_list = this.state.item_list;
-        new_list[id].option_list.push({ content: '' });
+        let num = new_list.length;
+        new_list[item_id].option_list.push({ id: num, content: '' });
 
         this.setState({
           item_list: new_list
@@ -76,8 +75,8 @@ export class MakingPage extends Component {
             content: this.state.content,
             item_list: this.state.item_list,
         };
-        alert(this.state.title);
-        //this.props.onSubmitSurvey(survey);
+        //alert(this.state.item_list[0].option_list[0].content);
+        this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
@@ -87,7 +86,7 @@ export class MakingPage extends Component {
             id: this.state.item_count,
             question: '',
             question_type: 'Subjective',
-            option_list: [{ content: '' }],
+            option_list: [{ id: 0, content: '' }],
           },
         ];
 
@@ -97,16 +96,28 @@ export class MakingPage extends Component {
         });
     };
 
-    Items = () =>  this.state.item_list.map((items, item_index) => {
+    parentCallBackTitle = (dataFromChild, id) => {
+        let new_dat = this.state.item_list;
+        new_dat[id].title = dataFromChild;
+        this.setState({item_list: new_dat});
+    }
+
+    parentCallBackOption = (dataFromChild, item_id) => {
+        let new_list = this.state.item_list
+        new_list[item_id].option_list = dataFromChild;
+        this.setState({item_list: new_list});
+    }
+
+    Items = () => this.state.item_list.map((items) => {
       return (
         <MakingItem
-          id={item_index}
-          question={items.question}
+          id={items.id}
+          itemTitle={(par1, par2) => this.parentCallBackTitle(par1, par2)}
           questiontype={items.question_type}
-          optionList={items.option_list}
-          onToggle={this.onToggleHandler}
-          onAddhandler={(id) => this.insertOptionHandler(id)}
-          submitHandler={this.submitHandler}
+          optionList={(par1, par2) => this.parentCallBackOption(par1, par2)}
+          callOptionList={this.state.item_list[items.id].option_list}
+          onToggle={(id) => this.onToggleHandler(items.id)}
+          onAddhandler={(id) => this.insertOptionHandler(items.id)}
         />
       );
     });
@@ -144,7 +155,7 @@ export class MakingPage extends Component {
             />
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> Won't input age option
           </Segment>
-          <button onClick={() => { this.insertItemHandler(); }}>
+          <button onClick={ this.insertItemHandler }>
             Add Question Item
           </button>
           { this.Items() }
