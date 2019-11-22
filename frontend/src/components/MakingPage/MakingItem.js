@@ -22,8 +22,8 @@ export class MakingItem extends Component {
       <Segment style={{ 'min-height': '250px' }}>
         Q:
         {'  '}
-        <input />
-        <Checkbox toggle onChange={() => { this.props.onToggle(this.props.id); questionTypeHandler(); }} />
+        <input id="question" onChange={this.props.question }/>
+        <Checkbox toggle onChange={(e) => { this.props.onToggle(this.props.id); questionTypeHandler(); }} />
         <h3>{this.props.questiontype}</h3>
         {
           (this.state.questiontype == 'Selection')
@@ -38,3 +38,4 @@ export class MakingItem extends Component {
   }
 }
 export default withRouter(MakingItem);
+
