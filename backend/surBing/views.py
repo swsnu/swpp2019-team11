@@ -2,6 +2,10 @@ import json
 from functools import wraps
 from json import JSONDecodeError
 
+from celery.schedules import crontab
+from celery.task import periodic_task
+from django.utils.timezone import datetime
+
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -121,8 +125,8 @@ def makeSurvey(request):
 
         survey = SurveyOngoing(
             title=title, author=request.user,
-            survey_start_date=survey_start_date,
-            survey_end_date=survey_end_date,
+            survey_start_date=datetime.date.strptime(survey_start_date, '%y/%m/%d'),
+            survey_end_date=datetime.date.strptime(survey_end_date, '%y/%m/%d'),
             content=content,
             respondant_count=0,
             target_repondant_count = target_respondant_count,
@@ -167,11 +171,14 @@ def survey(request, survey_id):
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
-            'upload_date': survey.upload_date,
-            'survey_start_date': survey.survey_start_date,
-            'survey_end_date': survey.survey_end_date,
+            'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
+            'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'content': survey.content,
             'respondant_count': survey.respondant_count,
+            'target_age_start': survey.target_age_start,
+            'target_age_end': survey.target_age_end,
+            'target_gender': survey.target.gender,
             'item': [],
         }
         for item in survey.item.all():
@@ -200,9 +207,9 @@ def onGoingSurvey(request, survey_id):
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
-            'upload_date': survey.upload_date,
-            'survey_start_date': survey.survey_start_date,
-            'survey_end_date': survey.survey_end_date,
+            'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
+            'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'target_age_start': survey.target_age_start,
             'target_age_end': survey.target_age_end,
             'target_gender': survey.target.gender,
@@ -333,7 +340,36 @@ def mycart(request):
 def participating_list(request):
     if request.method == 'GET':
         user = request.user
-        surveys = list(SurveyOngoing.filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age).values())
+        today = datetime.date.today()
+        surveys = list(SurveyOngoing.filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age, survey_end_date__gte = today).values())
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
+
+
+@periodic_task(run_every=crontab(hour = 0, minute =0))
+def onGoing_to_complete():
+    onGoingSurveys = SurveyOngoing.objects.all()
+    today = datetime.date.today()
+    for survey in onGoingSurvey:
+        if(survey.open_date<=today):
+            new_survey = SurveyOngoing(
+                title = survey.title,
+                author = survey.author,
+                upload_date = survey.upload_date,
+                survey_start_date = survey.survey_start_date,
+                survey_end_date = survey.survey_end_date,
+                content = survey.content,
+                target_age_start = survey.target_age_start,
+                target_age_end = survey.target_age_end,
+                target_gender = survey.target_gender,
+                respondant_count = survey.respondant_count,
+            )
+            new_survey.save()
+            for item in survey.item:
+                for response in item.response:
+                    response.respondant_number = None;
+                    response.save()
+                new_survey.item.add(item)
+            new_survey.save()
+            survey.delete()
