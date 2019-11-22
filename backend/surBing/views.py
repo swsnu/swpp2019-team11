@@ -340,8 +340,13 @@ def mycart(request):
 def participating_list(request):
     if request.method == 'GET':
         user = request.user
+        participated_surveys = user.participating.all()
         today = datetime.date.today()
-        surveys = list(SurveyOngoing.filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age, survey_end_date__gte = today).values())
+        surveys = list(SurveyOngoing.objects
+            .filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age, survey_end_date__gte = today)
+            .exclude(participant__in = participated_surveys)
+            .values()
+        )
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
