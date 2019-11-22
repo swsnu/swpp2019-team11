@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, Http
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 
-from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response
+from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
 
 # Create your views here.
@@ -104,7 +104,7 @@ def search(request, keyword=''):
 # only accept POST
 # 201 if success
 @check_logged_in
-def making(request): 
+def makeSurvey(request): 
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
@@ -134,16 +134,17 @@ def making(request):
 
         for item in items:
             try:
+                number = item['number']
                 title = item['title']
                 question_type = item['question_type']
                 selection_list = item['selection_list']
             except KeyError:
                 return HttpResponse(status=400)
 
-            cur_item = Item(title=title, question_type=question_type)
+            cur_item = Item(number = number, title=title, question_type=question_type)
             cur_item.save()
             for index, selection in enumerate(selection_list):
-                cur_selection = Selection(index=index+1, title = selection)
+                cur_selection = Selection(number = index+1, content = selection)
                 cur_selection.save()
                 cur_item.selection.add(cur_selection)
             
@@ -189,6 +190,79 @@ def survey(request, survey_id):
     else:
         return HttpResponseBadRequest(['GET'])
 
+
+@check_logged_in
+def onGoingSurvey(request, survey_id):
+    if request.method == 'GET':
+        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
+        survey = Survey.objects.get(id=survey_id)
+        survey_dict = {
+            'id': survey.id,
+            'title': survey.title, 'author': survey.author.username,
+            'upload_date': survey.upload_date,
+            'survey_start_date': survey.survey_start_date,
+            'survey_end_date': survey.survey_end_date,
+            'target_age_start': survey.target_age_start,
+            'target_age_end': survey.target_age_end,
+            'target_gender': survey.target.gender,
+            'content': survey.content,
+            'respondant_count': survey.respondant_count,
+            'item': [],
+        }
+        for item in survey.item.all():
+            item_dict = {
+                'number': item.number,
+                'title': item.title,
+                'question_type': item.question_type,
+                'selection': [],
+                'response': [],
+            }
+            for selection in item.selection.all():
+                item_dict['selection'].append({
+                    'number': selection.number,
+                    'content': selection.content,
+                })
+            for response in item.response.all():
+                item_dict['response'].append({
+                    'respondant_id': response.respondant_id,
+                    'content': response.content,
+                })
+            survey_dict['item'].append(item_dict)
+        return JsonResponse(survey_dict, safe=False)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+
+
+@check_logged_in
+def participate(request, survey_id):
+    if request.method == 'POST':
+
+        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
+        survey = SurveyOngoing.objects.get(id=survey_id)
+        survey.respondant_count+=1
+        survey.save()
+        try:
+            req_data = json.loads(request.body.decode())
+            resonse_list = req_data
+        except (KeyError, JSONDecodeError):
+            return HttpResponse(status=400)
+
+        survey.item.all()
+        for item in survey.item.all():
+            for response in response_list:
+                if(item.number == response.number):
+                    cur_response = Response(respondant_number = survey.respondant_count+1 , content = response.content )
+                    cur_response.save()
+                    item.response.add(cur_response)
+                    break
+            item.save()
+        survey.save()
+        return HttpResponse(status=201)
+    else:
+            return HttpResponseBadRequest(['POST'])
 
 # mycart : api for cart
 # GET

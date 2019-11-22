@@ -9,6 +9,9 @@ class Survey(models.Model): #completed survey
     survey_start_date = models.CharField(max_length=10, null=True)
     survey_end_date = models.CharField(max_length=10, null=True)
     content = models.TextField(null=True)
+    target_age_start = models.IntegerField()
+    target_age_end = models.IntegerField()
+    target_gender = models.CharField(max_length = 1)
     respondant_count = models.IntegerField()
     item = models.ManyToManyField('Item')
 
@@ -26,14 +29,15 @@ class SurveyOngoing(models.Model):  #not completed survey
     item = models.ManyToManyField('Item')
 
 class Item(models.Model):
+    number = models.IntegerField()
     title = models.CharField(max_length=120)
     question_type = models.CharField(max_length=10, null=True)
     selection = models.ManyToManyField('Selection')
     response = models.ManyToManyField('Response')
 
 class Selection(models.Model):
-    title = models.CharField(max_length=120)
-    index = models.IntegerField()
+    number = models.IntegerField()
+    content = models.CharField(max_length=120)
 
 class Response(models.Model):
     respondant_number = models.IntegerField(null=True)
