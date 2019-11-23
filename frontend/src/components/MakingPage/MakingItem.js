@@ -19,7 +19,6 @@ export class MakingItem extends Component {
   onAddhandler = () => {
     this.props.onAddhandler();
     let new_op = this.state.option_list;
-    let num = new_op.length
     //new_op.push({ id: num, content: '' })
   }
 

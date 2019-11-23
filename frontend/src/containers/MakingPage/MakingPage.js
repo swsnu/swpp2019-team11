@@ -24,10 +24,10 @@ export class MakingPage extends Component {
     }
 
     componentDidMount() {
-        this.props.checklogIn()
-      .then(() => {
-      })
-      .catch(() => { this.props.history.push('/login/'); });
+      this.props.checklogIn()
+        .then(() => {
+            })
+        .catch(() => { this.props.history.push('/login/'); });
     }
 
     onToggleHandler = (id) => {
