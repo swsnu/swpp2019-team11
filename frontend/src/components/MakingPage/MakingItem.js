@@ -30,7 +30,7 @@ export class MakingItem extends Component {
     };
 
     return (
-      <Segment style={{ 'min-height': '250px' }}>
+      <Segment style={{ minHeight: '250px' }}>
         Q:
         {'  '}
         <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>

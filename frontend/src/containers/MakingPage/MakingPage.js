@@ -74,6 +74,7 @@ export class MakingPage extends Component {
             title: this.state.title,
             content: this.state.content,
             item_list: this.state.item_list,
+            target: this.state.target,
         };
         //alert(this.state.item_list[0].option_list[0].content);
         this.props.onSubmitSurvey(survey);
@@ -140,15 +141,26 @@ export class MakingPage extends Component {
           <Segment>
             <h3>Survey Target Settings:</h3>
             <div>Gender:</div>
-            <Checkbox toggle/>{'  gender   '}
+            <Checkbox toggle onChange={(e)=>{
+              let new_gen = this.state.target;
+              if (new_gen[0].gender == 'male') new_gen[0].gender = 'female';
+              else new_gen[0].gender = 'male';
+              this.setState({target: new_gen});
+            }}/>
+            <div>{this.state.target[0].gender}</div>
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
             <div>Age:</div>
             <Slider
                   max={100}
                   min={1}
                   style={{ width: 270, color: '#008080' }}
-                  //value={this.state.respondant}
-                  //onChange={this.handleSlider}
+                  aria-labelledby="range-slider"
+                  defaultValue={[20, 40]}
+                  onChange={(e)=>{
+                    let new_age = this.state.target;
+                    new_age[1] = e.target.value;
+                    this.setState(new_age);
+                  }}
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
                   //valueLabelFormat={this.formatFunction}
