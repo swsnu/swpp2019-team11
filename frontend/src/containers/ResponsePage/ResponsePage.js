@@ -24,6 +24,10 @@ export class ResponsePage extends Component {
     ],
   }
 
+  state= {
+    
+  }
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {

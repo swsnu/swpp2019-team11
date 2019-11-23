@@ -17,6 +17,8 @@ export class MakingPage extends Component {
         content: '',
         target: [{ gender: 'male' }, { age: [1, 100] }],
         target_check: [{ gender: 0 }, { age: 0 }],
+        response_count: 0, 
+        due_date: '', 
         item_count: 1,
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', option_list: [{ id: 0, content: '' }] },
@@ -139,6 +141,8 @@ export class MakingPage extends Component {
             <input type="text" onChange={(event) => this.setState({ content: event.target.value })} />
           </Segment>
           <Segment>
+            Due Date:
+            <input type="text" onChange={(event) => this.setState({ due_date: event.target.value })} />
             <h3>Survey Target Settings:</h3>
             <div>Gender:</div>
             <Checkbox toggle onChange={(e)=>{
@@ -165,6 +169,8 @@ export class MakingPage extends Component {
                   aria-labelledby="range-slider"
             />
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> Won't input age option
+            Target People:
+            <input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
           <button onClick={ this.insertItemHandler }>
             Add Question Item
