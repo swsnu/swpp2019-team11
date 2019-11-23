@@ -163,7 +163,6 @@ export class MakingPage extends Component {
                   }}
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
-                  //valueLabelFormat={this.formatFunction}
             />
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> Won't input age option
           </Segment>
@@ -171,7 +170,7 @@ export class MakingPage extends Component {
             Add Question Item
           </button>
           { this.Items() }
-          <button onClick={() => { /*this.props.history.push('/participate/');*/ this.submitHandler(); }}>
+          <button onClick={() => { this.props.history.push('/participate/'); this.submitHandler(); }}>
             Submit
           </button>
         </div>
