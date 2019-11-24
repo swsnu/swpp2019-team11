@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { SingleDatePicker } from 'react-dates';
 import { Sticky, Segment, Checkbox } from 'semantic-ui-react';
 import Slider from '@material-ui/core/Slider';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
+import moment from 'moment';
 
 export const mapDispatchToProps = (dispatch) => ({
     checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -18,17 +20,18 @@ export class MakingPage extends Component {
         target: [{ gender: 'male' }, { age: [1, 100] }],
         target_check: [{ gender: 0 }, { age: 0 }],
         response_count: 0, 
-        due_date: '', 
+        due_date: moment(), 
         item_count: 1,
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', option_list: [{ id: 0, content: '' }] },
         ],
+        focused: false,
     }
 
     componentDidMount() {
       this.props.checklogIn()
         .then(() => {
-            })
+        })
         .catch(() => { this.props.history.push('/login/'); });
     }
 
@@ -142,7 +145,13 @@ export class MakingPage extends Component {
           </Segment>
           <Segment>
             Due Date:
-            <input type="text" onChange={(event) => this.setState({ due_date: event.target.value })} />
+            <SingleDatePicker
+                numberOfMonths={1}
+                onDateChange={due_date => this.setState({due_date})}
+                onFocusChange={({ focused }) => this.setState({ focused})}
+                focused={this.state.focused}
+                date={this.state.date}
+            />
             <h3>Survey Target Settings:</h3>
             <div>Gender:</div>
             <Checkbox toggle onChange={(e)=>{
@@ -151,7 +160,7 @@ export class MakingPage extends Component {
               else new_gen[0].gender = 'male';
               this.setState({target: new_gen});
             }}/>
-            <div>{this.state.target[0].gender}</div>
+            {this.state.target[0].gender}
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
             <div>Age:</div>
             <Slider
@@ -168,8 +177,10 @@ export class MakingPage extends Component {
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
             />
-            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> Won't input age option
-            Target People:
+            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> 
+            Won't input age option
+            {'  '}
+            <p>Target People:</p>
             <input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
           <button onClick={ this.insertItemHandler }>
