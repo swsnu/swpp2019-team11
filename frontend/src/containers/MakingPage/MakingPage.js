@@ -78,7 +78,7 @@ export class MakingPage extends Component {
     };
 
     submitHandler = () => {
-        //alert(this.state.due_date);
+        
         this.state.item_list.map((item) => { //delete selections of subject question
             if (item.question_type != 'Selection'){
                 item.option_list = [];
@@ -89,7 +89,7 @@ export class MakingPage extends Component {
         if ( this.state.target_check[0].gender == 0 ) new_target[0].gender = 'male';
         if ( this.state.target_check[1].age == 0 ) new_target[1].age = [ 1, 100 ];
         
-        //alert("qwe");
+        
         let dueDayArr = this.state.due_date.format().split('-');
         let dueStr = dueDayArr[0].substring(2, 4);
         dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
@@ -97,7 +97,7 @@ export class MakingPage extends Component {
         let startDayArr = moment().format().split("-");
         let startStr = "";
         startStr = startStr.concat(startDayArr[0].substring(2, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
-        //alert(dueStr);
+        
         let survey = { 
             title: this.state.title,
             content: this.state.content,
