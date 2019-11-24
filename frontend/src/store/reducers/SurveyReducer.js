@@ -21,6 +21,8 @@ const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
       };
     case actionTypes.GET_ONGOING_SURVEY:
       return { ...state, ongoing_survey: action.target };
+    case actionTypes.ADD_ONGOING_SURVEY:
+      return { ...state };
     default:
       break;
   }

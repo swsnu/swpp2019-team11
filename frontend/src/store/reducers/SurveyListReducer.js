@@ -5,7 +5,7 @@ const initialState = {
 
   ],
   ongoing_survey_list: [
-    
+
   ],
 };
 

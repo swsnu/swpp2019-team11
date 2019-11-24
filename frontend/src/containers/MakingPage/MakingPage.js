@@ -88,12 +88,25 @@ export class MakingPage extends Component {
         let new_target= this.state.target;
         if ( this.state.target_check[0].gender == 0 ) new_target[0].gender = 'male';
         if ( this.state.target_check[1].age == 0 ) new_target[1].age = [ 1, 100 ];
+        
+        //alert("qwe");
+        let dueDayArr = this.state.due_date.format().split('-');
+        let dueStr = dueDayArr[0].substring(2, 4);
+        dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
 
+        let startDayArr = moment().format().split("-");
+        let startStr = "";
+        startStr = startStr.concat(startDayArr[0].substring(2, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
+        //alert(dueStr);
         let survey = { 
             title: this.state.title,
             content: this.state.content,
-            item_list: this.state.item_list,
-            target: this.state.target,
+            survey_start_date: startStr,
+            survey_end_date: dueStr,
+            items: this.state.item_list,
+            target_age: this.state.target[1].age,
+            target_gender: this.state.target[0].gender,
+            target_respondant_count: this.state.response_count,
         };
         //this.props.onSubmitSurvey(survey);
     }
