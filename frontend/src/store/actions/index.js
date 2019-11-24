@@ -2,7 +2,7 @@ export {
   logIn, signUp, logOut, checklogIn,
 } from './user';
 export {
-  getSurveyList, getSurvey, uploadSurvey, getOngoingSurveyList,
+  getSurveyList, getSurvey, uploadSurvey, getOngoingSurveyList, getOngoingSurvey,
 } from './survey';
 export {
   getCart, addCart, deleteCart,

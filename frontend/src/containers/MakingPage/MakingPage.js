@@ -36,7 +36,6 @@ export class MakingPage extends Component {
     }
 
     onToggleTypeHandler = (id) => {
-        
         if (this.state.item_list[id].question_type == 'Subjective') {
             let new_list = this.state.item_list;
             new_list[id].question_type = 'Selection';
@@ -106,6 +105,7 @@ export class MakingPage extends Component {
             id: this.state.item_count,
             question: '',
             question_type: 'Subjective',
+            duplicate_input: false,
             option_list: [{ id: 0, content: '' }],
           },
         ];
@@ -175,7 +175,7 @@ export class MakingPage extends Component {
               if (new_gen[0].gender == 'male') new_gen[0].gender = 'female';
               else new_gen[0].gender = 'male';
               this.setState({target: new_gen});
-            }}/>
+            }} />
             {this.state.target[0].gender}
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
             <div>Age:</div>
@@ -203,7 +203,7 @@ export class MakingPage extends Component {
             Add Question Item
           </button>
           { this.Items() }
-          <button onClick={() => { this.submitHandler();  this.props.history.push('/participate/');}}>
+          <button onClick={() => { this.submitHandler();  this.props.history.push('/main/'); }}>
             Submit
           </button>
         </div>

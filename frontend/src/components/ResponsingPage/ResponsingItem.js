@@ -7,7 +7,8 @@ export class ResponsingItem extends Component {
     return (
       <div>
         <Segment>
-        {this.props.question}
+        <div>{this.props.question}</div>
+        {this.props.duplicate && <div>{"(You can select more than one.)"}</div>}
         {
           (this.props.question_type == 'Selection')
           &&

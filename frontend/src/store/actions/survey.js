@@ -17,6 +17,13 @@ export const getOngoingSurveyList = () => (dispatch) => axios.get('/api/particip
     return res;
   });
 
+export const getOngoingSurvey_ = (survey) => ({type: actionTypes.GET_ONGOING_SURVEY, target: ongoing_survey });
+
+export const getOngoingSurvey = (id) => (dispatch) => axios.get(`/api/survey/ongoing/${id}/`).then((res) => {
+  dispatch(getOngoingSurvey_(res.data));
+  return res;
+})
+
 export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: survey });
 
 export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/${id}/`).then((res) => {
