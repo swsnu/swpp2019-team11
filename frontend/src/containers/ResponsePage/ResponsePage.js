@@ -9,8 +9,9 @@ export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onGetOngoingSurvey: () => dispatch(actionCreators.getOngoingSurvey()),
 })
-export const mapStateToProps = () => ({
-  survey = state.sv.ongoing_survey,
+
+export const mapStateToProps = (state) => ({
+  survey: state.sv.ongoing_survey,
 })
 
 export class ResponsePage extends Component {

@@ -17,7 +17,7 @@ export const getOngoingSurveyList = () => (dispatch) => axios.get('/api/particip
     return res;
   });
 
-export const getOngoingSurvey_ = (survey) => ({type: actionTypes.GET_ONGOING_SURVEY, target: ongoing_survey });
+export const getOngoingSurvey_ = (ongoing_survey) => ({type: actionTypes.GET_ONGOING_SURVEY, target: ongoing_survey });
 
 export const getOngoingSurvey = (id) => (dispatch) => axios.get(`/api/survey/ongoing/${id}/`).then((res) => {
   dispatch(getOngoingSurvey_(res.data));
