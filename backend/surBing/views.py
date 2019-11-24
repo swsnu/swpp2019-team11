@@ -4,12 +4,10 @@ from json import JSONDecodeError
 
 from celery.schedules import crontab
 from celery.task import periodic_task
-from django.utils.timezone import datetime
-
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
+from django.utils.timezone import datetime
 from django.views.decorators.csrf import ensure_csrf_cookie
-
 
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
@@ -31,12 +29,14 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
- 
+
+
 def checklogin(request):
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=401)
+
 
 def signup(request):  # create new
     if request.method == 'POST':
@@ -108,7 +108,7 @@ def search(request, keyword=''):
 # only accept POST
 # 201 if success
 @check_logged_in
-def makeSurvey(request): 
+def makeSurvey(request):
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
@@ -132,10 +132,10 @@ def makeSurvey(request):
             open_date=datetime.strptime(open_date, '%Y/%m/%d').date(),
             content=content,
             respondant_count=0,
-            target_respondant_count = target_respondant_count,
-            target_age_start = int(target_age_start),
-            target_age_end = int(target_age_end),
-            target_gender = target_gender
+            target_respondant_count=target_respondant_count,
+            target_age_start=int(target_age_start),
+            target_age_end=int(target_age_end),
+            target_gender=target_gender
         )
         survey.save()
 
@@ -148,14 +148,14 @@ def makeSurvey(request):
             except KeyError:
                 return HttpResponse(status=400)
 
-            cur_item = Item(number = number, title=title, question_type=question_type)
+            cur_item = Item(number=number, title=title, question_type=question_type)
             cur_item.save()
-            if (question_type=='Selection'):
+            if (question_type == 'Selection'):
                 for index, selection in enumerate(selection_list):
-                    cur_selection = Selection(number = index+1, content = selection)
+                    cur_selection = Selection(number=index + 1, content=selection)
                     cur_selection.save()
                     cur_item.selection.add(cur_selection)
-                
+
                 cur_item.save()
             survey.item.add(cur_item)
 
@@ -165,9 +165,10 @@ def makeSurvey(request):
     else:
         return HttpResponseBadRequest(['POST'])
 
-#for searching completed survey. 
+
+# for searching completed survey.
 @check_logged_in
-def survey(request, survey_id): 
+def survey(request, survey_id):
     if request.method == 'GET':
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
@@ -189,13 +190,13 @@ def survey(request, survey_id):
             item_dict = {
                 'title': item.title,
                 'question_type': item.question_type,
-                'selection' : [],
+                'selection': [],
                 'response': [],
             }
             for selection in item.selection.all():
                 item_dict['selection'].append({
-                    'number' : selection.number,
-                    'content' : selection.content,
+                    'number': selection.number,
+                    'content': selection.content,
                 })
             for response in item.response.all():
                 item_dict['response'].append({
@@ -251,7 +252,6 @@ def onGoingSurvey(request, survey_id):
         return HttpResponseBadRequest(['GET'])
 
 
-
 @check_logged_in
 def participate(request, survey_id):
     if request.method == 'POST':
@@ -259,14 +259,16 @@ def participate(request, survey_id):
         if not SurveyOngoing.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
-        survey.respondant_count+=1
+        survey.respondant_count += 1
         survey.save()
         response_list = json.loads(request.body.decode())
         survey.item.all()
         for item in survey.item.all():
             for response in response_list:
-                if(item.number == response['number']):
-                    cur_response = Response(respondant_number = survey.respondant_count+1 , content = response['content'] )
+                if (item.number == response['number']):
+                    cur_response = Response(
+                        respondant_number=survey.respondant_count + 1,
+                        content=response['content'])
                     cur_response.save()
                     item.response.add(cur_response)
                     break
@@ -274,7 +276,8 @@ def participate(request, survey_id):
         survey.save()
         return HttpResponse(status=201)
     else:
-            return HttpResponseBadRequest(['POST'])
+        return HttpResponseBadRequest(['POST'])
+
 
 # mycart : api for cart
 # GET
@@ -340,7 +343,8 @@ def mycart(request):
     else:
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
 
-#you should implement filter to match surveys to user later.
+
+# you should implement filter to match surveys to user later.
 @check_logged_in
 def participating_list(request):
     if request.method == 'GET':
@@ -348,37 +352,40 @@ def participating_list(request):
         participated_surveys = user.participating.all()
         today = datetime.date.today()
         surveys = list(SurveyOngoing.objects
-            .filter(target_gender = user.gender, target_age_start__lte = user.age, target_age_end__gte = user.age, survey_end_date__gte = today)
-            .exclude(participant__in = participated_surveys)
-            .values()
-        )
+                       .filter(target_gender=user.gender,
+                               target_age_start__lte=user.age,
+                               target_age_end__gte=user.age,
+                               survey_end_date__gte=today)
+                       .exclude(participant__in=participated_surveys)
+                       .values()
+                       )
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
 
 
-@periodic_task(run_every=crontab(hour = 0, minute =0))
+@periodic_task(run_every=crontab(hour=0, minute=0))
 def onGoing_to_complete():
     onGoingSurveys = SurveyOngoing.objects.all()
     today = datetime.date.today()
-    for survey in onGoingSurvey:
-        if(survey.open_date<=today):
+    for survey in onGoingSurveys:
+        if (survey.open_date <= today):
             new_survey = SurveyOngoing(
-                title = survey.title,
-                author = survey.author,
-                upload_date = survey.upload_date,
-                survey_start_date = survey.survey_start_date,
-                survey_end_date = survey.survey_end_date,
-                content = survey.content,
-                target_age_start = survey.target_age_start,
-                target_age_end = survey.target_age_end,
-                target_gender = survey.target_gender,
-                respondant_count = survey.respondant_count,
+                title=survey.title,
+                author=survey.author,
+                upload_date=survey.upload_date,
+                survey_start_date=survey.survey_start_date,
+                survey_end_date=survey.survey_end_date,
+                content=survey.content,
+                target_age_start=survey.target_age_start,
+                target_age_end=survey.target_age_end,
+                target_gender=survey.target_gender,
+                respondant_count=survey.respondant_count,
             )
             new_survey.save()
             for item in survey.item:
                 for response in item.response:
-                    response.respondant_number = None;
+                    response.respondant_number = None
                     response.save()
                 new_survey.item.add(item)
             new_survey.save()
