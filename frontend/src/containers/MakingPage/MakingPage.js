@@ -20,10 +20,10 @@ export class MakingPage extends Component {
         target: [{ gender: 'male' }, { age: [1, 100] }],
         target_check: [{ gender: 0 }, { age: 0 }],
         response_count: 0, 
-        due_date: moment(), 
+        due_date: moment(),
         item_count: 1,
         item_list: [
-            { id: 0, question: '', question_type: 'Subjective', option_list: [{ id: 0, content: '' }] },
+            { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
         ],
         focused: false,
     }
@@ -35,7 +35,8 @@ export class MakingPage extends Component {
         .catch(() => { this.props.history.push('/login/'); });
     }
 
-    onToggleHandler = (id) => {
+    onToggleTypeHandler = (id) => {
+        
         if (this.state.item_list[id].question_type == 'Subjective') {
             let new_list = this.state.item_list;
             new_list[id].question_type = 'Selection';
@@ -46,6 +47,19 @@ export class MakingPage extends Component {
             new_list[id].question_type = 'Subjective';
             this.setState({ item_list: new_list });
         }
+    }
+
+    onToggleDupHandler = (id) => {
+        let new_list = this.state.item_list;
+        if (this.state.item_list[id].duplicate_input == false) {
+            new_list[id].duplicate_input = true;
+            this.setState({item_list: new_list});
+        }
+        else {
+            new_list[id].duplicate_input = false;
+            this.setState({item_list: new_list});
+        }
+        
     }
 
     targetToggleHandler = (id) => {
@@ -65,6 +79,7 @@ export class MakingPage extends Component {
     };
 
     submitHandler = () => {
+        //alert(this.state.due_date);
         this.state.item_list.map((item) => { //delete selections of subject question
             if (item.question_type != 'Selection'){
                 item.option_list = [];
@@ -81,8 +96,7 @@ export class MakingPage extends Component {
             item_list: this.state.item_list,
             target: this.state.target,
         };
-        //alert(this.state.item_list[0].option_list[0].content);
-        this.props.onSubmitSurvey(survey);
+        //this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
@@ -120,9 +134,11 @@ export class MakingPage extends Component {
           id={items.id}
           itemTitle={(par1, par2) => this.parentCallBackTitle(par1, par2)}
           questiontype={items.question_type}
+          duplicate={items.duplicate_input}
           optionList={(par1, par2) => this.parentCallBackOption(par1, par2)}
           callOptionList={this.state.item_list[items.id].option_list}
-          onToggle={(id) => this.onToggleHandler(items.id)}
+          onToggleType={(id) => this.onToggleTypeHandler(items.id)}
+          onToggleDup={(id) => this.onToggleDupHandler(items.id)}
           onAddhandler={(id) => this.insertOptionHandler(items.id)}
         />
       );
@@ -147,10 +163,10 @@ export class MakingPage extends Component {
             Due Date:
             <SingleDatePicker
                 numberOfMonths={1}
-                onDateChange={due_date => this.setState({due_date})}
-                onFocusChange={({ focused }) => this.setState({ focused})}
+                onDateChange={(due_date) => this.setState({ due_date })}
+                onFocusChange={({focused}) => this.setState({ focused })}
                 focused={this.state.focused}
-                date={this.state.date}
+                date={this.state.due_date}
             />
             <h3>Survey Target Settings:</h3>
             <div>Gender:</div>
@@ -168,7 +184,7 @@ export class MakingPage extends Component {
                   min={1}
                   style={{ width: 270, color: '#008080' }}
                   aria-labelledby="range-slider"
-                  defaultValue={[20, 40]}
+                  defaultValue={[0, 100]}
                   onChange={(e)=>{
                     let new_age = this.state.target;
                     new_age[1] = e.target.value;
@@ -187,7 +203,7 @@ export class MakingPage extends Component {
             Add Question Item
           </button>
           { this.Items() }
-          <button onClick={() => { this.props.history.push('/participate/'); this.submitHandler(); }}>
+          <button onClick={() => { this.submitHandler();  this.props.history.push('/participate/');}}>
             Submit
           </button>
         </div>

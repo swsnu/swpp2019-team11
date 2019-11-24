@@ -33,19 +33,25 @@ export class MakingItem extends Component {
         Q:
         {'  '}
         <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onChange={(e) => { this.props.onToggle(this.props.id); questionTypeHandler(); }} />
-        <h3>{this.props.questiontype}</h3>
+        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+        {this.props.questiontype}
+        {
+          (this.state.questiontype == 'Selection')&&<div>{"Options:"}</div>
+        }
         {
           (this.state.questiontype == 'Selection')
         && this.props.callOptionList.map((options) => {
-          return ( 
+          return (
             <div>
-              <MakingOptions 
-                id={options.id} 
+              <MakingOptions
+                id={options.id}
                 content={(par1, par2) => this.parentCallBackContent(par1, par2)}
               />
-            </div> 
-          ); 
+              <Checkbox toggle onChange={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+              {(this.props.duplicate==false) && <div>False</div>}
+              {(this.props.duplicate==true) && <div>True</div>}
+            </div>
+          );
         })
         }
         {
