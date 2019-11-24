@@ -117,21 +117,24 @@ def makeSurvey(request):
             survey_end_date = req_data['survey_end_date']
             content = req_data['content']
             target_respondant_count = req_data['target_respondant_count']
-            target_age = req_data['target_age']
+            target_age_start = req_data['target_age_start']
+            target_age_end = req_data['target_age_end']
             target_gender = req_data['target_gender']
+            open_date = req_data['open_date']
             items = req_data['item']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
 
         survey = SurveyOngoing(
             title=title, author=request.user,
-            survey_start_date=datetime.date.strptime(survey_start_date, '%y/%m/%d'),
-            survey_end_date=datetime.date.strptime(survey_end_date, '%y/%m/%d'),
+            survey_start_date=datetime.strptime(survey_start_date, '%Y/%m/%d').date(),
+            survey_end_date=datetime.strptime(survey_end_date, '%Y/%m/%d').date(),
+            open_date=datetime.strptime(open_date, '%Y/%m/%d').date(),
             content=content,
             respondant_count=0,
-            target_repondant_count = target_respondant_count,
-            target_age_start = target_age[0],
-            target_age_end = target_age[1],
+            target_respondant_count = target_respondant_count,
+            target_age_start = int(target_age_start),
+            target_age_end = int(target_age_end),
             target_gender = target_gender
         )
         survey.save()
@@ -141,18 +144,19 @@ def makeSurvey(request):
                 number = item['number']
                 title = item['title']
                 question_type = item['question_type']
-                selection_list = item['selection_list']
+                selection_list = item['selection']
             except KeyError:
                 return HttpResponse(status=400)
 
             cur_item = Item(number = number, title=title, question_type=question_type)
             cur_item.save()
-            for index, selection in enumerate(selection_list):
-                cur_selection = Selection(number = index+1, content = selection)
-                cur_selection.save()
-                cur_item.selection.add(cur_selection)
-            
-            cur_item.save()
+            if (question_type=='Selection'):
+                for index, selection in enumerate(selection_list):
+                    cur_selection = Selection(number = index+1, content = selection)
+                    cur_selection.save()
+                    cur_item.selection.add(cur_selection)
+                
+                cur_item.save()
             survey.item.add(cur_item)
 
         survey.save()
@@ -178,18 +182,24 @@ def survey(request, survey_id):
             'respondant_count': survey.respondant_count,
             'target_age_start': survey.target_age_start,
             'target_age_end': survey.target_age_end,
-            'target_gender': survey.target.gender,
+            'target_gender': survey.target_gender,
             'item': [],
         }
         for item in survey.item.all():
             item_dict = {
                 'title': item.title,
                 'question_type': item.question_type,
+                'selection' : [],
                 'response': [],
             }
+            for selection in item.selection.all():
+                item_dict['selection'].append({
+                    'number' : selection.number,
+                    'content' : selection.content,
+                })
             for response in item.response.all():
                 item_dict['response'].append({
-                    'respondant_id': response.respondant_id,
+                    'respondant_number': response.respondant_number,
                     'content': response.content,
                 })
             survey_dict['item'].append(item_dict)
@@ -203,7 +213,7 @@ def onGoingSurvey(request, survey_id):
     if request.method == 'GET':
         if not SurveyOngoing.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
-        survey = Survey.objects.get(id=survey_id)
+        survey = SurveyOngoing.objects.get(id=survey_id)
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
@@ -212,7 +222,7 @@ def onGoingSurvey(request, survey_id):
             'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'target_age_start': survey.target_age_start,
             'target_age_end': survey.target_age_end,
-            'target_gender': survey.target.gender,
+            'target_gender': survey.target_gender,
             'content': survey.content,
             'respondant_count': survey.respondant_count,
             'item': [],
@@ -232,7 +242,7 @@ def onGoingSurvey(request, survey_id):
                 })
             for response in item.response.all():
                 item_dict['response'].append({
-                    'respondant_id': response.respondant_id,
+                    'respondant_id': response.respondant_number,
                     'content': response.content,
                 })
             survey_dict['item'].append(item_dict)
@@ -251,17 +261,12 @@ def participate(request, survey_id):
         survey = SurveyOngoing.objects.get(id=survey_id)
         survey.respondant_count+=1
         survey.save()
-        try:
-            req_data = json.loads(request.body.decode())
-            resonse_list = req_data
-        except (KeyError, JSONDecodeError):
-            return HttpResponse(status=400)
-
+        response_list = json.loads(request.body.decode())
         survey.item.all()
         for item in survey.item.all():
             for response in response_list:
-                if(item.number == response.number):
-                    cur_response = Response(respondant_number = survey.respondant_count+1 , content = response.content )
+                if(item.number == response['number']):
+                    cur_response = Response(respondant_number = survey.respondant_count+1 , content = response['content'] )
                     cur_response.save()
                     item.response.add(cur_response)
                     break
