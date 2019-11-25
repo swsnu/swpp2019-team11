@@ -49,7 +49,6 @@ export class MakingItem extends Component {
                 id={options.id}
                 content={(par1, par2) => this.parentCallBackContent(par1, par2)}
               />
-              
             </div>
           );
         })
