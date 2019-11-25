@@ -154,11 +154,11 @@ class SurBingTestCase(TestCase):
         # surveys
         response = client.post('/api/make/', json.dumps({
             'item': [{'number': 1, 'title': 'title_test', 'question_type': 'Selection',
-                        'personal_data' : False, 
-                        'multiple_choice' : False,
-                        'selection': [{'number': 1, 'content': 'test selection'}],
-                        'response': [{'respondant_number': 1, 'content': 'Yes'}]
-                    }],
+                      'personal_data': False,
+                      'multiple_choice': False,
+                      'selection': [{'number': 1, 'content': 'test selection'}],
+                      'response': [{'respondant_number': 1, 'content': 'Yes'}]
+                      }],
             'title': 'test',
             'survey_start_date': '1999/3/15',
             'survey_end_date': '2019/3/15',
@@ -169,7 +169,7 @@ class SurBingTestCase(TestCase):
             'target_gender': 'M',
             'respondant_count': 1,
             'target_respondant_count': 1}),
-            content_type='application/json')
+                               content_type='application/json')
         self.assertEqual(response.status_code, 201)
 
         # make survey bad request
@@ -241,8 +241,6 @@ class SurBingTestCase(TestCase):
 
         response = client.get('/api/mypage/surveyOngoing/')
         self.assertEqual(response.status_code, 200)
-        
-        
 
     def test_logout(self):
         client = Client()
@@ -344,4 +342,3 @@ class SurBingTestCase(TestCase):
         # ongoing survey+id bad request
         response = client.delete('/api/survey/ongoing/1/')
         self.assertEqual(response.status_code, 400)
-

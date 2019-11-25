@@ -233,8 +233,8 @@ def onGoingSurvey(request, survey_id):
             item_dict = {
                 'number': item.number,
                 'title': item.title,
-                'personal_data' : item.personal_data,
-                'multiple_choice' : item.multiple_choice,
+                'personal_data': item.personal_data,
+                'multiple_choice': item.multiple_choice,
                 'question_type': item.question_type,
                 'selection': [],
                 'response': [],
