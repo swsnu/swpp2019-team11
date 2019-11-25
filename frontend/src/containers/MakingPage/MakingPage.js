@@ -60,7 +60,6 @@ export class MakingPage extends Component {
             new_list[id].duplicate_input = false;
             this.setState({item_list: new_list});
         }
-        
     }
 
     targetToggleHandler = (id) => {
