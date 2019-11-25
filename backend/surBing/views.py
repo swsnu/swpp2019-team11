@@ -155,12 +155,11 @@ def makeSurvey(request):
                             personal_data=False,
                             multiple_choice=multiple_choice)
             cur_item.save()
-            if (question_type == 'Selection'):
-                for index, selection in enumerate(selection_list):
-                    cur_selection = Selection(number=index + 1, content=selection)
-                    cur_selection.save()
-                    cur_item.selection.add(cur_selection)
-                cur_item.save()
+            for index, selection in enumerate(selection_list):
+                cur_selection = Selection(number=index + 1, content=selection)
+                cur_selection.save()
+                cur_item.selection.add(cur_selection)
+            cur_item.save()
             survey.item.add(cur_item)
 
         survey.save()
