@@ -18,7 +18,8 @@ export class MakingPage extends Component {
         title: '',
         content: '',
         target: [{ gender: 'male' }, { age: [1, 100] }],
-        target_check: [{ gender: 0 }, { age: 0 }],
+        gender_check: false,
+        age_check: false,
         response_count: 0, 
         due_date: moment(),
         item_count: 1,
@@ -62,9 +63,12 @@ export class MakingPage extends Component {
     }
 
     targetToggleHandler = (id) => {
-        let new_check = this.state.target_check;
-        new_check[id] = 1 - new_check[id];
-        this.setState({ target_check: new_check });
+      if (id == 0){
+        this.setState({gender_check: !this.state.gender_check})
+      }
+      if (id == 1){
+        this.setState({age_check: !this.state.age_check})
+      }
     }
 
     insertOptionHandler = (item_id) => {
@@ -86,8 +90,8 @@ export class MakingPage extends Component {
         });
 
         let new_target= this.state.target;
-        if ( this.state.target_check[0].gender == 0 ) new_target[0].gender = 'male';
-        if ( this.state.target_check[1].age == 0 ) new_target[1].age = [ 1, 100 ];
+        if ( this.state.gender_check == false ) new_target[0].gender = null;
+        if ( this.state.age_check == false ) new_target[1].age = [ 1, 100 ];
         
         
         let dueDayArr = this.state.due_date.format().split('-');
