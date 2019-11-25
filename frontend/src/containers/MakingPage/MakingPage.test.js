@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { MakingPage, mapDispatchToProps } from './MakingPage';
+import { shallow } from 'enzyme';
+import { MakingPage } from './MakingPage';
 
 describe('MakingPage', () => {
   const mockPush = jest.fn();
@@ -31,7 +31,10 @@ describe('MakingPage', () => {
     wrapper.simulate('click');
     wrapper = component.find('.genderNotCheck');
     wrapper.simulate('click');
-    expect(instance.state.target_check[1]).toEqual("test");
-    expect(instance.state.target_check[0].gender).toEqual(1);
+    expect(instance.state.gender_check).toEqual(true);
+    expect(instance.state.age_check).toEqual(true);
   });
+  it('slider testing', () => {
+    const wrapper = component.find('.ageSlider')
+  })
 });

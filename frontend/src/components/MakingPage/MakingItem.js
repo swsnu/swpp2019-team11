@@ -28,11 +28,11 @@ export class MakingItem extends Component {
     };
 
     return (
-      <Segment style={{ minHeight: '250px' }}>
+      <Segment className = "MakingItem" style={{ minHeight: '250px' }}>
         Q:
         {'  '}
         <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+        <Checkbox toggle onClick={() => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
         {this.props.questiontype}
         {
           (this.state.questiontype == 'Selection')&&<div>{"Options:"}</div>
@@ -46,7 +46,7 @@ export class MakingItem extends Component {
                 id={options.id}
                 content={(par1, par2) => this.parentCallBackContent(par1, par2)}
               />
-              <Checkbox toggle onChange={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+              <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.onToggleDup(this.props.id)}}></Checkbox>
               {(this.props.duplicate==false) && <div>False</div>}
               {(this.props.duplicate==true) && <div>True</div>}
             </div>
