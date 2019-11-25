@@ -6,11 +6,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Survey, Cart, SurBingUser, Item, Response
+from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response
 
 
 # Create your views here.
-
 def check_logged_in(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -27,14 +26,12 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
-
-
+ 
 def checklogin(request):
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=401)
-
 
 def signup(request):  # create new
     if request.method == 'POST':
@@ -106,55 +103,61 @@ def search(request, keyword=''):
 # only accept POST
 # 201 if success
 @check_logged_in
-def surveys(request):
+def making(request): 
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
             items = req_data['item']
             title = req_data['title']
-            upload_date = req_data['upload_date']
             survey_start_date = req_data['survey_start_date']
             survey_end_date = req_data['survey_end_date']
             content = req_data['content']
             respondant_count = req_data['respondant_count']
+            max_response = req_data['max_response']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
 
-        cur_survey = Survey(
-            title=title, author=request.user, upload_date=upload_date,
+        cur_survey = SurveyOngoing(
+            title=title, author=request.user,
             survey_start_date=survey_start_date,
             survey_end_date=survey_end_date,
             content=content, respondant_count=respondant_count
         )
         cur_survey.save()
+
         for item in items:
             try:
-                responses = item['response']
                 title = item['title']
                 question_type = item['question_type']
             except KeyError:
                 return HttpResponse(status=400)
+
             cur_item = Item(title=title, question_type=question_type)
             cur_item.save()
+            """
             for response in responses:
                 try:
-                    respondant_id = response['respondant_id']
                     content = response['content']
                 except KeyError:
                     return HttpResponse(status=400)
+
                 cur_response = Response(respondant_id=respondant_id, content=content)
                 cur_response.save()
                 cur_item.response.add(cur_response)
+            
             cur_item.save()
+            """
             cur_survey.item.add(cur_item)
+
         cur_survey.save()
         return HttpResponse(status=201)
+
     else:
         return HttpResponseBadRequest(['POST'])
 
-
+#for searching completed survey. 
 @check_logged_in
-def survey(request, survey_id):
+def survey(request, survey_id): 
     if request.method == 'GET':
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
@@ -249,3 +252,12 @@ def mycart(request):
 
     else:
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
+
+#you should implement filter to match surveys to user later.
+@check_logged_in
+def participating_list(request):
+    if request.method == 'GET':
+        surveys = list(SurveyOngoing.all().values())
+        return JsonResponse(surveys, safe=False, status=200)
+    else:
+        return HttpResponseBadRequest(['GET'])

@@ -130,7 +130,7 @@ class SurBingTestCase(TestCase):
             'content': 'SurveyContent',
             'respondant_count': 1}),
                                content_type='application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 400)
 
         # survey bad request
         response = client.get('/api/survey/')
@@ -154,36 +154,36 @@ class SurBingTestCase(TestCase):
         client.post('/api/login/', json.dumps({'username': 'testuser', 'password': 'test'}),
                     content_type='application/json')
         # cart test
-        response = client.get('/api/mycart/')
-        self.assertEqual(response.status_code, 200)
+        response = client.get('/api/mypage/cart')
+        self.assertEqual(response.status_code, 301)
         # cart bad request
-        response = client.delete('/api/mycart/')
+        response = client.delete('/api/mypage/cart/')
         self.assertEqual(response.status_code, 400)
         # cart post keyerror
-        response = client.post('/api/mycart/', json.dumps({'surveyee_id': 1}),
+        response = client.post('/api/mypage/cart/', json.dumps({'surveyee_id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 400)
         # cart post not exist
-        response = client.post('/api/mycart/', json.dumps({'id': 2}),
+        response = client.post('/api/mypage/cart/', json.dumps({'id': 2}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
         # cart test
-        response = client.post('/api/mycart/', json.dumps({'id': 1}),
+        response = client.post('/api/mypage/cart/', json.dumps({'id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 201)
         # cart post exist at cart already
-        response = client.post('/api/mycart/', json.dumps({'id': 1}),
+        response = client.post('/api/mypage/cart/', json.dumps({'id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
         # cart put(delete) keyerror
-        response = client.put('/api/mycart/', json.dumps({'ID': 3}),
+        response = client.put('/api/mypage/cart/', json.dumps({'ID': 3}),
                               content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
         # cart put(delete)
-        response = client.put('/api/mycart/', json.dumps({'id_list': [1]}),
+        response = client.put('/api/mypage/cart/', json.dumps({'id_list': [1]}),
                               content_type='application/json')
         self.assertEqual(response.status_code, 200)
 

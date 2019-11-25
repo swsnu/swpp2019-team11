@@ -1,7 +1,9 @@
 export {
   logIn, signUp, logOut, checklogIn,
 } from './user';
-export { getSurveyList, getSurvey, uploadSurvey } from './survey';
+export {
+  getSurveyList, getSurvey, uploadSurvey, getOngoingSurveyList, getOngoingSurvey, addOngoingSurvey,
+} from './survey';
 export {
   getCart, addCart, deleteCart,
 } from './cart';
