@@ -241,16 +241,17 @@ def onGoingSurvey(request, survey_id):
                 'selection': [],
                 'response': [],
             }
-            for selection in item.selection.all():
-                item_dict['selection'].append({
-                    'number': selection.number,
-                    'content': selection.content,
-                })
             for response in item.response.all():
                 item_dict['response'].append({
                     'respondant_number': response.respondant_number,
                     'content': response.content,
                 })
+            for selection in item.selection.all():
+                item_dict['selection'].append({
+                    'number': selection.number,
+                    'content': selection.content,
+                })
+            
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
     else:
