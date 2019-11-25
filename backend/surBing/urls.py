@@ -14,9 +14,8 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('make/', views.makeSurvey, name='making'),
     path('survey/ongoing/<int:survey_id>/', views.onGoingSurvey, name='onGoingSurvey'),
     path('participate/<int:survey_id>/', views.participate, name='participate'),
-    path('cart/', views.mycart, name='mypage'),
-    # path('mypage/surveyCompleted/', views.mypage_ongoing, name='mypage_ongoing'),
-    # path('mypage/surveyOngoing', view.mypage_completed, name='mypage_completed')
+    path('cart/', views.mycart, name='cart'),
+    path('mypage/surveyCompleted/', views.my_survey_completed, name='mypage_ongoing'),
+    path('mypage/surveyOngoing/', views.my_survey_ongoing, name='mypage_completed')
 
-    # path('ml/', views.ml_analysis, name='ml_analysis')
 ]
