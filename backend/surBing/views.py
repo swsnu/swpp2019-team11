@@ -149,7 +149,10 @@ def makeSurvey(request):
             except KeyError:
                 return HttpResponse(status=400)
 
-            cur_item = Item(number=number, title=title, question_type=question_type, personal_data=False,
+            cur_item = Item(number=number,
+                            title=title,
+                            question_type=question_type,
+                            personal_data=False,
                             multiple_choice=multiple_choice)
             cur_item.save()
             if (question_type == 'Selection'):
