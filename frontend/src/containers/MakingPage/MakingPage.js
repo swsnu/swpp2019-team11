@@ -159,7 +159,7 @@ export class MakingPage extends Component {
 
     render() {
       return (
-        <div>
+        <div className="MakingPage">
           <Sticky>
             <Segment><h1>MakingPage</h1></Segment>
           </Sticky>
@@ -174,7 +174,7 @@ export class MakingPage extends Component {
           </Segment>
           <Segment>
             Due Date:
-            <SingleDatePicker
+            <SingleDatePicker 
                 numberOfMonths={1}
                 onDateChange={(due_date) => this.setState({ due_date })}
                 onFocusChange={({focused}) => this.setState({ focused })}
@@ -193,30 +193,31 @@ export class MakingPage extends Component {
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
             <div>Age:</div>
             <Slider
-                  max={100}
-                  min={1}
-                  style={{ width: 270, color: '#008080' }}
-                  aria-labelledby="range-slider"
-                  defaultValue={[0, 100]}
-                  onChange={(e)=>{
-                    let new_age = this.state.target;
-                    new_age[1] = e.target.value;
-                    this.setState(new_age);
-                  }}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="range-slider"
+              className="ageSlider"
+              max={100}
+              min={1}
+              style={{ width: 270, color: '#008080' }}
+              aria-labelledby="range-slider"
+              defaultValue={[0, 100]}
+              onChange={(e)=>{
+                let new_age = this.state.target;
+                new_age[1] = e.target.value;
+                this.setState(new_age);
+              }}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
             />
-            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> 
+            <Checkbox className="ageNotCheck" defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> 
             Won't input age option
             {'  '}
             <p>Target People:</p>
-            <input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
+            <input type="text" className="targetCount" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
           <button onClick={ this.insertItemHandler }>
             Add Question Item
           </button>
           { this.Items() }
-          <button onClick={() => { this.submitHandler();  this.props.history.push('/main/'); }}>
+          <button className="submitButton" onClick={() => { this.submitHandler();  this.props.history.push('/main/'); }}>
             Submit
           </button>
         </div>
