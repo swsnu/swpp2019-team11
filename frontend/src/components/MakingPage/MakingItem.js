@@ -35,7 +35,7 @@ export class MakingItem extends Component {
           (this.state.questiontype == 'Selection')&&
           <div>
           {"Options:"}
-          <Checkbox toggle onClick={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+          <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.onToggleDup(this.props.id)}}></Checkbox>
           {(this.props.duplicate==false) && <div>False</div>}
           {(this.props.duplicate==true) && <div>True</div>}
           </div>

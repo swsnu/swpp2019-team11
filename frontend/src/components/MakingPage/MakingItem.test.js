@@ -10,6 +10,7 @@ describe("<MakingItem />", () => {
     }
   }
   const component = shallow(<MakingItem {...props} />)
+  const instance = component.instance()
   it("rendering", () => {
     const wrapper = component.find('.MakingItem')
     expect(wrapper.length).toBe(1)
@@ -17,7 +18,7 @@ describe("<MakingItem />", () => {
   it("checkbox", () => {
     const wrapper = component.find(".MultipleSelection")
     wrapper.simulate('click')
-    expect()
+    expect(instance.props.duplicate).toEqual(true)
 
   })
 })
