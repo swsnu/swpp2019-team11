@@ -2,11 +2,14 @@ import json
 from functools import wraps
 from json import JSONDecodeError
 
+from celery.schedules import crontab
+from celery.task import periodic_task
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
+from django.utils.timezone import datetime
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response
+from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
 
 # Create your views here.
@@ -26,12 +29,14 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
- 
+
+
 def checklogin(request):
     if request.user.is_authenticated:
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=401)
+
 
 def signup(request):  # create new
     if request.method == 'POST':
@@ -103,61 +108,67 @@ def search(request, keyword=''):
 # only accept POST
 # 201 if success
 @check_logged_in
-def making(request): 
+def makeSurvey(request):
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
-            items = req_data['item']
             title = req_data['title']
             survey_start_date = req_data['survey_start_date']
             survey_end_date = req_data['survey_end_date']
             content = req_data['content']
-            respondant_count = req_data['respondant_count']
-            max_response = req_data['max_response']
+            target_respondant_count = req_data['target_respondant_count']
+            target_age_start = req_data['target_age_start']
+            target_age_end = req_data['target_age_end']
+            target_gender = req_data['target_gender']
+            open_date = req_data['open_date']
+            items = req_data['item']
         except (KeyError, JSONDecodeError):
             return HttpResponse(status=400)
 
-        cur_survey = SurveyOngoing(
+        survey = SurveyOngoing(
             title=title, author=request.user,
-            survey_start_date=survey_start_date,
-            survey_end_date=survey_end_date,
-            content=content, respondant_count=respondant_count
+            survey_start_date=datetime.strptime(survey_start_date, '%Y/%m/%d').date(),
+            survey_end_date=datetime.strptime(survey_end_date, '%Y/%m/%d').date(),
+            open_date=datetime.strptime(open_date, '%Y/%m/%d').date(),
+            content=content,
+            respondant_count=0,
+            target_respondant_count=target_respondant_count,
+            target_age_start=int(target_age_start),
+            target_age_end=int(target_age_end),
+            target_gender=target_gender
         )
-        cur_survey.save()
+        survey.save()
 
         for item in items:
             try:
+                number = item['number']
                 title = item['title']
                 question_type = item['question_type']
+                selection_list = item['selection']
             except KeyError:
                 return HttpResponse(status=400)
 
-            cur_item = Item(title=title, question_type=question_type)
+            cur_item = Item(number=number, title=title, question_type=question_type)
             cur_item.save()
-            """
-            for response in responses:
-                try:
-                    content = response['content']
-                except KeyError:
-                    return HttpResponse(status=400)
+            if (question_type == 'Selection'):
+                for index, selection in enumerate(selection_list):
+                    cur_selection = Selection(number=index + 1, content=selection)
+                    cur_selection.save()
+                    cur_item.selection.add(cur_selection)
 
-                cur_response = Response(respondant_id=respondant_id, content=content)
-                cur_response.save()
-                cur_item.response.add(cur_response)
-            
-            cur_item.save()
-            """
-            cur_survey.item.add(cur_item)
+                cur_item.save()
+            survey.item.add(cur_item)
 
-        cur_survey.save()
+        survey.save()
         return HttpResponse(status=201)
 
     else:
         return HttpResponseBadRequest(['POST'])
 
-#for searching completed survey. 
+
+# for searching completed survey.
 @check_logged_in
-def survey(request, survey_id): 
+def survey(request, survey_id):
     if request.method == 'GET':
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
@@ -165,28 +176,107 @@ def survey(request, survey_id):
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
-            'upload_date': survey.upload_date,
-            'survey_start_date': survey.survey_start_date,
-            'survey_end_date': survey.survey_end_date,
+            'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
+            'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'content': survey.content,
             'respondant_count': survey.respondant_count,
+            'target_age_start': survey.target_age_start,
+            'target_age_end': survey.target_age_end,
+            'target_gender': survey.target_gender,
             'item': [],
         }
         for item in survey.item.all():
             item_dict = {
                 'title': item.title,
                 'question_type': item.question_type,
+                'selection': [],
                 'response': [],
             }
+            for selection in item.selection.all():
+                item_dict['selection'].append({
+                    'number': selection.number,
+                    'content': selection.content,
+                })
             for response in item.response.all():
                 item_dict['response'].append({
-                    'respondant_id': response.respondant_id,
+                    'respondant_number': response.respondant_number,
                     'content': response.content,
                 })
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
+
+
+@check_logged_in
+def onGoingSurvey(request, survey_id):
+    if request.method == 'GET':
+        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
+        survey = SurveyOngoing.objects.get(id=survey_id)
+        survey_dict = {
+            'id': survey.id,
+            'title': survey.title, 'author': survey.author.username,
+            'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
+            'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
+            'target_age_start': survey.target_age_start,
+            'target_age_end': survey.target_age_end,
+            'target_gender': survey.target_gender,
+            'content': survey.content,
+            'respondant_count': survey.respondant_count,
+            'item': [],
+        }
+        for item in survey.item.all():
+            item_dict = {
+                'number': item.number,
+                'title': item.title,
+                'question_type': item.question_type,
+                'selection': [],
+                'response': [],
+            }
+            for selection in item.selection.all():
+                item_dict['selection'].append({
+                    'number': selection.number,
+                    'content': selection.content,
+                })
+            for response in item.response.all():
+                item_dict['response'].append({
+                    'respondant_id': response.respondant_number,
+                    'content': response.content,
+                })
+            survey_dict['item'].append(item_dict)
+        return JsonResponse(survey_dict, safe=False)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+
+@check_logged_in
+def participate(request, survey_id):
+    if request.method == 'POST':
+
+        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
+        survey = SurveyOngoing.objects.get(id=survey_id)
+        survey.respondant_count += 1
+        survey.save()
+        response_list = json.loads(request.body.decode())
+        survey.item.all()
+        for item in survey.item.all():
+            for response in response_list:
+                if (item.number == response['number']):
+                    cur_response = Response(
+                        respondant_number=survey.respondant_count + 1,
+                        content=response['content'])
+                    cur_response.save()
+                    item.response.add(cur_response)
+                    break
+            item.save()
+        survey.save()
+        return HttpResponse(status=201)
+    else:
+        return HttpResponseBadRequest(['POST'])
 
 
 # mycart : api for cart
@@ -253,11 +343,50 @@ def mycart(request):
     else:
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
 
-#you should implement filter to match surveys to user later.
+
+# you should implement filter to match surveys to user later.
 @check_logged_in
 def participating_list(request):
     if request.method == 'GET':
-        surveys = list(SurveyOngoing.all().values())
+        user = request.user
+        participated_surveys = user.participating.all()
+        today = datetime.date.today()
+        surveys = list(SurveyOngoing.objects
+                       .filter(target_gender=user.gender,
+                               target_age_start__lte=user.age,
+                               target_age_end__gte=user.age,
+                               survey_end_date__gte=today)
+                       .exclude(participant__in=participated_surveys)
+                       .values()
+                       )
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
+
+
+@periodic_task(run_every=crontab(hour=0, minute=0))
+def onGoing_to_complete():
+    onGoingSurveys = SurveyOngoing.objects.all()
+    today = datetime.date.today()
+    for survey in onGoingSurveys:
+        if (survey.open_date <= today):
+            new_survey = SurveyOngoing(
+                title=survey.title,
+                author=survey.author,
+                upload_date=survey.upload_date,
+                survey_start_date=survey.survey_start_date,
+                survey_end_date=survey.survey_end_date,
+                content=survey.content,
+                target_age_start=survey.target_age_start,
+                target_age_end=survey.target_age_end,
+                target_gender=survey.target_gender,
+                respondant_count=survey.respondant_count,
+            )
+            new_survey.save()
+            for item in survey.item:
+                for response in item.response:
+                    response.respondant_number = None
+                    response.save()
+                new_survey.item.add(item)
+            new_survey.save()
+            survey.delete()
