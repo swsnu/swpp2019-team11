@@ -154,6 +154,8 @@ class SurBingTestCase(TestCase):
         # surveys
         response = client.post('/api/make/', json.dumps({
             'item': [{'number': 1, 'title': 'title_test', 'question_type': 'Selection',
+                      'personal_data': False,
+                      'multiple_choice': False,
                       'selection': [{'number': 1, 'content': 'test selection'}],
                       'response': [{'respondant_number': 1, 'content': 'Yes'}]
                       }],
@@ -190,41 +192,55 @@ class SurBingTestCase(TestCase):
 
     def test_cart(self):
         client = Client()
+        cart_url = '/api/cart/'
         # sign up and login to bypass @check_logged_in
         client.post('/api/login/', json.dumps({'username': 'testuser', 'password': 'test'}),
                     content_type='application/json')
         # cart test
-        response = client.get('/api/cart')
+        response = client.get(cart_url)
         self.assertEqual(response.status_code, 301)
         # cart bad request
-        response = client.delete('/api/cart/')
+        response = client.delete(cart_url)
         self.assertEqual(response.status_code, 400)
         # cart post keyerror
-        response = client.post('/api/cart/', json.dumps({'surveyee_id': 1}),
+        response = client.post(cart_url, json.dumps({'surveyee_id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 400)
         # cart post not exist
-        response = client.post('/api/cart/', json.dumps({'id': 2}),
+        response = client.post(cart_url, json.dumps({'id': 2}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
         # cart test
-        response = client.post('/api/cart/', json.dumps({'id': 1}),
+        response = client.post(cart_url, json.dumps({'id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 201)
         # cart post exist at cart already
-        response = client.post('/api/cart/', json.dumps({'id': 1}),
+        response = client.post(cart_url, json.dumps({'id': 1}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
         # cart put(delete) keyerror
-        response = client.put('/api/cart/', json.dumps({'ID': 3}),
+        response = client.put(cart_url, json.dumps({'ID': 3}),
                               content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
         # cart put(delete)
-        response = client.put('/api/cart/', json.dumps({'id_list': [1]}),
+        response = client.put(cart_url, json.dumps({'id_list': [1]}),
                               content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_my_surveys(self):
+        client = Client()
+
+        client.post('/api/login/',
+                    json.dumps({'username': 'testUser', 'password': 'test'}),
+                    content_type='application/json')
+
+        response = client.get('/api/mypage/surveyCompleted/')
+        self.assertEqual(response.status_code, 200)
+
+        response = client.get('/api/mypage/surveyOngoing/')
         self.assertEqual(response.status_code, 200)
 
     def test_logout(self):
@@ -327,13 +343,3 @@ class SurBingTestCase(TestCase):
         # ongoing survey+id bad request
         response = client.delete('/api/survey/ongoing/1/')
         self.assertEqual(response.status_code, 400)
-
-    def test_making(self):
-        client = Client()
-
-        client.post('/api/making/',
-                    json.dumps({
-                        'title': 'test_title',
-                        'survey_start_date': '2018/'
-                    }),
-                    content_type='application/json')

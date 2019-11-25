@@ -145,18 +145,21 @@ def makeSurvey(request):
                 title = item['title']
                 question_type = item['question_type']
                 selection_list = item['selection']
+                multiple_choice = item['multiple_choice']
             except KeyError:
                 return HttpResponse(status=400)
 
-            cur_item = Item(number=number, title=title, question_type=question_type)
+            cur_item = Item(number=number,
+                            title=title,
+                            question_type=question_type,
+                            personal_data=False,
+                            multiple_choice=multiple_choice)
             cur_item.save()
-            if (question_type == 'Selection'):
-                for index, selection in enumerate(selection_list):
-                    cur_selection = Selection(number=index + 1, content=selection)
-                    cur_selection.save()
-                    cur_item.selection.add(cur_selection)
-
-                cur_item.save()
+            for index, selection in enumerate(selection_list):
+                cur_selection = Selection(number=index + 1, content=selection)
+                cur_selection.save()
+                cur_item.selection.add(cur_selection)
+            cur_item.save()
             survey.item.add(cur_item)
 
         survey.save()
@@ -232,20 +235,23 @@ def onGoingSurvey(request, survey_id):
             item_dict = {
                 'number': item.number,
                 'title': item.title,
+                'personal_data': item.personal_data,
+                'multiple_choice': item.multiple_choice,
                 'question_type': item.question_type,
                 'selection': [],
                 'response': [],
             }
+            for response in item.response.all():
+                item_dict['response'].append({
+                    'respondant_number': response.respondant_number,
+                    'content': response.content,
+                })
             for selection in item.selection.all():
                 item_dict['selection'].append({
                     'number': selection.number,
                     'content': selection.content,
                 })
-            for response in item.response.all():
-                item_dict['response'].append({
-                    'respondant_id': response.respondant_number,
-                    'content': response.content,
-                })
+            
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
     else:
@@ -344,7 +350,6 @@ def mycart(request):
         return HttpResponseBadRequest(['GET', 'POST', 'PUT'])
 
 
-# you should implement filter to match surveys to user later.
 @check_logged_in
 def participating_list(request):
     if request.method == 'GET':
@@ -360,6 +365,32 @@ def participating_list(request):
                        .values()
                        )
         return JsonResponse(surveys, safe=False, status=200)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+
+@check_logged_in
+def my_survey_ongoing(request):
+    if request.method == 'GET':
+        user = request.user
+        survey_list = list(SurveyOngoing.objects.filter(author=user).values())
+        for survey in survey_list:
+            survey['author'] = user.username
+            del survey['author_id']
+        return JsonResponse(survey_list, safe=False)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+
+@check_logged_in
+def my_survey_completed(request):
+    if request.method == 'GET':
+        user = request.user
+        survey_list = list(Survey.objects.filter(author=user).values())
+        for survey in survey_list:
+            survey['author'] = user.username
+            del survey['author_id']
+        return JsonResponse(survey_list, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
 
