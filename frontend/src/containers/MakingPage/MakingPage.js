@@ -39,10 +39,12 @@ export class MakingPage extends Component {
             { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
         ],
         focused: false,
+        scrollPostion: 0,
     }
 
     
     componentDidMount() {
+      this.listenToScrollEvent();
       this.props.checklogIn()
         .then(() => {
         })
@@ -170,35 +172,67 @@ export class MakingPage extends Component {
         />
       );
     });
+  
+    listenToScrollEvent = () => {
+      document.addEventListener("scroll", () => {
+        requestAnimationFrame(() => {
+          this.calculateScrollDistance();
+        });
+      });
+    }
+  
+    calculateScrollDistance = () => {
+      const scrollTop = window.pageYOffset; // how much the user has scrolled by
+      const winHeight = window.innerHeight;
+      const docHeight = this.getDocHeight();
+  
+      const totalDocScrollLength = docHeight - winHeight;
+      const scrollPostion = Math.floor(scrollTop / totalDocScrollLength * 100)
+  
+      this.setState({
+        scrollPostion,
+      });
+    }
+  
+    getDocHeight = () => {
+      return Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+      );
+    }
 
     render() {
+      console.log(this.state.scrollPostion)
       return (
         <div style = {{marginLeft : 10}}>
           <Sticky>
             <div style = {{ backgroundColor: "#E0E7E9"}}>
               <Segment style = {{ backgroundColor: "#E0E7E9", 'border-bottom':'0px', 'box-shadow': 0}}><h1>MakingPage</h1></Segment>
-              <Progress value='3' total='5' progress='ratio' />
+              <Progress color='teal' value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total='3' progress='ratio' />
             </div>   
           </Sticky>
           <Segment style = {{ backgroundColor: "#A3C6C4", 'border-color': 'white'}}>
-          <h3>Explain your survey!</h3>
+          <h3><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>1. Explain your survey!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Title </p>
             <Input style = {{width: '500px'}} onChange={(event) => this.setState({ title: event.target.value })} />
             <br /><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Content </p>
             <TextArea rows={4} style={{'border-color': 'white', width:'800px', height:'100px', borderRadius:5, minHeight: 100 }} onChange={(event) => this.setState({ content: event.target.value })} />
-          </Segment>
-
-          <Segment style = {{ backgroundColor: "#A3C6C4"}}>
-            Due Date:
+            <br /><br /> <p style = {{'font-size': '15px', marginBottom: 5}}>Due Date </p>
             <SingleDatePicker
+                borderRadius={5}
                 numberOfMonths={1}
                 onDateChange={(due_date) => this.setState({ due_date })}
                 onFocusChange={({focused}) => this.setState({ focused })}
                 focused={this.state.focused}
                 date={this.state.due_date}
             />
-            <h3 color='#354649'>Survey Target Settings!</h3>
+          </Segment>
+
+          <Segment style = {{ backgroundColor: "#A3C6C4"}}>
+
+            <h3 color='#354649'><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>2. Survey Target Settings!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Gender </p>
             <Form.Select options={genders} placeholder='Gender' error />
             <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
@@ -209,7 +243,7 @@ export class MakingPage extends Component {
             <p>Target People:</p>
             <Input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
-          <h3>Items</h3>
+          <h3>3. Items</h3>
           <Button onClick={() => { this.insertItemHandler(); }}>
             Add Question Item
           </Button>
