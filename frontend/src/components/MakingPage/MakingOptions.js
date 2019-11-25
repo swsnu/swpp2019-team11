@@ -1,8 +1,9 @@
 import React from 'react';
+import { Segment, Checkbox, Input, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 export const MakingOptions = () => (
-  <div><input /></div>
+  <div> <Input /> <br /> </div>
 );
 
 export default withRouter(MakingOptions);

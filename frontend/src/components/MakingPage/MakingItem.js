@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Checkbox } from 'semantic-ui-react';
+import { Segment, Checkbox, Input, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
 
@@ -19,10 +19,9 @@ export class MakingItem extends Component {
     };
 
     return (
-      <Segment style={{ 'min-height': '250px' }}>
-        Q:
-        {'  '}
-        <input />
+      <Segment style={{ backgroundColor: "#6C7A89", 'min-height': '250px' }}>
+        Q: &nbsp;&nbsp;
+        <Input /> &nbsp;&nbsp;
         <Checkbox toggle onChange={() => { this.props.onToggle(this.props.id); questionTypeHandler(); }} />
         <h3>{this.props.questiontype}</h3>
         {
@@ -31,7 +30,7 @@ export class MakingItem extends Component {
         }
         {
           (this.state.questiontype == 'Selection')
-          && <button onClick={() => {this.onAddhandler() }}>Add obtions</button>
+          && <Button onClick={() => {this.onAddhandler() }}>Add options</Button>
         }
       </Segment>
     );
