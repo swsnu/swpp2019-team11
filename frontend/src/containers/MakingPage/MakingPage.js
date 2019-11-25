@@ -10,7 +10,7 @@ import moment from 'moment';
 
 export const mapDispatchToProps = (dispatch) => ({
     checklogIn: () => dispatch(actionCreators.checklogIn()),
-    //onSubmitSurvey: (survey) => dispatch(actionsCreators.submitSurvey(survey)),
+    onSubmitSurvey: (survey) => dispatch(actionCreators.addOngoingSurvey(survey)),
 })
 
 export class MakingPage extends Component {
@@ -22,6 +22,7 @@ export class MakingPage extends Component {
         age_check: false,
         response_count: 0, 
         due_date: moment(),
+        open_date: moment(),
         item_count: 1,
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
@@ -102,17 +103,42 @@ export class MakingPage extends Component {
         let startStr = "";
         startStr = startStr.concat(startDayArr[0].substring(2, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
         
+        let openDayArr =  this.state.open_date.format().split('-');
+        let openStr = openDayArr[0].substring(2, 4);
+        openStr = openStr.concat("/", openDayArr[1], "/", openDayArr[2].substring(0, 2));
+        let new_item_list = [];
+        this.state.item_list.map((item) => {
+          let new_option_list = [];
+          item.option_list.map((option) => {
+            let new_option = {
+              number: option.id,
+              selection: option.content,
+            }
+            new_option_list.append(new_option);
+          });
+          let new_item = {
+            number: item.id,
+            title: item.question,
+            question_type: item.question_type,
+            selection: item.option_list,
+            multiple_choice: item.duplicate_input,
+          }
+          new_item_list.append(new_item);
+        })
         let survey = { 
             title: this.state.title,
             content: this.state.content,
             survey_start_date: startStr,
             survey_end_date: dueStr,
-            items: this.state.item_list,
-            target_age: this.state.target[1].age,
-            target_gender: this.state.target[0].gender,
+            open_date: openStr,
+            item: new_item_list,
+            target_age_start: this.state.target[1].age[0],
+            target_age_end: this.state.target[1].age[1],
+            target_gender: 'male',//this.state.target[0].gender,
             target_respondant_count: this.state.response_count,
         };
-        //this.props.onSubmitSurvey(survey);
+        //alert(survey.title + survey.content + survey.survey_start_date + survey.survey_end_date + survey.open_date + survey.target_age_start );
+        this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
@@ -184,6 +210,14 @@ export class MakingPage extends Component {
                 onFocusChange={({focused}) => this.setState({ focused })}
                 focused={this.state.focused}
                 date={this.state.due_date}
+            />
+            Open Date:
+            <SingleDatePicker 
+                numberOfMonths={1}
+                onDateChange={(open_date) => this.setState({ open_date })}
+                onFocusChange={({focused}) => this.setState({ focused })}
+                focused={this.state.focused}
+                date={this.state.open_date}
             />
             <h3>Survey Target Settings:</h3>
             <div>Gender:</div>

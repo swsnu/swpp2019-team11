@@ -11,17 +11,14 @@ export class MakingItem extends Component {
 
   parentCallBackContent = (dataFromChild, id) => {
     let new_op = this.state.option_list;
+    new_op[id]={id : id, content : null}
     new_op[id].content = dataFromChild;
     this.setState({ option_list: new_op });
     this.props.optionList( this.state.option_list, this.props.id );
   };
 
-  onAddhandler = () => {
-    this.props.onAddhandler();
-    let new_op = this.state.option_list;
-  }
-
   render() {
+
     const questionTypeHandler = () => {
       if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
       else this.setState({ questiontype: 'Subjective' });
@@ -32,10 +29,16 @@ export class MakingItem extends Component {
         Q:
         {'  '}
         <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+        <Checkbox toggle onClick={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
         {this.props.questiontype}
         {
-          (this.state.questiontype == 'Selection')&&<div>{"Options:"}</div>
+          (this.state.questiontype == 'Selection')&&
+          <div>
+          {"Options:"}
+          <Checkbox toggle onClick={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+          {(this.props.duplicate==false) && <div>False</div>}
+          {(this.props.duplicate==true) && <div>True</div>}
+          </div>
         }
         {
           (this.state.questiontype == 'Selection')
@@ -46,16 +49,14 @@ export class MakingItem extends Component {
                 id={options.id}
                 content={(par1, par2) => this.parentCallBackContent(par1, par2)}
               />
-              <Checkbox toggle onChange={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
-              {(this.props.duplicate==false) && <div>False</div>}
-              {(this.props.duplicate==true) && <div>True</div>}
+              
             </div>
           );
         })
         }
         {
           (this.state.questiontype == 'Selection')
-          && <button onClick={ this.onAddhandler }>Add obtions</button>
+          && <button onClick={ this.props.onAddhandler }>Add obtions</button>
         }
       </Segment>
     );
