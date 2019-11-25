@@ -190,7 +190,7 @@ export class MakingPage extends Component {
               this.setState({target: new_gen});
             }} />
             {this.state.target[0].gender}
-            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
+            <Checkbox className = "genderNotCheck" defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
             <div>Age:</div>
             <Slider
               className="ageSlider"
@@ -207,7 +207,7 @@ export class MakingPage extends Component {
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
             />
-            <Checkbox className="ageNotCheck" defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> 
+            <Checkbox className="ageNotCheck" defaultChecked={true} onClick={() => this.targetToggleHandler(1)} /> 
             Won't input age option
             {'  '}
             <p>Target People:</p>
