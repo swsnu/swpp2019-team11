@@ -45,7 +45,7 @@ export class MakingItem extends Component {
                 id={options.id}
                 content={(par1, par2) => this.parentCallBackContent(par1, par2)}
               />
-              <Checkbox toggle onChange={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+              <Checkbox toggle onClick={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
               {(this.props.duplicate==false) && <div>False</div>}
               {(this.props.duplicate==true) && <div>True</div>}
             </div>
