@@ -5,12 +5,14 @@ import { MakingItem } from './MakingItem';
 describe("<MakingItem />", () => {
   const mockpush = jest.fn()
   const mockOnToggleDup = jest.fn()
+  const mockOnToggleType = jest.fn()
   const props = {
     history : {
       push : mockpush
     },
     callOptionList : [],
     onToggleDup : mockOnToggleDup,
+    onToggleType : mockOnToggleType,
   }
   const component = shallow(<MakingItem {...props} />)
   const instance = component.instance()
@@ -27,6 +29,6 @@ describe("<MakingItem />", () => {
   it("selection toggler", () => {
     const wrapper = component.find(".SelectionToggler")
     wrapper.simulate('click')
-    expect(mockOnToggleDup).toHaveBeenCalledTimes(1)
+    expect(mockOnToggleType).toHaveBeenCalledTimes(1)
   })
 })
