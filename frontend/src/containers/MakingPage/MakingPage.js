@@ -9,7 +9,7 @@ import moment from 'moment';
 
 export const mapDispatchToProps = (dispatch) => ({
     checklogIn: () => dispatch(actionCreators.checklogIn()),
-    //onSubmitSurvey: (survey) => dispatch(actionsCreators.submitSurvey(survey)),
+    onSubmitSurvey: (survey) => dispatch(actionCreators.addOngoingSurvey(survey)),
 })
 
 const genders = [
@@ -33,9 +33,11 @@ export class MakingPage extends Component {
         title: '',
         content: '',
         target: [{ gender: 'male' }, { age: [1, 100] }],
-        target_check: [{ gender: 0 }, { age: 0 }],
+        gender_check: false,
+        age_check: false,
         response_count: 0, 
         due_date: moment(),
+        open_date: moment(),
         item_count: 1,
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
@@ -76,13 +78,15 @@ export class MakingPage extends Component {
             new_list[id].duplicate_input = false;
             this.setState({item_list: new_list});
         }
-        
     }
 
     targetToggleHandler = (id) => {
-        let new_check = this.state.target_check;
-        new_check[id] = 1 - new_check[id];
-        this.setState({ target_check: new_check });
+      if (id == 0){
+        this.setState({gender_check: !this.state.gender_check})
+      }
+      if (id == 1){
+        this.setState({age_check: !this.state.age_check})
+      }
     }
 
     insertOptionHandler = (item_id) => {
@@ -90,43 +94,61 @@ export class MakingPage extends Component {
         let num = new_list.length;
         new_list[item_id].option_list.push({ id: num, content: '' });
 
-        this.setState({
-          item_list: new_list
-        });
+        this.setState({ item_list: new_list });
     };
 
     submitHandler = () => {
+      this.state.item_list.map((item) => { //delete selections of subject question
+        if (item.question_type != 'Selection'){ item.option_list = []; }
+      });
+
+      let new_target= this.state.target;
+      if ( this.state.gender_check == false ) new_target[0].gender = null;
+      if ( this.state.age_check == false ) new_target[1].age = [ 1, 100 ];
+          
+      let dueDayArr = this.state.due_date.format().split('-');
+      let dueStr = dueDayArr[0].substring(0, 4);
+      dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
+
+      let startDayArr = moment().format().split("-");
+      let startStr = "";
+      startStr = startStr.concat(startDayArr[0].substring(0, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
         
-        this.state.item_list.map((item) => { //delete selections of subject question
-            if (item.question_type != 'Selection'){
-                item.option_list = [];
-            }
+      let openDayArr =  this.state.open_date.format().split('-');
+      let openStr = openDayArr[0].substring(0, 4);
+      openStr = openStr.concat("/", openDayArr[1], "/", openDayArr[2].substring(0, 2));
+      let new_item_list = [];
+      this.state.item_list.map((item) => {
+        let new_option_list = [];
+        item.option_list.map((option) => {
+          let new_option = {
+            number: option.id,
+            selection: option.content,
+          }
+          new_option_list.push(new_option);
         });
-
-        let new_target= this.state.target;
-        if ( this.state.target_check[0].gender == 0 ) new_target[0].gender = 'male';
-        if ( this.state.target_check[1].age == 0 ) new_target[1].age = [ 1, 100 ];
-        
-        
-        let dueDayArr = this.state.due_date.format().split('-');
-        let dueStr = dueDayArr[0].substring(2, 4);
-        dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
-
-        let startDayArr = moment().format().split("-");
-        let startStr = "";
-        startStr = startStr.concat(startDayArr[0].substring(2, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
-        
-        let survey = { 
-            title: this.state.title,
-            content: this.state.content,
-            survey_start_date: startStr,
-            survey_end_date: dueStr,
-            items: this.state.item_list,
-            target_age: this.state.target[1].age,
-            target_gender: this.state.target[0].gender,
-            target_respondant_count: this.state.response_count,
-        };
-        //this.props.onSubmitSurvey(survey);
+        let new_item = {
+          number: item.id,
+          title: item.question,
+          question_type: item.question_type,
+          selection: item.option_list,
+          multiple_choice: item.duplicate_input,
+        }
+        new_item_list.push(new_item);
+      })
+      let survey = { 
+          title: this.state.title,
+          content: this.state.content,
+          survey_start_date: startStr,
+          survey_end_date: dueStr,
+          open_date: openStr,
+          item: new_item_list,
+          target_age_start: this.state.target[1].age[0],
+          target_age_end: this.state.target[1].age[1],
+          target_gender: null,
+          target_respondant_count: this.state.response_count,
+      };
+      this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {

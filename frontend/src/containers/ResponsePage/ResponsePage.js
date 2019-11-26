@@ -7,12 +7,14 @@ import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  onGetOngoingSurvey: () => dispatch(actionCreators.getOngoingSurvey()),
+  getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
 })
 
-export const mapStateToProps = (state) => ({
-  survey: state.sv.ongoing_survey,
-})
+export const mapStateToProps = (state) => {
+  return {
+    onSurvey: state.sv.ongoing_survey,
+  };
+}
 
 export class ResponsePage extends Component {
   dummy_dat= {
@@ -32,11 +34,12 @@ export class ResponsePage extends Component {
   }
 
   componentDidMount() {
-    this.props.checklogIn()
+    /*this.props.checklogIn()
       .then(() => {
-        this.props.onGetOngoingSurvey()
-        })
-      .catch(() => { this.props.history.push('/login/'); });
+        this.props.getOngoingSurvey(this.props.match.params.id);
+      })
+      .catch(() => { this.props.history.push('/login/'); });*/
+      this.props.getOngoingSurvey(this.props.match.params.id);
   }
 
   onSubmitHandler = () => {
@@ -51,8 +54,8 @@ export class ResponsePage extends Component {
           <Segment><h1>ResponsingPage</h1></Segment>
         </Sticky>
         <Segment>
-          <h2>{this.dummy_dat.title}</h2>
-          <h3>{this.dummy_dat.content}</h3>
+          <h2>{this.props.onSurvey.title}</h2>
+          <h3>{this.props.onSurvey.content}</h3>
         </Segment>
         <div>
         {
@@ -75,4 +78,4 @@ export class ResponsePage extends Component {
     );
   }
 }
-export default connect(null, mapDispatchToProps) (withRouter(ResponsePage));
+export default connect(mapStateToProps, mapDispatchToProps) (withRouter(ResponsePage));
