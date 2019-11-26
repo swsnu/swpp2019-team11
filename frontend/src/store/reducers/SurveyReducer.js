@@ -4,9 +4,7 @@ const initialState = {
   survey: {
     item: [],
   },
-  ongoing_survey: {
-    
-  }
+  ongoing_survey: '',
 };
 
 

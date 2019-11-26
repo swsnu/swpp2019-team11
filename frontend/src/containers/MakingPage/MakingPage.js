@@ -27,7 +27,6 @@ export class MakingPage extends Component {
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
         ],
-        focused: false,
     }
 
     componentDidMount() {
@@ -60,7 +59,6 @@ export class MakingPage extends Component {
             new_list[id].duplicate_input = false;
             this.setState({item_list: new_list});
         }
-        
     }
 
     targetToggleHandler = (id) => {
@@ -86,9 +84,13 @@ export class MakingPage extends Component {
       });
 
       let new_target= this.state.target;
-      if ( this.state.gender_check == false ) new_target[0].gender = null;
+      if ( this.state.gender_check != true ) new_target[0].gender = '-';
+      else{
+        if (this.state.target[0].gender == 'male') new_target[0].gender = 'M';
+        if (this.state.target[0].gender == 'female') new_target[0].gender = 'F';
+      }
       if ( this.state.age_check == false ) new_target[1].age = [ 1, 100 ];
-          
+      
       let dueDayArr = this.state.due_date.format().split('-');
       let dueStr = dueDayArr[0].substring(0, 4);
       dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
@@ -104,21 +106,23 @@ export class MakingPage extends Component {
       this.state.item_list.map((item) => {
         let new_option_list = [];
         item.option_list.map((option) => {
-          let new_option = {
+          const new_option = {
             number: option.id,
             selection: option.content,
           }
           new_option_list.push(new_option);
         });
-        let new_item = {
+        //alert(new_option_list[0].number);
+        const new_item = {
           number: item.id,
           title: item.question,
           question_type: item.question_type,
-          selection: item.option_list,
+          selection: new_option_list,
           multiple_choice: item.duplicate_input,
         }
         new_item_list.push(new_item);
       })
+      //alert(new_item_list[0].title);
       let survey = { 
           title: this.state.title,
           content: this.state.content,
@@ -128,10 +132,11 @@ export class MakingPage extends Component {
           item: new_item_list,
           target_age_start: this.state.target[1].age[0],
           target_age_end: this.state.target[1].age[1],
-          target_gender: null,
+          target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
-      this.props.onSubmitSurvey(survey);
+      alert(survey.item.length);
+      //this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
@@ -199,17 +204,17 @@ export class MakingPage extends Component {
             Due Date:
             <SingleDatePicker 
                 numberOfMonths={1}
-                onDateChange={(due_date) => this.setState({ due_date })}
-                onFocusChange={({focused}) => this.setState({ focused })}
-                focused={this.state.focused}
+                onDateChange={(due_date) => this.setState({ due_date : due_date })}
+                onFocusChange={({focused}) => this.setState({ due_date_focused : focused })}
+                focused={this.state.due_date_focused}
                 date={this.state.due_date}
             />
             Open Date:
             <SingleDatePicker 
                 numberOfMonths={1}
                 onDateChange={(open_date) => this.setState({ open_date })}
-                onFocusChange={({focused}) => this.setState({ focused })}
-                focused={this.state.focused}
+                onFocusChange={({focused}) => this.setState({ open_date_focused : focused })}
+                focused={this.state.open_date_focused}
                 date={this.state.open_date}
             />
             <h3>Survey Target Settings:</h3>
