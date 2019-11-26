@@ -23,7 +23,7 @@ export class ResponsePage extends Component {
     content: 'Survey Content',
     target: [{ gender: 'male' }, { age: [1, 100] }],
     item_count: 1,
-    item_list: [
+    item: [
       { id: 0, question: 'What is your name?', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
       { id: 1, question: 'Do you like Mint Chocolate?', question_type: 'Selection', duplicate_input: true, option_list: [{ id: 0, content: 'Yes' }, { id: 1, content: 'Absolutely' }] },
     ],
@@ -56,10 +56,13 @@ export class ResponsePage extends Component {
         <Segment>
           <h2>{this.props.onSurvey.title}</h2>
           <h3>{this.props.onSurvey.content}</h3>
+          {this.props.onSurvey.author}
         </Segment>
         <div>
+          {alert(this.props.onSurvey.item.length)}
         {
-          this.dummy_dat.item_list.map((item) => {
+            this.dummy_dat.item_list.map((item) => {
+            //this.props.onSurvey.item.map((item) => {
             return(
               <ResponsingItem
                 question={item.question}
