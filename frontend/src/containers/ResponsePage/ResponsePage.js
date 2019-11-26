@@ -59,9 +59,8 @@ export class ResponsePage extends Component {
           {this.props.onSurvey.author}
         </Segment>
         <div>
-          {alert(this.props.onSurvey.item.length)}
         {
-            this.dummy_dat.item_list.map((item) => {
+            this.dummy_dat.item.map((item) => {
             //this.props.onSurvey.item.map((item) => {
             return(
               <ResponsingItem
