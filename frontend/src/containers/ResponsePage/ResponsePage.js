@@ -48,36 +48,41 @@ export class ResponsePage extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Sticky>
-          <Segment><h1>ResponsingPage</h1></Segment>
-        </Sticky>
-        <Segment>
-          <h2>{this.props.onSurvey.title}</h2>
-          <h3>{this.props.onSurvey.content}</h3>
-          {this.props.onSurvey.author}
-        </Segment>
+    if(this.props.onSurvey==""){
+      return null;
+    }
+    else{
+      return (
         <div>
-        {
-            this.dummy_dat.item.map((item) => {
-            //this.props.onSurvey.item.map((item) => {
-            return(
-              <ResponsingItem
-                question={item.question}
-                question_type={item.question_type}
-                options={item.option_list}
-                duplicate={item.duplicate_input}
-              />
-            );
-          })
-        }
+          <Sticky>
+            <Segment><h1>ResponsingPage</h1></Segment>
+          </Sticky>
+          <Segment>
+            <h2>{this.props.onSurvey.title}</h2>
+            <h3>{this.props.onSurvey.content}</h3>
+            {this.props.onSurvey.author}
+          </Segment>
+          <div>
+          {
+              //this.dummy_dat.item.map((item) => {
+              this.props.onSurvey.item.map((item) => {
+              return(
+                <ResponsingItem
+                  question={item.question}
+                  question_type={item.question_type}
+                  options={item.option_list}
+                  duplicate={item.duplicate_input}
+                />
+              );
+            })
+          }
+          </div>
+          <button onClick={this.onSubmitHandler}>
+            Submit
+          </button>
         </div>
-        <button onClick={this.onSubmitHandler}>
-          Submit
-        </button>
-      </div>
-    );
+      );
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps) (withRouter(ResponsePage));
