@@ -4,10 +4,12 @@ import { MakingPage } from './MakingPage';
 
 describe('MakingPage', () => {
   const mockPush = jest.fn();
+  const mockOnSubmitSurvey = jest.fn()
   const props = {
     history:{
       push: mockPush
-    }
+    },
+    onSubmitSurvey : mockOnSubmitSurvey
   }
   const component = shallow(<MakingPage {...props} />);
   const instance = component.instance()

@@ -29,7 +29,7 @@ export class MakingItem extends Component {
         Q:
         {'  '}
         <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onClick={() => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+        <Checkbox className = "SelectionToggler" toggle onClick={() => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
         {this.props.questiontype}
         {
           (this.state.questiontype == 'Selection')&&
