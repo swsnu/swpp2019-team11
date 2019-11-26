@@ -27,7 +27,6 @@ export class MakingPage extends Component {
         item_list: [
             { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
         ],
-        focused: false,
     }
 
     componentDidMount() {
@@ -205,17 +204,17 @@ export class MakingPage extends Component {
             Due Date:
             <SingleDatePicker 
                 numberOfMonths={1}
-                onDateChange={(due_date) => this.setState({ due_date })}
-                onFocusChange={({focused}) => this.setState({ focused })}
-                focused={this.state.focused}
+                onDateChange={(due_date) => this.setState({ due_date : due_date })}
+                onFocusChange={({focused}) => this.setState({ due_date_focused : focused })}
+                focused={this.state.due_date_focused}
                 date={this.state.due_date}
             />
             Open Date:
             <SingleDatePicker 
                 numberOfMonths={1}
                 onDateChange={(open_date) => this.setState({ open_date })}
-                onFocusChange={({focused}) => this.setState({ focused })}
-                focused={this.state.focused}
+                onFocusChange={({focused}) => this.setState({ open_date_focused : focused })}
+                focused={this.state.open_date_focused}
                 date={this.state.open_date}
             />
             <h3>Survey Target Settings:</h3>
