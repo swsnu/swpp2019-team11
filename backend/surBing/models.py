@@ -38,7 +38,7 @@ class Item(models.Model):
     number = models.IntegerField()
     title = models.CharField(max_length=120)
     question_type = models.CharField(max_length=10, null=True)
-    selection = models.ManyToManyField('Selection')
+    selection = models.ManyToManyField('Selection', null=True, blank=True)
     multiple_choice = models.BooleanField(null=True)
     personal_data = models.BooleanField(null=True)
     response = models.ManyToManyField('Response')
