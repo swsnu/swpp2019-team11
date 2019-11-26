@@ -22,8 +22,9 @@ describe("<MakingItem />", () => {
   })
   it("checkbox", () => {
     instance.setState({questiontype : "Selection"})
-    const wrapper = component.find(".MultipleSelection")
+    let wrapper = component.find(".MultipleSelection")
     wrapper.simulate('click')
+    wrapper = component.find()
     expect(mockOnToggleDup).toHaveBeenCalledTimes(1)
   })
   it("selection toggler", () => {
