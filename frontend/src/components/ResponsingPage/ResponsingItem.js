@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Checkbox } from 'semantic-ui-react';
+import ResponsingOption from './ResponsingOption';
 
 export class ResponsingItem extends Component {
   render(){
@@ -12,11 +13,11 @@ export class ResponsingItem extends Component {
         {
           (this.props.question_type == 'Selection')
           &&
-          this.props.options.map((option) => {
+          this.props.selection.map((selection) => {
             return (
               <div>
                 <Checkbox />
-                {option.content}
+                
               </div>
             );
             })

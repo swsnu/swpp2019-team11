@@ -102,13 +102,14 @@ export class MakingPage extends Component {
       let openDayArr =  this.state.open_date.format().split('-');
       let openStr = openDayArr[0].substring(0, 4);
       openStr = openStr.concat("/", openDayArr[1], "/", openDayArr[2].substring(0, 2));
+
       let new_item_list = [];
       this.state.item_list.map((item) => {
         let new_option_list = [];
         item.option_list.map((option) => {
           const new_option = {
             number: option.id,
-            selection: option.content,
+            content: option.content,
           }
           new_option_list.push(new_option);
         });
@@ -135,8 +136,7 @@ export class MakingPage extends Component {
           target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
-      alert(survey.item.length);
-      //this.props.onSubmitSurvey(survey);
+      this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
