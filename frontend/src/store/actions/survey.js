@@ -5,13 +5,16 @@ export const getSurveyList_ = (survey_list) => ({
   type: actionTypes.GET_SURVEY_LIST, target: survey_list,
 });
 
-export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/${keyword}/`).then((res) => {
-  dispatch(getSurveyList_(res.data));
+export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/${keyword}/`)
+  .then((res) => {
+    dispatch(getSurveyList_(res.data));
 });
 
-export const getOngoingSurveyList_ = (ongoing_survey_list) => ({ type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list });
+export const getOngoingSurveyList_ = (ongoing_survey_list) => ({
+  type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list
+});
 
-export const getOngoingSurveyList = () => (dispatch) => axios.get('/api/participating/')
+export const getOngoingSurveyList = () => (dispatch) => axios.get('/api/mypage/surveyOngoing/')
   .then((res) => {
     dispatch(getOngoingSurveyList_(res.data));
     return res;

@@ -23,9 +23,9 @@ export class ResponsePage extends Component {
     content: 'Survey Content',
     target: [{ gender: 'male' }, { age: [1, 100] }],
     item_count: 1,
-    item_list: [
-      { id: 0, question: 'What is your name?', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
-      { id: 1, question: 'Do you like Mint Chocolate?', question_type: 'Selection', duplicate_input: true, option_list: [{ id: 0, content: 'Yes' }, { id: 1, content: 'Absolutely' }] },
+    item: [
+      { number: 0, title: 'What is your name?', question_type: 'Subjective', multiple_choice: false, selection: [{ number: 0, content: '' }] },
+      { number: 1, title: 'Do you like Mint Chocolate?', question_type: 'Selection', multiple_choice: true, selectiont: [{ number: 0, content: 'Yes' }, { number: 1, content: 'Absolutely' }] },
     ],
   }
 
@@ -48,34 +48,41 @@ export class ResponsePage extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Sticky>
-          <Segment><h1>ResponsingPage</h1></Segment>
-        </Sticky>
-        <Segment>
-          <h2>{this.props.onSurvey.title}</h2>
-          <h3>{this.props.onSurvey.content}</h3>
-        </Segment>
+    if(this.props.onSurvey==""){
+      return null;
+    }
+    else{
+      return (
         <div>
-        {
-          this.dummy_dat.item_list.map((item) => {
-            return(
-              <ResponsingItem
-                question={item.question}
-                question_type={item.question_type}
-                options={item.option_list}
-                duplicate={item.duplicate_input}
-              />
-            );
-          })
-        }
+          <Sticky>
+            <Segment><h1>ResponsingPage</h1></Segment>
+          </Sticky>
+          <Segment>
+            <h2>{this.props.onSurvey.title}</h2>
+            <h3>{this.props.onSurvey.content}</h3>
+            {this.props.onSurvey.author}
+          </Segment>
+          <div>
+          {
+              //this.dummy_dat.item.map((item) => {
+              this.props.onSurvey.item.map((item) => {
+              return(
+                <ResponsingItem
+                  question={item.question}
+                  question_type={item.question_type}
+                  selection={item.selection}
+                  duplicate={item.multiple_choice}
+                />
+              );
+            })
+          }
+          </div>
+          <button onClick={this.onSubmitHandler}>
+            Submit
+          </button>
         </div>
-        <button onClick={this.onSubmitHandler}>
-          Submit
-        </button>
-      </div>
-    );
+      );
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps) (withRouter(ResponsePage));

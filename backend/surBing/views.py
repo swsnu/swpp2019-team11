@@ -155,13 +155,12 @@ def makeSurvey(request):
                             personal_data=False,
                             multiple_choice=multiple_choice)
             cur_item.save()
-            for index, selection in enumerate(selection_list):
-                cur_selection = Selection(number=index + 1, content=selection)
+            for selection in selection_list:
+                cur_selection = Selection(number=selection['number'], content=selection['content'])
                 cur_selection.save()
                 cur_item.selection.add(cur_selection)
             cur_item.save()
             survey.item.add(cur_item)
-
         survey.save()
         return HttpResponse(status=201)
 
@@ -227,6 +226,7 @@ def onGoingSurvey(request, survey_id):
             'target_age_start': survey.target_age_start,
             'target_age_end': survey.target_age_end,
             'target_gender': survey.target_gender,
+            'target_response_count' : survey.target_respondant_count,
             'content': survey.content,
             'respondant_count': survey.respondant_count,
             'item': [],

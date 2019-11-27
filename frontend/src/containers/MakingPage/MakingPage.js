@@ -103,9 +103,13 @@ export class MakingPage extends Component {
       });
 
       let new_target= this.state.target;
-      if ( this.state.gender_check == false ) new_target[0].gender = null;
+      if ( this.state.gender_check != true ) new_target[0].gender = '-';
+      else{
+        if (this.state.target[0].gender == 'male') new_target[0].gender = 'M';
+        if (this.state.target[0].gender == 'female') new_target[0].gender = 'F';
+      }
       if ( this.state.age_check == false ) new_target[1].age = [ 1, 100 ];
-          
+      
       let dueDayArr = this.state.due_date.format().split('-');
       let dueStr = dueDayArr[0].substring(0, 4);
       dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
@@ -117,25 +121,28 @@ export class MakingPage extends Component {
       let openDayArr =  this.state.open_date.format().split('-');
       let openStr = openDayArr[0].substring(0, 4);
       openStr = openStr.concat("/", openDayArr[1], "/", openDayArr[2].substring(0, 2));
+
       let new_item_list = [];
       this.state.item_list.map((item) => {
         let new_option_list = [];
         item.option_list.map((option) => {
-          let new_option = {
+          const new_option = {
             number: option.id,
-            selection: option.content,
+            content: option.content,
           }
           new_option_list.push(new_option);
         });
-        let new_item = {
+        //alert(new_option_list[0].number);
+        const new_item = {
           number: item.id,
           title: item.question,
           question_type: item.question_type,
-          selection: item.option_list,
+          selection: new_option_list,
           multiple_choice: item.duplicate_input,
         }
         new_item_list.push(new_item);
       })
+      //alert(new_item_list[0].title);
       let survey = { 
           title: this.state.title,
           content: this.state.content,
@@ -145,7 +152,7 @@ export class MakingPage extends Component {
           item: new_item_list,
           target_age_start: this.state.target[1].age[0],
           target_age_end: this.state.target[1].age[1],
-          target_gender: null,
+          target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
       this.props.onSubmitSurvey(survey);
@@ -249,9 +256,9 @@ export class MakingPage extends Component {
             <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
-                onDateChange={(due_date) => this.setState({ due_date })}
-                onFocusChange={({focused}) => this.setState({ focused })}
-                focused={this.state.focused}
+                onDateChange={(due_date) => this.setState({ due_date : due_date })}
+                onFocusChange={({focused}) => this.setState({ due_date_focused : focused })}
+                focused={this.state.due_date_focused}
                 date={this.state.due_date}
             />
           </Segment>
