@@ -24,8 +24,8 @@ export class ResponsePage extends Component {
     target: [{ gender: 'male' }, { age: [1, 100] }],
     item_count: 1,
     item: [
-      { id: 0, question: 'What is your name?', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
-      { id: 1, question: 'Do you like Mint Chocolate?', question_type: 'Selection', duplicate_input: true, option_list: [{ id: 0, content: 'Yes' }, { id: 1, content: 'Absolutely' }] },
+      { number: 0, title: 'What is your name?', question_type: 'Subjective', multiple_choice: false, selection: [{ number: 0, content: '' }] },
+      { number: 1, title: 'Do you like Mint Chocolate?', question_type: 'Selection', multiple_choice: true, selectiont: [{ number: 0, content: 'Yes' }, { number: 1, content: 'Absolutely' }] },
     ],
   }
 
@@ -70,8 +70,8 @@ export class ResponsePage extends Component {
                 <ResponsingItem
                   question={item.question}
                   question_type={item.question_type}
-                  options={item.option_list}
-                  duplicate={item.duplicate_input}
+                  selection={item.selection}
+                  duplicate={item.multiple_choice}
                 />
               );
             })
