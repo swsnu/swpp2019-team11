@@ -12,10 +12,12 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
+  getSurveyOngoing: () => { dispatch(actionCreators.getOngoingSurveyList()) },
 });
 
 export const mapStateToProps = (state) => ({
   survey_list: state.ct.survey_list,
+  ongoing_survey_list: state.svl.ongoing_survey_list,
 });
 
 export class MyPage extends Component {
@@ -28,6 +30,8 @@ export class MyPage extends Component {
       .then(() => {
       })
       .catch(() => { this.props.history.push('/login/'); });
+    this.props.getSurveyOngoing();
+    this.props.getCart();
   }
 
   getContents = () => {
@@ -49,6 +53,7 @@ export class MyPage extends Component {
   //We may replace it with existed cartpage.
 
   render() {
+    
     const cartContents = this.getContents();
     const Cart = (
       <div>

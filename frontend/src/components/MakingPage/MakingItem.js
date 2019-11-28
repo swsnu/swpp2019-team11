@@ -36,15 +36,15 @@ export class MakingItem extends Component {
       <Segment style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
         Q: &nbsp;&nbsp;
         <Input id="question" onChange={(e)=> this.titleChangeHandler(e.target.value)}/>
-        <Checkbox toggle onClick = {() => { this.props.questionTypeToggler(this.props.number) }} />
+        <Checkbox toggle onChange={(e) => { this.props.questionTypeToggler(this.props.number) }} />
         {this.props.question_type}
         {
           (this.props.question_type == 'Selection')&&
           <div>
           {"Options:"}
           <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.multipleSelectionToggler(this.props.number)}}></Checkbox>
-          {(this.props.duplicate==false) && <div>False</div>}
-          {(this.props.duplicate==true) && <div>True</div>}
+            {(this.props.duplicate==false) && <div>False</div>}
+            {(this.props.duplicate==true) && <div>True</div>}
           </div>
         }
         {

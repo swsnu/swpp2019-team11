@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
-import { Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox } from 'semantic-ui-react';
+import { Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref } from 'semantic-ui-react';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
 import moment from 'moment';
@@ -27,6 +27,8 @@ const ages = [
 ]
 
 export class MakingPage extends Component {
+
+    contextRef = createRef()
     state= {
         title: '',
         content: '',
@@ -169,13 +171,15 @@ export class MakingPage extends Component {
     }
 
     render() {
+      let items = this.Items()
       return (
-        <div className="MakingPage" style = {{marginLeft : 10}}>
-          <Sticky>
-            <div style = {{ backgroundColor: "#E0E7E9"}}>
+        <Ref className="MakingPage" innerRef={this.contextRef} >
+          <div style = {{marginLeft : 10}}>
+          <Sticky context = {this.contextRef}>
+            <Segment style = {{ backgroundColor: "#E0E7E9"}}>
               <Segment style = {{ backgroundColor: "#E0E7E9", 'border-bottom':'0px', 'box-shadow': 0}}><h1>MakingPage</h1></Segment>
               <Progress color='teal' value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total='3' progress='ratio' />
-            </div>   
+            </Segment>   
           </Sticky>
           <Segment style = {{ backgroundColor: "#A3C6C4", 'border-color': 'white'}}>
           <h3><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>1. Explain your survey!</span></h3><br />
@@ -196,7 +200,6 @@ export class MakingPage extends Component {
           </Segment>
 
           <Segment style = {{ backgroundColor: "#A3C6C4"}}>
-
             <h3 color='#354649'><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>2. Survey Target Settings!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Gender </p>
             <Form.Select options={genders} placeholder='Gender' error />
@@ -212,11 +215,12 @@ export class MakingPage extends Component {
           <Button onClick={this.addItemHandler}>
             Add Question Item
           </Button>
-          { this.Items() }
+          { items }
           <Button onClick={this.submitHandler}>
             Submit
           </Button>
         </div>
+      </Ref>
       );
     }
 }
