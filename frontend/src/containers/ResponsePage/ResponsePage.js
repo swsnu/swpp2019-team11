@@ -17,20 +17,8 @@ export const mapStateToProps = (state) => {
 }
 
 export class ResponsePage extends Component {
-  dummy_dat= {
-    id: 0,
-    title: 'Survey Title',
-    content: 'Survey Content',
-    target: [{ gender: 'male' }, { age: [1, 100] }],
-    item_count: 1,
-    item: [
-      { number: 0, title: 'What is your name?', question_type: 'Subjective', multiple_choice: false, selection: [{ number: 0, content: '' }] },
-      { number: 1, title: 'Do you like Mint Chocolate?', question_type: 'Selection', multiple_choice: true, selectiont: [{ number: 0, content: 'Yes' }, { number: 1, content: 'Absolutely' }] },
-    ],
-  }
-
   state= {
-    survey: this.props.survey
+    survey: this.props.onSurvey
   }
 
   componentDidMount() {
@@ -39,21 +27,50 @@ export class ResponsePage extends Component {
         this.props.getOngoingSurvey(this.props.match.params.id);
       })
       .catch(() => { this.props.history.push('/login/'); });*/
+      
       this.props.getOngoingSurvey(this.props.match.params.id);
+      this.setState({ survey: this.props.onSurvey });
+  }
+
+  makeSelectionObj = () => {
+    this.state.survey.item.map((item) => {
+      let new_item_list = this.state.item;
+
+      if (item.question_type == 'Selection') {
+        let new_res = [{ number: '', content: '' }];
+        new_item_list[item.number].response = new_res;
+
+        this.setState({ item: new_item_list });
+      }
+
+    })
   }
 
   onSubmitHandler = () => {
 
-    this.props.history.push('/participate/')
+    this.props.history.push('/participate/');
+  }
+
+  itemSelectionClick = (item_num, op_num, op_content, multiple_choice) => {
+    if (multiple_choice == false){
+      let new_res = [{
+        number: op_num,
+        content: op_content,
+      }]
+      new_item = this.state.onSurvey.item;
+      new_item[item_num].response = new_res;
+      this.setState({ item: new_item })
+    }
   }
 
   render() {
-    if(this.props.onSurvey==""){
+    if (this.props.onSurvey==""){
       return null;
     }
     else{
       return (
         <div>
+          {this.makeSelectionObj}
           <Sticky>
             <Segment><h1>ResponsingPage</h1></Segment>
           </Sticky>
@@ -64,14 +81,14 @@ export class ResponsePage extends Component {
           </Segment>
           <div>
           {
-              //this.dummy_dat.item.map((item) => {
-              this.props.onSurvey.item.map((item) => {
+            this.props.onSurvey.item.map((item) => {
               return(
                 <ResponsingItem
-                  question={item.question}
+                  title={item.title}
                   question_type={item.question_type}
                   selection={item.selection}
                   duplicate={item.multiple_choice}
+                  selectionClick={this.itemSelectionClick}
                 />
               );
             })
