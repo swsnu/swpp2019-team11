@@ -2,11 +2,8 @@ import json
 from functools import wraps
 from json import JSONDecodeError
 
-from celery.schedules import crontab
-from celery.task import periodic_task
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
-from django.utils.timezone import datetime
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
@@ -395,29 +392,4 @@ def my_survey_completed(request):
         return HttpResponseBadRequest(['GET'])
 
 
-@periodic_task(run_every=crontab(hour=0, minute=0))
-def onGoing_to_complete():
-    onGoingSurveys = SurveyOngoing.objects.all()
-    today = datetime.date.today()
-    for survey in onGoingSurveys:
-        if (survey.open_date <= today):
-            new_survey = SurveyOngoing(
-                title=survey.title,
-                author=survey.author,
-                upload_date=survey.upload_date,
-                survey_start_date=survey.survey_start_date,
-                survey_end_date=survey.survey_end_date,
-                content=survey.content,
-                target_age_start=survey.target_age_start,
-                target_age_end=survey.target_age_end,
-                target_gender=survey.target_gender,
-                respondant_count=survey.respondant_count,
-            )
-            new_survey.save()
-            for item in survey.item:
-                for response in item.response:
-                    response.respondant_number = None
-                    response.save()
-                new_survey.item.add(item)
-            new_survey.save()
-            survey.delete()
+
