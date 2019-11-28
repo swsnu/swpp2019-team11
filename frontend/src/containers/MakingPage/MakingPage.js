@@ -18,6 +18,8 @@ export class MakingPage extends Component {
         title: '',
         content: '',
         target: [{ gender: 'male' }, { age: [1, 100] }],
+        target_gender: 'male',
+        target_age: [1, 100],
         gender_check: false,
         age_check: false,
         response_count: 0, 
@@ -91,18 +93,8 @@ export class MakingPage extends Component {
       }
       if ( this.state.age_check == false ) new_target[1].age = [ 1, 100 ];
       
-      let dueDayArr = this.state.due_date.format().split('-');
-      let dueStr = dueDayArr[0].substring(0, 4);
-      dueStr = dueStr.concat("/", dueDayArr[1], "/", dueDayArr[2].substring(0,2));
-
-      let startDayArr = moment().format().split("-");
-      let startStr = "";
-      startStr = startStr.concat(startDayArr[0].substring(0, 4), "/", startDayArr[1], "/", startDayArr[2].substring(0,2));
-        
-      let openDayArr =  this.state.open_date.format().split('-');
-      let openStr = openDayArr[0].substring(0, 4);
-      openStr = openStr.concat("/", openDayArr[1], "/", openDayArr[2].substring(0, 2));
-
+      let survey_start_date = moment().format("YYYY/MM/DD");
+      
       let new_item_list = [];
       this.state.item_list.map((item) => {
         let new_option_list = [];
@@ -128,17 +120,17 @@ export class MakingPage extends Component {
       let survey = { 
           title: this.state.title,
           content: this.state.content,
-          survey_start_date: startStr,
-          survey_end_date: dueStr,
-          open_date: openStr,
+          survey_start_date: survey_start_date,
+          survey_end_date: this.state.due_date.format("YYYY/MM/DD"),
+          open_date: this.state.open_date.format("YYYY/MM/DD"),
           item: new_item_list,
           target_age_start: this.state.target[1].age[0],
           target_age_end: this.state.target[1].age[1],
           target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
-      console.log(survey);
-      this.props.onSubmitSurvey(survey);
+      console.log(survey.survey_start_date);
+      //this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {
@@ -157,6 +149,12 @@ export class MakingPage extends Component {
           item_list: new_list,
         });
     };
+
+    sliderHandler = (newValue) => {
+      let target_age = this.state.target;
+      target_age[1] = newValue;
+      this.setState({ target: target_age });
+    }
 
     parentCallBackTitle = (dataFromChild, id) => {
         let new_dat = this.state.item_list;
@@ -236,11 +234,7 @@ export class MakingPage extends Component {
               style={{ width: 270, color: '#008080' }}
               aria-labelledby="range-slider"
               defaultValue={[0, 100]}
-              onChange={(e)=>{
-                let new_age = this.state.target;
-                new_age[1] = e.target.value;
-                this.setState(new_age);
-              }}
+              onChange={(e)=>this.sliderHandler(e.target.value)}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
             />
