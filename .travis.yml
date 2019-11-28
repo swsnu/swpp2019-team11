@@ -23,6 +23,7 @@ matrix:
     - yarn test --coverage --watchAll=false
     - cd ../backend
     - pylint **/*.py --load-plugins=pylint_django
+    - mysql -e 'CREATE DATABASE db'
     - coverage run --source='.' manage.py test
     - coverage xml
     - cd ..
