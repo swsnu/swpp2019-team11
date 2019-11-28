@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { MakingOptions } from './MakingOptions';
 
 describe("<MakingOptions />", () => {
+  beforeEach(() => { jest.clearAllMocks(); });
   const mockContent = jest.fn()
   const props = {
     id :1,

@@ -33,18 +33,17 @@ export class MakingItem extends Component {
   render() {
 
     return (
-      <Segment style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
+      <Segment className = "MakingItem" style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
         Q{this.props.number}: &nbsp;&nbsp;
-        <Input id="question" onChange={(e)=> this.titleChangeHandler(e.target.value)}/>
-        <Checkbox toggle onChange={(e) => { this.props.questionTypeToggler(this.props.number) }} />
+        <Input className = "title" id="title" onChange={(e)=> this.titleChangeHandler(e.target.value)}/>
+        <Checkbox className = "questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number) }} />
         {this.props.question_type}
         {
           (this.props.question_type == 'Selection')&&
           <div>
-          {"Options:"}
-          <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.multipleSelectionToggler(this.props.number)}}></Checkbox>
-            {(this.props.duplicate==false) && <div>False</div>}
-            {(this.props.duplicate==true) && <div>True</div>}
+            <Checkbox className = "MultipleSelection" label = {this.props.multiple_selection ? "Multiple Selection" : "Single Selection"} toggle onClick={() => {this.props.multipleSelectionToggler(this.props.number)}}/> 
+            <br/>
+            Options:
           </div>
         }
         {
@@ -61,7 +60,7 @@ export class MakingItem extends Component {
         }
         {
           (this.props.question_type == 'Selection')
-          && <Button onClick={ this.addSelectionHandler }>Add options</Button>
+          && <Button className = "" onClick={ this.addSelectionHandler }>Add options</Button>
         }
       </Segment>
     );

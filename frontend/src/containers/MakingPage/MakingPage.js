@@ -181,10 +181,10 @@ export class MakingPage extends Component {
           <Segment style = {{ backgroundColor: "#A3C6C4", 'border-color': 'white'}}>
           <h3><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>1. Explain your survey!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Title </p>
-            <Input style = {{width: '500px'}} onChange={(event) => this.setState({ title: event.target.value })} />
+            <Input className = "SurveyTitle" style = {{width: '500px'}} onChange={(event) => this.setState({ title: event.target.value })} />
             <br /><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Content </p>
-            <TextArea rows={4} style={{'border-color': 'white', width:'800px', height:'100px', borderRadius:5, minHeight: 100 }} onChange={(event) => this.setState({ content: event.target.value })} />
+            <TextArea className = "SurveyContent" rows={4} style={{'border-color': 'white', width:'800px', height:'100px', borderRadius:5, minHeight: 100 }} onChange={(event) => this.setState({ content: event.target.value })} />
             <br /><br /> <p style = {{'font-size': '15px', marginBottom: 5}}>Due Date </p>
             <SingleDatePicker
                 borderRadius={5}
@@ -199,21 +199,21 @@ export class MakingPage extends Component {
           <Segment style = {{ backgroundColor: "#A3C6C4"}}>
             <h3 color='#354649'><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>2. Survey Target Settings!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Gender </p>
-            <Form.Select value = {this.state.target_gender} options={genders} onChange = {(e, {value}) => {this.setState({target_gender : value})}} placeholder='Gender' />
-            <Checkbox defaultChecked={true} onClick={this.genderCheckToggler} /> Won't input gender option
+            <Form.Select className = "genderSelect" value = {this.state.target_gender} options={genders} onChange = {(e, {value}) => {this.setState({target_gender : value})}} placeholder='Gender' />
+            <Checkbox className = "genderCheck" defaultChecked={true} onClick={this.genderCheckToggler} /> Won't input gender option
             <p style = {{'font-size': '15px', marginBottom: 5}}>Age </p>
-            <Form.Select value = {{start : this.state.target_age[0], end : this.state.target_age[1]}} options={ages} onChange = {(e, {value}) => {this.setState({target_age : [value.start, value.end]})}} placeholder='Age' />
-            <Checkbox defaultChecked={true} onClick={this.ageCheckToggler} /> 
+            <Form.Select className = "ageSelect" value = {{start : this.state.target_age[0], end : this.state.target_age[1]}} options={ages} onChange = {(e, {value}) => {this.setState({target_age : [value.start, value.end]})}} placeholder='Age' />
+            <Checkbox className = 'ageCheck' defaultChecked={true} onClick={this.ageCheckToggler} /> 
             Won't input age option
             <p>Target People:</p>
-            <Input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
+            <Input className = "targetCount" type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
           <h3>3. Items</h3>
-          <Button onClick={this.addItemHandler}>
+          <Button className = "addItemButton" onClick={this.addItemHandler}>
             Add Question Item
           </Button>
           { items }
-          <Button onClick={this.submitHandler}>
+          <Button className = "submitButton" onClick={this.submitHandler}>
             Submit
           </Button>
         </div>
