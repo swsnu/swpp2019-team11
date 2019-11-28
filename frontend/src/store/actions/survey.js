@@ -1,6 +1,14 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+export const participateSurvey_ = () => ({ type: actionTypes.PARTICIPATE_SURVEY });
+
+export const participateSurvey = () => (dispatch) => axios.post('api/participate/')
+  .then((res) => {
+    dispatch(participateSurvey_());
+    return res;
+  });
+
 export const getSurveyList_ = (survey_list) => ({
   type: actionTypes.GET_SURVEY_LIST, target: survey_list,
 });
