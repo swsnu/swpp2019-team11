@@ -28,8 +28,8 @@ export class MakingItem extends Component {
       <Segment style={{ minHeight: '250px' }}>
         Q:
         {'  '}
-        <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onClick={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+        <input id="question" onChange={(e)=>this.props.itemTitle(e.target.value, this.props.id)}/>
+        <Checkbox toggle onClick={(e)=>{ this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
         {this.props.questiontype}
         {
           (this.state.questiontype == 'Selection')&&
