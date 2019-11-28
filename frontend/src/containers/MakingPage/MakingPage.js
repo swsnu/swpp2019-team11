@@ -27,7 +27,7 @@ export class MakingPage extends Component {
         open_date: moment(),
         item_count: 1,
         item_list: [
-            { id: 0, question: '', question_type: 'Subjective', duplicate_input: false, option_list: [{ id: 0, content: '' }] },
+            { number: 0, title: '', question_type: 'Subjective', multiple_choice: false, selection: [{ number: 1, content: '' }] },
         ],
     }
 
@@ -38,7 +38,7 @@ export class MakingPage extends Component {
         .catch(() => { this.props.history.push('/login/'); });
     }
 
-    onToggleTypeHandler = (id) => {
+    questionTypeToggler = (id) => {
         if (this.state.item_list[id].question_type == 'Subjective') {
             let new_list = this.state.item_list;
             new_list[id].question_type = 'Selection';
@@ -51,19 +51,19 @@ export class MakingPage extends Component {
         }
     }
 
-    onToggleDupHandler = (id) => {
+    multipleCheckToggler = (id) => {
         let new_list = this.state.item_list;
-        if (this.state.item_list[id].duplicate_input == false) {
-            new_list[id].duplicate_input = true;
+        if (this.state.item_list[id].multiple_choice == false) {
+            new_list[id].multiple_choice = true;
             this.setState({item_list: new_list});
         }
         else {
-            new_list[id].duplicate_input = false;
+            new_list[id].multiple_choice = false;
             this.setState({item_list: new_list});
         }
     }
 
-    targetToggleHandler = (id) => {
+    genderCheckToggler = (id) => {
       if (id == 0){
         this.setState({gender_check: !this.state.gender_check})
       }
@@ -81,8 +81,10 @@ export class MakingPage extends Component {
     };
 
     submitHandler = () => {
-      this.state.item_list.map((item) => { //delete selections of subject question
-        if (item.question_type != 'Selection'){ item.option_list = []; }
+      this.state.item_list.map((item) => { 
+        if (item.question_type != 'Selection'){ 
+          item.option_list = []; 
+        }
       });
 
       let new_target= this.state.target;
@@ -105,8 +107,7 @@ export class MakingPage extends Component {
           }
           new_option_list.push(new_option);
         });
-        //alert(new_option_list[0].number);
-        console.log(item.question);
+
         const new_item = {
           number: item.id,
           title: item.question,
@@ -116,7 +117,7 @@ export class MakingPage extends Component {
         }
         new_item_list.push(new_item);
       })
-      //alert(new_item_list[0].title);
+      
       let survey = { 
           title: this.state.title,
           content: this.state.content,
@@ -129,19 +130,18 @@ export class MakingPage extends Component {
           target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
-      console.log(survey.survey_start_date);
-      //this.props.onSubmitSurvey(survey);
+      this.props.onSubmitSurvey(survey);
     }
     
-    insertItemHandler = () => {
+    addItemHandler = () => {
         const new_list = [
           ...this.state.item_list,
           {
-            id: this.state.item_list.length,
-            question: '',
+            number: this.state.item_list.length+1,
+            title: '',
             question_type: 'Subjective',
-            duplicate_input: false,
-            option_list: [{ id: 0, content: '' }],
+            multiple_choice: false,
+            Selection: [],
           },
         ];
 
@@ -156,7 +156,7 @@ export class MakingPage extends Component {
       this.setState({ target: target_age });
     }
 
-    parentCallBackTitle = (dataFromChild, id) => {
+    receiveDataFromChild = (dataFromChild, id) => {
         let new_dat = this.state.item_list;
         new_dat[id].question = dataFromChild;
         this.setState({item_list: new_dat});
