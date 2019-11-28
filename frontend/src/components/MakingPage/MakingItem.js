@@ -34,7 +34,7 @@ export class MakingItem extends Component {
 
     return (
       <Segment style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
-        Q: &nbsp;&nbsp;
+        Q{this.props.number}: &nbsp;&nbsp;
         <Input id="question" onChange={(e)=> this.titleChangeHandler(e.target.value)}/>
         <Checkbox toggle onChange={(e) => { this.props.questionTypeToggler(this.props.number) }} />
         {this.props.question_type}

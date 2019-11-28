@@ -19,11 +19,11 @@ const genders = [
 ]
 
 const ages = [
-  { key: 'a', text: '10', value: '10~19' },
-  { key: 'b', text: '20', value: '20~29' },
-  { key: 'c', text: '30', value: '30~39' },
-  { key: 'd', text: '40', value: '40~49' },
-  { key: 'e', text: 'Other', value: 'other' },
+  { key: 'a', text: '10', value: {start : 10, end : 19} },
+  { key: 'b', text: '20', value: {start : 20, end : 29} },
+  { key: 'c', text: '30', value: {start : 30, end : 39} },
+  { key: 'd', text: '40', value: {start : 40, end : 49} },
+  { key: 'e', text: 'All', value: {start : 1, end :  100} },
 ]
 
 export class MakingPage extends Component {
@@ -32,7 +32,6 @@ export class MakingPage extends Component {
     state= {
         title: '',
         content: '',
-        target: [{ gender: 'male' }, { age: [1, 100] }],
         target_gender: 'M',
         target_age: [1, 100],
         gender_check: false,
@@ -105,9 +104,8 @@ export class MakingPage extends Component {
           target_gender: this.state.target_gender,
           target_respondant_count: this.state.response_count,
       };
-      //this.props.onSubmitSurvey(survey);
-      //this.props.history.push('/main/');
-      console.log(survey)
+      this.props.onSubmitSurvey(survey);
+      this.props.history.push('/main/');
     }
     
     addItemHandler = () => {
@@ -153,7 +151,6 @@ export class MakingPage extends Component {
       const scrollTop = window.pageYOffset; // how much the user has scrolled by
       const winHeight = window.innerHeight;
       const docHeight = this.getDocHeight();
-  
       const totalDocScrollLength = docHeight - winHeight;
       const scrollPostion = Math.floor(scrollTop / totalDocScrollLength * 100)
   
@@ -202,10 +199,10 @@ export class MakingPage extends Component {
           <Segment style = {{ backgroundColor: "#A3C6C4"}}>
             <h3 color='#354649'><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>2. Survey Target Settings!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Gender </p>
-            <Form.Select options={genders} placeholder='Gender' error />
+            <Form.Select value = {this.state.target_gender} options={genders} onChange = {(e, {value}) => {this.setState({target_gender : value})}} placeholder='Gender' />
             <Checkbox defaultChecked={true} onClick={this.genderCheckToggler} /> Won't input gender option
             <p style = {{'font-size': '15px', marginBottom: 5}}>Age </p>
-            <Form.Select options={ages} placeholder='Age' error />
+            <Form.Select value = {{start : this.state.target_age[0], end : this.state.target_age[1]}} options={ages} onChange = {(e, {value}) => {this.setState({target_age : [value.start, value.end]})}} placeholder='Age' />
             <Checkbox defaultChecked={true} onClick={this.ageCheckToggler} /> 
             Won't input age option
             <p>Target People:</p>
