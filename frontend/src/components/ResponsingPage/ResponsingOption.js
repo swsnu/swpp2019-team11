@@ -11,6 +11,6 @@ export class ResponsingOption extends Component {
         {this.props.content}
       </div>
     );
-  };
+  }
 }
-export default withRouter (ResponsingOption)
+export default withRouter(ResponsingOption);

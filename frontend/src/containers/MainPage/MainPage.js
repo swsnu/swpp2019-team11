@@ -4,12 +4,11 @@ import { Grid, Header, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
-import { TopBar } from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
 
 export class MainPage extends Component {
   componentDidMount() {
-    //this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
+    // this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
   addSurveyHandler = () => {

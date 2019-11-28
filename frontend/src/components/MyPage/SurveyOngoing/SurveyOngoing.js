@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Grid, Menu, Segment, Sidebar,
-} from 'semantic-ui-react';
+import { Grid }
+  from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
 import SurveyBlock from '../../SurveyBlock/SurveyBlock';
@@ -27,19 +26,21 @@ export class SurveyOngoing extends Component {
             </Grid>
           </Grid>
         ))
-      ); } else {
-      return (<Grid><h2> The ongoing survey list is Empty! </h2></Grid>);
+      );
     }
+    return (<Grid><h2> The ongoing survey list is Empty! </h2></Grid>);
   };
 
-  render(){
+  render() {
     return (
-      <div className = "surveyOngoing_list">
+      <div className="surveyOngoing_list">
         <h2>Ongoing Survey</h2>
-          {this.getContents()} <br />
+        {this.getContents()}
+        {' '}
+        <br />
       </div>
-    )
+    );
   }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SurveyOngoing);
