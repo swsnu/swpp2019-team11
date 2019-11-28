@@ -8,7 +8,7 @@ import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
-  submitOngoingSurvey: (id) => dispatch(actionCreators.participateSurvey(id)), 
+  submitOngoingSurvey: (id, survey) => dispatch(actionCreators.participateSurvey(id, survey)), 
 })
 
 export const mapStateToProps = (state) => {
@@ -41,7 +41,7 @@ export class ResponsePage extends Component {
   }
 
   onSubmitHandler = () => {
-    this.props.submitOngoingSurvey(this.props.match.params.id);
+    this.props.submitOngoingSurvey(this.props.match.params.id, this.state.survey);
     this.props.history.push('/participate/');
   }
 
