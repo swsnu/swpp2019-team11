@@ -2,6 +2,15 @@ matrix:
   include:
   - language: 
     - python
+      sudo: enabled
+      services:
+      - mysql
+      addons:
+        apt:
+          sources:
+          - mysql-5.7-trusty
+          packages:
+          - mysql-server
     cache:
       yarn: true
       pip: true
@@ -9,6 +18,10 @@ matrix:
     - '10'
     python:
     - '3.6'
+    before_install:
+    - mysql -e "CREATE DATABASE db;"
+    - mysql -e "CREATE USER 'root'@'localhost' IDENTIFIED BY '';"
+    - mysql -e "GRANT ALL PRIVILEGES ON *.* to 'root'@'localhost';"
     install:
     - cd frontend
     - npm install
@@ -23,7 +36,6 @@ matrix:
     - yarn test --coverage --watchAll=false
     - cd ../backend
     - pylint **/*.py --load-plugins=pylint_django
-    - mysql -e 'CREATE DATABASE db'
     - coverage run --source='.' manage.py test
     - coverage xml
     - cd ..
