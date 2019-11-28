@@ -192,13 +192,13 @@ class SurBingTestCase(TestCase):
 
     def test_cart(self):
         client = Client()
-        cart_url = '/api/cart/'
+        cart_url = '/api/mypage/cart/'
         # sign up and login to bypass @check_logged_in
         client.post('/api/login/', json.dumps({'username': 'testuser', 'password': 'test'}),
                     content_type='application/json')
         # cart test
         response = client.get(cart_url)
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 200)
         # cart bad request
         response = client.delete(cart_url)
         self.assertEqual(response.status_code, 400)

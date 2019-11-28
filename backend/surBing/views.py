@@ -1,7 +1,7 @@
 import json
 from functools import wraps
 from json import JSONDecodeError
-import datetime
+from datetime import datetime
 
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
@@ -224,7 +224,7 @@ def onGoingSurvey(request, survey_id):
             'target_age_start': survey.target_age_start,
             'target_age_end': survey.target_age_end,
             'target_gender': survey.target_gender,
-            'target_response_count' : survey.target_respondant_count,
+            'target_response_count': survey.target_respondant_count,
             'content': survey.content,
             'respondant_count': survey.respondant_count,
             'item': [],
@@ -249,7 +249,7 @@ def onGoingSurvey(request, survey_id):
                     'number': selection.number,
                     'content': selection.content,
                 })
-            
+
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
     else:
@@ -391,6 +391,3 @@ def my_survey_completed(request):
         return JsonResponse(survey_list, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
-
-
-

@@ -1,8 +1,9 @@
-from celery.schedules import crontab
 import datetime
+
 from celery import task
 
-from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
+from .models import SurveyOngoing, Survey
+
 
 @task
 def onGoing_to_complete():
