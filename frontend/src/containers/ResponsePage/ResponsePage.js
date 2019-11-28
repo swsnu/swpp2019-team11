@@ -8,6 +8,7 @@ import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
+  submitOngoingSurvey: (id) => dispatch(actionCreators.participateSurvey(id)), 
 })
 
 export const mapStateToProps = (state) => {
@@ -23,13 +24,12 @@ export class ResponsePage extends Component {
   }
 
   componentDidMount() {
-    /*this.props.checklogIn()
+    this.props.checklogIn()
       .then(() => {
         this.props.getOngoingSurvey(this.props.match.params.id);
       })
-      .catch(() => { this.props.history.push('/login/'); });*/
-      
-      this.props.getOngoingSurvey(this.props.match.params.id);
+      .catch(() => { this.props.history.push('/login/'); });
+      //this.props.getOngoingSurvey(this.props.match.params.id);
       this.setState({ survey: this.props.onSurvey });
   }
 
@@ -41,7 +41,8 @@ export class ResponsePage extends Component {
   }
 
   onSubmitHandler = () => {
-    //this.props.history.push('/participate/');
+    this.props.submitOngoingSurvey(this.props.match.params.id);
+    this.props.history.push('/participate/');
   }
 
   itemSubjectInput = (dataFromChild, item_num) => {
