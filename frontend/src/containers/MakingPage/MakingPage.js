@@ -130,7 +130,7 @@ export class MakingPage extends Component {
           target_respondant_count: this.state.response_count,
       };
       console.log(survey.survey_start_date);
-      //this.props.onSubmitSurvey(survey);
+      this.props.onSubmitSurvey(survey);
     }
     
     insertItemHandler = () => {

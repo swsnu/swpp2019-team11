@@ -14,7 +14,7 @@ export class ResponsingItem extends Component {
     this.setState({ itemClicked: [dataFromChild] });
   }
 
-  render(){
+  render() {
     return (
       <div>
         <Segment>
