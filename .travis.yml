@@ -15,11 +15,7 @@ matrix:
     - npm install coveralls
     - gem install coveralls-lcov
     - cd ../backend
-    - pip3 install django
-    - pip3 install pylint
-    - pip3 install pylint-django
-    - pip3 install coverage
-    - pip3 install coveralls
+    - pip install -r requirements.txt
     - cd ..
     script:
     - cd frontend
