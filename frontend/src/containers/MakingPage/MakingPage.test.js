@@ -1,16 +1,18 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { MakingPage } from './MakingPage';
+import { MakingPage, mapDispatchToProps } from './MakingPage';
 
 describe('MakingPage', () => {
   beforeEach(() => { jest.clearAllMocks(); });
   const mockPush = jest.fn();
   const mockOnSubmitSurvey = jest.fn()
+  const mockCheckLogin = jest.fn()
   const props = {
     history:{
       push: mockPush
     },
-    onSubmitSurvey : mockOnSubmitSurvey
+    onSubmitSurvey : mockOnSubmitSurvey,
+    checklogIn : mockCheckLogin
   }
   const component = shallow(<MakingPage {...props} />);
   const instance = component.instance()
@@ -53,34 +55,56 @@ describe('MakingPage', () => {
     wrapper.simulate('change', {target : {value : 'test'}})
     expect(instance.state.title).toEqual('test')
   })
-  it("multipleSelectionToggler", () => {
+  it("Toggler", () => {
     instance.multipleSelectionToggler(1)
     expect(instance.state.item_list[0].multiple_selection).toEqual(true)
+    instance.multipleSelectionToggler(1)
+    expect(instance.state.item_list[0].multiple_selection).toEqual(false)
+    instance.questionTypeToggler(1)
+    expect(instance.state.item_list[0].question_type).toEqual('Selection')
+    instance.questionTypeToggler(1)
+    expect(instance.state.item_list[0].question_type).toEqual('Subjective')
+  })
+  it("dataCallBackHandler", () => {
+    instance.dataCallBackHandler({title : 'test', selection_list : []}, 1)
+    instance.addItemHandler()
+    expect(instance.state.item_list[0].title).toEqual('test')
   })
 });
 
-jest.mock('react-dates', () => {
-  return {
+
+describe("map", () => {
+  it("mapDispatchToProps", () => {
+    const dispatch = jest.fn()
+    mapDispatchToProps(dispatch).checklogIn()
+    mapDispatchToProps(dispatch).onSubmitSurvey()
+    expect(dispatch).toHaveBeenCalledTimes(2)
+  })
+})
+
+jest.mock('react-dates', () => ({
     SingleDatePicker : props => {
-      props.onDatesChange('test')
-      props.onFocusChange({focused : 'test'})
       return null
     }
-  }
+}))
+
+jest.mock('../../components/MakingPage/MakingItem', () => {
+  return () => null
 })
 
 describe("mount", () => {
   beforeEach(() => { jest.clearAllMocks(); });
   const mockPush = jest.fn();
   const mockOnSubmitSurvey = jest.fn()
+  const mockCheckLogin = jest.fn(() => new Promise((res) => res()))
   const props = {
     history:{
       push: mockPush
     },
-    onSubmitSurvey : mockOnSubmitSurvey
+    onSubmitSurvey : mockOnSubmitSurvey,
+    checklogIn : mockCheckLogin
   }
   const component = mount(<MakingPage {...props} />);
-  const instance = component.instance()
   it('render', () => {
     const wrapper = component.find('.MakingPage');
     expect(wrapper.length).toBe(1);

@@ -72,15 +72,15 @@ export class MakingPage extends Component {
     }
 
     multipleSelectionToggler = (number) => {
-        let new_list = this.state.item_list;
-        if (this.state.item_list[number-1].multiple_selection == false) {
-            new_list[number-1].multiple_selection = true;
-            this.setState({item_list: new_list});
-        }
-        else {
-            new_list[number-1].multiple_selection = false;
-            this.setState({item_list: new_list});
-        }
+      let new_list = this.state.item_list;
+      if (this.state.item_list[number-1].multiple_selection == false) {
+          new_list[number-1].multiple_selection = true;
+          this.setState({item_list: new_list});
+      }
+      else {
+          new_list[number-1].multiple_selection = false;
+          this.setState({item_list: new_list});
+      }
     }
 
     genderCheckToggler = () => {
@@ -185,12 +185,22 @@ export class MakingPage extends Component {
             <br /><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Content </p>
             <TextArea className = "SurveyContent" rows={4} style={{'border-color': 'white', width:'800px', height:'100px', borderRadius:5, minHeight: 100 }} onChange={(event) => this.setState({ content: event.target.value })} />
-            <br /><br /> <p style = {{'font-size': '15px', marginBottom: 5}}>Due Date </p>
+            <br /><br /> 
+            <p style = {{'font-size': '15px', marginBottom: 5}}>Due Date </p>
             <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
                 onDateChange={(due_date) => this.setState({ due_date : due_date })}
                 onFocusChange={({focused}) => this.setState({ due_date_focused : focused })}
+                focused={this.state.due_date_focused}
+                date={moment(this.state.due_date)}
+            />
+            <p style = {{'font-size': '15px', marginBottom: 5}}>Open Date </p>
+            <SingleDatePicker
+                borderRadius={5}
+                numberOfMonths={1}
+                onDateChange={(open_date) => this.setState({ open_date : open_date })}
+                onFocusChange={({focused}) => this.setState({ open_date_focused : focused })}
                 focused={this.state.due_date_focused}
                 date={moment(this.state.due_date)}
             />
