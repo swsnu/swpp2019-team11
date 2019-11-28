@@ -6,12 +6,31 @@ import ResponsingOptionRadio from './ResponsingOptionRadio';
 
 export class ResponsingItem extends Component {
   state={
-    itemClicked: this.props.itemClicked // [ list of clicked ] 
+    itemClicked: this.props.itemClicked, // [ list of clicked ] 
+    multiClickedList: []
   }
 
   radioChange = (dataFromChild) => {
-    this.props.itemSelectionClick(this.props.number, dataFromChild, this.props.multiple);
+    this.props.itemSelectionClick(this.props.number, [dataFromChild], this.props.multiple);
     this.setState({ itemClicked: [dataFromChild] });
+  }
+
+  componentDidMount() {
+    let newList = this.state.multiClickedList;
+    this.props.selection.map((selection) => {
+      newList.push(false);
+    })
+  }
+
+  checkboxChange = (number) => {
+    let newList = this.state.multiClickedList;
+    newList[number] = !newList[number];
+    this.setState({ multiClickedList: newList });
+
+    this.state.multiClickedList.map((bool) => {
+      if (bool) this.state.itemClicked.push(number);
+    })
+    this.props.itemSelectionClick(this.props.number, this.state.itemClcked, this.props.multiple);
   }
 
   render() {
@@ -26,7 +45,8 @@ export class ResponsingItem extends Component {
             { this.props.selection.map((selection) => {
               return (
                 <div>
-                  <Checkbox /><ResponsingOption content={selection.content} />
+                  <Checkbox onClick={() => this.checkboxChange(selection.number)} />
+                  <ResponsingOption content={selection.content} />
                 </div>
               );
             }) }

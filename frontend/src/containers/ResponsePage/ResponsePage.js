@@ -53,9 +53,19 @@ export class ResponsePage extends Component {
 
   itemSelectionClick = (item_num, option_num, multiple) => {
     let itemClicked = this.state.itemClickedArray;
-    if (multiple == false) {
-      itemClicked[item_num].clicked = [ option_num ];
-    }
+    itemClicked[item_num].clicked = option_num;
+    this.setState({ itemClickedArray: itemClicked })
+    
+    this.state.itemClickedArray.map((itemEach) => {
+      if (this.state.item[itemEach.number].question_type == 'Selection' && !multiple) {
+        this.state.item[itemEach.number].response = { number: itemEach.number, content: itemEach.clicked[0] }
+      }
+      if (this.state.item[itemEach.number].question_type == 'Selection' && multiple) {
+        itemEach.clicked.map((clickedEach) => {
+          this.state.item[itemEach.number].response.push({ number: itemEach.number, content: clickedEach })
+        });
+      }
+    });
   }
 
   render() {
