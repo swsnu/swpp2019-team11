@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 
 export const participateSurvey_ = () => ({ type: actionTypes.PARTICIPATE_SURVEY });
 
-export const participateSurvey = () => (dispatch) => axios.post('api/participate/')
+export const participateSurvey = (id, data) => (dispatch) => axios.put('api/participate/' + String(id) + '/', data)
   .then((res) => {
     dispatch(participateSurvey_());
     return res;
