@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 export const MakingOptions = (props) => {
   return (
-    <div>
-      <input onChange={(e) => props.content(e.target.value, props.id)}/>
+    <div className = "MakingOptions">
+      <input className = "OptionInput" onChange={(e) => props.content(e.target.value, props.id)}/>
     </div>
   );
 };

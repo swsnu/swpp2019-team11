@@ -28,7 +28,7 @@ export class MakingItem extends Component {
       <Segment className = "MakingItem" style={{ minHeight: '250px' }}>
         Q:
         {'  '}
-        <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
+        <input className = "Title" id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
         <Checkbox className = "SelectionToggler" toggle onClick={() => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
         {this.props.questiontype}
         {
@@ -44,12 +44,11 @@ export class MakingItem extends Component {
           (this.state.questiontype == 'Selection')
         && this.props.callOptionList.map((options) => {
           return (
-            <div>
               <MakingOptions
+                className = "MakingOptions"
                 id={options.id}
-                content={(par1, par2) => this.parentCallBackContent(par1, par2)}
+                content={this.parentCallBackContent}
               />
-            </div>
           );
         })
         }
