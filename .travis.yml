@@ -15,7 +15,7 @@ matrix:
     - npm install coveralls
     - gem install coveralls-lcov
     - cd ../backend
-    - pip install -r requirements.txt
+    - source env/bin/activate
     - cd ..
     script:
     - cd frontend
