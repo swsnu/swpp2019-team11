@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Segment, Checkbox } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import ResponsingOption from './ResponsingOption';
 
 export class ResponsingItem extends Component {
@@ -8,7 +8,7 @@ export class ResponsingItem extends Component {
     return (
       <div>
         <Segment>
-        <div>{this.props.question}</div>
+        <div>{this.props.title}</div>
         {this.props.duplicate && <div>{"(You can select more than one.)"}</div>}
         {
           (this.props.question_type == 'Selection')
@@ -16,8 +16,7 @@ export class ResponsingItem extends Component {
           this.props.selection.map((selection) => {
             return (
               <div>
-                <Checkbox />
-                
+                <ResponsingOption content={selection.content} />
               </div>
             );
             })

@@ -133,6 +133,7 @@ export class MakingPage extends Component {
           new_option_list.push(new_option);
         });
         //alert(new_option_list[0].number);
+        console.log(item.question);
         const new_item = {
           number: item.id,
           title: item.question,
@@ -155,6 +156,7 @@ export class MakingPage extends Component {
           target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
+      console.log(survey);
       this.props.onSubmitSurvey(survey);
     }
     
@@ -162,7 +164,7 @@ export class MakingPage extends Component {
         const new_list = [
           ...this.state.item_list,
           {
-            id: this.state.item_count,
+            id: this.state.item_list.length,
             question: '',
             question_type: 'Subjective',
             duplicate_input: false,
@@ -171,19 +173,18 @@ export class MakingPage extends Component {
         ];
 
         this.setState({
-          item_count: this.state.item_count + 1,
           item_list: new_list,
         });
     };
 
     parentCallBackTitle = (dataFromChild, id) => {
         let new_dat = this.state.item_list;
-        new_dat[id].title = dataFromChild;
+        new_dat[id].question = dataFromChild;
         this.setState({item_list: new_dat});
     }
 
     parentCallBackOption = (dataFromChild, item_id) => {
-        let new_list = this.state.item_list
+        let new_list = this.state.item_list;
         new_list[item_id].option_list = dataFromChild;
         this.setState({item_list: new_list});
     }
@@ -192,14 +193,14 @@ export class MakingPage extends Component {
       return (
         <MakingItem
           id={items.id}
-          itemTitle={(par1, par2) => this.parentCallBackTitle(par1, par2)}
+          itemTitle={this.parentCallBackTitle}
           questiontype={items.question_type}
           duplicate={items.duplicate_input}
-          optionList={(par1, par2) => this.parentCallBackOption(par1, par2)}
+          optionList={(dataFromChild, item_id) => this.parentCallBackOption(dataFromChild, item_id)}
           callOptionList={this.state.item_list[items.id].option_list}
-          onToggleType={(id) => this.onToggleTypeHandler(items.id)}
-          onToggleDup={(id) => this.onToggleDupHandler(items.id)}
-          onAddhandler={(id) => this.insertOptionHandler(items.id)}
+          onToggleType={() => this.onToggleTypeHandler(items.id)}
+          onToggleDup={() => this.onToggleDupHandler(items.id)}
+          onAddhandler={() => this.insertOptionHandler(items.id)}
         />
       );
     });
