@@ -13,9 +13,9 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 const genders = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' },
+  { key: 'm', text: 'Male', value: 'M' },
+  { key: 'f', text: 'Female', value: 'F' },
+  { key: 'o', text: 'Other', value: 'O' },
 ]
 
 const ages = [
@@ -40,7 +40,7 @@ export class MakingPage extends Component {
         open_date: moment().format("YYYY/MM/DD"),
         item_count: 1,
         item_list: [
-            { number: 0, title: '', question_type: 'Subjective', multiple_choice: false, selection: [{ number: 1, content: '' }] },
+            { number: 1, title: '', question_type: 'Subjective', multiple_selection: false, selection: [] },
         ],
         focused: false,
         scrollPostion: 0,
@@ -55,27 +55,29 @@ export class MakingPage extends Component {
         .catch(() => { this.props.history.push('/login/'); });
     }
 
-    questionTypeToggler = (id) => {
-        if (this.state.item_list[id].question_type == 'Subjective') {
+    questionTypeToggler = (number) => {
+        if (this.state.item_list[number-1].question_type == 'Subjective') {
             let new_list = this.state.item_list;
-            new_list[id].question_type = 'Selection';
+            new_list[number-1].question_type = 'Selection';
+            new_list[number-1].selection = [{ number: 1, content: '' }]
             this.setState({ item_list: new_list });
         }
         else {
             let new_list = this.state.item_list;
-            new_list[id].question_type = 'Subjective';
+            new_list[number-1].question_type = 'Subjective';
+            new_list[number-1].selection = []
             this.setState({ item_list: new_list });
         }
     }
 
-    multipleCheckToggler = (id) => {
+    multipleSelectionToggler = (number) => {
         let new_list = this.state.item_list;
-        if (this.state.item_list[id].multiple_choice == false) {
-            new_list[id].multiple_choice = true;
+        if (this.state.item_list[number-1].multiple_selection == false) {
+            new_list[number-1].multiple_selection = true;
             this.setState({item_list: new_list});
         }
         else {
-            new_list[id].multiple_choice = false;
+            new_list[number-1].multiple_selection = false;
             this.setState({item_list: new_list});
         }
     }
@@ -88,13 +90,6 @@ export class MakingPage extends Component {
       this.setState({age_check: !this.state.age_check})
     }
 
-    addSelectionHandler = (item_number) => {
-        let new_list = this.state.item_list;
-        let num = new_list.length+1;
-        new_list[item_number-1].option_list.push({ number: num, content: '' });
-        this.setState({ item_list: new_list });
-    };
-
     submitHandler = () => {
       const survey = { 
           title: this.state.title,
@@ -102,13 +97,15 @@ export class MakingPage extends Component {
           survey_start_date: moment().format("YYYY/MM/DD"),
           survey_end_date: this.state.due_date,
           open_date: this.state.open_date,
-          item: new_item_list,
+          item: this.state.item_list,
           target_age_start: this.state.target_age[0],
           target_age_end: this.state.target_age[1],
           target_gender: this.state.target_gender,
           target_respondant_count: this.state.response_count,
       };
-      this.props.onSubmitSurvey(survey);
+      //this.props.onSubmitSurvey(survey);
+      //this.props.history.push('/main/');
+      console.log(survey)
     }
     
     addItemHandler = () => {
@@ -116,17 +113,17 @@ export class MakingPage extends Component {
         number: this.state.item_list.length+1,
         title: '',
         question_type: 'Subjective',
-        multiple_choice: false,
+        multiple_selection: false,
         selection: [],
       };
       this.state.item_list.push(new_item)
-      this.setState({...this.state});
+      this.forceUpdate()
     };
 
     dataCallBackHandler = (data, number) => {
-        let new_dat = this.state.item_list;
-        new_dat[id].question = dataFromChild;
-        this.setState({item_list: new_dat});
+      this.state.item_list[number-1].title = data.title
+      this.state.item_list[number-1].selection = data.selection_list
+      this.setState({...this.state})
     }
 
     Items = () => this.state.item_list.map((item) => {
@@ -134,13 +131,10 @@ export class MakingPage extends Component {
         <MakingItem
           number={item.number}
           question_type={item.question_type}
-          multiple_choice={item.multiple_choice}
-          optionList={this.parentCallBackOption}
-          callOptionList={this.state.item_list[item.id].option_list}
-          genderCheckToggler = {this.genderCheckToggler}
-          ageCheckToggler = {this.ageCheckToggler}
-          dataReceiver = {this.dataCallBackHandler}
-          addSelection = {this.addSelectionHandler}
+          multiple_selection={item.multiple_selection}
+          stateSender = {this.dataCallBackHandler}
+          multipleSelectionToggler = {this.multipleSelectionToggler}
+          questionTypeToggler = {this.questionTypeToggler}
         />
       );
     });
@@ -175,7 +169,6 @@ export class MakingPage extends Component {
     }
 
     render() {
-      console.log(this.state.scrollPostion)
       return (
         <div className="MakingPage" style = {{marginLeft : 10}}>
           <Sticky>
@@ -198,7 +191,7 @@ export class MakingPage extends Component {
                 onDateChange={(due_date) => this.setState({ due_date : due_date })}
                 onFocusChange={({focused}) => this.setState({ due_date_focused : focused })}
                 focused={this.state.due_date_focused}
-                date={this.state.due_date}
+                date={moment(this.state.due_date)}
             />
           </Segment>
 
@@ -207,20 +200,20 @@ export class MakingPage extends Component {
             <h3 color='#354649'><span style = {{padding:'5px', backgroundColor: "#E0E7E9", 'border-radius':5}}>2. Survey Target Settings!</span></h3><br />
             <p style = {{'font-size': '15px', marginBottom: 5}}>Gender </p>
             <Form.Select options={genders} placeholder='Gender' error />
-            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(0)} /> Won't input gender option
+            <Checkbox defaultChecked={true} onClick={this.genderCheckToggler} /> Won't input gender option
             <p style = {{'font-size': '15px', marginBottom: 5}}>Age </p>
             <Form.Select options={ages} placeholder='Age' error />
-            <Checkbox defaultChecked={true} onClick={(id) => this.targetToggleHandler(1)} /> 
+            <Checkbox defaultChecked={true} onClick={this.ageCheckToggler} /> 
             Won't input age option
             <p>Target People:</p>
             <Input type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
           </Segment>
           <h3>3. Items</h3>
-          <Button onClick={() => { this.insertItemHandler(); }}>
+          <Button onClick={this.addItemHandler}>
             Add Question Item
           </Button>
           { this.Items() }
-          <Button onClick={() => { this.submitHandler();  this.props.history.push('/main/'); }}>
+          <Button onClick={this.submitHandler}>
             Submit
           </Button>
         </div>

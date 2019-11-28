@@ -5,55 +5,63 @@ import MakingOptions from './MakingOptions';
 
 export class MakingItem extends Component {
   state = {
-    questiontype: 'Subjective',
-    option_list: [{ id: 0, content: '' }],
+    title : '',
+    selection_list: [{ number: 1, content: '' }],
   }
 
-  parentCallBackContent = (dataFromChild, id) => {
-    let new_op = this.state.option_list;
-    new_op[id]={id : id, content : null}
-    new_op[id].content = dataFromChild;
-    this.setState({ option_list: new_op });
-    this.props.optionList( this.state.option_list, this.props.id );
-  };
 
-  questionTypeHandler = () => {
-    if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
-    else this.setState({ questiontype: 'Subjective' });
-  };
+  selectionContentHandler = (content, number) => {
+    this.state.selection_list[number-1].content = content
+    this.props.stateSender(this.state, this.props.number)
+  }
+
+  addSelectionHandler = () => {
+    const new_selection = {
+      number : this.state.selection_list.length+1,
+      content : ''
+    }
+    this.state.selection_list.push(new_selection)
+    this.props.stateSender(this.state, this.props.number)
+  }
+
+
+  titleChangeHandler = (title) => {
+    this.state.title = title
+    this.props.stateSender(this.state, this.props.number)
+  }
 
   render() {
 
     return (
       <Segment style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
         Q: &nbsp;&nbsp;
-        <Input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); this.questionTypeHandler(); }} />
-        {this.props.questiontype}
+        <Input id="question" onChange={(e)=> this.titleChangeHandler(e.target.value)}/>
+        <Checkbox toggle onClick = {() => { this.props.questionTypeToggler(this.props.number) }} />
+        {this.props.question_type}
         {
-          (this.state.questiontype == 'Selection')&&
+          (this.props.question_type == 'Selection')&&
           <div>
           {"Options:"}
-          <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.onToggleDup(this.props.id)}}></Checkbox>
+          <Checkbox className = "MultipleSelection" toggle onClick={() => {this.props.multipleSelectionToggler(this.props.number)}}></Checkbox>
           {(this.props.duplicate==false) && <div>False</div>}
           {(this.props.duplicate==true) && <div>True</div>}
           </div>
         }
         {
-          (this.state.questiontype == 'Selection')
-        && this.props.callOptionList.map((options) => {
+          (this.props.question_type == 'Selection')
+        && this.state.selection_list.map((selection) => {
           return (
               <MakingOptions
                 className = "MakingOptions"
-                id={options.id}
-                content={this.parentCallBackContent}
+                number={selection.number}
+                content={this.selectionContentHandler}
               />
           );
         })
         }
         {
-          (this.state.questiontype == 'Selection')
-          && <Button onClick={ this.onAddhandler }>Add options</Button>
+          (this.props.question_type == 'Selection')
+          && <Button onClick={ this.addSelectionHandler }>Add options</Button>
         }
       </Segment>
     );
