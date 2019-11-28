@@ -6,8 +6,6 @@ export class ResponsingOption extends Component {
   render() {
     return (
       <div>
-        <Checkbox />
-        {'  '}
         {this.props.content}
       </div>
     );

@@ -18,7 +18,8 @@ export const mapStateToProps = (state) => {
 
 export class ResponsePage extends Component {
   state= {
-    survey: this.props.onSurvey
+    survey: this.props.onSurvey,
+    itemClickedArray: [],
   }
 
   componentDidMount() {
@@ -33,33 +34,27 @@ export class ResponsePage extends Component {
   }
 
   makeSelectionObj = () => {
-    this.state.survey.item.map((item) => {
-      let new_item_list = this.state.item;
-
-      if (item.question_type == 'Selection') {
-        let new_res = [{ number: '', content: '' }];
-        new_item_list[item.number].response = new_res;
-
-        this.setState({ item: new_item_list });
-      }
-
-    })
+    this.props.onSurvey.item.map((item) => {
+      let itemClick = { number: item.number, clicked: [] }
+      this.state.itemClickedArray.push(itemClick);
+    });
   }
 
   onSubmitHandler = () => {
-
-    this.props.history.push('/participate/');
+    //this.props.history.push('/participate/');
   }
 
-  itemSelectionClick = (item_num, op_num, op_content, multiple_choice) => {
-    if (multiple_choice == false){
-      let new_res = [{
-        number: op_num,
-        content: op_content,
-      }]
-      new_item = this.state.onSurvey.item;
-      new_item[item_num].response = new_res;
-      this.setState({ item: new_item })
+  itemSubjectInput = (dataFromChild, item_num) => {
+    let new_item_list = this.state.item;
+    let new_res = { number: item_num, content: dataFromChild };
+    new_item_list[item_num].response.push(new_res);
+    this.setState({ item: new_item_list });
+  }
+
+  itemSelectionClick = (item_num, option_num, multiple) => {
+    let itemClicked = this.state.itemClickedArray;
+    if (multiple == false) {
+      itemClicked[item_num].clicked = [ option_num ];
     }
   }
 
@@ -70,7 +65,7 @@ export class ResponsePage extends Component {
     else{
       return (
         <div>
-          {this.makeSelectionObj}
+          {this.makeSelectionObj()}
           <Sticky>
             <Segment><h1>ResponsingPage</h1></Segment>
           </Sticky>
@@ -84,11 +79,14 @@ export class ResponsePage extends Component {
             this.props.onSurvey.item.map((item) => {
               return(
                 <ResponsingItem
+                  itemSelectionClick={this.itemSelectionClick}
+                  itemClicked={this.state.itemClickedArray[item.number].clicked} //array
+                  number={item.number}
                   title={item.title}
                   question_type={item.question_type}
                   selection={item.selection}
-                  duplicate={item.multiple_choice}
-                  selectionClick={this.itemSelectionClick}
+                  multiple={item.multiple_choice}
+                  subjectInput={this.itemSubjectInput}
                 />
               );
             })
