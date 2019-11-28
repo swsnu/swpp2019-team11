@@ -74,7 +74,7 @@ export class MyPage extends Component {
     return (
       <div className="myPage">
         <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} />
-        <Sidebar.Pushable as={Segment} style={{ 'z-index': 2 }}>
+        <Sidebar.Pushable as={Segment} style={{'paddingTop':100,'z-index': 2 }}>
           <Sidebar
             as={Menu}
             icon='labeled'

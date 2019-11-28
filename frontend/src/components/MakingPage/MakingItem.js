@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Checkbox } from 'semantic-ui-react';
+import { Segment, Checkbox, Input, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
 
@@ -17,19 +17,18 @@ export class MakingItem extends Component {
     this.props.optionList( this.state.option_list, this.props.id );
   };
 
+  questionTypeHandler = () => {
+    if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
+    else this.setState({ questiontype: 'Subjective' });
+  };
+
   render() {
 
-    const questionTypeHandler = () => {
-      if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
-      else this.setState({ questiontype: 'Subjective' });
-    };
-
     return (
-      <Segment className = "MakingItem" style={{ minHeight: '250px' }}>
-        Q:
-        {'  '}
-        <input className = "Title" id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox className = "SelectionToggler" toggle onClick={() => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
+      <Segment style={{backgroundColor: "#6C7A89", minHeight: '250px' }}>
+        Q: &nbsp;&nbsp;
+        <Input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
+        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); this.questionTypeHandler(); }} />
         {this.props.questiontype}
         {
           (this.state.questiontype == 'Selection')&&
@@ -54,7 +53,7 @@ export class MakingItem extends Component {
         }
         {
           (this.state.questiontype == 'Selection')
-          && <button onClick={ this.props.onAddhandler }>Add obtions</button>
+          && <Button onClick={ this.onAddhandler }>Add options</Button>
         }
       </Segment>
     );
