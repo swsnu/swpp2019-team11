@@ -10,7 +10,7 @@ import * as actionCreators from '../../store/actions/index';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
+  onSurveyDetail: (id) => dispatch(actionCreators.getCompletedSurvey(id)),
   onAddCart: (id) => dispatch(actionCreators.addCart(id)),
 });
 

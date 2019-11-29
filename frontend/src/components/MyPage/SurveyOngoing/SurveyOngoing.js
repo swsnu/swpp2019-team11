@@ -7,7 +7,7 @@ import * as actionCreators from '../../../store/actions/index';
 import SurveyTable from '../../SurveyTable/SurveyTable';
 
 export const mapDispatchToProps = (dispatch) => ({
-  onSurveyDetail: (id) => dispatch(actionCreators.getSurvey(id)),
+  onSurveyDetail: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
 });
 
 export const mapStateToProps = (state) => ({

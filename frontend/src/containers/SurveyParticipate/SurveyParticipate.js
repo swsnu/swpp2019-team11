@@ -8,10 +8,10 @@ import * as actionCreators from '../../store/actions/index';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  getSurveyList: (keyw) => { dispatch(actionCreators.getSurveyList(keyw)); },
+  getSurveyList: (keyw) => { dispatch(actionCreators.getOngoingSurveyList()); },
 });
 export const mapStateToProps = (state) => ({
-  survey_list: state.svl.survey_list,
+  survey_list: state.svl.ongoing_survey_list,
 });
 
 export class SurveyParticipate extends Component {

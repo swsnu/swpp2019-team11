@@ -44,7 +44,7 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_selection: false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [],
         },
       ],
       focused: false,
