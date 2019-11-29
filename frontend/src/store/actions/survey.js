@@ -1,6 +1,14 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+export const participateSurvey_ = () => ({ type: actionTypes.PARTICIPATE_SURVEY });
+
+export const participateSurvey = (id, data) => (dispatch) => axios.post('/api/participate/' + String(id) + '/', data)
+  .then((res) => {
+    dispatch(participateSurvey_());
+    return res;
+  });
+
 export const getSurveyList_ = (survey_list) => ({
   type: actionTypes.GET_SURVEY_LIST, target: survey_list,
 });
@@ -47,8 +55,10 @@ export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/${id}/`).t
   return res;
 });
 
+/*
 export const uploadSurvey_ = (survey) => ({ type: actionTypes.ADD_SURVEY, target: survey });
 
 export const uploadSurvey = (survey) => (dispatch) => axios.post('/api/survey/', survey).then((res) => {
   dispatch(uploadSurvey_(res.data));
 });
+*/

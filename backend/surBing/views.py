@@ -6,7 +6,7 @@ from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+from datetime import datetime
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
 

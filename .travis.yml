@@ -1,7 +1,15 @@
 matrix:
   include:
-  - language: 
-    - python
+  - language: python
+    sudo: enabled
+    services:
+    - mysql
+    addons:
+      apt:
+        sources:
+        - mysql-5.7-trusty
+        packages:
+        - mysql-server
     cache:
       yarn: true
       pip: true
@@ -9,17 +17,16 @@ matrix:
     - '10'
     python:
     - '3.6'
+    before_install:
+    - mysql -e "CREATE DATABASE db;"
+    - mysql -e "GRANT ALL PRIVILEGES ON *.* to 'root'@'localhost';"
     install:
     - cd frontend
     - npm install
     - npm install coveralls
     - gem install coveralls-lcov
     - cd ../backend
-    - pip3 install django
-    - pip3 install pylint
-    - pip3 install pylint-django
-    - pip3 install coverage
-    - pip3 install coveralls
+    - pip install -r requirements.txt
     - cd ..
     script:
     - cd frontend
