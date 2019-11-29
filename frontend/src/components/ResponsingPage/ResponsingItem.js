@@ -12,7 +12,7 @@ export class ResponsingItem extends Component {
 
   radioChange = (dataFromChild) => {
     this.props.itemSelectionClick(this.props.number, [dataFromChild], this.props.multiple);
-    this.setState({ itemClicked: [dataFromChild] });
+    this.setState({ itemClicked: dataFromChild });
   }
 
   componentDidMount() {
@@ -31,6 +31,7 @@ export class ResponsingItem extends Component {
       if (bool) this.state.itemClicked.push(number);
     })
     this.props.itemSelectionClick(this.props.number, this.state.itemClcked, this.props.multiple);
+    console.log(this.state.multiClickedList);
   }
 
   render() {
@@ -73,7 +74,7 @@ export class ResponsingItem extends Component {
         {
           (this.props.question_type == 'Subjective')
           &&
-          <input onChange={(e) => this.props.subjectInput(e.target.value, this.props.item.number)}/>
+          <input onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)}/>
         }
         </Segment>
       </div>

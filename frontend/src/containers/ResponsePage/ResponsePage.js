@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Sticky, Segment } from 'semantic-ui-react';
 import * as actionCreators from '../../store/actions/index';
 import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
+import { throws } from 'assert';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -23,60 +24,69 @@ export class ResponsePage extends Component {
     itemClickedArray: [],
   }
 
+  componentDidUpdate(prevProps) {
+    if( prevProps != this.props ){
+      this.setState({ survey: this.props.onSurvey });
+      this.makeObj();
+    }
+  }
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
         this.props.getOngoingSurvey(this.props.match.params.id);
       })
       .catch(() => { this.props.history.push('/login/'); });
-      //this.props.getOngoingSurvey(this.props.match.params.id);
-      this.setState({ survey: this.props.onSurvey });
   }
 
-  makeSelectionObj = () => {
+  makeObj = () => {
+    let itemClickArray = [];
     this.props.onSurvey.item.map((item) => {
       let itemClick = { number: item.number, clicked: [] }
-      this.state.itemClickedArray.push(itemClick);
+      itemClickArray.push(itemClick);
     });
+    this.setState({ itemClickedArray: itemClickArray });
   }
 
   onSubmitHandler = () => {
-    this.props.submitOngoingSurvey(this.props.match.params.id, this.state.survey);
-    this.props.history.push('/participate/');
+    let newItem = this.state.survey.item;
+    let newSurvey = this.state.survey;
+    this.state.itemClickedArray.map((val) => {
+      if (newItem[val.number].question_type == 'Subjective' || !newItem[val.number].multiple_choice){
+        newItem[val.number].response.push({ number: val.number, content: val.clicked[0] });
+      }
+      else {
+        val.clicked.map((selected) => {
+          newItem[val.number].response.push({ number: val.number, content: selected });
+        });
+      }
+    })
+    newSurvey.item = newItem;
+    this.setState({ survey: newSurvey });
+    console.log(this.state.survey.item[0].response[1].content);
+    //this.props.history.push('/participate/');
   }
 
   itemSubjectInput = (dataFromChild, item_num) => {
-    let new_item_list = this.state.item;
-    let new_res = { number: item_num, content: dataFromChild };
-    new_item_list[item_num].response.push(new_res);
-    this.setState({ item: new_item_list });
+    let newItem = this.state.itemClickedArray;
+    newItem[item_num].clicked[0] = dataFromChild;
+    this.setState({ itemClickedArray: newItem });
   }
 
   itemSelectionClick = (item_num, option_num, multiple) => {
     let itemClicked = this.state.itemClickedArray;
     itemClicked[item_num].clicked = option_num;
     this.setState({ itemClickedArray: itemClicked })
-    
-    this.state.itemClickedArray.map((itemEach) => {
-      if (this.state.item[itemEach.number].question_type == 'Selection' && !multiple) {
-        this.state.item[itemEach.number].response = { number: itemEach.number, content: itemEach.clicked[0] }
-      }
-      if (this.state.item[itemEach.number].question_type == 'Selection' && multiple) {
-        itemEach.clicked.map((clickedEach) => {
-          this.state.item[itemEach.number].response.push({ number: itemEach.number, content: clickedEach })
-        });
-      }
-    });
   }
 
   render() {
-    if (this.props.onSurvey==""){
+    if (this.state.survey == ""){
       return null;
     }
     else{
+      if (this.state.survey.item != null)
       return (
         <div>
-          {this.makeSelectionObj()}
           <Sticky>
             <Segment><h1>ResponsingPage</h1></Segment>
           </Sticky>
@@ -87,11 +97,13 @@ export class ResponsePage extends Component {
           </Segment>
           <div>
           {
-            this.props.onSurvey.item.map((item) => {
+            this.state.survey.item.map((item) => {
+              if (this.state.itemClickedArray[item.number] != null) {
+                //console.log(this.state.itemClickedArray[item.number].clicked);
               return(
                 <ResponsingItem
                   itemSelectionClick={this.itemSelectionClick}
-                  itemClicked={this.state.itemClickedArray[item.number].clicked} //array
+                  itemClicked={(this.state.itemClickedArray[item.number]!=null)?this.state.itemClickedArray[item.number].clicked:[]} //array
                   number={item.number}
                   title={item.title}
                   question_type={item.question_type}
@@ -99,7 +111,7 @@ export class ResponsePage extends Component {
                   multiple={item.multiple_choice}
                   subjectInput={this.itemSubjectInput}
                 />
-              );
+              );}
             })
           }
           </div>
