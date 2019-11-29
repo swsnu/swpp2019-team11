@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Segment, Form, Checkbox } from 'semantic-ui-react';
 import ResponsingOption from './ResponsingOption';
 import ResponsingOptionRadio from './ResponsingOptionRadio';
+import './ResponsingItem.css';
 
 export class ResponsingItem extends Component {
   state={
@@ -38,8 +39,8 @@ export class ResponsingItem extends Component {
   render() {
     return (
       <div className="ResponsingItem">
-        <Segment>
-          <div>{this.props.title}</div>
+        <Segment id={"ResponseSegment"}>
+          <div id={"Title"}>{this.props.title}</div>
           { // multiple choice admitted
           (this.props.multiple && this.props.question_type == 'Selection')
           && (
@@ -71,7 +72,7 @@ export class ResponsingItem extends Component {
         }
           {
           (this.props.question_type == 'Subjective')
-          && <input className="subjectiveInput" onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)} />
+          && <input id={"SubjectInput"} placeholder="Answer..." className="subjectiveInput" onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)} />
         }
         </Segment>
       </div>

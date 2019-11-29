@@ -177,13 +177,13 @@ export class MakingPage extends Component {
               </Segment>
             </Sticky>
             <Segment style={{ backgroundColor: '#A3C6C4', 'border-color': 'white' }}>
-              <h3><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Title </p>
+              <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
               <Input className="SurveyTitle" style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
               <br />
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Content </p>
+              <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
               <TextArea
                 className="SurveyContent"
                 rows={4}
@@ -194,7 +194,7 @@ export class MakingPage extends Component {
               />
               <br />
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Due Date </p>
+              <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
               <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
@@ -203,7 +203,7 @@ export class MakingPage extends Component {
                 focused={this.state.due_date_focused}
                 date={moment(this.state.due_date)}
               />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Open Date </p>
+              <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
               <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
@@ -215,7 +215,7 @@ export class MakingPage extends Component {
             </Segment>
 
             <Segment style={{ backgroundColor: '#A3C6C4' }}>
-              <h3 color="#354649"><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
               <p style={{ 'font-size': '15px', marginBottom: 5 }}>Gender </p>
               <Form.Select className="genderSelect" value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
@@ -226,7 +226,7 @@ export class MakingPage extends Component {
               <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
               <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
             Won't input age option
-              <p>Target People:</p>
+              <p style={{ marginTop: 4, marginBottom: 3, fontWeight: 'bold' }}>Target People:</p>
               <Input className="targetCount" type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
             </Segment>
             <h3>3. Items</h3>
