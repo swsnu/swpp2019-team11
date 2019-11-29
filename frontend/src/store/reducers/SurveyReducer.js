@@ -19,6 +19,8 @@ const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
       return { ...state };
     case actionTypes.PARTICIPATE_SURVEY:
       return { ...state };
+    case actionTypes.GET_COMPLETED_SURVEY:
+      return { ...state };
     default:
       break;
   }
