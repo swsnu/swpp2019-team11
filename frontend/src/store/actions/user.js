@@ -2,11 +2,13 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 const signUp_ = () => ({ type: actionTypes.SIGNUP });
-export const signUp = (username, email, password) => {
+export const signUp = (username, email, password, age, gender) => {
   const user = {
     username,
     email,
     password,
+    age,
+    gender
   };
   return (dispatch) => axios.post('/api/signup/', user)
     .then((res) => {
