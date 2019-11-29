@@ -44,10 +44,10 @@ describe('ActionCreators', () => {
       const result = { ststus: 200, data: stubSurvey };
       res(result);
     }));
-    store.dispatch(actionCreators.uploadSurvey())
+    store.dispatch(actionCreators.addOngoingSurvey())
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.survey).toEqual(stubSurvey);
+        expect(newState.sv.ongoing_survey).toEqual(stubSurvey);
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });
