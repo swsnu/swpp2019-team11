@@ -57,9 +57,9 @@ export class ResponsePage extends Component {
         number: op_num,
         content: op_content,
       }]
-      new_item = this.state.onSurvey.item;
-      new_item[item_num].response = new_res;
-      this.setState({ item: new_item })
+      //new_item = this.state.onSurvey.item;
+      //new_item[item_num].response = new_res;
+      //this.setState({ item: new_item })
     }
   }
 
