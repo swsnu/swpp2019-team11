@@ -24,7 +24,9 @@ export const TopBar = (props) => (
           Participate Survey
       </Menu.Item>
 
-      <Menu.Item>
+      <Menu.Item 
+        onClick={() => props.history.push('/making')}
+      >
           Make Survey
       </Menu.Item>
 
