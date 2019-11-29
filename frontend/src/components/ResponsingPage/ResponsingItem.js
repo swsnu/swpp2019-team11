@@ -1,35 +1,82 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Segment, Checkbox } from 'semantic-ui-react';
+import { Segment, Form, Checkbox } from 'semantic-ui-react';
+import ResponsingOption from './ResponsingOption';
+import ResponsingOptionRadio from './ResponsingOptionRadio';
 
 export class ResponsingItem extends Component {
-  render(){
+  state={
+    itemClicked: this.props.itemClicked, // [ list of clicked ]
+    multiClickedList: [],
+  }
+
+  radioChange = (dataFromChild) => {
+    this.props.itemSelectionClick(this.props.number, [dataFromChild], this.props.multiple);
+    this.setState({ itemClicked: dataFromChild });
+  }
+
+  componentDidMount() {
+    const newList = this.state.multiClickedList;
+    this.props.selection.map(() => {
+      newList.push(false);
+    });
+  }
+
+  checkboxChange = (number) => {
+    this.state.multiClickedList[number] = !this.state.multiClickedList[number];
+    this.state.itemClicked = [];
+    let i = 0;
+    this.state.multiClickedList.map((bool) => {
+      if (bool) this.state.itemClicked.push(i);
+      i++;
+    });
+    // console.log(this.state.multiClickedList);
+    // console.log(this.state.itemClicked);
+    this.props.itemSelectionClick(this.props.number, this.state.itemClicked, this.props.multiple);
+  }
+
+  render() {
     return (
-      <div>
+      <div className="ResponsingItem">
         <Segment>
-        <div>{this.props.question}</div>
-        {this.props.duplicate && <div>{"(You can select more than one.)"}</div>}
-        {
-          (this.props.question_type == 'Selection')
-          &&
-          this.props.options.map((option) => {
-            return (
+          <div>{this.props.title}</div>
+          { // multiple choice admitted
+          (this.props.multiple && this.props.question_type == 'Selection')
+          && (
+          <div>
+            { '(You can select more than one.)' }
+            { this.props.selection.map((selection) => (
               <div>
-                <Checkbox />
-                {option.content}
+                <Checkbox className="CheckBox" onClick={() => this.checkboxChange(selection.number)} />
+                <ResponsingOption content={selection.content} />
               </div>
-            );
-            })
+            )) }
+          </div>
+          )
         }
-        {
+          { // multiple choice denied
+          ((!this.props.multiple) && (this.props.question_type == 'Selection'))
+          && this.props.selection.map((selection) => (
+            <div>
+              <Form>
+                <ResponsingOptionRadio
+                  number={selection.number}
+                  content={selection.content}
+                  checked={this.state.itemClicked[0] == selection.number}
+                  radioChange={this.radioChange}
+                />
+              </Form>
+            </div>
+          ))
+        }
+          {
           (this.props.question_type == 'Subjective')
-          &&
-          <input/>
+          && <input className="subjectiveInput" onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)} />
         }
         </Segment>
       </div>
     );
   }
-};
+}
 
 export default withRouter(ResponsingItem);

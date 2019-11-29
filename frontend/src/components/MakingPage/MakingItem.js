@@ -1,65 +1,72 @@
 import React, { Component } from 'react';
-import { Segment, Checkbox } from 'semantic-ui-react';
+import {
+  Segment, Checkbox, Input, Button,
+} from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
 
 export class MakingItem extends Component {
   state = {
-    questiontype: 'Subjective',
-    option_list: [{ id: 0, content: '' }],
+    title: '',
+    selection_list: [{ number: 1, content: '' }],
   }
 
-  parentCallBackContent = (dataFromChild, id) => {
-    let new_op = this.state.option_list;
-    new_op[id].content = dataFromChild;
-    this.setState({ option_list: new_op });
-    this.props.optionList( this.state.option_list, this.props.id );
-  };
 
-  onAddhandler = () => {
-    this.props.onAddhandler();
-    let new_op = this.state.option_list;
+  selectionContentHandler = (content, number) => {
+    this.state.selection_list[number - 1].content = content;
+    this.props.stateSender(this.state, this.props.number);
+  }
+
+  addSelectionHandler = () => {
+    const new_selection = {
+      number: this.state.selection_list.length + 1,
+      content: '',
+    };
+    this.state.selection_list.push(new_selection);
+    this.props.stateSender(this.state, this.props.number);
+  }
+
+
+  titleChangeHandler = (title) => {
+    this.state.title = title;
+    this.props.stateSender(this.state, this.props.number);
   }
 
   render() {
-    const questionTypeHandler = () => {
-      if (this.state.questiontype == 'Subjective') this.setState({ questiontype: 'Selection' });
-      else this.setState({ questiontype: 'Subjective' });
-    };
-
     return (
-      <Segment style={{ minHeight: '250px' }}>
-        Q:
-        {'  '}
-        <input id="question" onChange={(e)=> this.props.itemTitle(e.target.value, this.props.id)}/>
-        <Checkbox toggle onChange={(e) => { this.props.onToggleType(this.props.id); questionTypeHandler(); }} />
-        {this.props.questiontype}
+      <Segment className="MakingItem" style={{ backgroundColor: '#6C7A89', minHeight: '250px' }}>
+        Q
+        {this.props.number}
+: &nbsp;&nbsp;
+        <Input className="title" id="title" onChange={(e) => this.titleChangeHandler(e.target.value)} />
+        <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
+        {this.props.question_type}
         {
-          (this.state.questiontype == 'Selection')&&<div>{"Options:"}</div>
+          (this.props.question_type == 'Selection')
+          && (
+          <div>
+            <Checkbox className="MultipleSelection" label={this.props.multiple_selection ? 'Multiple Selection' : 'Single Selection'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
+            <br />
+            Options:
+          </div>
+          )
         }
         {
-          (this.state.questiontype == 'Selection')
-        && this.props.callOptionList.map((options) => {
-          return (
-            <div>
-              <MakingOptions
-                id={options.id}
-                content={(par1, par2) => this.parentCallBackContent(par1, par2)}
-              />
-              <Checkbox toggle onChange={(e) => {this.props.onToggleDup(this.props.id)}}></Checkbox>
-              {(this.props.duplicate==false) && <div>False</div>}
-              {(this.props.duplicate==true) && <div>True</div>}
-            </div>
-          );
-        })
+          (this.props.question_type == 'Selection')
+        && this.state.selection_list.map((selection) => (
+          <MakingOptions
+            className="MakingOptions"
+            number={selection.number}
+            content={this.selectionContentHandler}
+          />
+        ))
         }
         {
-          (this.state.questiontype == 'Selection')
-          && <button onClick={ this.onAddhandler }>Add obtions</button>
+          (this.props.question_type == 'Selection')
+          && <Button className="" onClick={this.addSelectionHandler}>Add options</Button>
         }
       </Segment>
     );
   }
 }
 export default withRouter(MakingItem);
-

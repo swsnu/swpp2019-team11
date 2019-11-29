@@ -8,7 +8,7 @@ import * as actionCreators from '../../store/actions/index';
 
 export class MainPage extends Component {
   componentDidMount() {
-    this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
+    // this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
   addSurveyHandler = () => {
@@ -34,7 +34,6 @@ export class MainPage extends Component {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-
     );
   }
 }

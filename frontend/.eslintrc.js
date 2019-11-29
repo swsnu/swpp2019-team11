@@ -42,5 +42,15 @@ module.exports = {
     "react/no-direct-mutation-state": [0],
     "import/no-named-as-default": [0],
     "no-shadow": [0],
+    "import/no-extraneous-dependencies": [0],
+    "max-len": [0],
+    "react/no-unescaped-entities": [0],
+    "no-nested-ternary": [0],
+    "array-callback-return": [0],
+    "react/button-has-type": [0],
+    "react/prefer-stateless-function": [0],
+    "no-unused-vars": [0],
+    "consistent-return": [0],
+
   },
 };

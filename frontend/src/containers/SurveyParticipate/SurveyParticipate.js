@@ -41,7 +41,8 @@ export class SurveyParticipate extends Component {
                     Participate
                   </button>
                 </Table.Cell>
-              </Table.Row>)) }
+              </Table.Row>
+            )) }
           </Table.Body>
         </Table>
       </div>

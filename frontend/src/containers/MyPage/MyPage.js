@@ -12,10 +12,12 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
+  getSurveyOngoing: () => { dispatch(actionCreators.getOngoingSurveyList()); },
 });
 
 export const mapStateToProps = (state) => ({
   survey_list: state.ct.survey_list,
+  ongoing_survey_list: state.svl.ongoing_survey_list,
 });
 
 export class MyPage extends Component {
@@ -28,6 +30,8 @@ export class MyPage extends Component {
       .then(() => {
       })
       .catch(() => { this.props.history.push('/login/'); });
+    this.props.getSurveyOngoing();
+    this.props.getCart();
   }
 
   getContents = () => {
@@ -42,11 +46,11 @@ export class MyPage extends Component {
             </Grid>
           </Grid>
         ))
-      ); } else {
-      return (<Grid><h2> The Cart is Empty! </h2></Grid>);
+      );
     }
+    return (<Grid><h2> The Cart is Empty! </h2></Grid>);
   };
-  //We may replace it with existed cartpage.
+  // We may replace it with existed cartpage.
 
   render() {
     const cartContents = this.getContents();
@@ -63,25 +67,28 @@ export class MyPage extends Component {
           <div>
             <SurveyOngoing />
           </div>
-        ); } else if (this.state.clickedMenu == 1) {
+        );
+      } if (this.state.clickedMenu == 1) {
         return (
           <div>
             <SurveyCompleted />
-          </div>); }
-      else return Cart;
+          </div>
+        );
+      }
+      return Cart;
     };
 
     return (
       <div className="myPage">
         <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} />
-        <Sidebar.Pushable as={Segment} style={{ 'z-index': 2 }}>
+        <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2 }}>
           <Sidebar
             as={Menu}
-            icon='labeled'
+            icon="labeled"
             inverted
             visible
             vertical
-            width='thin'
+            width="thin"
           >
             <Menu.Item onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
