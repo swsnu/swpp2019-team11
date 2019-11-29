@@ -15,7 +15,6 @@ export const SurveyTable = (props) => {
               <Table.Cell>{props.survey.respondant_count}</Table.Cell>
               <Table.Cell>{props.survey.content}</Table.Cell>
             </Table.Row>
-
     )
 }
   
