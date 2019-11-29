@@ -49,21 +49,17 @@ export class ResponsePage extends Component {
   }
 
   onSubmitHandler = () => {
-    let newItem = this.state.survey.item;
-    let newSurvey = this.state.survey;
     this.state.itemClickedArray.map((val) => {
-      if (newItem[val.number].question_type == 'Subjective' || !newItem[val.number].multiple_choice){
-        newItem[val.number].response.push({ number: val.number, content: val.clicked[0] });
+      if (this.state.survey.item[val.number].question_type == 'Subjective' || !this.state.survey.item[val.number].multiple_choice){
+        this.state.survey.item[val.number].response.push({ number: val.number, content: val.clicked[0] });
       }
       else {
         val.clicked.map((selected) => {
-          newItem[val.number].response.push({ number: val.number, content: selected });
+          this.state.survey.item[val.number].response.push({ number: val.number, content: selected });
         });
       }
     })
-    newSurvey.item = newItem;
-    this.setState({ survey: newSurvey });
-    console.log(this.state.survey.item[0].response[1].content);
+    console.log(this.state.survey.item[0].response[0].content);
     this.props.submitOngoingSurvey(this.props.match.params.id, this.state.survey);
     //this.props.history.push('/participate/');
   }
