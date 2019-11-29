@@ -105,8 +105,6 @@ export class MakingPage extends Component {
           }
           new_option_list.push(new_option);
         });
-        //alert(new_option_list[0].number);
-        console.log(item.question);
         const new_item = {
           number: item.id,
           title: item.question,
@@ -116,7 +114,6 @@ export class MakingPage extends Component {
         }
         new_item_list.push(new_item);
       })
-      //alert(new_item_list[0].title);
       let survey = { 
           title: this.state.title,
           content: this.state.content,
@@ -129,7 +126,7 @@ export class MakingPage extends Component {
           target_gender: new_target[0].gender,
           target_respondant_count: this.state.response_count,
       };
-      console.log(survey.survey_start_date);
+      //console.log(survey.survey_start_date);
       this.props.onSubmitSurvey(survey);
     }
     

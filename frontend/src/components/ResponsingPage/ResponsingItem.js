@@ -23,15 +23,17 @@ export class ResponsingItem extends Component {
   }
 
   checkboxChange = (number) => {
-    let newList = this.state.multiClickedList;
-    newList[number] = !newList[number];
-    this.setState({ multiClickedList: newList });
-
+    this.state.multiClickedList[number] = !this.state.multiClickedList[number];
+    this.state.itemClicked = [];
+    let i=0;
     this.state.multiClickedList.map((bool) => {
-      if (bool) this.state.itemClicked.push(number);
-    })
-    this.props.itemSelectionClick(this.props.number, this.state.itemClcked, this.props.multiple);
-    console.log(this.state.multiClickedList);
+      if (bool) this.state.itemClicked.push(i);
+      i++;
+    });
+    //console.log(this.state.multiClickedList);
+    //console.log(this.state.itemClicked);
+    this.props.itemSelectionClick(this.props.number, this.state.itemClicked, this.props.multiple);
+    
   }
 
   render() {

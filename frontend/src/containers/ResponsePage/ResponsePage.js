@@ -64,6 +64,7 @@ export class ResponsePage extends Component {
     newSurvey.item = newItem;
     this.setState({ survey: newSurvey });
     console.log(this.state.survey.item[0].response[1].content);
+    this.props.submitOngoingSurvey(this.props.match.params.id, this.state.survey);
     //this.props.history.push('/participate/');
   }
 
