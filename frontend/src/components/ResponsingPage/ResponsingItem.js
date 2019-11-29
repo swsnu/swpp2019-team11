@@ -37,7 +37,7 @@ export class ResponsingItem extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ResponsingItem">
         <Segment>
           <div>{this.props.title}</div>
           { // multiple choice admitted
@@ -47,7 +47,7 @@ export class ResponsingItem extends Component {
             { '(You can select more than one.)' }
             { this.props.selection.map((selection) => (
               <div>
-                <Checkbox onClick={() => this.checkboxChange(selection.number)} />
+                <Checkbox className="CheckBox" onClick={() => this.checkboxChange(selection.number)} />
                 <ResponsingOption content={selection.content} />
               </div>
             )) }
@@ -71,7 +71,7 @@ export class ResponsingItem extends Component {
         }
           {
           (this.props.question_type == 'Subjective')
-          && <input onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)} />
+          && <input className="subjectiveInput" onChange={(e) => this.props.subjectInput(e.target.value, this.props.number)} />
         }
         </Segment>
       </div>
