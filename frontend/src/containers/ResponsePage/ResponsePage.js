@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { Sticky, Segment } from 'semantic-ui-react';
 import * as actionCreators from '../../store/actions/index';
 import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
-import { throws } from 'assert';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -116,4 +115,6 @@ export class ResponsePage extends Component {
     );
   }
 }
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResponsePage));

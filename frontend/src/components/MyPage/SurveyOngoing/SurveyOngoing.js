@@ -26,7 +26,6 @@ export class SurveyOngoing extends Component {
         else {
       return (<Grid><h2> The ongoing survey list is Empty! </h2></Grid>);
     }
-    return (<Grid><h2> The ongoing survey list is Empty! </h2></Grid>);
   };
 
   render() {

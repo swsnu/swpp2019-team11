@@ -12,11 +12,12 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
-  getSurveyOngoing: () => { dispatch(actionCreators.getOngoingSurveyList()); },
+  getSurveyOngoing: () => dispatch(actionCreators.getOngoingSurveyList()),
+  getSurveyAll: () => dispatch(actionCreators.getSurveyAll()),
 });
 
 export const mapStateToProps = (state) => ({
-  survey_list: state.ct.survey_list,
+  survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
 });
 
@@ -32,6 +33,7 @@ export class MyPage extends Component {
       .catch(() => { this.props.history.push('/login/'); });
     this.props.getSurveyOngoing();
     this.props.getCart();
+    this.props.getSurveyAll();
   }
 
   getContents = () => {
@@ -50,7 +52,6 @@ export class MyPage extends Component {
     }
     return (<Grid><h2> The Cart is Empty! </h2></Grid>);
   };
-  // We may replace it with existed cartpage.
 
   render() {
     const cartContents = this.getContents();

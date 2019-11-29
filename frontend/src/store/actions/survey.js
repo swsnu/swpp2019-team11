@@ -9,6 +9,16 @@ export const participateSurvey = (id, data) => (dispatch) => axios.post('/api/pa
     return res;
   });
 
+export const getSurveyAll_ = (survey_list) => ({
+  type: actionTypes.GET_SURVEY_LIST, target: survey_list,
+})
+
+export const getSurveyAll = () => (dispatch) => axios.get('/api/mypage/surveyCompleted/')
+  .then((res) => {
+    dispatch(getSurveyAll_(res.data));
+    return res;
+  });
+
 export const getSurveyList_ = (survey_list) => ({
   type: actionTypes.GET_SURVEY_LIST, target: survey_list,
 });
