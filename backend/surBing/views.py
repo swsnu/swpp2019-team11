@@ -51,13 +51,10 @@ def signup(request):  # create new
 
         cart = Cart()
         cart.save()
-        SurBingUser.objects.create_user(username=username,
-                                        email=email,
-                                        password=password,
-                                        age=age,
-                                        gender=gender,
-                                        point=0,
-                                        cart=cart)
+        SurBingUser.objects.create_user(username=username, email=email,
+                                        password=password, cart=cart,
+                                        gender = gender, age = age,
+                                        point=0)
         return HttpResponse(status=201)
 
     else:

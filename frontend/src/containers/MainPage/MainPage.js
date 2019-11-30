@@ -34,7 +34,7 @@ export class MainPage extends Component {
             <SearchBar size="huge" />
             <br />
             <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add New Survey</Button>
-            <Button className="ParticipateButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Participate On Surveys</Button>
+            <Button className="ParticipateButton" size="big" color="teal" onClick={() => this.participateHandler()}>Participate On Surveys</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>

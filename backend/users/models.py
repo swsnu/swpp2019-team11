@@ -8,5 +8,3 @@ class SurBingUser(AbstractUser):
     age = models.IntegerField()
     gender = models.CharField(max_length=1)
     point = models.IntegerField()
-    participating = models.ManyToManyField('surBing.SurveyOngoing', related_name='participant')
-    participated = models.ManyToManyField('surBing.Survey', related_name='participant')
