@@ -8,11 +8,14 @@ import * as actionCreators from '../../store/actions/index';
 
 export class MainPage extends Component {
   componentDidMount() {
-    // this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
+    this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
   addSurveyHandler = () => {
-    this.props.history.push('/upload');
+    this.props.history.push('/making');
+  }
+  participateHandler = () => {
+    this.props.history.push('/participate')
   }
 
   render() {
@@ -30,7 +33,8 @@ export class MainPage extends Component {
             </Header>
             <SearchBar size="huge" />
             <br />
-            <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add Your Survey</Button>
+            <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add New Survey</Button>
+            <Button className="ParticipateButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Participate On Surveys</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
