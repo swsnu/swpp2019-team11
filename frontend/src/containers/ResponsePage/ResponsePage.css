@@ -29,10 +29,11 @@
 }
 
 #Submit {
-    margin-top: 10px;
+    margin-top: 4px;
     margin-left: 12px;
     color: #e0e7e9;
     font-size: 18px;
     padding: 10px;
     background-color: #354649;
+    border-radius: .28571429rem;
 }
