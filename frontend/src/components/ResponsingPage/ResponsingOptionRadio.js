@@ -10,7 +10,7 @@ export class ResponsingOptionRadio extends Component {
           <Radio
             label={this.props.content}
             checked={this.props.checked}
-            onChange={() => this.props.radioChange(this.props.number)}
+            onChange={() => this.props.radioChange(this.props.number-1)}
           />
         </Form.Field>
       </div>

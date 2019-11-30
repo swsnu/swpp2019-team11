@@ -39,8 +39,8 @@ export class MakingPage extends Component {
       gender_check: false,
       age_check: false,
       response_count: 0,
-      due_date: moment().format('YYYY/MM/DD'),
-      open_date: moment().format('YYYY/MM/DD'),
+      due_date: moment(),
+      open_date: moment(),
       item_count: 1,
       item_list: [
         {
@@ -77,11 +77,11 @@ export class MakingPage extends Component {
 
     multipleSelectionToggler = (number) => {
       const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].multiple_selection == false) {
-        new_list[number - 1].multiple_selection = true;
+      if (this.state.item_list[number - 1].multiple_choice == false) {
+        new_list[number - 1].multiple_choice = true;
         this.setState({ item_list: new_list });
       } else {
-        new_list[number - 1].multiple_selection = false;
+        new_list[number - 1].multiple_choice = false;
         this.setState({ item_list: new_list });
       }
     }
@@ -99,8 +99,8 @@ export class MakingPage extends Component {
         title: this.state.title,
         content: this.state.content,
         survey_start_date: moment().format('YYYY/MM/DD'),
-        survey_end_date: this.state.due_date,
-        open_date: this.state.open_date,
+        survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
+        open_date: this.state.open_date.format('YYYY/MM/DD'),
         item: this.state.item_list,
         target_age_start: this.state.target_age[0],
         target_age_end: this.state.target_age[1],
@@ -116,7 +116,7 @@ export class MakingPage extends Component {
         number: this.state.item_list.length + 1,
         title: '',
         question_type: 'Subjective',
-        multiple_selection: false,
+        multiple_choice: false,
         selection: [],
       };
       this.state.item_list.push(new_item);
@@ -133,7 +133,7 @@ export class MakingPage extends Component {
       <MakingItem
         number={item.number}
         question_type={item.question_type}
-        multiple_selection={item.multiple_selection}
+        multiple_choice={item.multiple_choice}
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
@@ -210,8 +210,8 @@ export class MakingPage extends Component {
                 numberOfMonths={1}
                 onDateChange={(open_date) => this.setState({ open_date })}
                 onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
-                focused={this.state.due_date_focused}
-                date={moment(this.state.due_date)}
+                focused={this.state.open_date_focused}
+                date={moment(this.state.open_date)}
               />
             </Segment>
 

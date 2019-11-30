@@ -9,7 +9,7 @@ import './ResponsePage.css';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
-  submitOngoingSurvey: (id, survey) => dispatch(actionCreators.participateSurvey(id, survey)),
+  submitOngoingSurvey: (id, response) => dispatch(actionCreators.participateSurvey(id, response)),
 });
 
 export const mapStateToProps = (state) => ({
@@ -19,13 +19,12 @@ export const mapStateToProps = (state) => ({
 export class ResponsePage extends Component {
   state= {
     survey: this.props.onSurvey,
-    itemClickedArray: [],
+    response_list: [],
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps != this.props) {
-      this.setState({ survey: this.props.onSurvey });
-      this.makeObj();
+      this.setState({survey : this.props.onSurvey});
     }
   }
 
@@ -37,53 +36,29 @@ export class ResponsePage extends Component {
       .catch(() => { this.props.history.push('/login/'); });
   }
 
-  makeObj = () => {
-    this.state.itemClickedArray = [];
-    this.props.onSurvey.item.map((item) => {
-      const itemClick = { number: item.number, clicked: [] };
-      this.state.itemClickedArray.push(itemClick);
-      //console.log(this.state.itemClickedArray[0].clicked);
-      return null;
-    });
-  }
-
   onSubmitHandler = () => {
-    this.state.itemClickedArray.map((val) => {
-      if (this.state.survey.item[val.number].question_type == 'Subjective' || !this.state.survey.item[val.number].multiple_choice) {
-        this.state.survey.item[val.number].response.push({ number: val.number, content: val.clicked[0] });
-      } else {
-        val.clicked.map((selected) => {
-          this.state.survey.item[val.number].response.push({ number: val.number, content: selected });
-        });
+    let response_json = []
+    this.state.response_list.map((response, response_index) => {
+      if(this.state.survey.item[response_index].question_type=='Subjective'){
+        response_json.push({ number : response_index+1, content : response })
       }
-    });
-    this.props.submitOngoingSurvey(this.props.match.params.id, this.state.survey);
-    // this.props.history.push('/participate/');
-  }
-
-  itemSubjectInput = (dataFromChild, item_num) => {
-    const newItem = this.state.itemClickedArray;
-    newItem[item_num].clicked[0] = dataFromChild;
-    this.setState({ itemClickedArray: newItem });
-  }
-
-  itemSelectionClick = (item_num, option_num, multiple) => {
-    const itemClicked = this.state.itemClickedArray;
-    itemClicked[item_num].clicked = option_num;
-    this.setState({ itemClickedArray: itemClicked });
-  }
-
-  promise1 = function(item){
-    const val = this.state.itemClickedArray[item.number];
-    return new Promise( function(resolve, reject){
-      window.setTimeout( function() {
-        if (val != null) {
-          resolve();
-        } else {
-          reject();
-        }
-      }, 2000);
+      else{
+        response.map((choice, choice_index) => {
+          if(choice==true){
+            response_json.push({ number : response_index+1, content : choice_index+1 })
+          }
+        })
+      }
     })
+    console.log(response_json)
+    //this.props.submitOngoingSurvey(this.props.match.params.id, response_json);
+    //this.props.history.push('/participate/');
+  }
+
+  responseCallback = (item_num,  data) => {
+    const response = this.state.response_list
+    response[item_num-1] = data
+    this.setState({ response_list : response });
   }
 
   render() {
@@ -97,7 +72,7 @@ export class ResponsePage extends Component {
           <Sticky>
             <Segment id={"Head"}><h1 id="PageName" >ResponsingPage</h1></Segment>
           </Sticky>
-          <Segment id={"info"}>
+          <Segment id="info">
             <h2 id={"SurveyTitle"} >{this.props.onSurvey.title}</h2>
             <h3 id={"SurveyContent"}>{this.props.onSurvey.content}</h3>
             <h3 id={"SurveyAuthor"}> {this.props.onSurvey.author} </h3>
@@ -105,18 +80,14 @@ export class ResponsePage extends Component {
           <div id={"Items"}>
             {
             this.state.survey.item.map((item) => {
-              //if (this.state.itemClickedArray[item.number] != null) {
-                // console.log(this.state.itemClickedArray[item.number].clicked);
                 return (
-                  <ResponsingItem
-                    itemSelectionClick={this.itemSelectionClick}
-                    itemClicked={(this.state.itemClickedArray[item.number] != null) ? this.state.itemClickedArray[item.number].clicked : []} // array
+                  <ResponsingItem 
                     number={item.number}
                     title={item.title}
                     question_type={item.question_type}
                     selection={item.selection}
                     multiple={item.multiple_choice}
-                    subjectInput={this.itemSubjectInput}
+                    response ={this.responseCallback}
                   />
                 );
               //}
