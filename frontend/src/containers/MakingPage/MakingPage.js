@@ -47,7 +47,8 @@ export class MakingPage extends Component {
           number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [],
         },
       ],
-      focused: false,
+      open_date_focused: false,
+      due_date_focused: false,
       scrollPostion: 0,
     }
 
