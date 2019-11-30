@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
+import './MakingPage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -218,12 +219,14 @@ export class MakingPage extends Component {
             <Segment style={{ backgroundColor: '#A3C6C4' }}>
               <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Gender </p>
+              <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
               <Form.Select className="genderSelect" value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
+              <div id="Gender">
               <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
               {' '}
                 Won't input gender option
-              <p style={{ 'font-size': '15px', marginBottom: 5, marginTop: 6 }}>Age </p>
+              </div>
+              <p style={{ 'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold' }}>Age </p>
               <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
               <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
             Won't input age option
