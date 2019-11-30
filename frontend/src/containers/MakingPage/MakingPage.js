@@ -223,12 +223,17 @@ export class MakingPage extends Component {
               <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
               {' '}
                 Won't input gender option
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Age </p>
+              <p style={{ 'font-size': '15px', marginBottom: 5, marginTop: 6 }}>Age </p>
               <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
               <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
             Won't input age option
-              <p style={{ marginTop: 4, marginBottom: 3, fontWeight: 'bold' }}>Target People:</p>
-              <Input className="targetCount" type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
+              <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target People:</p>
+              <Input
+                className="targetCount"
+                type="text"
+                onChange={(event) => this.setState({ response_count: event.target.value })}
+                placeholder="... How much People?"
+              />
             </Segment>
             <h3>3. Items</h3>
             <Button className="addItemButton" onClick={this.addItemHandler}>
