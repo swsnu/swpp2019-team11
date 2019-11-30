@@ -45,9 +45,9 @@ export class ResponsingItem extends Component {
   render() {
     return (
       <div className="ResponsingItem">
-        <Segment id="ResponseSegment">
-          <div id="Title">Q{this.props.number}:{this.props.title}</div>
-          { // if multiple choice
+        <Segment id={"ResponseSegment"}>
+          <div id={"Title"}>{this.props.number}{". "}{this.props.title}</div>
+          { // multiple choice admitted
           (this.props.multiple && this.props.question_type == 'Selection')
           && (
           <div>
