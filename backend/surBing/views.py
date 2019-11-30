@@ -42,6 +42,8 @@ def signup(request):  # create new
             username = req_data['username']
             password = req_data['password']
             email = req_data['email']
+            age = req_data['age']
+            gender = req_data['gender']
         except (KeyError, json.decoder.JSONDecodeError):
             return HttpResponse(status=400)
         if SurBingUser.objects.filter(username=username).exists():
@@ -49,8 +51,13 @@ def signup(request):  # create new
 
         cart = Cart()
         cart.save()
-        SurBingUser.objects.create_user(username=username, email=email,
-                                        password=password, cart=cart)
+        SurBingUser.objects.create_user(username=username,
+                                        email=email,
+                                        password=password,
+                                        age=age,
+                                        gender=gender,
+                                        point=0,
+                                        cart=cart)
         return HttpResponse(status=201)
 
     else:
