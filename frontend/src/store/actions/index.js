@@ -1,5 +1,5 @@
 export {
-  logIn, signUp, logOut, checklogIn,
+  logIn, signUp, logOut, checklogIn, addUserPoint,
 } from './user';
 export {
   getSurveyList, /*getSurvey, uploadSurvey,*/ getOngoingSurveyList, getCompletedSurvey, getOngoingSurvey, addOngoingSurvey, participateSurvey,
