@@ -45,7 +45,7 @@ export class MakingItem extends Component {
           (this.props.question_type == 'Selection')
           && (
           <div>
-            <Checkbox className="MultipleSelection" label={this.props.multiple_selection ? 'Multiple Selection' : 'Single Selection'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
+            <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'Multiple Selection' : 'Single Selection'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
             <br />
             Options:
           </div>

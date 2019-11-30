@@ -76,11 +76,11 @@ export class MakingPage extends Component {
 
     multipleSelectionToggler = (number) => {
       const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].multiple_selection == false) {
-        new_list[number - 1].multiple_selection = true;
+      if (this.state.item_list[number - 1].multiple_choice == false) {
+        new_list[number - 1].multiple_choice = true;
         this.setState({ item_list: new_list });
       } else {
-        new_list[number - 1].multiple_selection = false;
+        new_list[number - 1].multiple_choice = false;
         this.setState({ item_list: new_list });
       }
     }
@@ -106,6 +106,7 @@ export class MakingPage extends Component {
         target_gender: this.state.target_gender,
         target_respondant_count: this.state.response_count,
       };
+      console.log(survey);
       this.props.onSubmitSurvey(survey);
       this.props.history.push('/main/');
     }
@@ -115,7 +116,7 @@ export class MakingPage extends Component {
         number: this.state.item_list.length + 1,
         title: '',
         question_type: 'Subjective',
-        multiple_selection: false,
+        multiple_choice: false,
         selection: [],
       };
       this.state.item_list.push(new_item);
@@ -132,7 +133,7 @@ export class MakingPage extends Component {
       <MakingItem
         number={item.number}
         question_type={item.question_type}
-        multiple_selection={item.multiple_selection}
+        multiple_choice={item.multiple_choice}
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
