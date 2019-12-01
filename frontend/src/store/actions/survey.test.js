@@ -47,7 +47,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.addOngoingSurvey())
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual("");
+        expect(newState.sv.ongoing_survey).toEqual('');
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });
@@ -63,7 +63,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.participateSurvey(1, stubResponse))
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual("");
+        expect(newState.sv.ongoing_survey).toEqual('');
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });

@@ -24,21 +24,21 @@ export class SurveyParticipate extends Component {
     return (
       <div className="SurveyParticipate">
         <TopBar />
-        <table celled id={"ParticipateTable"}>
-          <thead id={"TableHeader"}>
+        <table celled id="ParticipateTable">
+          <thead id="TableHeader">
             <tr>
               <th>Survey Title</th>
-              <th id={"dateHeader"}>Upload Date</th>
-              <th id={"buttonHeader"}>Participate</th>
+              <th id="dateHeader">Upload Date</th>
+              <th id="buttonHeader">Participate</th>
             </tr>
           </thead>
           <tbody>
             {this.props.survey_list.map((survey) => (
               <tr>
-                <td id={"titleRow"}>{ survey.title }</td>
-                <td id={"dateRow"}>{ survey.upload_date }</td>
-                <td id={"buttonRow"}>
-                  <button id={"participateButton"} onClick={() => this.props.history.push(`/responsing/${survey.id}/`)}>
+                <td id="titleRow">{ survey.title }</td>
+                <td id="dateRow">{ survey.upload_date }</td>
+                <td id="buttonRow">
+                  <button id="participateButton" onClick={() => this.props.history.push(`/responsing/${survey.id}/`)}>
                     Participate
                   </button>
                 </td>

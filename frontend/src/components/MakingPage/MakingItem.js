@@ -36,13 +36,13 @@ export class MakingItem extends Component {
   render() {
     return (
       <Segment className="MakingItem" style={{ backgroundColor: '#6C7A89', minHeight: '250px' }}>
-        <div id={"ItemTop"}>
+        <div id="ItemTop">
         Q
-        {this.props.number}
+          {this.props.number}
 : &nbsp;&nbsp;
-        <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
-        <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-        &nbsp; {this.props.question_type}
+          <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
+          {this.props.question_type}
         </div>
         {
           (this.props.question_type == 'Selection')

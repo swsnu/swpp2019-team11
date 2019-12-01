@@ -7,12 +7,12 @@ export class ResponsingOptionRadio extends Component {
   render() {
     return (
       <div>
-        <Form.Field id={"OptionRadio"}>
+        <Form.Field id="OptionRadio">
           <Radio
-            className = "Radio"
+            className="Radio"
             label={this.props.content}
             checked={this.props.checked}
-            onClick={() => this.props.radioChange(this.props.number-1)}
+            onClick={() => this.props.radioChange(this.props.number - 1)}
           />
         </Form.Field>
       </div>
