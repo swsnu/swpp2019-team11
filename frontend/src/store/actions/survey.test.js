@@ -18,7 +18,7 @@ describe('ActionCreators', () => {
         done();
       });
   });
-  it('should fetch survey', (done) => {
+  it('should fetch completed survey', (done) => {
     const stubSurvey = {
       item: [],
     };
@@ -27,7 +27,7 @@ describe('ActionCreators', () => {
       const result = { ststus: 200, data: stubSurvey };
       res(result);
     }));
-    store.dispatch(actionCreators.getSurvey())
+    store.dispatch(actionCreators.getCompletedSurvey())
       .then(() => {
         const newState = store.getState();
         expect(newState.sv.survey).toEqual(stubSurvey);
@@ -47,7 +47,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.addOngoingSurvey())
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual(stubSurvey);
+        expect(newState.sv.ongoing_survey).toEqual("");
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });
@@ -63,7 +63,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.participateSurvey(1, stubResponse))
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual({ item: [] });
+        expect(newState.sv.ongoing_survey).toEqual("");
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });

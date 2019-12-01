@@ -50,9 +50,8 @@ export class ResponsePage extends Component {
         })
       }
     })
-    console.log(response_json)
-    //this.props.submitOngoingSurvey(this.props.match.params.id, response_json);
-    //this.props.history.push('/participate/');
+    this.props.submitOngoingSurvey(this.props.match.params.id, response_json);
+    this.props.history.push('/participate/');
   }
 
   responseCallback = (item_num,  data) => {
@@ -62,13 +61,10 @@ export class ResponsePage extends Component {
   }
 
   render() {
-    if (this.state.survey == '') {
-      return null;
-    }
     if (this.state.survey.item != null) {
 
       return (
-        <div>
+        <div className = "ResponsePage">
           <Sticky>
             <Segment id={"Head"}><h1 id="PageName" >ResponsingPage</h1></Segment>
           </Sticky>
@@ -90,15 +86,17 @@ export class ResponsePage extends Component {
                     response ={this.responseCallback}
                   />
                 );
-              //}
             })
           }
           </div>
-          <button id={"Submit"} onClick={this.onSubmitHandler}>
+          <button id="Submit" className = "Submit" onClick={this.onSubmitHandler}>
             Submit
           </button>
         </div>
       );
+    }
+    else {
+      return null;
     }
   }
 }

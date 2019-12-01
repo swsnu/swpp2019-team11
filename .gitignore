@@ -29,3 +29,5 @@ yarn-error.log*
 
 #backend
 __pycache__
+/backend/surBing/migrations/
+/backend/users/migrations/
