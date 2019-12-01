@@ -14,7 +14,7 @@ const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
     };
   }
   else if (action === actionTypes.ADD_POINT) {
-    return { ...state }
+    return { ...state };
   }
   return { ...state };
 };

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Table,
-} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
@@ -10,7 +7,7 @@ import './SurveyParticipate.css';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getSurveyList: (keyw) => { dispatch(actionCreators.getOngoingSurveyList()); },
-  addUserPoint: () => dispatch(actionCreators.addUserPoint()),
+  addUserPoint: () => {dispatch(actionCreators.addUserPoint()); },
 });
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.ongoing_survey_list,
