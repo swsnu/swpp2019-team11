@@ -30,11 +30,13 @@ export class SurveyDetailPage extends Component {
       .catch(() => { this.props.history.push('/login/'); });
   }
 
+
   onClickDownload() {
     CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`); }, this.props.survey, false);
   }
 
   render() {
+    console.log(this.props)
     if (this.props.survey === undefined || this.props.survey.item === undefined) {
       return <div />;
     }

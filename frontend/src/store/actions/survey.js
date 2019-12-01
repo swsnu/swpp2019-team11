@@ -60,7 +60,7 @@ export const addOngoingSurvey = (survey) => (dispatch) => axios.post('/api/make/
 
 export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: survey });
 
-export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/${id}/`).then((res) => {
+export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/completed/${id}/`).then((res) => {
   dispatch(getSurvey_(res.data));
   return res;
 });

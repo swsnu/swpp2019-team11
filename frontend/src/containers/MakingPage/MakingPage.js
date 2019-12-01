@@ -173,7 +173,7 @@ export class MakingPage extends Component {
             <Sticky context={this.contextRef}>
               <Segment style={{ backgroundColor: '#E0E7E9' }}>
                 <Segment style={{ backgroundColor: '#E0E7E9', 'border-bottom': '0px', 'box-shadow': 0 }}><h1>MakingPage</h1></Segment>
-                <Progress color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
+                <Progress color="#A3C6C4" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <Segment style={{ backgroundColor: '#A3C6C4', 'border-color': 'white' }}>

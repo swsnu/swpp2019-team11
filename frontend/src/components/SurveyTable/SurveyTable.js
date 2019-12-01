@@ -10,7 +10,7 @@ export const SurveyTable = (props) => {
               <Table.Cell collapsing>
                 <Checkbox slider />
               </Table.Cell>
-              <Table.Cell>{props.survey.title}</Table.Cell>
+              <Table.Cell onClick={() => { props.history.push('/survey/1') }}>{props.survey.title}</Table.Cell>
               <Table.Cell>{props.survey.author}</Table.Cell>
               <Table.Cell>{props.survey.respondant_count}</Table.Cell>
               <Table.Cell>{props.survey.content}</Table.Cell>
