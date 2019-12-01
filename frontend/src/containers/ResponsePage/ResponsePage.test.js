@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { ResponsePage, mapStateToProps, mapDispatchToProps } from './ResponsePage';
 
 describe('<ResponsePage />', () => {
+  beforeEach(() => { jest.clearAllMocks(); });
   const mockPush = jest.fn();
   const mockSOGS = jest.fn();
   const mockgetOngoingSurvey = jest.fn();

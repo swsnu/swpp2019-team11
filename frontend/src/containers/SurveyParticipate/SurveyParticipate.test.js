@@ -38,6 +38,7 @@ describe('map functions', () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).checklogIn();
     mapDispatchToProps(dispatch).getSurveyList();
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    mapDispatchToProps(dispatch).addUserPoint();
+    expect(dispatch).toHaveBeenCalledTimes(3);
   });
 });

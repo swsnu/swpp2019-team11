@@ -36,3 +36,9 @@ export const checklogIn = () => (dispatch) => axios.get('/api/checklogin/')
   .then(() => {
     dispatch(checklogIn_());
   });
+
+const addUserPoint_ = () => ({ type: actionTypes.ADD_POINT });
+export const addUserPoint = () => (dispatch) => axios.push('/api/pluspoint/')
+  .then(() => {
+    dispatch(addUserPoint_());
+  });

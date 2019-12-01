@@ -4,6 +4,8 @@ export const SIGNUP = 'SIGNUP';
 export const GET_USER = 'GET_USER';
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 
+export const ADD_POINT = 'ADD_POINT';
+
 export const PARTICIPATE_SURVEY = 'PARTICIPATE_SURVEY';
 export const GET_SURVEY_LIST = 'GET_SURVEY_LIST';
 export const GET_COMPLETED_SURVEY = 'GET_COMPLETED_SURVEY';
