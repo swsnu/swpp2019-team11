@@ -32,6 +32,7 @@ class SurveyOngoing(models.Model):  # not completed survey
     target_age_end = models.IntegerField()
     target_gender = models.CharField(max_length=5)
     item = models.ManyToManyField('Item')
+    respondant = models.ManyToManyField(SurBingUser, related_name='participated_surveys')
 
 
 class Item(models.Model):
