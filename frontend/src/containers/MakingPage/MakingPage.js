@@ -45,8 +45,8 @@ export class MakingPage extends Component {
       content: '',
       target_gender: 'M',
       target_age: [1, 100],
-      gender_check: false,
-      age_check: false,
+      gender_check: true,
+      age_check: true,
       response_count: 0,
       due_date: moment(),
       open_date: moment(),
@@ -112,9 +112,9 @@ export class MakingPage extends Component {
         survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
         open_date: this.state.open_date.format('YYYY/MM/DD'),
         item: this.state.item_list,
-        target_age_start: this.state.target_age[0],
-        target_age_end: this.state.target_age[1],
-        target_gender: this.state.target_gender,
+        target_age_start: this.state.age_check ? 1 : this.state.target_age[0],
+        target_age_end: this.state.age_check ? 100 : this.state.target_age[1],
+        target_gender: this.state.gender_check ? 'A' : this.state.target_gender,
         target_respondant_count: this.state.response_count,
       };
       this.props.onSubmitSurvey(survey);
@@ -189,7 +189,7 @@ export class MakingPage extends Component {
                   height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
                 }}
               >
-                <Progress style={{ marginTop: '0px', backgroundColor: 'black' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
+                <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <Segment className="Item">
@@ -231,9 +231,9 @@ export class MakingPage extends Component {
               <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
               <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
-              <Form.Select className="genderSelect" value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
+              <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
               <div id="Gender">
-                <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
+                <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
                 {' '}
                 Won't input gender option
               </div>
@@ -243,15 +243,16 @@ export class MakingPage extends Component {
               >
 Age
               </p>
-              <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
-              <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
+              <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
+              <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
             Won't input age option
-              <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target People:</p>
+              <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
               <Input
                 className="targetCount"
                 type="text"
+                error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
                 onChange={(event) => this.setState({ response_count: event.target.value })}
-                placeholder="... How much People?"
+                placeholder="... How many Responses?"
               />
             </Segment>
             <h3>3. Items</h3>
