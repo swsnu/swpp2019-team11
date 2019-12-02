@@ -1,37 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react'
 import {
-  Grid, Menu, Segment, Sidebar, Table, Button, Icon,
+  Menu, Table, Icon, Checkbox, 
 } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import SurveyTable from '../../SurveyTable/SurveyTable';
 
-export const mapStateToProps = (state) => ({
-  survey_list: state.svl.survey_list,
-});
-
-export class SurveyCompleted extends Component {
-  getContents = () => {
-    if (this.props.survey_list.length != 0) {
-      return (
-        this.props.survey_list.map((cur) => (
-          <SurveyTable survey={cur} search={false} />
-        ))
-      );
-    }
-
-    return (<p>The completed survey list is Empty!</p>);
-  };
-
-  render() {
-    return (
-      <div className="surveyOngoing_list">
-        <h2>Completed Survey</h2>
-        <br />
-        <Table
+export const TableForm = (props) => {
+  console.log(props.content)
+  return(
+    <Table
           celled
           definition
           style={{
-            borderRadius: 0, width: 1300, height: 150, 'font-size': 2, outline: '0.1rem solid', outlineColor: '#DEDEDF',
+            borderRadius: 0, width: 1300, height: 150, outline: '0.1rem solid', outlineColor: '#DEDEDF',
           }}
         >
           <Table.Header>
@@ -45,7 +24,17 @@ export class SurveyCompleted extends Component {
           </Table.Header>
 
           <Table.Body>
-            {this.getContents()}
+            {props.content.map((cur) => (
+              <Table.Row>
+              <Table.Cell collapsing>
+                <Checkbox slider />
+              </Table.Cell>
+              <Table.Cell>{cur.title}</Table.Cell>
+              <Table.Cell>{cur.author}</Table.Cell>
+              <Table.Cell>{cur.respondant_count}</Table.Cell>
+              <Table.Cell>{cur.content}</Table.Cell>
+            </Table.Row>
+              ))}
             {' '}
             <br />
           </Table.Body>
@@ -68,9 +57,7 @@ export class SurveyCompleted extends Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </div>
-    );
-  }
+  )
 }
 
-export default connect(mapStateToProps, null)(SurveyCompleted);
+export default TableForm

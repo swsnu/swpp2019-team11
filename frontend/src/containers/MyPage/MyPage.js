@@ -4,10 +4,9 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
-import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
-import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
-import Cart from '../../components/MyPage/Cart/Cart';
 import * as actionCreators from '../../store/actions/index';
+import TableForm from '../../components/TableForm/TableForm'
+
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -26,7 +25,12 @@ export class MyPage extends Component {
   state = {
     clickedMenu: 0,
   }
-
+  componentDidUpdate(prevProps){
+    if(this.props != prevProps){
+      this.forceUpdate()
+    }
+  }
+ 
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
@@ -37,28 +41,42 @@ export class MyPage extends Component {
     this.props.getSurveyAll();
   }
 
-  render() {
-    const selectmenu = () => {
-      if (this.state.clickedMenu == 0) {
-        return (
-          <div>
-            <SurveyOngoing />
-          </div>
-        );
-      } if (this.state.clickedMenu == 1) {
-        return (
-          <div>
-            <SurveyCompleted />
-          </div>
-        );
-      }
+  selectmenu = () => {
+    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
       return (
-        <div>
-          <Cart />
+          <div className="SurveyOngoing">
+          <h2>Ongoing Survey</h2>
+          <br />
+          <TableForm content = {this.props.ongoing_survey_list}/>
         </div>
       );
-    };
+    } 
+    else if (this.state.clickedMenu == 1 && this.props.survey_list) {
+      return (
+        <div className="SurveyCompleted">
+        <h2>Opened Survey</h2>
+        <br />
+        <TableForm content = {this.props.survey_list}/>
+      </div>
+      );
+    }
+    else if (this.state.clickedMenu == 2 && this.props.cart_list){
+      return (
+        <div className="Cart">
+        <h2>Cart</h2>
+        <br />
+        <TableForm content = {this.props.cart_list}/>
+      </div>
+      );
+    }
+    else {
+      return null;
+    }
+  };
 
+  
+
+  render() {
     return (
       <div className="myPage">
         <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} />
@@ -83,7 +101,7 @@ export class MyPage extends Component {
           </Sidebar>
           <Sidebar.Pusher style={{ minHeight: 800 }}>
             <Segment basic>
-              {selectmenu()}
+              {this.selectmenu()}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
