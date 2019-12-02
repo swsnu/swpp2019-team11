@@ -4,26 +4,23 @@ import {
 } from 'semantic-ui-react';
 import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
-import ItemResponseShort from './ItemResponse/ItemResponseShort';
+import ItemSelection from './ItemResponse/ItemSelection';
+import Graph from '../../Graph/Graph';
 
 function SurveyItem(props) {
-  const responses = props.response.map((rs) => {
-    if (props.question_type == 'Selection') {
-      return (
-        <ItemResponse
-          respondant_id={rs.respondant_id}
-          content={rs.content}
-        />
-      );
-    }
+  const responses = props.response.map((rs) => (
+    <ItemResponse
+      respondant_id={rs.respondant_number}
+      content={rs.content}
+    />
+  ));
 
-    return (
-      <ItemResponseShort
-        respondant_id={rs.respondant_id}
-        content={rs.content}
-      />
-    );
-  });
+  const selections = props.selection.map((sl) => (
+    <ItemSelection
+      number={sl.number}
+      content={sl.content}
+    />
+  ));
 
   return (
     <Grid className="SurveyItem">
@@ -57,12 +54,12 @@ Q
         <Table.Body style={{ width: '790px' }}>
           <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 250, border: 'none' }}>
             <Segment style={{ padding: -20, border: 'none' }}>
-              {responses}
+              {props.question_type === 'selection' ? selections : responses}
             </Segment>
           </ScrollArea>
         </Table.Body>
       </Table>
-
+      <Graph />
     </Grid>
   );
 }

@@ -15,20 +15,21 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
-  survey: state.sv.survey,
+  survey: state.sv.completed_survey,
 });
 
 export class SurveyDetailPage extends Component {
-  state = {
-  };
-
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-        this.props.onSurveyDetail(this.props.match.params.id);
+        this.props.onSurveyDetail(this.props.match.params.id)
+          .catch(() => {
+            this.props.history.push('/survey/1');
+          });
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
+
 
   onClickDownload() {
     CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`); }, this.props.survey, false);
@@ -45,6 +46,7 @@ export class SurveyDetailPage extends Component {
         title={it.title}
         question_type={it.question_type}
         response={it.response}
+        selection={it.selection}
       />
     ));
 

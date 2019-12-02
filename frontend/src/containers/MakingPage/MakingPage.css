@@ -1,3 +1,6 @@
+.MakingPage {
+    padding-left: -15px;
+}
 
 .title
 {
@@ -11,4 +14,51 @@
 
 .ageCheck {
     margin-top: 8px;
+}
+
+.makingPage {
+    margin-left: 10px;
+}
+
+.titleBar {
+    background-color: #E0E7E9;
+    border-bottom: 0px;
+    box-shadow: 0px; 
+}
+
+.Item {
+    background-color: #A3C6C4;
+    border-color: white; 
+}
+
+.SurveyContent {
+    border-color: #E0E7E9;
+    width: 800px;
+    height: 100px;
+    border-radius: 5px;
+    min-height: 100px,
+}
+
+#outerGrid {
+    margin-left: 15px;
+}
+
+#progressBar {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#righterGrid {
+    margin-right: 12px;
+}
+
+#ProfileButton {
+    margin-right: 12px;
+}
+
+#innerSticky {
+    padding-left: 0px;
+    padding-right: 0px;
 }

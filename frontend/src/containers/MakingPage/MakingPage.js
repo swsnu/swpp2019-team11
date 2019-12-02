@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Grid, Header, Menu,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
+import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import './MakingPage.css';
+import { TopBar } from '../../components/TopBar/TopBar';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -171,14 +173,19 @@ export class MakingPage extends Component {
       const items = this.Items();
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
-          <div style={{ marginLeft: 10 }}>
-            <Sticky context={this.contextRef}>
-              <Segment style={{ backgroundColor: '#E0E7E9' }}>
-                <Segment style={{ backgroundColor: '#E0E7E9', 'border-bottom': '0px', 'box-shadow': 0 }}><h1>MakingPage</h1></Segment>
-                <Progress color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
+          <div>
+            <TopBar history={this.props.history} context={this.contextRef} />
+            <Sticky offset={130} context={this.contextRef}>
+              <Segment
+                border="none"
+                style={{
+                  height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
+                }}
+              >
+                <Progress style={{ marginTop: '0px', backgroundColor: 'black' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
-            <Segment style={{ backgroundColor: '#A3C6C4', 'border-color': 'white' }}>
+            <Segment className="Item">
               <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
               <br />
               <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
@@ -189,9 +196,6 @@ export class MakingPage extends Component {
               <TextArea
                 className="SurveyContent"
                 rows={4}
-                style={{
-                  'border-color': 'white', width: '800px', height: '100px', borderRadius: 5, minHeight: 100,
-                }}
                 onChange={(event) => this.setState({ content: event.target.value })}
               />
               <br />

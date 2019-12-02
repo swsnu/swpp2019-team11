@@ -99,4 +99,5 @@ export class ResponsePage extends Component {
     return null;
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResponsePage));
