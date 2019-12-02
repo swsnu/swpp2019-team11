@@ -12,8 +12,8 @@ import * as actionCreators from '../../store/actions/index';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
-  getSurveyOngoing: () => dispatch(actionCreators.getOngoingSurveyList()),
-  getSurveyAll: () => dispatch(actionCreators.getSurveyAll()),
+  getSurveyOngoing: () => dispatch(actionCreators.getMyOngoingSurveys()),
+  getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
 export const mapStateToProps = (state) => ({

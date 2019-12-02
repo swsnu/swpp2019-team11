@@ -1,9 +1,11 @@
 import React from 'react';
 
 export const Graph = (props) => {
+  return(
     <div>
-        hi
+      
     </div>
+  )
 }
 
 export default Graph;

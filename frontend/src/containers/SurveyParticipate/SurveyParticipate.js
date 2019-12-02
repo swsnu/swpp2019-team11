@@ -6,7 +6,7 @@ import './SurveyParticipate.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  getSurveyList: () => { dispatch(actionCreators.getOngoingSurveyList()); },
+  getSurveyList: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   addUserPoint: () => { dispatch(actionCreators.addUserPoint()); },
 });
 export const mapStateToProps = (state) => ({

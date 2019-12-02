@@ -8,7 +8,6 @@ import SurveyItem from '../../components/SurveyDetailPage/SurveyItem/SurveyItem'
 import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import * as actionCreators from '../../store/actions/index';
-import Graph from '../../components/Graph/Graph'
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -16,17 +15,17 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
-  survey: state.sv.survey,
+  survey: state.sv.completed_survey,
 });
 
 export class SurveyDetailPage extends Component {
-  state = {
-  };
-
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-        this.props.onSurveyDetail(this.props.match.params.id);
+        this.props.onSurveyDetail(this.props.match.params.id)
+          .catch(() => {
+            this.props.history.push('/survey/1')
+          })
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
@@ -48,6 +47,7 @@ export class SurveyDetailPage extends Component {
         title={it.title}
         question_type={it.question_type}
         response={it.response}
+        selection={it.selection}
       />
     ));
 
@@ -112,7 +112,6 @@ Download
           </Grid.Row>
         </Grid>
         {items}
-        <Graph/>
       </div>
     );
   }

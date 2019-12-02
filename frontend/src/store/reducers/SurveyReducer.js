@@ -4,7 +4,8 @@ const initialState = {
   survey: {
     item: [],
   },
-  ongoing_survey: '',
+  ongoing_survey: [],
+  completed_survey: [],
 };
 
 
@@ -19,7 +20,7 @@ const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
     case actionTypes.PARTICIPATE_SURVEY:
       return { ...state };
     case actionTypes.GET_COMPLETED_SURVEY:
-      return { ...state };
+      return { ...state, completed_survey: action.target };
     default:
       break;
   }
