@@ -423,3 +423,4 @@ def get_point(request):
         return JsonResponse(user.point, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
+

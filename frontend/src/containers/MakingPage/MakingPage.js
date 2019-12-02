@@ -58,7 +58,7 @@ export class MakingPage extends Component {
       ],
       open_date_focused: false,
       due_date_focused: false,
-      scrollPostion: 0,
+      scrollBound : [200, 300]
     }
 
 
@@ -153,23 +153,24 @@ export class MakingPage extends Component {
     listenToScrollEvent = () => {
       document.addEventListener('scroll', () => {
         requestAnimationFrame(() => {
-          this.calculateScrollDistance();
+          this.scroll();
         });
       });
     }
 
-    calculateScrollDistance = () => {
+    scroll = () => {
       const scrollTop = window.pageYOffset; // how much the user has scrolled by
       const winHeight = window.innerHeight;
       const docHeight = this.getDocHeight();
       const totalDocScrollLength = docHeight - winHeight;
-      const scrollPostion = Math.floor((scrollTop / totalDocScrollLength) * 100);
-
-      this.setState({
-        scrollPostion,
-      });
+      if(totalDocScrollLength<1000){
+        this.setState({scrollBound : [ 300,  400]})
+      }
+      else{
+        this.setState({scrollBound : [500 ,  850]})
+      }
     }
-
+    
     getDocHeight = () => Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
       document.body.offsetHeight, document.documentElement.offsetHeight,
@@ -189,7 +190,7 @@ export class MakingPage extends Component {
                   height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
                 }}
               >
-                <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
+                <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <Segment className="Item">
