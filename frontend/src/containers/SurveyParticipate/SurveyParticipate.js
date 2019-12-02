@@ -18,8 +18,8 @@ export class SurveyParticipate extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps!=this.props){
-      this.forceUpdate()
+    if (prevProps != this.props) {
+      this.forceUpdate();
     }
   }
 

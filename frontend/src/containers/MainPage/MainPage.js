@@ -14,8 +14,9 @@ export class MainPage extends Component {
   addSurveyHandler = () => {
     this.props.history.push('/making');
   }
+
   participateHandler = () => {
-    this.props.history.push('/participate')
+    this.props.history.push('/participate');
   }
 
   render() {

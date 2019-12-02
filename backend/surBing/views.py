@@ -1,11 +1,12 @@
 import json
+from datetime import datetime, date
 from functools import wraps
 from json import JSONDecodeError
-from datetime import datetime, date
 
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
+
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
 
@@ -53,7 +54,7 @@ def signup(request):  # create new
         cart.save()
         SurBingUser.objects.create_user(username=username, email=email,
                                         password=password, cart=cart,
-                                        gender = gender, age = age,
+                                        gender=gender, age=age,
                                         point=0)
         return HttpResponse(status=201)
 
@@ -263,13 +264,14 @@ def onGoingSurvey(request, survey_id):
 def participate(request, survey_id):
     if request.method == 'POST':
         user = request.user
-        if not SurveyOngoing.objects.filter(id=survey_id,
-                                target_gender__in=[user.gender, 'A'],
-                                target_age_start__lte=user.age,
-                                target_age_end__gte=user.age,
-                                survey_end_date__gte=date.today()).exclude(
-                                    author=user).exclude(
-                                    respondant=user).exists():
+        if not (SurveyOngoing.objects
+                .filter(id=survey_id,
+                        target_gender__in=[user.gender, 'A'],
+                        target_age_start__lte=user.age,
+                        target_age_end__gte=user.age,
+                        survey_end_date__gte=date.today())
+                .exclude(author=user)
+                .exclude(respondant=user).exists()):
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
         survey.respondant_count += 1
@@ -373,7 +375,7 @@ def participating_list(request):
                        .exclude(respondant=user)
                        .values())
         for survey in surveys:
-            if (survey['target_respondant_count'] == survey['respondant_count'] ):
+            if (survey['target_respondant_count'] == survey['respondant_count']):
                 surveys.remove(survey)
         return JsonResponse(surveys, safe=False, status=200)
     else:
@@ -404,6 +406,7 @@ def my_survey_completed(request):
         return JsonResponse(survey_list, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
+
 
 @check_logged_in
 def get_point(request):

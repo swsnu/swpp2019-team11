@@ -8,7 +8,7 @@ export const signUp = (username, email, password, age, gender) => {
     email,
     password,
     age,
-    gender
+    gender,
   };
   return (dispatch) => axios.post('/api/signup/', user)
     .then((res) => {

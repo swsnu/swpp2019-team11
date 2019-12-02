@@ -54,8 +54,8 @@ export const getCompletedSurvey = (id) => (dispatch) => axios.get(`/api/survey/c
   dispatch(getCompletedSurvey_(res.data));
   return res;
 });
-export const getParticipatingList_ = (participating_list) => ({type : actionTypes.GET_PARTICIPATING_LIST, target: participating_list})
-export const getParticipatingList = () => (dispatch) => axios.get(`/api/participatinglist/`).then((res) => {
-  dispatch(getParticipatingList_(res.data))
+export const getParticipatingList_ = (participating_list) => ({ type: actionTypes.GET_PARTICIPATING_LIST, target: participating_list });
+export const getParticipatingList = () => (dispatch) => axios.get('/api/participatinglist/').then((res) => {
+  dispatch(getParticipatingList_(res.data));
   return res;
-})
+});
