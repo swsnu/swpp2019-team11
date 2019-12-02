@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Grid, Header, Menu,
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import './MakingPage.css';
 import { TopBar } from '../../components/TopBar/TopBar';
 
@@ -192,8 +191,8 @@ export class MakingPage extends Component {
                 <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
-            <Segment className="Item">
-              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+            <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9'}} backgroundColor="#E0E7E9">
+              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
               <br />
               <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
               <Input className="SurveyTitle" style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
@@ -228,7 +227,7 @@ export class MakingPage extends Component {
             </Segment>
 
             <Segment style={{ backgroundColor: '#A3C6C4' }}>
-              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
               <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
               <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
