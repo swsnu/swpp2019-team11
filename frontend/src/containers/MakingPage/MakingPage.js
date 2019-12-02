@@ -15,6 +15,12 @@ import { TopBar } from '../../components/TopBar/TopBar';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSubmitSurvey: (survey) => dispatch(actionCreators.addOngoingSurvey(survey)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
+});
+
+export const mapStateToProps = (state) => ({
+  username: state.us.info.username,
+  point: state.us.info.point,
 });
 
 const genders = [
@@ -60,6 +66,7 @@ export class MakingPage extends Component {
       this.listenToScrollEvent();
       this.props.checklogIn()
         .then(() => {
+          this.props.getUserInfo();
         })
         .catch(() => { this.props.history.push('/login/'); });
     }
@@ -174,7 +181,7 @@ export class MakingPage extends Component {
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
           <div>
-            <TopBar history={this.props.history} context={this.contextRef} />
+            <TopBar history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
             <Sticky offset={130} context={this.contextRef}>
               <Segment
                 border="none"
@@ -261,4 +268,4 @@ Age
     }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(MakingPage));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MakingPage));

@@ -13,7 +13,7 @@ export const TopBar = (props) => (
         <Grid.Row verticalAlign="middle" style={{ marginBottom: '0px' }}>
           <Grid.Column textAlign="center" style={{ minWidth: 200, marginRight: '50px' }}><Header className="logo" style={{ 'font-size': '4em', cursor: 'pointer' }} onClick={() => { props.history.push('/main'); }} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
           <Grid.Column style={{ minWidth: 300 }}>{ props.searchBar ? (<SearchBar size="huge" minWidth="300px" width="calc(100vw - 500px)" />) : null}</Grid.Column>
-          <Grid.Column style={{ minWidth: '180px' }} floated="right"><ProfileButton /></Grid.Column>
+          <Grid.Column style={{ minWidth: '180px' }} floated="right"><ProfileButton username={props.username} point={props.point} /></Grid.Column>
         </Grid.Row>
       </Grid>
     </Segment>

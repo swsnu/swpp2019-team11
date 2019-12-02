@@ -44,3 +44,10 @@ export const addUserPoint = () => (dispatch) => axios.push('/api/pluspoint/')
   .then(() => {
     dispatch(addUserPoint_());
   });
+
+export const getUserInfo_ = (info) => ({ type: actionTypes.GET_USER_INFO, target: info });
+export const getUserInfo = () => (dispatch) => axios.get('/api/userinfo/')
+  .then((res) => {
+    dispatch(getUserInfo_(res.data));
+    return res;
+  });

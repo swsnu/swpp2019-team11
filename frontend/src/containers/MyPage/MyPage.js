@@ -11,7 +11,8 @@ import TableForm from '../../components/TableForm/TableForm';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
-  getSurveyOngoing: () => dispatch(actionCreators.getMyOngoingSurveys()),
+  getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
   getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
@@ -19,6 +20,8 @@ export const mapStateToProps = (state) => ({
   cart_list: state.ct.survey_list,
   survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
+  username: state.us.info.username,
+  point: state.us.info.point,
 });
 
 export class MyPage extends Component {
@@ -35,6 +38,7 @@ export class MyPage extends Component {
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
+        this.props.getUserInfo();
       })
       .catch(() => { this.props.history.push('/login/'); });
     this.props.getSurveyOngoing();
@@ -78,7 +82,7 @@ export class MyPage extends Component {
   render() {
     return (
       <div className="myPage">
-        <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} />
+        <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
         <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2 }}>
           <Sidebar
             as={Menu}
