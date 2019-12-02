@@ -73,13 +73,13 @@ export class MyPage extends Component {
             vertical
             width="thin"
           >
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 0 }); }}>
+            <Menu.Item className = "OngoingSurvey" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 1 }); }}>
+            <Menu.Item className = "CompletedSurvey" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 2 }); }}>
+            <Menu.Item className = "Cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
               Cart
             </Menu.Item>
           </Sidebar>

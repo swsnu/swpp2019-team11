@@ -9,9 +9,10 @@ describe('SurveyItem', () => {
       response: [
         {
           respondant_id: 1,
-          content: 'sadas',
+          content: 1,
         },
       ],
+      selection : [{number :1 , content : 'yes'}]
     };
     const component = shallow(<SurveyItem {...props} />);
     const wrapper = component.find('.SurveyItem');
@@ -26,6 +27,7 @@ describe('SurveyItem', () => {
           content: 'sadas',
         },
       ],
+      selection : []
     };
     const component = shallow(<SurveyItem {...props} />);
     const wrapper = component.find('.SurveyItem');

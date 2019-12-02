@@ -29,11 +29,7 @@ export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/$
   });
 
 export const getMyOngoingSurveys_ = (ongoing_survey_list) => ({
-<<<<<<< HEAD
-  type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list,
-=======
   type: actionTypes.GET_MY_ONGOING_SURVEYS, target: ongoing_survey_list,
->>>>>>> master
 });
 
 export const getMyOngoingSurveys = () => (dispatch) => axios.get('/api/mypage/surveyOngoing/')

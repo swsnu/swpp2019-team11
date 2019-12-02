@@ -28,6 +28,7 @@ describe('SearchDetailPage', () => {
           response: [
 
           ],
+          selection : []
         },
       ],
     },
@@ -74,7 +75,7 @@ describe('redux functions testing', () => {
         survey: {},
       },
     };
-    expect(mapStateToProps(initialState).survey).toEqual(initialState.sv.survey);
+    expect(mapStateToProps(initialState).survey).toEqual(initialState.sv.completed_survey);
   });
   it('mapDispatchToProps', () => {
     const dispatch = jest.fn();

@@ -3,11 +3,7 @@ import {
   Grid, Menu, Segment, Sidebar, Table, Button, Icon
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../store/actions/index';
 import SurveyTable from '../../SurveyTable/SurveyTable';
-
-export const mapDispatchToProps = (dispatch) => ({
-});
 
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.survey_list,
@@ -70,4 +66,4 @@ export class SurveyCompleted extends Component {
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SurveyCompleted);
+export default connect(mapStateToProps, null)(SurveyCompleted);

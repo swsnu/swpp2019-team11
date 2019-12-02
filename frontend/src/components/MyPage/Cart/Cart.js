@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Grid, Menu, Table, Icon,
+  Menu, Table, Icon,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../store/actions/index';
 import SurveyTable from '../../SurveyTable/SurveyTable';
 
-export const mapDispatchToProps = (dispatch) => ({
-});
 
 export const mapStateToProps = (state) => ({
     cart_list: state.ct.survey_list,
@@ -78,4 +75,4 @@ export class Cart extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, null)(Cart);
