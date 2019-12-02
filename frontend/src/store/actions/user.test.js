@@ -57,4 +57,22 @@ describe('ActionCreators', () => {
         done();
       });
   });
+  it('should checkLogin', (done) => {
+    const stubUser = {
+      username: '',
+      email: '',
+    };
+
+    axios.get = jest.fn(() => new Promise((res) => {
+      const result = { ststus: 200, data: stubUser };
+      res(result);
+    }));
+    store.dispatch(actionCreators.checklogIn())
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.us).toEqual(stubUser);
+        expect(axios.get).toHaveBeenCalledTimes(1);
+        done();
+      });
+  });
 });

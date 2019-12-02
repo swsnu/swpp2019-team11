@@ -13,7 +13,7 @@ const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
       email: action.target.email,
     };
   }
-  else if (action === actionTypes.ADD_POINT) {
+  if (action === actionTypes.ADD_POINT) {
     return { ...state };
   }
   return { ...state };

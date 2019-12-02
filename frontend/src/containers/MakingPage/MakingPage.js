@@ -109,7 +109,6 @@ export class MakingPage extends Component {
         target_gender: this.state.target_gender,
         target_respondant_count: this.state.response_count,
       };
-      console.log(survey);
       this.props.onSubmitSurvey(survey);
       this.props.history.push('/main/');
     }
@@ -249,11 +248,16 @@ export class MakingPage extends Component {
               <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
               <Form.Select className="genderSelect" value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
               <div id="Gender">
-              <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
-              {' '}
+                <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
+                {' '}
                 Won't input gender option
               </div>
-              <p style={{ 'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold' }}>Age </p>
+              <p style={{
+                'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
+              }}
+              >
+Age
+              </p>
               <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
               <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
             Won't input age option

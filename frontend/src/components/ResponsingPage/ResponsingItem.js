@@ -6,47 +6,49 @@ import './ResponsingItem.css';
 
 export class ResponsingItem extends Component {
   state={
-    check_response : [],
-    text_response : '',
+    check_response: [],
+    text_response: '',
   }
 
 
   componentDidMount() {
-    let allFalse =  this.props.selection.map(() => (false));
-    this.setState({check_response : allFalse})
+    const allFalse = this.props.selection.map(() => (false));
+    this.setState({ check_response: allFalse });
   }
 
   write = (data) => {
     this.state.text_response = data;
-    this.props.response(this.props.number, this.state.text_response)
-    this.forceUpdate()
+    this.props.response(this.props.number, this.state.text_response);
+    this.forceUpdate();
   }
 
   click = (index) => {
-    if(this.props.multiple == true){
-      let checkList = this.state.check_response
-      if(checkList[index]){
+    if (this.props.multiple == true) {
+      const checkList = this.state.check_response;
+      if (checkList[index]) {
         checkList[index] = false;
-      }
-      else{
+      } else {
         checkList[index] = true;
       }
-      this.state.check_response = checkList
+      this.state.check_response = checkList;
+    } else {
+      const checkList = this.props.selection.map(() => (false));
+      checkList[index] = true;
+      this.state.check_response = checkList;
     }
-    else{
-      let checkList = this.props.selection.map(() => (false))
-      checkList[index]=true
-      this.state.check_response = checkList
-    }
-    this.props.response(this.props.number, this.state.check_response)
-    this.forceUpdate()
+    this.props.response(this.props.number, this.state.check_response);
+    this.forceUpdate();
   }
 
   render() {
     return (
       <div className="ResponsingItem">
-        <Segment id={"ResponseSegment"}>
-          <div id={"Title"}>{this.props.number}{". "}{this.props.title}</div>
+        <Segment id="ResponseSegment">
+          <div id="Title">
+            {this.props.number}
+            {'. '}
+            {this.props.title}
+          </div>
           { // multiple choice admitted
           (this.props.multiple && this.props.question_type == 'Selection')
           && (
@@ -54,7 +56,7 @@ export class ResponsingItem extends Component {
             { '(You can select more than one.)' }
             { this.props.selection.map((selection, index) => (
               <div>
-                <Checkbox className="CheckBox" label = {selection.content} onClick={() => this.click(index)} />
+                <Checkbox className="CheckBox" label={selection.content} onClick={() => this.click(index)} />
               </div>
             )) }
           </div>
@@ -75,10 +77,10 @@ export class ResponsingItem extends Component {
             </div>
           ))
         }
-        
+
           {// Subjective question
           (this.props.question_type == 'Subjective')
-          && <input id={"SubjectInput"} placeholder="Answer..." className="subjectiveInput" onChange={(e) => this.write(e.target.value)} />
+          && <input id="SubjectInput" placeholder="Answer..." className="subjectiveInput" onChange={(e) => this.write(e.target.value)} />
         }
         </Segment>
       </div>
