@@ -6,8 +6,7 @@ import './SurveyParticipate.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  getSurveyList: () => { dispatch(actionCreators.getOngoingSurveyList()); },
-  addUserPoint: () => { dispatch(actionCreators.addUserPoint()); },
+  getSurveyList: () => { dispatch(actionCreators.getParticipatingList()); },
 });
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.ongoing_survey_list,
@@ -16,6 +15,12 @@ export const mapStateToProps = (state) => ({
 export class SurveyParticipate extends Component {
   componentDidMount() {
     this.props.getSurveyList();
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps!=this.props){
+      this.forceUpdate()
+    }
   }
 
   dummy_user_dat= {

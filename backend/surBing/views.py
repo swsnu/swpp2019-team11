@@ -1,7 +1,7 @@
 import json
 from functools import wraps
 from json import JSONDecodeError
-from datetime import datetime
+from datetime import datetime, date
 
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
@@ -262,7 +262,14 @@ def onGoingSurvey(request, survey_id):
 @check_logged_in
 def participate(request, survey_id):
     if request.method == 'POST':
-        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+        user = request.user
+        if not SurveyOngoing.objects.filter(id=survey_id,
+                                target_gender__in=[user.gender, 'A'],
+                                target_age_start__lte=user.age,
+                                target_age_end__gte=user.age,
+                                survey_end_date__gte=date.today()).exclude(
+                                    author=user).exclude(
+                                    respondant=user).exists():
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
         survey.respondant_count += 1
@@ -278,7 +285,10 @@ def participate(request, survey_id):
                     cur_response.save()
                     item.response.add(cur_response)
             item.save()
+        survey.respondant.add(user)
         survey.save()
+        user.point += 100
+        user.save()
         return HttpResponse(status=201)
     else:
         return HttpResponseBadRequest(['POST'])
@@ -352,16 +362,19 @@ def mycart(request):
 @check_logged_in
 def participating_list(request):
     if request.method == 'GET':
-        today = datetime.date.today()
+        today = date.today()
+        user = request.user
         surveys = list(SurveyOngoing.objects
-                       .filter(target_gender=user.gender,
+                       .filter(target_gender__in=[user.gender, 'A'],
                                target_age_start__lte=user.age,
                                target_age_end__gte=user.age,
                                survey_end_date__gte=today)
-                       .exclude(author=request.user,
-                                respondant=request.user)
-                       .values()
-                       )
+                       .exclude(author=user)
+                       .exclude(respondant=user)
+                       .values())
+        for survey in surveys:
+            if (survey['target_respondant_count'] == survey['respondant_count'] ):
+                surveys.remove(survey)
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
@@ -389,5 +402,13 @@ def my_survey_completed(request):
             survey['author'] = user.username
             del survey['author_id']
         return JsonResponse(survey_list, safe=False)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+@check_logged_in
+def get_point(request):
+    if request.method == 'GET':
+        user = request.user
+        return JsonResponse(user.point, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
