@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
+import './MakingPage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -39,15 +40,16 @@ export class MakingPage extends Component {
       gender_check: false,
       age_check: false,
       response_count: 0,
-      due_date: moment().format('YYYY/MM/DD'),
-      open_date: moment().format('YYYY/MM/DD'),
+      due_date: moment(),
+      open_date: moment(),
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_selection: false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [],
         },
       ],
-      focused: false,
+      open_date_focused: false,
+      due_date_focused: false,
       scrollPostion: 0,
     }
 
@@ -76,11 +78,11 @@ export class MakingPage extends Component {
 
     multipleSelectionToggler = (number) => {
       const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].multiple_selection == false) {
-        new_list[number - 1].multiple_selection = true;
+      if (this.state.item_list[number - 1].multiple_choice == false) {
+        new_list[number - 1].multiple_choice = true;
         this.setState({ item_list: new_list });
       } else {
-        new_list[number - 1].multiple_selection = false;
+        new_list[number - 1].multiple_choice = false;
         this.setState({ item_list: new_list });
       }
     }
@@ -98,8 +100,8 @@ export class MakingPage extends Component {
         title: this.state.title,
         content: this.state.content,
         survey_start_date: moment().format('YYYY/MM/DD'),
-        survey_end_date: this.state.due_date,
-        open_date: this.state.open_date,
+        survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
+        open_date: this.state.open_date.format('YYYY/MM/DD'),
         item: this.state.item_list,
         target_age_start: this.state.target_age[0],
         target_age_end: this.state.target_age[1],
@@ -115,7 +117,7 @@ export class MakingPage extends Component {
         number: this.state.item_list.length + 1,
         title: '',
         question_type: 'Subjective',
-        multiple_selection: false,
+        multiple_choice: false,
         selection: [],
       };
       this.state.item_list.push(new_item);
@@ -132,7 +134,7 @@ export class MakingPage extends Component {
       <MakingItem
         number={item.number}
         question_type={item.question_type}
-        multiple_selection={item.multiple_selection}
+        multiple_choice={item.multiple_choice}
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
@@ -177,13 +179,13 @@ export class MakingPage extends Component {
               </Segment>
             </Sticky>
             <Segment style={{ backgroundColor: '#A3C6C4', 'border-color': 'white' }}>
-              <h3><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Title </p>
+              <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
               <Input className="SurveyTitle" style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
               <br />
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Content </p>
+              <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
               <TextArea
                 className="SurveyContent"
                 rows={4}
@@ -194,7 +196,7 @@ export class MakingPage extends Component {
               />
               <br />
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Due Date </p>
+              <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
               <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
@@ -203,31 +205,43 @@ export class MakingPage extends Component {
                 focused={this.state.due_date_focused}
                 date={moment(this.state.due_date)}
               />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Open Date </p>
+              <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
               <SingleDatePicker
                 borderRadius={5}
                 numberOfMonths={1}
                 onDateChange={(open_date) => this.setState({ open_date })}
                 onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
-                focused={this.state.due_date_focused}
-                date={moment(this.state.due_date)}
+                focused={this.state.open_date_focused}
+                date={moment(this.state.open_date)}
               />
             </Segment>
 
             <Segment style={{ backgroundColor: '#A3C6C4' }}>
-              <h3 color="#354649"><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Gender </p>
+              <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
               <Form.Select className="genderSelect" value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
-              <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
-              {' '}
+              <div id="Gender">
+                <Checkbox className="genderCheck" defaultChecked onClick={this.genderCheckToggler} />
+                {' '}
                 Won't input gender option
-              <p style={{ 'font-size': '15px', marginBottom: 5 }}>Age </p>
+              </div>
+              <p style={{
+                'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
+              }}
+              >
+Age
+              </p>
               <Form.Select className="ageSelect" value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
               <Checkbox className="ageCheck" defaultChecked onClick={this.ageCheckToggler} />
             Won't input age option
-              <p>Target People:</p>
-              <Input className="targetCount" type="text" onChange={(event) => this.setState({ response_count: event.target.value })} />
+              <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target People:</p>
+              <Input
+                className="targetCount"
+                type="text"
+                onChange={(event) => this.setState({ response_count: event.target.value })}
+                placeholder="... How much People?"
+              />
             </Segment>
             <h3>3. Items</h3>
             <Button className="addItemButton" onClick={this.addItemHandler}>

@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 
 export const participateSurvey_ = () => ({ type: actionTypes.PARTICIPATE_SURVEY });
 
-export const participateSurvey = (id, data) => (dispatch) => axios.post('/api/participate/' + String(id) + '/', data)
+export const participateSurvey = (id, data) => (dispatch) => axios.post(`/api/participate/${String(id)}/`, data)
   .then((res) => {
     dispatch(participateSurvey_());
     return res;
@@ -58,10 +58,10 @@ export const addOngoingSurvey = (survey) => (dispatch) => axios.post('/api/make/
   return res;
 });
 
-export const getSurvey_ = (survey) => ({ type: actionTypes.GET_SURVEY, target: survey });
+export const getCompletedSurvey_ = (survey_completed) => ({ type: actionTypes.GET_COMPLETED_SURVEY, target: survey_completed });
 
-export const getSurvey = (id) => (dispatch) => axios.get(`/api/survey/completed/${id}/`).then((res) => {
-  dispatch(getSurvey_(res.data));
+export const getCompletedSurvey = (id) => (dispatch) => axios.get(`/api/survey/completed/${id}/`).then((res) => {
+  dispatch(getCompletedSurvey_(res.data));
   return res;
 });
 

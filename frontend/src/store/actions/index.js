@@ -1,8 +1,8 @@
 export {
-  logIn, signUp, logOut, checklogIn,
+  logIn, signUp, logOut, checklogIn, addUserPoint,
 } from './user';
 export {
-  getSurveyList, getSurveyAll, getSurvey, /*uploadSurvey,*/ getOngoingSurveyList, getOngoingSurvey, addOngoingSurvey, participateSurvey,
+  getSurveyList, /* getSurvey, uploadSurvey, */ getOngoingSurveyList, getCompletedSurvey, getOngoingSurvey, addOngoingSurvey, participateSurvey,
 } from './survey';
 export {
   getCart, addCart, deleteCart,

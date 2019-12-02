@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
+import './MakingItem.css';
 
 export class MakingItem extends Component {
   state = {
@@ -35,17 +36,19 @@ export class MakingItem extends Component {
   render() {
     return (
       <Segment className="MakingItem" style={{ backgroundColor: '#6C7A89', minHeight: '250px' }}>
+        <div id="ItemTop">
         Q
-        {this.props.number}
+          {this.props.number}
 : &nbsp;&nbsp;
-        <Input className="title" id="title" onChange={(e) => this.titleChangeHandler(e.target.value)} />
-        <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-        {this.props.question_type}
+          <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
+          {this.props.question_type}
+        </div>
         {
           (this.props.question_type == 'Selection')
           && (
           <div>
-            <Checkbox className="MultipleSelection" label={this.props.multiple_selection ? 'Multiple Selection' : 'Single Selection'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
+            <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'Multiple Choice' : 'Single Choice'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
             <br />
             Options:
           </div>

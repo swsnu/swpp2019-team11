@@ -10,8 +10,6 @@ const initialState = {
 
 const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   switch (action.type) {
-    case actionTypes.GET_SURVEY:
-      return {...state, survey: action.target};
     case actionTypes.EDIT_SURVEY:
     case actionTypes.DELETE_SURVEY:
     case actionTypes.GET_ONGOING_SURVEY:
@@ -19,6 +17,8 @@ const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
     case actionTypes.ADD_ONGOING_SURVEY:
       return { ...state };
     case actionTypes.PARTICIPATE_SURVEY:
+      return { ...state };
+    case actionTypes.GET_COMPLETED_SURVEY:
       return { ...state };
     default:
       break;

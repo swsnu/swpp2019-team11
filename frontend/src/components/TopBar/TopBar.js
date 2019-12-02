@@ -19,16 +19,21 @@ export const TopBar = (props) => (
     </Segment>
     <Menu size="big" className="UtilBar" style={{ borderRadius: '0px', marginBottom: '-15px' }}>
       <Menu.Item
+        className="Participate"
         onClick={() => props.history.push('/participate')}
       >
           Participate Survey
       </Menu.Item>
 
-      <Menu.Item>
+      <Menu.Item
+        className="Making"
+        onClick={() => props.history.push('/making')}
+      >
           Make Survey
       </Menu.Item>
 
       <Menu.Item
+        className="Mypage"
         onClick={() => props.history.push('/mypage')}
       >
           MyPage

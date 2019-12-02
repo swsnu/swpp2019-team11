@@ -6,7 +6,6 @@ from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
-from datetime import datetime
 from .models import SurveyOngoing, Survey, Cart, SurBingUser, Item, Response, Selection
 
 
@@ -271,11 +270,10 @@ def participate(request, survey_id):
             for response in response_list:
                 if (item.number == response['number']):
                     cur_response = Response(
-                        respondant_number=survey.respondant_count + 1,
+                        respondant_number=survey.respondant_count,
                         content=response['content'])
                     cur_response.save()
                     item.response.add(cur_response)
-                    break
             item.save()
         survey.save()
         return HttpResponse(status=201)
