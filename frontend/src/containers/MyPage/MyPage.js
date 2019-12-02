@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
 import TableForm from '../../components/TableForm/TableForm';
+import './MyPage.css';
 
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -50,16 +51,16 @@ export class MyPage extends Component {
     if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
       return (
         <div className="SurveyOngoing">
-          <h2>Ongoing Survey</h2>
+          <h1 id="ongoingTitle">Ongoing Survey</h1>
           <br />
-          <TableForm content={this.props.ongoing_survey_list} />
+          <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} />
         </div>
       );
     }
     if (this.state.clickedMenu == 1 && this.props.survey_list) {
       return (
         <div className="SurveyCompleted">
-          <h2>Opened Survey</h2>
+          <h1 id="openedTitle">Opened Survey</h1>
           <br />
           <TableForm content={this.props.survey_list} />
         </div>
@@ -68,7 +69,7 @@ export class MyPage extends Component {
     if (this.state.clickedMenu == 2 && this.props.cart_list) {
       return (
         <div className="Cart">
-          <h2>Cart</h2>
+          <h1 id="cartTitle">Cart</h1>
           <br />
           <TableForm content={this.props.cart_list} />
         </div>
@@ -82,27 +83,27 @@ export class MyPage extends Component {
   render() {
     return (
       <div className="myPage">
-        <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
-        <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2, color: 'black' }}>
+        <TopBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
+        <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2 }}>
           <Sidebar
+            id="sidebar"
             as={Menu}
             icon="labeled"
             inverted
             visible
             vertical
-            width="thin"
           >
-            <Menu.Item className="OngoingSurvey" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
+            <Menu.Item className="OngoingSurvey" id="ongoing" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item className="CompletedSurvey" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
+            <Menu.Item className="CompletedSurvey" id="completed" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item className="Cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
+            <Menu.Item className="Cart" id="cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
               Cart
             </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher style={{ minHeight: 800 }}>
+          <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 800 }}>
             <Segment basic>
               {this.selectmenu()}
             </Segment>
