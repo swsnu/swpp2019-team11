@@ -11,7 +11,11 @@ class SurBingTestCase(TestCase):
     def setUp(self):
         cart = Cart.objects.create()
         cart.save()
-        user = SurBingUser.objects.create_user(username='testuser', password='test', cart=cart)
+        user = SurBingUser.objects.create_user(username='testuser',
+                                               password='test',
+                                               cart=cart,
+                                               age=20,
+                                               gender='M')
         user.save()
         response = Response.objects.create(respondant_number=1, content='content')
         response.save()
@@ -53,7 +57,9 @@ class SurBingTestCase(TestCase):
         response = client.post('/api/signup/',
                                json.dumps({'username': 'jomjung',
                                            'password': '1234',
-                                           'email': 'qwerty@gmail.com'}),
+                                           'email': 'qwerty@gmail.com',
+                                           'age': 20,
+                                           'gender': 'F'}),
                                content_type='application/json')
         self.assertEqual(response.status_code, 201)
         # signup decode error
@@ -99,7 +105,9 @@ class SurBingTestCase(TestCase):
         client.post('/api/signup/',
                     json.dumps({'username': 'jomjung',
                                 'password': '1234',
-                                'email': 'qwerty@gmail.com'}),
+                                'email': 'qwerty@gmail.com',
+                                'age': 20,
+                                'gender': 'F'}),
                     content_type='application/json')
         client.post('/api/login/',
                     json.dumps({'username': 'jomjung', 'password': '1234'}),
@@ -293,37 +301,50 @@ class SurBingTestCase(TestCase):
         client = Client()
 
         client.post('/api/signup/',
-                    json.dumps({'username': 'jomjung1',
+                    json.dumps({'username': 'jomjung',
                                 'password': '1234',
-                                'email': 'qwerty@gmail.com'}),
+                                'email': 'qwerty@gmail.com',
+                                'age': 20,
+                                'gender': 'F'}),
+                    content_type='application/json')
+        client.post('/api/signup/',
+                    json.dumps({'username': 'swpp',
+                                'password': '1234',
+                                'email': 'qwer@gmail.com',
+                                'age': 20,
+                                'gender': 'M'}),
                     content_type='application/json')
         client.post('/api/login/',
-                    json.dumps({'username': 'jomjung1', 'password': '1234'}),
+                    json.dumps({'username': 'jomjung', 'password': '1234'}),
                     content_type='application/json')
 
-        client.post('/api/make/', json.dumps({
-            'item': [{'number': 1, 'title': 'title_test', 'question_type': 'Selection',
-                      'selection': [{'number': 1, 'content': 'test selection'}],
-                      'response': [{'respondant_number': 1, 'content': 'Yes'}]
-                      }],
+        response = client.post('/api/make/', json.dumps({
+            'item': [{'number': 1,
+                      'title': 'title_test11',
+                      'question_type': 'Selection',
+                      'multiple_choice': False,
+                      'selection': [{'number': 1, 'content': 'test selection'}]}],
             'title': 'test',
             'survey_start_date': '1999/3/15',
-            'survey_end_date': '2019/3/15',
+            'survey_end_date': '2020/3/15',
             'open_date': '2020/1/1',
             'content': 'SurveyContent',
             'target_age_start': 20,
             'target_age_end': 29,
             'target_gender': 'M',
-            'respondant_count': 1,
             'target_respondant_count': 1}),
-                    content_type='application/json')
-
+                               content_type='application/json')
+        self.assertEqual(response.status_code, 201)
         # completed survey+id not exist
-        response = client.get('/api/survey/ongoing/9/')
+        response = client.get('/api/survey/ongoing/awdwa/')
         self.assertEqual(response.status_code, 404)
 
-        # completed survey+id test
         survey_id = SurveyOngoing.objects.filter(title='test').values()[0]['id']
+        client.get('/api/logout/')
+        client.post('/api/login/',
+                    json.dumps({'username': 'SWPP', 'password': '1234'}),
+                    content_type='application/json')
+
         # participate
         response = client.post('/api/participate/' + str(survey_id) + '/', json.dumps(
             [{'number': 1, 'content': 'content_test'}]),

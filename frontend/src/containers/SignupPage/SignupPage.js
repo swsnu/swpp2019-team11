@@ -13,18 +13,44 @@ export class SignupPage extends Component {
     username: '',
     password: '',
     password_confirmation: '',
+    age: '',
+    gender: '',
+    email_error: false,
+    username_error: false,
+    password_error: false,
+    password_confirmation_error: false,
+    age_error: false,
+    gender_error: false,
+  }
+
+  options = [
+    { key: 'm', text: 'Male', value: 'M' },
+    { key: 'f', text: 'Female', value: 'F' },
+    { key: 'o', text: 'Other', value: 'O' },
+  ]
+
+  validate = () => {
+    this.setState({
+      email_error: (this.state.email == ''),
+      username_error: (this.state.username == ''),
+      password_error: (this.state.password == ''),
+      password_confirmation_error: (this.state.password != this.state.password_confirmation),
+      age_error: !!((this.state.age == '' || !Number.isInteger(+this.state.age))),
+      gender_error: (this.state.gender == ''),
+    });
   }
 
 
   signupHandler = () => {
-    if (this.state.password != this.state.password_confirmation) {
-      // alert('Password Confiramtion is different!');
-    } else {
-      this.props.signUp(this.state.username, this.state.email, this.state.password).then(() => {
-        this.props.history.push('/login');
-      })
-        .catch(() => {
-          // alert(res);
+    this.validate();
+    if (!this.state.age_error
+        && !this.state.email_error
+        && !this.state.gender_error
+        && !this.state.password_error
+        && !this.state.password_confirmation_error) {
+      this.props.signUp(this.state.username, this.state.email, this.state.password, this.state.age, this.state.gender)
+        .then(() => {
+          this.props.history.push('/login');
         });
     }
   }
@@ -39,8 +65,8 @@ export class SignupPage extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Form.Input className="Email" fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} />
-                <Form.Input className="UserName" fluid icon="user" iconPosition="left" placeholder="Username" value={this.state.username} onChange={(e) => this.setState({ username: e.target.value })} />
+                <Form.Input className="Email" fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => { this.state.email = e.target.value; this.validate(); }} error={this.state.email_error} />
+                <Form.Input className="UserName" fluid icon="user" iconPosition="left" placeholder="Username" value={this.state.username} onChange={(e) => { this.state.username = e.target.value; this.validate(); }} error={this.state.username_error} />
                 <Form.Input
                   className="Password"
                   fluid
@@ -48,8 +74,9 @@ export class SignupPage extends Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
+                  error={this.state.password_error}
                   value={this.state.password}
-                  onChange={(e) => this.setState({ password: e.target.value })}
+                  onChange={(e) => { this.state.password = e.target.value; this.validate(); }}
                 />
                 <Form.Input
                   className="PasswordComfirmation"
@@ -58,9 +85,14 @@ export class SignupPage extends Component {
                   iconPosition="left"
                   placeholder="Password confirmation"
                   type="password"
+                  error={this.state.password_confirmation_error}
                   value={this.state.password_confirmation}
-                  onChange={(e) => this.setState({ password_confirmation: e.target.value })}
+                  onChange={(e) => { this.state.password_confirmation = e.target.value; this.validate(); }}
                 />
+                <Form.Group widths="equal">
+                  <Form.Input className="ageInput" onChange={(e) => { this.state.age = e.target.value; this.validate(); }} fluid placeholder="Age" error={this.state.age_error} />
+                  <Form.Select className="genderInput" options={this.options} onChange={(e, { value }) => { this.state.gender = value; this.validate(); }} placeholder="Gender" error={this.state.gender_error} />
+                </Form.Group>
                 <Button id="signupButton" color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
@@ -78,7 +110,7 @@ export class SignupPage extends Component {
   }
 }
 export const mapDispatchToProps = (dispatch) => ({
-  signUp: (username, email, password) => dispatch(actionCreators.signUp(username, email, password)),
+  signUp: (username, email, password, age, gender) => dispatch(actionCreators.signUp(username, email, password, age, gender)),
 });
 
 
