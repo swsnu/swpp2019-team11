@@ -93,6 +93,14 @@ def signout(request):
         return HttpResponseBadRequest(['GET'])
 
 
+def getinfo(request):
+    if request.method == 'GET':
+        info = { 'username': request.user.username, 'point': request.user.point }
+        return JsonResponse(info, safe=False)
+    else:
+        return HttpResponseBadRequest(['GET'])
+
+
 @check_logged_in
 def search(request, keyword=''):
     if request.method == 'GET':
