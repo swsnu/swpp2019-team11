@@ -24,7 +24,7 @@ export class SurveyCompleted extends Component {
       )
     }
         else {
-      return (<Grid><h2> The completed survey list is Empty! </h2></Grid>);
+      return (<p>The completed survey list is Empty!</p>);
     }
   };
 
