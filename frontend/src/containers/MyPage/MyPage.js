@@ -59,7 +59,6 @@ export class MyPage extends Component {
           </div>
         );
       }
-      return Cart;
     };
 
     return (
