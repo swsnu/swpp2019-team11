@@ -75,7 +75,7 @@ describe('ActionCreators', () => {
       const result = { ststus: 200, data: stubSurveyList };
       res(result);
     }));
-    store.dispatch(actionCreators.getOngoingSurveyList())
+    store.dispatch(actionCreators.getMyOngoingSurveys())
       .then(() => {
         const newState = store.getState();
         expect(newState.svl.survey_list).toEqual(stubSurveyList);

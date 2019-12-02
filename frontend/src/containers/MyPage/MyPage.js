@@ -12,7 +12,7 @@ import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
-  getSurveyOngoing: () => { dispatch(actionCreators.getOngoingSurveyList()); },
+  getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
 });
 
 export const mapStateToProps = (state) => ({
