@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+import { Ref } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
@@ -13,6 +14,8 @@ export const mapStateToProps = (state) => ({
 });
 
 export class SurveyParticipate extends Component {
+  contextRef = createRef()
+
   componentDidMount() {
     this.props.getSurveyList();
   }
@@ -25,31 +28,33 @@ export class SurveyParticipate extends Component {
 
   render() {
     return (
-      <div className="SurveyParticipate">
-        <TopBar />
-        <table celled id="ParticipateTable">
-          <thead id="TableHeader">
-            <tr>
-              <th>Survey Title</th>
-              <th id="dateHeader">Upload Date</th>
-              <th id="buttonHeader">Participate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.survey_list.map((survey) => (
+      <Ref innerRef={this.contextRef}>
+        <div className="SurveyParticipate">
+          <TopBar context={this.contextRef} />
+          <table celled id="ParticipateTable">
+            <thead id="TableHeader">
               <tr>
-                <td id="titleRow">{ survey.title }</td>
-                <td id="dateRow">{ survey.upload_date }</td>
-                <td id="buttonRow">
-                  <button id="participateButton" onClick={() => this.props.history.push(`/responsing/${survey.id}/`)}>
-                    Participate
-                  </button>
-                </td>
+                <th>Survey Title</th>
+                <th id="dateHeader">Upload Date</th>
+                <th id="buttonHeader">Participate</th>
               </tr>
-            )) }
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {this.props.survey_list.map((survey) => (
+                <tr>
+                  <td id="titleRow">{ survey.title }</td>
+                  <td id="dateRow">{ survey.upload_date }</td>
+                  <td id="buttonRow">
+                    <button id="participateButton" onClick={() => this.props.history.push(`/responsing/${survey.id}/`)}>
+                      Participate
+                    </button>
+                  </td>
+                </tr>
+              )) }
+            </tbody>
+          </table>
+        </div>
+      </Ref>
     );
   }
 }

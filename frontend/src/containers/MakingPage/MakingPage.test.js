@@ -86,6 +86,7 @@ jest.mock('react-dates', () => ({
 }));
 
 jest.mock('../../components/MakingPage/MakingItem', () => () => null);
+jest.mock('../../components/ProfileButton/ProfileButton', () => () => null);
 
 describe('mount', () => {
   beforeEach(() => { jest.clearAllMocks(); });

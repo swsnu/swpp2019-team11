@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import {
-  Grid, Menu, Segment, Sidebar,
+  Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
-import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
-import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
 import * as actionCreators from '../../store/actions/index';
-import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
+import TableForm from '../../components/TableForm/TableForm';
+
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getCart: () => dispatch(actionCreators.getCart()),
   getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
+  getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
 export const mapStateToProps = (state) => ({
-  survey_list: state.ct.survey_list,
+  cart_list: state.ct.survey_list,
+  survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
   username: state.us.info.username,
   point: state.us.info.point,
@@ -28,6 +29,12 @@ export class MyPage extends Component {
     clickedMenu: 0,
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props != prevProps) {
+      this.forceUpdate();
+    }
+  }
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
@@ -36,52 +43,43 @@ export class MyPage extends Component {
       .catch(() => { this.props.history.push('/login/'); });
     this.props.getSurveyOngoing();
     this.props.getCart();
+    this.props.getSurveyAll();
   }
 
-  getContents = () => {
-    if (this.props.survey_list.length != 0) {
+  selectmenu = () => {
+    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
       return (
-        this.props.survey_list.map((cur) => (
-          <Grid>
-            <Grid columns={1}>
-              <Grid.Column style={{ minWidth: 830 }}>
-                <SurveyBlock survey={cur} search={false} />
-              </Grid.Column>
-            </Grid>
-          </Grid>
-        ))
+        <div className="SurveyOngoing">
+          <h2>Ongoing Survey</h2>
+          <br />
+          <TableForm content={this.props.ongoing_survey_list} />
+        </div>
       );
     }
-    return (<Grid><h2> The Cart is Empty! </h2></Grid>);
+    if (this.state.clickedMenu == 1 && this.props.survey_list) {
+      return (
+        <div className="SurveyCompleted">
+          <h2>Opened Survey</h2>
+          <br />
+          <TableForm content={this.props.survey_list} />
+        </div>
+      );
+    }
+    if (this.state.clickedMenu == 2 && this.props.cart_list) {
+      return (
+        <div className="Cart">
+          <h2>Cart</h2>
+          <br />
+          <TableForm content={this.props.cart_list} />
+        </div>
+      );
+    }
+
+    return null;
   };
-  // We may replace it with existed cartpage.
+
 
   render() {
-    const cartContents = this.getContents();
-    const Cart = (
-      <div>
-        <h2>Cart page...</h2>
-        {cartContents}
-      </div>
-    );
-
-    const selectmenu = () => {
-      if (this.state.clickedMenu == 0) {
-        return (
-          <div>
-            <SurveyOngoing />
-          </div>
-        );
-      } if (this.state.clickedMenu == 1) {
-        return (
-          <div>
-            <SurveyCompleted />
-          </div>
-        );
-      }
-      return Cart;
-    };
-
     return (
       <div className="myPage">
         <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
@@ -94,19 +92,19 @@ export class MyPage extends Component {
             vertical
             width="thin"
           >
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 0 }); }}>
+            <Menu.Item className="OngoingSurvey" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 1 }); }}>
+            <Menu.Item className="CompletedSurvey" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item onClick={() => { this.setState({ clickedMenu: 2 }); }}>
+            <Menu.Item className="Cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
               Cart
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher style={{ minHeight: 800 }}>
             <Segment basic>
-              {selectmenu()}
+              {this.selectmenu()}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

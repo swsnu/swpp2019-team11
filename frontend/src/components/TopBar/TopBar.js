@@ -7,7 +7,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import ProfileButton from '../ProfileButton/ProfileButton';
 
 export const TopBar = (props) => (
-  <Sticky className="TopBar" style={{ backgroundColor: '#ffffff', 'x-index': 1 }}>
+  <Sticky className="TopBar" style={{ backgroundColor: '#ffffff', 'x-index': 1 }} context={props.context}>
     <Segment style={{ height: '100px', marginBottom: '-15px' }}>
       <Grid colums={3} style={{ 'min-width': '800px' }}>
         <Grid.Row verticalAlign="middle" style={{ marginBottom: '0px' }}>
