@@ -8,6 +8,7 @@ import SurveyItem from '../../components/SurveyDetailPage/SurveyItem/SurveyItem'
 import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import * as actionCreators from '../../store/actions/index';
+import Graph from '../../components/Graph/Graph'
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -111,6 +112,7 @@ Download
           </Grid.Row>
         </Grid>
         {items}
+        <Graph/>
       </div>
     );
   }

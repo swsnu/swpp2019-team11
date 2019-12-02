@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Grid, Menu, Segment, Sidebar,
+  Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import SurveyOngoing from '../../components/MyPage/SurveyOngoing/SurveyOngoing';
 import SurveyCompleted from '../../components/MyPage/SurveyCompleted/SurveyCompleted';
+import Cart from '../../components/MyPage/Cart/Cart';
 import * as actionCreators from '../../store/actions/index';
-import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -17,6 +17,7 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
+  cart_list: state.ct.survey_list,
   survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
 });
@@ -36,31 +37,7 @@ export class MyPage extends Component {
     this.props.getSurveyAll();
   }
 
-  getContents = () => {
-    if (this.props.survey_list.length != 0) {
-      return (
-        this.props.survey_list.map((cur) => (
-          <Grid>
-            <Grid columns={1}>
-              <Grid.Column style={{ minWidth: 830 }}>
-                <SurveyBlock survey={cur} search={false} />
-              </Grid.Column>
-            </Grid>
-          </Grid>
-        ))
-      );
-    }
-    return (<Grid><h2> The Cart is Empty! </h2></Grid>);
-  };
-
   render() {
-    const cartContents = this.getContents();
-    const Cart = (
-      <div>
-        <h2>Cart page...</h2>
-        {cartContents}
-      </div>
-    );
 
     const selectmenu = () => {
       if (this.state.clickedMenu == 0) {
@@ -73,6 +50,12 @@ export class MyPage extends Component {
         return (
           <div>
             <SurveyCompleted />
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <Cart />
           </div>
         );
       }
