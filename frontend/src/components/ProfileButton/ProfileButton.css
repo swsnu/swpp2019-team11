@@ -1,0 +1,38 @@
+
+.UserIcon {
+    color: #6c7a89;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#upperItem {
+    min-width: 100px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+
+#secondItem {
+    padding: 0px;
+    text-align: center;    
+}
+
+#username {
+    font-size: 12px; 
+}
+
+#userpoint {
+    font-size: 11px; 
+}
+
+.logOut {
+    min-width: 140px;
+    min-height: 20px;
+    border-right: 0px;
+}
+
+.Menu {
+    min-height: 150px;
+    min-width: 150px;
+    text-align : center;
+}
