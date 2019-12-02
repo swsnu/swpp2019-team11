@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
-import TableForm from '../../components/TableForm/TableForm'
+import TableForm from '../../components/TableForm/TableForm';
 
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -25,12 +25,13 @@ export class MyPage extends Component {
   state = {
     clickedMenu: 0,
   }
-  componentDidUpdate(prevProps){
-    if(this.props != prevProps){
-      this.forceUpdate()
+
+  componentDidUpdate(prevProps) {
+    if (this.props != prevProps) {
+      this.forceUpdate();
     }
   }
- 
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
@@ -44,37 +45,35 @@ export class MyPage extends Component {
   selectmenu = () => {
     if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
       return (
-          <div className="SurveyOngoing">
+        <div className="SurveyOngoing">
           <h2>Ongoing Survey</h2>
           <br />
-          <TableForm content = {this.props.ongoing_survey_list}/>
+          <TableForm content={this.props.ongoing_survey_list} />
         </div>
       );
-    } 
-    else if (this.state.clickedMenu == 1 && this.props.survey_list) {
+    }
+    if (this.state.clickedMenu == 1 && this.props.survey_list) {
       return (
         <div className="SurveyCompleted">
-        <h2>Opened Survey</h2>
-        <br />
-        <TableForm content = {this.props.survey_list}/>
-      </div>
+          <h2>Opened Survey</h2>
+          <br />
+          <TableForm content={this.props.survey_list} />
+        </div>
       );
     }
-    else if (this.state.clickedMenu == 2 && this.props.cart_list){
+    if (this.state.clickedMenu == 2 && this.props.cart_list) {
       return (
         <div className="Cart">
-        <h2>Cart</h2>
-        <br />
-        <TableForm content = {this.props.cart_list}/>
-      </div>
+          <h2>Cart</h2>
+          <br />
+          <TableForm content={this.props.cart_list} />
+        </div>
       );
     }
-    else {
-      return null;
-    }
+
+    return null;
   };
 
-  
 
   render() {
     return (
