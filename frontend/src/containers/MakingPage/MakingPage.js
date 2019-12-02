@@ -58,7 +58,7 @@ export class MakingPage extends Component {
       ],
       open_date_focused: false,
       due_date_focused: false,
-      scrollBound : [200, 300]
+      scrollBound: [200, 300],
     }
 
 
@@ -163,14 +163,13 @@ export class MakingPage extends Component {
       const winHeight = window.innerHeight;
       const docHeight = this.getDocHeight();
       const totalDocScrollLength = docHeight - winHeight;
-      if(totalDocScrollLength<1000){
-        this.setState({scrollBound : [ 300,  400]})
-      }
-      else{
-        this.setState({scrollBound : [500 ,  850]})
+      if (totalDocScrollLength < 1000) {
+        this.setState({ scrollBound: [300, 400] });
+      } else {
+        this.setState({ scrollBound: [500, 850] });
       }
     }
-    
+
     getDocHeight = () => Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
       document.body.offsetHeight, document.documentElement.offsetHeight,
