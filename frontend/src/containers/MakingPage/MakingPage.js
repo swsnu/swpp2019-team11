@@ -10,6 +10,7 @@ import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import './MakingPage.css';
+import { TopBar } from '../../components/TopBar/TopBar';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -173,35 +174,15 @@ export class MakingPage extends Component {
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
           <div>
-            <Sticky context={this.contextRef}>
-              <Segment id="innerSticky" style={{ backgroundColor: '#E0E7E9' }}>
-                <Grid colums={3} id="outerGrid" style={{ 'min-width': '800px' }}>
-                  <Grid.Row verticalAlign="middle" style={{ marginBottom: '0px' }}>
-                    <Grid.Column textAlign="center" style={{ minWidth: 200, marginRight: '50px' }}><Header className="logo" style={{ 'font-size': '4em', cursor: 'pointer' }} onClick={() => { this.props.history.push('/main'); }} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
-                    <Grid.Column style={{ minWidth: 300 }}>{ }</Grid.Column>
-                    <Grid.Column style={{ minWidth: '180px' }} id="righterGrid" floated="right"><ProfileButton id="ProfileButton" /></Grid.Column>
-                  </Grid.Row>
-                </Grid>
-                <Progress id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
-                <Menu size="big" className="UtilBar" style={{ borderRadius: '0px', marginBottom: '-15px' }}>
-                  <Menu.Item
-                    onClick={() => this.props.history.push('/participate')}
-                  >
-                    Participate Survey
-                  </Menu.Item>
-
-                  <Menu.Item
-                    onClick={() => this.props.history.push('/making')}
-                  >
-                    Make Survey
-                  </Menu.Item>
-
-                  <Menu.Item
-                    onClick={() => this.props.history.push('/mypage')}
-                  >
-                    MyPage
-                  </Menu.Item>
-                </Menu>
+            <TopBar history={this.props.history} context={this.contextRef} />
+            <Sticky offset={130} context={this.contextRef}>
+              <Segment
+                border="none"
+                style={{
+                  height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
+                }}
+              >
+                <Progress style={{ marginTop: '0px', backgroundColor: 'black' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <Segment className="Item">
