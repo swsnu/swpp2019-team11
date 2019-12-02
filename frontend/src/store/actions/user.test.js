@@ -3,16 +3,15 @@ import * as actionCreators from './user';
 import store from '../store';
 
 describe('ActionCreators', () => {
-  it('should login', (done) => {
-    const stubUser = {
+  const stubUser = {
+    username: '',
+    email: '',
+    info: {
+      point: '',
       username: '',
-      email: '',
-      info: {
-        point: '',
-        username: '',
-      },
-    };
-
+    },
+  };
+  it('should login', (done) => {
     axios.post = jest.fn(() => new Promise((res) => {
       const result = { ststus: 200, data: stubUser };
       res(result);
@@ -26,15 +25,6 @@ describe('ActionCreators', () => {
       });
   });
   it('should logout', (done) => {
-    const stubUser = {
-      username: '',
-      email: '',
-      info: {
-        point: '',
-        username: '',
-      },
-    };
-
     axios.get = jest.fn(() => new Promise((res) => {
       const result = { ststus: 200, data: stubUser };
       res(result);
@@ -48,15 +38,6 @@ describe('ActionCreators', () => {
       });
   });
   it('should signup', (done) => {
-    const stubUser = {
-      username: '',
-      email: '',
-      info: {
-        point: '',
-        username: '',
-      },
-    };
-
     axios.post = jest.fn(() => new Promise((res) => {
       const result = { ststus: 200, data: stubUser };
       res(result);
@@ -70,15 +51,6 @@ describe('ActionCreators', () => {
       });
   });
   it('should checkLogin', (done) => {
-    const stubUser = {
-      username: '',
-      email: '',
-      info: {
-        point: '',
-        username: '',
-      },
-    };
-
     axios.get = jest.fn(() => new Promise((res) => {
       const result = { ststus: 200, data: stubUser };
       res(result);
