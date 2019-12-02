@@ -7,12 +7,14 @@ jest.mock('../../components/SearchBar/SearchBar', () => () => null);
 jest.mock('../../components/ProfileButton/ProfileButton', () => () => null);
 describe('MainPage', () => {
   const mockPush = jest.fn();
+  const mockGetUserInfo = jest.fn();
   const mockCheckLogIn = jest.fn(() => new Promise((res, rej) => rej()));
   const props = {
     history: {
       push: mockPush,
     },
     checklogIn: mockCheckLogIn,
+    getUserInfo: mockGetUserInfo,
   };
   it('should render without errors', () => {
     const component = shallow(<MainPage {...props} />);

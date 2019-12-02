@@ -7,6 +7,10 @@ describe('ActionCreators', () => {
     const stubUser = {
       username: '',
       email: '',
+      info: {
+        point: '',
+        username: '',
+      },
     };
 
     axios.post = jest.fn(() => new Promise((res) => {
@@ -25,6 +29,10 @@ describe('ActionCreators', () => {
     const stubUser = {
       username: '',
       email: '',
+      info: {
+        point: '',
+        username: '',
+      },
     };
 
     axios.get = jest.fn(() => new Promise((res) => {
@@ -43,6 +51,10 @@ describe('ActionCreators', () => {
     const stubUser = {
       username: '',
       email: '',
+      info: {
+        point: '',
+        username: '',
+      },
     };
 
     axios.post = jest.fn(() => new Promise((res) => {
@@ -61,6 +73,10 @@ describe('ActionCreators', () => {
     const stubUser = {
       username: '',
       email: '',
+      info: {
+        point: '',
+        username: '',
+      },
     };
 
     axios.get = jest.fn(() => new Promise((res) => {

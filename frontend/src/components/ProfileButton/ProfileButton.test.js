@@ -9,16 +9,12 @@ describe('<ProfileButton />', () => {
   const props = {
     history: { push: () => mockPush() },
     logOut: mockLogOut,
+    username: 'jom',
   };
   const component = shallow(<ProfileButton {...props} />);
   it('should render without errors', () => {
     const wrapper = component.find('.DropDownClass');
     expect(wrapper.length).toBe(1);
-  });
-  it('myCart button should work', () => {
-    const wrapper = component.find('.myCart');
-    wrapper.simulate('click');
-    expect(mockPush).toHaveBeenCalledTimes(1);
   });
   it('logout button should work', () => {
     const wrapper = component.find('.logOut');
@@ -28,6 +24,16 @@ describe('<ProfileButton />', () => {
   it('mapDispatchToProps test', () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).logOut();
-    expect(dispatch).toHaveBeenCalledTimes(1);
+    mapDispatchToProps(dispatch).getUserInfo();
+    expect(dispatch).toHaveBeenCalledTimes(2);
+  });
+  it('componentDidUpdate', () => {
+    const mockProps = {
+      history: { push: () => mockPush() },
+      logOut: mockLogOut,
+      username: 'hoho',
+    };
+    component.instance().componentDidUpdate(mockProps);
+    expect(1).toBe(1);
   });
 });
