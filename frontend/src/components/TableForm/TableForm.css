@@ -1,0 +1,45 @@
+#Table {
+    font-family: sans-serif;
+}
+
+#Header {
+    background-color: #6c7a89;
+    color: #ffffff;
+    text-align: center;
+}
+
+#headerTitle {
+    background-color: #6c7a89;
+    color: #ffffff;
+    font-weight: normal;
+}
+
+#headerAuthor {
+    background-color: #6c7a89;
+    color: #ffffff;
+    font-weight: normal;
+
+}
+
+#headerResp {
+    background-color: #6c7a89;
+    color: #ffffff;
+    font-weight: normal;
+
+}
+
+#headerContent {
+    background-color: #6c7a89;
+    color: #ffffff;
+    font-weight: normal;
+
+}
+
+#Body {
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+#bodyTitle {
+    background-color: #e0e7e9;
+}

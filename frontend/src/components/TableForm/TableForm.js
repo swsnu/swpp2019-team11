@@ -2,39 +2,43 @@ import React from 'react';
 import {
   Menu, Table, Icon, Checkbox,
 } from 'semantic-ui-react';
+import './TableForm.css';
 
 export const TableForm = (props) => (
   <Table
     celled
     definition
+    id="Table"
     style={{
-      borderRadius: 0, width: 1300, height: 150, outline: '0.1rem solid', outlineColor: '#DEDEDF',
+      borderRadius: 0, width: 1050, height: 150, outline: '0.1rem solid', outlineColor: '#DEDEDF',
     }}
   >
-    <Table.Header>
-      <Table.Row style={{ 'font-size': '20pt' }}>
-        <Table.HeaderCell />
-        <Table.HeaderCell>Survey Title</Table.HeaderCell>
-        <Table.HeaderCell>Survey author</Table.HeaderCell>
-        <Table.HeaderCell>Survey respondant_count</Table.HeaderCell>
-        <Table.HeaderCell>Survey content</Table.HeaderCell>
+    <Table.Header id="Header">
+      <Table.Row style={{ 'font-size': '14pt' }}>
+        { props.slide && <Table.HeaderCell />}
+        <Table.HeaderCell id="headerTitle">Survey Title</Table.HeaderCell>
+        <Table.HeaderCell id="headerAuthor">Survey author</Table.HeaderCell>
+        <Table.HeaderCell id="headerResp">Survey respondant_count</Table.HeaderCell>
+        <Table.HeaderCell id="headerContent">Survey content</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
-    <Table.Body>
+    <Table.Body id="Body">
       {props.content.map((cur) => (
         <Table.Row>
+          { props.slide
+          && (
           <Table.Cell collapsing>
             <Checkbox slider />
           </Table.Cell>
-          <Table.Cell>{cur.title}</Table.Cell>
+          )}
+          <Table.Cell id="bodyTitle">{cur.title}</Table.Cell>
           <Table.Cell>{cur.author}</Table.Cell>
           <Table.Cell>{cur.respondant_count}</Table.Cell>
           <Table.Cell>{cur.content}</Table.Cell>
         </Table.Row>
       ))}
       {' '}
-      <br />
     </Table.Body>
 
     <Table.Footer>

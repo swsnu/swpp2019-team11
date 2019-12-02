@@ -53,7 +53,7 @@ export class MyPage extends Component {
         <div className="SurveyOngoing">
           <h1 id="ongoingTitle">Ongoing Survey</h1>
           <br />
-          <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} />
+          <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
         </div>
       );
     }
@@ -62,7 +62,7 @@ export class MyPage extends Component {
         <div className="SurveyCompleted">
           <h1 id="openedTitle">Opened Survey</h1>
           <br />
-          <TableForm content={this.props.survey_list} />
+          <TableForm content={this.props.survey_list} slide={false} />
         </div>
       );
     }
@@ -71,7 +71,7 @@ export class MyPage extends Component {
         <div className="Cart">
           <h1 id="cartTitle">Cart</h1>
           <br />
-          <TableForm content={this.props.cart_list} />
+          <TableForm content={this.props.cart_list} slide />
         </div>
       );
     }
