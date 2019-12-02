@@ -38,7 +38,6 @@ export class MyPage extends Component {
   }
 
   render() {
-
     const selectmenu = () => {
       if (this.state.clickedMenu == 0) {
         return (
@@ -52,13 +51,12 @@ export class MyPage extends Component {
             <SurveyCompleted />
           </div>
         );
-      } else {
-        return (
-          <div>
-            <Cart />
-          </div>
-        );
       }
+      return (
+        <div>
+          <Cart />
+        </div>
+      );
     };
 
     return (
@@ -73,13 +71,13 @@ export class MyPage extends Component {
             vertical
             width="thin"
           >
-            <Menu.Item className = "OngoingSurvey" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
+            <Menu.Item className="OngoingSurvey" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
               My Ongoing Survey
             </Menu.Item>
-            <Menu.Item className = "CompletedSurvey" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
+            <Menu.Item className="CompletedSurvey" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
               My Completed Survey
             </Menu.Item>
-            <Menu.Item className = "Cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
+            <Menu.Item className="Cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
               Cart
             </Menu.Item>
           </Sidebar>

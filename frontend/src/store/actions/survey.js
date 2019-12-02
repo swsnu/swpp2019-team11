@@ -11,7 +11,7 @@ export const participateSurvey = (id, data) => (dispatch) => axios.post(`/api/pa
 
 export const getMyCompletedSurveys_ = (survey_list) => ({
   type: actionTypes.GET_SURVEY_LIST, target: survey_list,
-})
+});
 
 export const getMyCompletedSurveys = () => (dispatch) => axios.get('/api/mypage/surveyCompleted/')
   .then((res) => {
@@ -60,7 +60,7 @@ export const addOngoingSurvey = (survey) => (dispatch) => axios.post('/api/make/
 
 export const getCompletedSurvey_ = (completed_survey) => ({
   type: actionTypes.GET_COMPLETED_SURVEY,
-  target: completed_survey
+  target: completed_survey,
 });
 
 export const getCompletedSurvey = (id) => (dispatch) => axios.get(`/api/survey/completed/${id}/`).then((res) => {

@@ -7,7 +7,7 @@ import SurveyTable from '../../SurveyTable/SurveyTable';
 
 
 export const mapStateToProps = (state) => ({
-    cart_list: state.ct.survey_list,
+  cart_list: state.ct.survey_list,
 });
 
 export class Cart extends Component {
@@ -17,11 +17,10 @@ export class Cart extends Component {
         this.props.cart_list.map((cur) => (
           <SurveyTable survey={cur} search={false} />
         ))
-      )
+      );
     }
-        else {
-      return (<p> The cart list is Empty! </p>);
-    }
+
+    return (<p> The cart list is Empty! </p>);
   };
 
   render() {

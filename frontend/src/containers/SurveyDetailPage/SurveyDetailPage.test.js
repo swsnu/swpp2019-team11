@@ -28,7 +28,7 @@ describe('SearchDetailPage', () => {
           response: [
 
           ],
-          selection : []
+          selection: [],
         },
       ],
     },

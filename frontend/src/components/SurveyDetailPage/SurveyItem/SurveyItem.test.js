@@ -12,7 +12,7 @@ describe('SurveyItem', () => {
           content: 1,
         },
       ],
-      selection : [{number :1 , content : 'yes'}]
+      selection: [{ number: 1, content: 'yes' }],
     };
     const component = shallow(<SurveyItem {...props} />);
     const wrapper = component.find('.SurveyItem');
@@ -27,7 +27,7 @@ describe('SurveyItem', () => {
           content: 'sadas',
         },
       ],
-      selection : []
+      selection: [],
     };
     const component = shallow(<SurveyItem {...props} />);
     const wrapper = component.find('.SurveyItem');

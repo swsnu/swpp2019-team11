@@ -24,8 +24,8 @@ export class SurveyDetailPage extends Component {
       .then(() => {
         this.props.onSurveyDetail(this.props.match.params.id)
           .catch(() => {
-            this.props.history.push('/survey/1')
-          })
+            this.props.history.push('/survey/1');
+          });
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
@@ -36,7 +36,6 @@ export class SurveyDetailPage extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.survey === undefined || this.props.survey.item === undefined) {
       return <div />;
     }

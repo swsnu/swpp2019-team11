@@ -21,11 +21,10 @@ export class SurveyOngoing extends Component {
         this.props.ongoing_survey_list.map((cur) => (
           <SurveyTable survey={cur} search={false} />
         ))
-      )
+      );
     }
-        else {
-      return (<p> The ongoing survey list is Empty! </p>);
-    }
+
+    return (<p> The ongoing survey list is Empty! </p>);
   };
 
   render() {

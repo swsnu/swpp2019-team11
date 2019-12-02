@@ -8,23 +8,19 @@ import ItemSelection from './ItemResponse/ItemSelection';
 import Graph from '../../Graph/Graph';
 
 function SurveyItem(props) {
-  const responses = props.response.map((rs) => {
-      return (
-        <ItemResponse
-          respondant_id={rs.respondant_number}
-          content={rs.content}
-        />
-      );
-    })
+  const responses = props.response.map((rs) => (
+    <ItemResponse
+      respondant_id={rs.respondant_number}
+      content={rs.content}
+    />
+  ));
 
-  const selections = props.selection.map((sl) => {
-    return (
-      <ItemSelection
-        number = {sl.number}
-        content = {sl.content}
-      />
-    )
-  })
+  const selections = props.selection.map((sl) => (
+    <ItemSelection
+      number={sl.number}
+      content={sl.content}
+    />
+  ));
 
   return (
     <Grid className="SurveyItem">
@@ -63,7 +59,7 @@ Q
           </ScrollArea>
         </Table.Body>
       </Table>
-        <Graph />
+      <Graph />
     </Grid>
   );
 }
