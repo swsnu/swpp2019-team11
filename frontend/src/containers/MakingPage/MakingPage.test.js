@@ -56,9 +56,9 @@ describe('MakingPage', () => {
   });
   it('Toggler', () => {
     instance.multipleSelectionToggler(1);
-    expect(instance.state.item_list[0].multiple_selection).toEqual(true);
+    expect(instance.state.item_list[0].multiple_choice).toEqual(true);
     instance.multipleSelectionToggler(1);
-    expect(instance.state.item_list[0].multiple_selection).toEqual(false);
+    expect(instance.state.item_list[0].multiple_choice).toEqual(false);
     instance.questionTypeToggler(1);
     expect(instance.state.item_list[0].question_type).toEqual('Selection');
     instance.questionTypeToggler(1);

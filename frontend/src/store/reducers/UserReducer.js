@@ -8,9 +8,13 @@ const initialState = {
 const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
   if (action === actionTypes.GET_USER) {
     return {
+      ...state,
       username: action.target.username,
       email: action.target.email,
     };
+  }
+  if (action === actionTypes.ADD_POINT) {
+    return { ...state };
   }
   return { ...state };
 };

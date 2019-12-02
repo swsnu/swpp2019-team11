@@ -1,0 +1,39 @@
+/*#Head {
+    background-color: #a3c6c4;
+    font-weight: bold;
+}*/
+
+#PageName {
+    font-weight: bold;
+}
+
+#SurveyTitle {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#SurveyContent {
+    margin-top: 6px;
+    margin-bottom: 4px;
+    font-weight: normal;
+}
+
+#SurveyAuthor {
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+#info {
+    background-color: #a3c6c4;
+}
+
+#Submit {
+    margin-top: 4px;
+    margin-left: 12px;
+    color: #e0e7e9;
+    font-size: 18px;
+    padding: 10px;
+    background-color: #354649;
+    border-radius: .28571429rem;
+}
