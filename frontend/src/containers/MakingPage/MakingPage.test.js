@@ -35,8 +35,8 @@ describe('MakingPage', () => {
     wrapper.simulate('click');
     wrapper = component.find('.genderCheck');
     wrapper.simulate('click');
-    expect(instance.state.gender_check).toEqual(true);
-    expect(instance.state.age_check).toEqual(true);
+    expect(instance.state.gender_check).toEqual(false);
+    expect(instance.state.age_check).toEqual(false);
   });
   it('form select test', () => {
     let wrapper = component.find('.genderSelect');
