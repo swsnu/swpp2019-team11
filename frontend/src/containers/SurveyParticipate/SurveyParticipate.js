@@ -23,10 +23,6 @@ export class SurveyParticipate extends Component {
     }
   }
 
-  dummy_user_dat= {
-    point: 10,
-  }
-
   render() {
     return (
       <div className="SurveyParticipate">

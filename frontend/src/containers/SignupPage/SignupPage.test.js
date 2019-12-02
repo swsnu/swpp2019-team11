@@ -10,8 +10,12 @@ jest.mock('react-router-dom', () => ({
 
 describe('<signupPage/>', () => {
   const mockSignup = jest.fn(() => new Promise((res) => { res(); }));
+  const mockPush = jest.fn()
   const props = {
     signUp: mockSignup,
+    history : {
+      push : mockPush
+    }
   };
 
   it('signupPage call', () => {
@@ -53,6 +57,27 @@ describe('<signupPage/>', () => {
     wrapper.simulate('change', { target: { value: 'test' } });
     expect(instance.state.username).toEqual('test');
   });
+  it('signup handler testing', () => {
+    const component = shallow(<SignupPage {...props} />);
+    const instance = component.instance();
+    const wrapper = component.find('.ageInput')
+    wrapper.simulate('change', {target : {value : 20}})
+    expect(instance.state.age).toEqual(20);
+  })
+  it("validate finished", () => {
+    const component = shallow(<SignupPage {...props} />);
+    const instance = component.instance();
+    const wrapper = component.find('.genderInput')
+    wrapper.simulate('change', {}, {value : 'M'})
+    instance.state.age = 'falseage'
+    instance.state.email = '11@naver.com'
+    instance.state.password = 'test'
+    instance.state.password_confirmation = 'test'
+    instance.state.username = 'jangsus1'
+    instance.validate()
+    instance.signupHandler()
+    expect(mockPush).toHaveBeenCalledTimes(0)
+  })
 });
 
 

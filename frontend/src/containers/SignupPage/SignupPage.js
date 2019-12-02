@@ -90,8 +90,8 @@ export class SignupPage extends Component {
                   onChange={(e) => {this.state.password_confirmation= e.target.value; this.validate()}}
                 />
                 <Form.Group widths='equal'>
-                  <Form.Input onChange={(e) => {this.state.age = e.target.value; this.validate() }} fluid placeholder='Age' error = {this.state.age_error}/>
-                  <Form.Select options={this.options} onChange = {(e, {value}) => {this.state.gender = value ; this.validate()}} placeholder='Gender' error = {this.state.gender_error}/>
+                  <Form.Input className = "ageInput" onChange={(e) => {this.state.age = e.target.value; this.validate() }} fluid placeholder='Age' error = {this.state.age_error}/>
+                  <Form.Select className = "genderInput" options={this.options} onChange = {(e, {value}) => {this.state.gender = value ; this.validate()}} placeholder='Gender' error = {this.state.gender_error}/>
                 </Form.Group>
                 <Button id="signupButton" color="teal" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
