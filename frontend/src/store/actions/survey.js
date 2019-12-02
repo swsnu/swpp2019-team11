@@ -29,7 +29,11 @@ export const getSurveyList = (keyword) => (dispatch) => axios.get(`/api/search/$
   });
 
 export const getMyOngoingSurveys_ = (ongoing_survey_list) => ({
+<<<<<<< HEAD
   type: actionTypes.GET_ONGOING_SURVEY_LIST, target: ongoing_survey_list,
+=======
+  type: actionTypes.GET_MY_ONGOING_SURVEYS, target: ongoing_survey_list,
+>>>>>>> master
 });
 
 export const getMyOngoingSurveys = () => (dispatch) => axios.get('/api/mypage/surveyOngoing/')
@@ -67,11 +71,8 @@ export const getCompletedSurvey = (id) => (dispatch) => axios.get(`/api/survey/c
   dispatch(getCompletedSurvey_(res.data));
   return res;
 });
-
-/*
-export const uploadSurvey_ = (survey) => ({ type: actionTypes.ADD_SURVEY, target: survey });
-
-export const uploadSurvey = (survey) => (dispatch) => axios.post('/api/survey/', survey).then((res) => {
-  dispatch(uploadSurvey_(res.data));
+export const getParticipatingList_ = (participating_list) => ({ type: actionTypes.GET_PARTICIPATING_LIST, target: participating_list });
+export const getParticipatingList = () => (dispatch) => axios.get('/api/participatinglist/').then((res) => {
+  dispatch(getParticipatingList_(res.data));
+  return res;
 });
-*/
