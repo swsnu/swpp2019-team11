@@ -83,7 +83,7 @@ export class MyPage extends Component {
     return (
       <div className="myPage">
         <TopBar searchBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
-        <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2 }}>
+        <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2, color: 'black' }}>
           <Sidebar
             as={Menu}
             icon="labeled"
