@@ -3,11 +3,11 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   username: '',
   email: '',
-  info: { 'username': '', 'point': '' },
+  info: { username: '', point: '' },
 };
 
 const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {
-  switch(action.type){
+  switch (action.type) {
     case actionTypes.GET_USER:
       return {
         ...state,

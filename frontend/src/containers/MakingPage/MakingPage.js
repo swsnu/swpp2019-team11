@@ -14,6 +14,12 @@ import './MakingPage.css';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSubmitSurvey: (survey) => dispatch(actionCreators.addOngoingSurvey(survey)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
+});
+
+export const mapStateToProps = (state) => ({
+  username: state.us.info.username,
+  point: state.us.info.point,
 });
 
 const genders = [
@@ -59,6 +65,7 @@ export class MakingPage extends Component {
       this.listenToScrollEvent();
       this.props.checklogIn()
         .then(() => {
+          this.props.getUserInfo();
         })
         .catch(() => { this.props.history.push('/login/'); });
     }
@@ -174,15 +181,15 @@ export class MakingPage extends Component {
         <Ref className="MakingPage" innerRef={this.contextRef}>
           <div>
             <Sticky context={this.contextRef}>
-              <Segment id={"innerSticky"} style={{ backgroundColor: '#E0E7E9' }}>
-                <Grid colums={3} id={"outerGrid"} style={{ 'min-width': '800px' }}>
+              <Segment id="innerSticky" style={{ backgroundColor: '#E0E7E9' }}>
+                <Grid colums={3} id="outerGrid" style={{ 'min-width': '800px' }}>
                   <Grid.Row verticalAlign="middle" style={{ marginBottom: '0px' }}>
                     <Grid.Column textAlign="center" style={{ minWidth: 200, marginRight: '50px' }}><Header className="logo" style={{ 'font-size': '4em', cursor: 'pointer' }} onClick={() => { this.props.history.push('/main'); }} size="huge" color="teal" textAlign="center">surBing</Header></Grid.Column>
                     <Grid.Column style={{ minWidth: 300 }}>{ }</Grid.Column>
-                    <Grid.Column style={{ minWidth: '180px' }} id={"righterGrid"} floated="right"><ProfileButton id={"ProfileButton"} /></Grid.Column>
+                    <Grid.Column style={{ minWidth: '180px' }} id="righterGrid" floated="right"><ProfileButton id="ProfileButton" username={this.props.username} point={this.props.point} /></Grid.Column>
                   </Grid.Row>
                 </Grid>
-                <Progress id={"progressBar"} color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
+                <Progress id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
                 <Menu size="big" className="UtilBar" style={{ borderRadius: '0px', marginBottom: '-15px' }}>
                   <Menu.Item
                     onClick={() => this.props.history.push('/participate')}
@@ -190,7 +197,7 @@ export class MakingPage extends Component {
                     Participate Survey
                   </Menu.Item>
 
-                  <Menu.Item 
+                  <Menu.Item
                     onClick={() => this.props.history.push('/making')}
                   >
                     Make Survey
@@ -283,4 +290,4 @@ Age
     }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(MakingPage));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MakingPage));
