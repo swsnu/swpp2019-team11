@@ -16,9 +16,17 @@ class Survey(models.Model):  # completed survey
     target_gender = models.CharField(max_length=1)
     respondant_count = models.IntegerField()
     item = models.ManyToManyField('Item')
+    related_survey1 = models.ForeignKey('Survey', on_delete=models.PROTECT,
+                                        related_name='pointed_mostly_related',
+                                        null=True, blank=True)
+    related_survey2 = models.ForeignKey('Survey', on_delete=models.PROTECT,
+                                        related_name='pointed_secondly_related',
+                                        null=True, blank=True)
+    similartiy1 = models.IntegerField(default=0)
+    similartiy2 = models.IntegerField(default=0)
 
 
-class SurveyOngoing(models.Model):  # not completed survey
+class SurveyOngoing(models.Model):
     title = models.CharField(max_length=120)
     author = models.ForeignKey(SurBingUser, on_delete=models.CASCADE, related_name='ongoing_author')
     upload_date = models.DateField(auto_now_add=True)
