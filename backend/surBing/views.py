@@ -186,9 +186,9 @@ def survey(request, survey_id):
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
         if (request.user is not survey.author):
-            if (request.user.point >=100):
+            if (request.user.point >= 100):
                 request.user.point -= 100
-            else :
+            else:
                 return HttpResponse(status=403)
         survey_dict = {
             'id': survey.id,
@@ -428,4 +428,3 @@ def get_point(request):
         return JsonResponse(user.point, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
-
