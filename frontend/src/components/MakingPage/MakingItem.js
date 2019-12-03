@@ -41,7 +41,7 @@ export class MakingItem extends Component {
           {this.props.number}
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
-          <Checkbox className="questionTypeToggler" toggle onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
+          <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
           {this.props.question_type}
         </div>
         {

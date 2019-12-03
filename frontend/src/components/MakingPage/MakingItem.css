@@ -1,18 +1,25 @@
+.MakingItem {
+    padding-top: 100px;
+    padding-bottom: 10px;
+}
+
 .questionTypeToggler {
     margin-left: 10px;
     margin-right: 10px;
+    color: #e0e7e9;
 }
-
 
 #ItemTop {
     font-size: 18px;
     border-radius: .28571429rem;
     margin-bottom: 12px;
+    margin-top: 10px;
 }
 
 .MultipleSelection {
     margin-bottom: 10px;
     margin-top: 10px;
+    color: #e0e7e9;
 }
 
 .MakingOptions {
@@ -32,4 +39,7 @@
     vertical-align: center;
     text-align: center;
     background-color: #a3c6c4;
+    margin-bottom: 14px;
+    border-radius: 5px;
+    font-weight: bold;
 }
