@@ -43,16 +43,18 @@ export class MakingItem extends Component {
           <Checkbox className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
           {this.props.question_type}
         </div>
-        
-          <Popup id="personalPopup" content="You must Check it if the question asks personal Data" 
-            trigger={
-              <div>
+
+        <Popup
+          id="personalPopup"
+          content="You must Check it if the question asks personal Data"
+          trigger={(
+            <div>
               <Checkbox onClick={() => { this.props.personalToggler(this.props.number); }} />
-              <p style={{ fontSize: 15, marginLeft: 10, display: 'inline'}}>This is Personal Data.</p>
-              </div>
-            }
-          />
-          
+              <p style={{ fontSize: 15, marginLeft: 10, display: 'inline' }}>This is Personal Data.</p>
+            </div>
+            )}
+        />
+
         {
           (this.props.question_type == 'Selection')
           && (

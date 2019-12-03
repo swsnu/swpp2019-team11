@@ -237,7 +237,7 @@ export class MakingPage extends Component {
 
               <Segment style={{ backgroundColor: '#A3C6C4' }}>
                 <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
-                
+
                 <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
                 <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
                 <div id="Gender">
@@ -267,7 +267,7 @@ Age
               <Button className="addItemButton" id="addItemButton" onClick={this.addItemHandler}>
             Add Question Item
               </Button>
-                <div id="Items">{ items }</div>
+              <div id="Items">{ items }</div>
               <Button className="submitButton" id="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
