@@ -26,9 +26,19 @@
     box-shadow: 0px; 
 }
 
-.Item {
-    background-color: #A3C6C4;
+#item {
+    background-color: #E0E7E9;
     border-color: white; 
+}
+
+.SurveyContent {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+#underTopbar {
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .SurveyContent {
@@ -61,4 +71,10 @@
 #innerSticky {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+#itemsText {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }

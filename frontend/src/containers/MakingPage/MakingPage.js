@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Grid, Header, Menu,
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
 import * as actionCreators from '../../store/actions/index';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import './MakingPage.css';
 import { TopBar } from '../../components/TopBar/TopBar';
 
@@ -191,77 +190,80 @@ export class MakingPage extends Component {
                 <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
-            <Segment className="Item">
-              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
-              <br />
-              <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
-              <Input className="SurveyTitle" style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
-              <br />
-              <br />
-              <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
-              <TextArea
-                className="SurveyContent"
-                rows={4}
-                onChange={(event) => this.setState({ content: event.target.value })}
-              />
-              <br />
-              <br />
-              <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
-              <SingleDatePicker
-                borderRadius={5}
-                numberOfMonths={1}
-                onDateChange={(due_date) => this.setState({ due_date })}
-                onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
-                focused={this.state.due_date_focused}
-                date={moment(this.state.due_date)}
-              />
-              <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
-              <SingleDatePicker
-                borderRadius={5}
-                numberOfMonths={1}
-                onDateChange={(open_date) => this.setState({ open_date })}
-                onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
-                focused={this.state.open_date_focused}
-                date={moment(this.state.open_date)}
-              />
-            </Segment>
+            <div id="underTopbar">
+              <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
+                <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+                <br />
+                <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
+                <Input className="SurveyTitle" placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
+                <br />
+                <br />
+                <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
+                <TextArea
+                  className="SurveyContent"
+                  placeholder="Please explain about Survey"
+                  rows={4}
+                  onChange={(event) => this.setState({ content: event.target.value })}
+                />
+                <br />
+                <br />
+                <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
+                <SingleDatePicker
+                  borderRadius={5}
+                  numberOfMonths={1}
+                  onDateChange={(due_date) => this.setState({ due_date })}
+                  onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
+                  focused={this.state.due_date_focused}
+                  date={moment(this.state.due_date)}
+                />
+                <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
+                <SingleDatePicker
+                  borderRadius={5}
+                  numberOfMonths={1}
+                  onDateChange={(open_date) => this.setState({ open_date })}
+                  onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
+                  focused={this.state.open_date_focused}
+                  date={moment(this.state.open_date)}
+                />
+              </Segment>
 
-            <Segment style={{ backgroundColor: '#A3C6C4' }}>
-              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', backgroundColor: '#E0E7E9', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
-              <br />
-              <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
-              <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
-              <div id="Gender">
-                <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
-                {' '}
+              <Segment style={{ backgroundColor: '#A3C6C4' }}>
+                <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+                <br />
+                <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
+                <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
+                <div id="Gender">
+                  <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
+                  {' '}
                 Won't input gender option
-              </div>
-              <p style={{
-                'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
-              }}
-              >
+                </div>
+                <p style={{
+                  'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
+                }}
+                >
 Age
-              </p>
-              <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
-              <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
+                </p>
+                <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
+                <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
             Won't input age option
-              <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
-              <Input
-                className="targetCount"
-                type="text"
-                error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
-                onChange={(event) => this.setState({ response_count: event.target.value })}
-                placeholder="... How many Responses?"
-              />
-            </Segment>
-            <h3>3. Items</h3>
-            <Button className="addItemButton" onClick={this.addItemHandler}>
+                <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
+                <Input
+                  className="targetCount"
+                  type="text"
+                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
+                  onChange={(event) => this.setState({ response_count: event.target.value })}
+                  placeholder="... How many Responses?"
+                />
+              </Segment>
+              <p id="itemsText">3. Items</p>
+              <Button className="addItemButton" onClick={this.addItemHandler}>
             Add Question Item
-            </Button>
-            { items }
-            <Button className="submitButton" onClick={this.submitHandler}>
+              </Button>
+              { items }
+              <Button className="submitButton" onClick={this.submitHandler}>
             Submit
-            </Button>
+              </Button>
+            </div>
           </div>
         </Ref>
       );
