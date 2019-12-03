@@ -159,7 +159,6 @@ export class MakingPage extends Component {
     }
 
     scroll = () => {
-      const scrollTop = window.pageYOffset; // how much the user has scrolled by
       const winHeight = window.innerHeight;
       const docHeight = this.getDocHeight();
       const totalDocScrollLength = docHeight - winHeight;
