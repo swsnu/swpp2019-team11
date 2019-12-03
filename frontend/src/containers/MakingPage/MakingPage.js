@@ -52,7 +52,7 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [], personal_data: false,
         },
       ],
       open_date_focused: false,
@@ -95,6 +95,12 @@ export class MakingPage extends Component {
       }
     }
 
+    personalToggler = (number) => {
+      const new_list = this.state.item_list;
+      new_list[number - 1].personal_data = !(new_list[number - 1].personal_data);
+      this.setState({ item_list: new_list });
+    }
+
     genderCheckToggler = () => {
       this.setState({ gender_check: !this.state.gender_check });
     }
@@ -127,6 +133,7 @@ export class MakingPage extends Component {
         question_type: 'Subjective',
         multiple_choice: false,
         selection: [],
+        personal_data: false,
       };
       this.state.item_list.push(new_item);
       this.forceUpdate();
@@ -146,6 +153,7 @@ export class MakingPage extends Component {
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
+        personalToggler={this.personalToggler}
       />
     ));
 
