@@ -78,3 +78,25 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+#ExplainSurvey {
+    font-family: sans-serif;
+    margin-top: 8px;
+}
+
+#TargetSetting {
+    font-family: sans-serif;
+}
+
+#Items {
+    display: inline;
+}
+
+#addItemButton {
+    margin-bottom: 10px;
+}
+
+#submitButton {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}

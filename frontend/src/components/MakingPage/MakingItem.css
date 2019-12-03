@@ -4,9 +4,13 @@
 }
 
 .questionTypeToggler {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 7px;
     color: #e0e7e9;
+}
+
+#personalPopup {
+    background-color: #ffcdd2;
 }
 
 #ItemTop {

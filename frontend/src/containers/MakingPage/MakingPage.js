@@ -200,7 +200,7 @@ export class MakingPage extends Component {
             </Sticky>
             <div id="underTopbar">
               <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
-                <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+                <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
                 <br />
                 <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
                 <Input className="SurveyTitle" placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
@@ -236,8 +236,8 @@ export class MakingPage extends Component {
               </Segment>
 
               <Segment style={{ backgroundColor: '#A3C6C4' }}>
-                <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
-                <br />
+                <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+                
                 <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
                 <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
                 <div id="Gender">
@@ -264,11 +264,11 @@ Age
                 />
               </Segment>
               <p id="itemsText">3. Items</p>
-              <Button className="addItemButton" onClick={this.addItemHandler}>
+              <Button className="addItemButton" id="addItemButton" onClick={this.addItemHandler}>
             Add Question Item
               </Button>
-              { items }
-              <Button className="submitButton" onClick={this.submitHandler}>
+                <div id="Items">{ items }</div>
+              <Button className="submitButton" id="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
             </div>
