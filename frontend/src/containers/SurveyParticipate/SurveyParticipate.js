@@ -8,9 +8,13 @@ import './SurveyParticipate.css';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getSurveyList: () => { dispatch(actionCreators.getParticipatingList()); },
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
+
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.ongoing_survey_list,
+  username: state.us.info.username,
+  point: state.us.info.point,
 });
 
 export class SurveyParticipate extends Component {
@@ -30,7 +34,7 @@ export class SurveyParticipate extends Component {
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
-          <TopBar context={this.contextRef} />
+          <TopBar context={this.contextRef} username={this.props.username} point={this.props.point} />
           <table celled id="ParticipateTable">
             <thead id="TableHeader">
               <tr>
@@ -40,7 +44,8 @@ export class SurveyParticipate extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.survey_list.map((survey) => (
+              {this.props.survey_list.map((survey) => {
+                if (true)return(
                 <tr>
                   <td id="titleRow">{ survey.title }</td>
                   <td id="dateRow">{ survey.upload_date }</td>
@@ -50,7 +55,7 @@ export class SurveyParticipate extends Component {
                     </button>
                   </td>
                 </tr>
-              )) }
+              )}) }
             </tbody>
           </table>
         </div>
