@@ -179,7 +179,7 @@ export class MakingPage extends Component {
       const items = this.Items();
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
-          <div>
+           <div>
             <TopBar history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
             <Sticky offset={130} context={this.contextRef}>
               <Segment
@@ -191,16 +191,18 @@ export class MakingPage extends Component {
                 <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={this.state.scrollPostion <= 50 ? '1' : (this.state.scrollPostion < 99 ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
+            <div id="underTopbar">
             <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9'}} backgroundColor="#E0E7E9">
-              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+              <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
               <br />
-              <p style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
-              <Input className="SurveyTitle" style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
+              <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
+              <Input className="SurveyTitle" placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
               <br />
               <br />
               <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
               <TextArea
                 className="SurveyContent"
+                placeholder="Please explain about Survey"
                 rows={4}
                 onChange={(event) => this.setState({ content: event.target.value })}
               />
@@ -227,7 +229,7 @@ export class MakingPage extends Component {
             </Segment>
 
             <Segment style={{ backgroundColor: '#A3C6C4' }}>
-              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+              <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
               <br />
               <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
               <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
@@ -254,7 +256,7 @@ Age
                 placeholder="... How many Responses?"
               />
             </Segment>
-            <h3>3. Items</h3>
+            <p id="itemsText">3. Items</p>
             <Button className="addItemButton" onClick={this.addItemHandler}>
             Add Question Item
             </Button>
@@ -262,6 +264,7 @@ Age
             <Button className="submitButton" onClick={this.submitHandler}>
             Submit
             </Button>
+            </div>
           </div>
         </Ref>
       );

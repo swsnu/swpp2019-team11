@@ -3,7 +3,33 @@
     margin-right: 10px;
 }
 
+
 #ItemTop {
-    font-size: 15px;
+    font-size: 18px;
     border-radius: .28571429rem;
+    margin-bottom: 12px;
+}
+
+.MultipleSelection {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.MakingOptions {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.Options {
+    font-size: 16px;
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+
+.addOptionButton {
+    margin-top: 30px;
+    padding: 8px;
+    vertical-align: center;
+    text-align: center;
+    background-color: #a3c6c4;
 }

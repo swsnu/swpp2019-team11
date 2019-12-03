@@ -50,7 +50,7 @@ export class MakingItem extends Component {
           <div>
             <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'Multiple Choice' : 'Single Choice'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
             <br />
-            Options:
+            <div className="Options">Options:</div>
           </div>
           )
         }
@@ -66,7 +66,7 @@ export class MakingItem extends Component {
         }
         {
           (this.props.question_type == 'Selection')
-          && <Button className="" onClick={this.addSelectionHandler}>Add options</Button>
+          && <button className="addOptionButton" onClick={this.addSelectionHandler}>Add options</button>
         }
       </Segment>
     );

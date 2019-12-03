@@ -1,0 +1,9 @@
+.OptionInput {
+    margin-left: 8px;
+    height: 32px;
+}
+
+#optionNumber {
+    font-size: 16px;
+    display: inline;
+}
