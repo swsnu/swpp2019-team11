@@ -111,10 +111,8 @@ export class SearchResultPage extends Component {
         <TopBar searchBar history={this.props.history} />
         <Grid columns={2} divided padded>
           <Grid.Row>
-            <Grid.Column centered style={{ minWidth: '430px', maxWidth: '430px' }}>
-              {' '}
+            <Grid.Column centered style={{ width: '430px', backgroundColor : '#e0e7e9'}}>
               <SearchFilter filterHandler={this.filterHandler} />
-              {' '}
             </Grid.Column>
             <Grid.Column width={8}>
               {this.state.cartPopup ? this.getCartPopup() : null}
