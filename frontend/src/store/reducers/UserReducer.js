@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   username: '',
   email: '',
-  info: { username: '', point: '' },
+  info: { username: '', point: '', age: null, gender: null },
 };
 
 const UserReducer = (state = initialState, action = actionTypes.DEFAULT) => {

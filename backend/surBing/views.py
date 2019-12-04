@@ -95,7 +95,7 @@ def signout(request):
 
 def getinfo(request):
     if request.method == 'GET':
-        info = {'username': request.user.username, 'point': request.user.point}
+        info = {'username': request.user.username, 'point': request.user.point, 'age': request.user.age, 'genger': request.user.gender}
         return JsonResponse(info, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])

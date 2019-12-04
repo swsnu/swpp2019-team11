@@ -18,22 +18,22 @@ export const mapStateToProps = (state) => ({
 
 export class ResponsePage extends Component {
   state= {
-    survey: this.props.onSurvey,
+    survey: this.props.survey,
     response_list: [],
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps != this.props) {
-      this.setState({ survey: this.props.onSurvey });
+      this.setState({ survey: this.props.survey });
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {/*
     this.props.checklogIn()
       .then(() => {
-        this.props.getOngoingSurvey(this.props.match.params.id);
+        //this.props.getOngoingSurvey(this.props.match.params.id);
       })
-      .catch(() => { this.props.history.push('/login/'); });
+      .catch(() => { this.props.history.push('/login/'); });*/
   }
 
   onSubmitHandler = () => {
@@ -49,7 +49,7 @@ export class ResponsePage extends Component {
         });
       }
     });
-    this.props.submitOngoingSurvey(this.props.match.params.id, response_json);
+    this.props.submitOngoingSurvey(this.props.survey.id, response_json);
     this.props.history.push('/participate/');
   }
 
@@ -67,11 +67,11 @@ export class ResponsePage extends Component {
             <Segment id="Head"><h1 id="PageName">ResponsingPage</h1></Segment>
           </Sticky>
           <Segment id="info">
-            <h2 id="SurveyTitle">{this.props.onSurvey.title}</h2>
-            <h3 id="SurveyContent">{this.props.onSurvey.content}</h3>
+            <h2 id="SurveyTitle">{this.props.survey.title}</h2>
+            <h3 id="SurveyContent">{this.props.survey.content}</h3>
             <h3 id="SurveyAuthor">
               {' '}
-              {this.props.onSurvey.author}
+              {this.props.survey.author}
               {' '}
             </h3>
           </Segment>
@@ -89,7 +89,7 @@ export class ResponsePage extends Component {
             ))
           }
           </div>
-          <button id="Submit" className="Submit" onClick={this.onSubmitHandler}>
+          <button id="Submit" className="Submit" onClick={() => {this.onSubmitHandler()}}>
             Submit
           </button>
         </div>

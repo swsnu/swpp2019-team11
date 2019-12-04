@@ -26,7 +26,7 @@ function App() {
         <Route path="/participate" exact component={SurveyParticipate} />
         <Route path="/mypage" exact component={MyPage} />
         <Route path="/making" exact component={MakingPage} />
-        <Route path="/responsing/:id" exact component={ResponsePage} />
+        <Route path="/responsing" exact component={ResponsePage} />
         <Redirect exact from="/" to="/login" />
       </Switch>
     </div>
