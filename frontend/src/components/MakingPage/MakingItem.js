@@ -35,20 +35,21 @@ export class MakingItem extends Component {
 
   render() {
     return (
-      <Segment className="MakingItem" style={{ backgroundColor: '#6C7A89', minHeight: '250px' }}>
+      <Segment className="MakingItem" style={{ backgroundColor: '#b8bfc7', minHeight: '250px' }}>
         <div id="ItemTop">
         Q
           {this.props.number}
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-          {this.props.question_type}
+          {this.props.question_type == 'Selection' ? "Multiple Choice" : "Short Answer"}
+          <Checkbox floated = "right" label = "includes personal data" style = {{float : 'right'}} className = "personalData" onClick = {() => {this.props.personalDataToggler(this.props.number)}} />
         </div>
         {
           (this.props.question_type == 'Selection')
           && (
           <div>
-            <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'Multiple Choice' : 'Single Choice'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
+            <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'CheckBox' : 'Radio'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
             <br />
             <div className="Options">Options:</div>
           </div>
