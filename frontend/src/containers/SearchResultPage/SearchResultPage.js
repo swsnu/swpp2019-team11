@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Modal, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
@@ -28,6 +28,10 @@ export class SearchResultPage extends Component {
     cartPopup: false,
     cartPopupStatus: 0,
     cartPopupName: '',
+    clicked_survey_id : '',
+    modal_open : false,
+
+
   }
 
   filterHandler = (startDate, endDate, respondant) => {
@@ -50,6 +54,10 @@ export class SearchResultPage extends Component {
 
   onClickPopupOff = () => {
     this.setState({ ...this.state, cartPopup: false });
+  }
+
+  onClickSurvey = (id) => {
+    this.setState({modal_open : true, clicked_survey_id : id})
   }
 
   componentDidMount() {
@@ -81,7 +89,7 @@ export class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock className="surveyBlock" search survey={survey} onClickCart={this.onClickCart} />),
+          .map((survey) => <SurveyBlock className="surveyBlock" search survey={survey} onClickCart={this.onClickCart} surveyClicked = {this.onClickSurvey} />),
       });
     }
   }
@@ -109,6 +117,22 @@ export class SearchResultPage extends Component {
     return (
       <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
+        <Modal open = {this.state.modal_open}>
+          <Modal.Header>Open survey's data</Modal.Header>
+          <Modal.Content>
+            <p>100 Point will be used for opening this survey!</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={() => this.setState({modal_open : false})} negative content = "No"/>
+            <Button
+              onClick={() => this.props.history.push('/survey/'+this.state.clicked_survey_id+'/')}
+              positive
+              labelPosition='right'
+              icon='checkmark'
+              content='Yes'
+            />
+          </Modal.Actions>
+        </Modal>
         <Grid columns={2} divided padded>
           <Grid.Row>
             <Grid.Column centered style={{ width: '430px', backgroundColor : '#e0e7e9'}}>
