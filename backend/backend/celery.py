@@ -21,7 +21,7 @@ app.conf.beat_schedule = {
     # Executes every Monday morning at 7:30 a.m.
     'add-every-monday-morning': {
         'task': 'surBing.tasks.onGoing_to_complete',
-        'schedule': crontab(hour=0, minute=0),
+        'schedule': crontab(),
     },
 }
 

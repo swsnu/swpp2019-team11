@@ -1,6 +1,7 @@
 import datetime
 import requests
 from celery import task
+import json
 
 from .models import SurveyOngoing, Survey
 
@@ -44,10 +45,10 @@ def onGoing_to_complete():
             for completed_survey in Survey.objects.all():
                 querystring = {
                     "text1": completed_survey.title,
-                    "text2": new_survey.title,
+                    "text2": new_survey.title
                 }
                 response = requests.request("GET", url, headers=headers, params=querystring)
-                similarity = response.text.similarity
+                similarity = json.loads(response.text)['similarity']
 
                 if (completed_survey.similarity1 < similarity):
                     completed_survey.related_survey2 = completed_survey.related_survey1
