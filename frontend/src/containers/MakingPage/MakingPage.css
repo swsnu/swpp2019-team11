@@ -60,6 +60,10 @@
     margin-right: 15px;
 }
 
+#progressBar .bar {
+    background: #354649;
+}
+
 #righterGrid {
     margin-right: 12px;
 }

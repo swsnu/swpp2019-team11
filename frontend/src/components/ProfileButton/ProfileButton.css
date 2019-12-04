@@ -1,3 +1,9 @@
+#DropDownClass {
+    background: #6c7a89;
+    background-color: #6c7a89;
+    color: #ffffff;
+    font-weight: normal;
+}
 
 .UserIcon {
     color: #6c7a89;
@@ -21,16 +27,24 @@
 
 #username {
     margin-top: 10px;
-    font-size: 12px; 
+    margin-bottom: 5px;
+    font-size: 14px; 
 }
 
 #userpoint {
     font-size: 11px; 
 }
 
-.logOut {
+#mypointText {
+    display: inline;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+#Menu #logOut {
     min-height: 20px;
     border-right: 0px;
+    background: #e0e7e9;
 }
 
 .Menu {
