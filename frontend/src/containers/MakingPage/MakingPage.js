@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker } from 'react-dates';
+import { SingleDatePicker, SingleDatePickerWrapper } from 'react-dates';
 import {
   Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
@@ -29,11 +29,11 @@ const genders = [
 ];
 
 const ages = [
-  { key: 'a', text: '10', value: { start: 10, end: 19 } },
-  { key: 'b', text: '20', value: { start: 20, end: 29 } },
-  { key: 'c', text: '30', value: { start: 30, end: 39 } },
-  { key: 'd', text: '40', value: { start: 40, end: 49 } },
-  { key: 'e', text: 'All', value: { start: 1, end: 100 } },
+  { key: 'a', text: '10s', value: { start: 10, end: 19 } },
+  { key: 'b', text: '20s', value: { start: 20, end: 29 } },
+  { key: 'c', text: '30s', value: { start: 30, end: 39 } },
+  { key: 'd', text: '40s', value: { start: 40, end: 49 } },
+  { key: 'e', text: '50s', value: { start: 50, end: 60 } },
 ];
 
 export class MakingPage extends Component {
@@ -43,7 +43,7 @@ export class MakingPage extends Component {
       title: '',
       content: '',
       target_gender: 'M',
-      target_age: [1, 100],
+      target_age: [10, 19],
       gender_check: true,
       age_check: true,
       response_count: 0,
@@ -52,7 +52,7 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, selection: [], personal_data: false,
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_date : false, selection: [],
         },
       ],
       open_date_focused: false,
@@ -139,6 +139,8 @@ export class MakingPage extends Component {
       this.forceUpdate();
     };
 
+    isDateBlocked = (date) => (date.isBefore(this.state.due_date))
+
     dataCallBackHandler = (data, number) => {
       this.state.item_list[number - 1].title = data.title;
       this.state.item_list[number - 1].selection = data.selection_list;
@@ -209,7 +211,7 @@ export class MakingPage extends Component {
                 <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
                 <TextArea
                   className="SurveyContent"
-                  placeholder="Please explain about Survey"
+                  placeholder="Please explain about your Survey"
                   rows={4}
                   onChange={(event) => this.setState({ content: event.target.value })}
                 />
@@ -219,7 +221,7 @@ export class MakingPage extends Component {
                 <SingleDatePicker
                   borderRadius={5}
                   numberOfMonths={1}
-                  onDateChange={(due_date) => this.setState({ due_date })}
+                  onDateChange={(due_date) => {this.setState({ due_date : due_date , open_date : this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date })}}
                   onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
                   focused={this.state.due_date_focused}
                   date={moment(this.state.due_date)}
@@ -232,6 +234,7 @@ export class MakingPage extends Component {
                   onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
                   focused={this.state.open_date_focused}
                   date={moment(this.state.open_date)}
+                  isDayBlocked={this.isDateBlocked}
                 />
               </Segment>
 
@@ -243,17 +246,17 @@ export class MakingPage extends Component {
                 <div id="Gender">
                   <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
                   {' '}
-                Won't input gender option
+                For all genders
                 </div>
                 <p style={{
                   'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
                 }}
                 >
-Age
+                Age
                 </p>
                 <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
                 <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
-            Won't input age option
+                For all age
                 <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
                 <Input
                   className="targetCount"
@@ -263,12 +266,15 @@ Age
                   placeholder="... How many Responses?"
                 />
               </Segment>
-              <p id="itemsText">3. Items</p>
-              <Button className="addItemButton" id="addItemButton" onClick={this.addItemHandler}>
-            Add Question Item
-              </Button>
-              <div id="Items">{ items }</div>
-              <Button className="submitButton" id="submitButton" onClick={this.submitHandler}>
+
+              <Segment style = {{backgroundColor : "#8d99a5"}} >
+                <p id="itemsText">3. Items</p>
+                <Button className="addItemButton" onClick={this.addItemHandler}>
+                  Add Question Item
+                </Button>
+              { items }
+              </Segment>
+              <Button size = "big" style = {{marginBottom : '10px'}} className="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
             </div>

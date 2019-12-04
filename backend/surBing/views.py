@@ -156,13 +156,14 @@ def makeSurvey(request):
                 question_type = item['question_type']
                 selection_list = item['selection']
                 multiple_choice = item['multiple_choice']
+                personal_data = item['personal_data']
             except KeyError:
                 return HttpResponse(status=400)
 
             cur_item = Item(number=number,
                             title=title,
                             question_type=question_type,
-                            personal_data=False,
+                            personal_data=personal_data,
                             multiple_choice=multiple_choice)
             cur_item.save()
             for selection in selection_list:

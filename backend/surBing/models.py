@@ -22,8 +22,8 @@ class Survey(models.Model):  # completed survey
     related_survey2 = models.ForeignKey('Survey', on_delete=models.PROTECT,
                                         related_name='pointed_secondly_related',
                                         null=True, blank=True)
-    similartiy1 = models.IntegerField(default=0)
-    similartiy2 = models.IntegerField(default=0)
+    similarity1 = models.IntegerField(default=0)
+    similarity2 = models.IntegerField(default=0)
 
 
 class SurveyOngoing(models.Model):
