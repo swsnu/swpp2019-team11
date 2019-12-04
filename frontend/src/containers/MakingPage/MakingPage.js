@@ -95,17 +95,6 @@ export class MakingPage extends Component {
       }
     }
 
-    personalDataToggler = (number) => {
-      const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].personal_data == false) {
-        new_list[number - 1].personal_data = true;
-        this.setState({ item_list: new_list });
-      } else {
-        new_list[number - 1].personal_data = false;
-        this.setState({ item_list: new_list });
-      }
-    }
-
     genderCheckToggler = () => {
       this.setState({ gender_check: !this.state.gender_check });
     }
@@ -159,7 +148,6 @@ export class MakingPage extends Component {
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
-        personalDataToggler={this.personalDataToggler}
       />
     ));
 
