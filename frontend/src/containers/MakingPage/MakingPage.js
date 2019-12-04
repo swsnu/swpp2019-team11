@@ -52,7 +52,7 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_date : false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_date: false, selection: [],
         },
       ],
       open_date_focused: false,
@@ -213,7 +213,7 @@ export class MakingPage extends Component {
                 <SingleDatePicker
                   borderRadius={5}
                   numberOfMonths={1}
-                  onDateChange={(due_date) => {this.setState({ due_date : due_date , open_date : this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date })}}
+                  onDateChange={(due_date) => { this.setState({ due_date, open_date: this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date }); }}
                   onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
                   focused={this.state.due_date_focused}
                   date={moment(this.state.due_date)}
@@ -258,14 +258,14 @@ export class MakingPage extends Component {
                   placeholder="... How many Responses?"
                 />
               </Segment>
-              <Segment style = {{backgroundColor : "#8d99a5"}} >
+              <Segment style={{ backgroundColor: '#8d99a5' }}>
                 <p id="itemsText">3. Items</p>
                 <Button className="addItemButton" onClick={this.addItemHandler}>
                   Add Question Item
                 </Button>
-              { items }
+                { items }
               </Segment>
-              <Button size = "big" style = {{marginBottom : '10px'}} className="submitButton" onClick={this.submitHandler}>
+              <Button size="big" style={{ marginBottom: '10px' }} className="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
             </div>

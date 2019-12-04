@@ -1,7 +1,8 @@
+import json
 import datetime
 import requests
 from celery import task
-import json
+
 
 from .models import SurveyOngoing, Survey
 
