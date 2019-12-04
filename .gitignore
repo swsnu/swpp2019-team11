@@ -24,8 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 #ml files
-/ml/APIs/
-/ml/venv/
+/ml
+/frontend/build/
 
 #backend
 __pycache__
