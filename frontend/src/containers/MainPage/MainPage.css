@@ -1,0 +1,44 @@
+.ParticipateButton {
+    background-color: #a3c6c4;
+    font-size: 1.28571429rem;
+    margin: 0 .25em 0 0;
+    padding: .93571429em 1.5em .93571429em;
+    font-weight: 700;
+    text-align: center;
+    border-radius: .28571429rem;
+    min-width: 230px;
+}
+
+.AddSurveyButton {
+    background-color: #ffffff;
+    border-color: #a3c6c4;
+    border-width: 4px;
+    font-size: 1.28571429rem;
+    margin: 0 .25em 0 0;
+    padding: .78571429em 1.5em .78571429em;
+    font-weight: 700;
+    text-align: center;
+    border-radius: .28571429rem;
+    min-width: 239px;
+    cursor: pointer;
+}
+
+#firstRow {
+    background-color: #e0e7e9;
+    min-height: 180px;
+}
+
+#secondRow {
+    margin-top: -50px;
+}
+
+#thirdRow {
+    background-color: #a3c6c4;
+
+    min-height: 200px;
+    margin-top: -20px;
+}
+
+#surBing {
+    color: #354649;
+}
