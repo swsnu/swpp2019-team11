@@ -58,8 +58,11 @@ export class SignupPage extends Component {
   render() {
     return (
       <Grid textAlign="center" columns={3} divided>
-        <Grid.Row style={{ height: '100vh' }} verticalAlign="middle">
+        <Grid.Row style={{ height: 100}} id="firstrow">
+        </Grid.Row>
+        <Grid.Row style={{ height: '100vh' }} id="secondRow" verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450, minWidth: 300 }} width="8">
+            <div id="signupForm">
             <Header as="h1" id="surBing" textAlign="center">
           Sign-up
             </Header>
@@ -98,12 +101,15 @@ export class SignupPage extends Component {
                 </Button>
               </Segment>
             </Form>
+            </div>
             <Message>
         Already signed up?
               {' '}
               <NavLink to="/login" exact>Log In</NavLink>
             </Message>
           </Grid.Column>
+        </Grid.Row>
+        <Grid.Row id="thirdrow">
         </Grid.Row>
       </Grid>
     );
