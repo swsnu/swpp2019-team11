@@ -39,9 +39,9 @@ export const getMyOngoingSurveys = () => (dispatch) => axios.get('/api/mypage/su
   });
 
 export const getOngoingSurvey_ = (ongoing_survey) => ({
-    type: actionTypes.GET_ONGOING_SURVEY,
-    target: ongoing_survey,
-  });
+  type: actionTypes.GET_ONGOING_SURVEY,
+  target: ongoing_survey,
+});
 
 export const getOngoingSurvey = (id) => (dispatch) => axios.get(`/api/survey/ongoing/${String(id)}/`)
   .then((res) => {

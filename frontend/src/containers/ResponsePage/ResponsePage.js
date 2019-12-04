@@ -8,7 +8,7 @@ import './ResponsePage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  response : (id, response) => dispatch(actionCreators.participateSurvey(id, response))
+  response: (id, response) => dispatch(actionCreators.participateSurvey(id, response)),
 });
 
 export const mapStateToProps = (state) => ({
@@ -84,7 +84,7 @@ export class ResponsePage extends Component {
             ))
           }
           </div>
-          <button id="Submit" className="Submit" onClick={() => {this.onSubmitHandler(this.state.survey.id)}}>
+          <button id="Submit" className="Submit" onClick={() => { this.onSubmitHandler(this.state.survey.id); }}>
             Submit
           </button>
         </div>

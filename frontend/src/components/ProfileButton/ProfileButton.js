@@ -28,7 +28,7 @@ export class ProfileButton extends Component {
       return (
         <Dropdown className="DropDownClass" as={Button} text="Profile" color="teal" size="large" style={this.props.style} direction="left">
           <Dropdown.Menu className="Menu" as={Segment}>
-            <Dropdown.Item id="upperItem" onClick={()=>this.props.history.push('/mypage/')}>
+            <Dropdown.Item id="upperItem" onClick={() => this.props.history.push('/mypage/')}>
               <Icon centered name="user circle" className="UserIcon" size="huge" />
               <div id="username">{this.props.username}</div>
               <div id="userpoint">
