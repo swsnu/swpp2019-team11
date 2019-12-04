@@ -44,7 +44,7 @@ export class ResponsePage extends Component {
         });
       }
     });
-    this.props.participate(this.props.survey.id, response_json);
+    this.props.response(this.props.survey.id, response_json);
     this.props.history.push('/participate/');
   }
 
