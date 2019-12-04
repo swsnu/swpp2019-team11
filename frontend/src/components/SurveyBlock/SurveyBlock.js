@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Segment, Header, Button, Grid, Icon
+  Segment, Header, Button, Grid, Icon,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ export const SurveyBlock = (props) => {
   return (
     <Grid className="SurveyBlock" padded>
       <Grid.Row style={{ minWidth: '1000px' }} verticalAlign="middle">
-        <Segment className="clickSegment" style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.surveyClicked(props.survey.id) }}>
+        <Segment className="clickSegment" style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.surveyClicked(props.survey.id); }}>
           <Grid divided>
             <Grid.Column width={11}>
               <Header size="big">{props.survey.title}</Header>
@@ -62,11 +62,11 @@ export const SurveyBlock = (props) => {
             size="huge"
             attached="right"
             style={{
-              width: '50px', height: '99px', verticalAlign: 'middle', 'border-top-right-radius': '20px', 'border-bottom-right-radius': '20px', 'padding-top': '35px', backgroundColor : '#354649'
+              width: '50px', height: '99px', verticalAlign: 'middle', 'border-top-right-radius': '20px', 'border-bottom-right-radius': '20px', 'padding-top': '35px', backgroundColor: '#354649',
             }}
             onClick={() => { props.onClickCart(props.survey.id, props.survey.title); }}
           >
-            <Icon name="cart arrow down" style = {{color : "#e0e7e9"}} />
+            <Icon name="cart arrow down" style={{ color: '#e0e7e9' }} />
           </Button>
         ) : null}
       </Grid.Row>

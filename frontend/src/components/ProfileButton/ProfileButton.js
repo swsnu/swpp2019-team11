@@ -30,10 +30,17 @@ export class ProfileButton extends Component {
           <Dropdown.Menu className="Menu" id="Menu" as={Segment}>
             <Dropdown.Item id="upperItem" onClick={() => this.props.history.push('/mypage/')}>
               <Icon centered name="user circle" className="UserIcon" size="huge" />
-              <div id="username">{"Hello, "}{this.props.username}{" !"}</div>
+              <div id="username">
+                {'Hello, '}
+                {this.props.username}
+                {' !'}
+              </div>
               <div id="userpoint">
                 <div id="blank">{' '}</div>
-              <div id="mypointText">My Point:{' '}</div>
+                <div id="mypointText">
+My Point:
+                  {' '}
+                </div>
                 {this.props.point == null && 0}
                 {this.props.point != null && this.props.point}
               </div>

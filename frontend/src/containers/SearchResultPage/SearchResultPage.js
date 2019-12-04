@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Modal, Button } from 'semantic-ui-react';
+import {
+  Grid, Segment, Icon, Modal, Button,
+} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
@@ -7,7 +9,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter';
 import * as actionCreators from '../../store/actions/index';
-import './SearchResultPage.css'
+import './SearchResultPage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -29,8 +31,8 @@ export class SearchResultPage extends Component {
     cartPopup: false,
     cartPopupStatus: 0,
     cartPopupName: '',
-    clicked_survey_id : '',
-    modal_open : false,
+    clicked_survey_id: '',
+    modal_open: false,
 
 
   }
@@ -58,7 +60,7 @@ export class SearchResultPage extends Component {
   }
 
   onClickSurvey = (id) => {
-    this.setState({modal_open : true, clicked_survey_id : id})
+    this.setState({ modal_open: true, clicked_survey_id: id });
   }
 
   componentDidMount() {
@@ -90,7 +92,7 @@ export class SearchResultPage extends Component {
           && (this.state.respondant_max == 1000
             ? true : this.state.respondant_max >= survey.respondant_count)
           && (this.state.respondant_min <= survey.respondant_count)))
-          .map((survey) => <SurveyBlock className="surveyBlock" search survey={survey} onClickCart={this.onClickCart} surveyClicked = {this.onClickSurvey} />),
+          .map((survey) => <SurveyBlock className="surveyBlock" search survey={survey} onClickCart={this.onClickCart} surveyClicked={this.onClickSurvey} />),
       });
     }
   }
@@ -118,34 +120,34 @@ export class SearchResultPage extends Component {
     return (
       <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
-        <Modal size = "small" open = {this.state.modal_open}>
+        <Modal size="small" open={this.state.modal_open}>
           <Modal.Header>Do you want to open this survey?</Modal.Header>
           <Modal.Content>
-            <p className = "ModalContent">
-              <span className = "Bigger">100</span>
+            <p className="ModalContent">
+              <span className="Bigger">100</span>
               Points will be used for opening this survey!
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button 
-              onClick={() => this.setState({modal_open : false})} 
-              negative 
-              content = "No"
-              labelPosition='right'
-              icon = "x"
+            <Button
+              onClick={() => this.setState({ modal_open: false })}
+              negative
+              content="No"
+              labelPosition="right"
+              icon="x"
             />
             <Button
-              onClick={() => this.props.history.push('/survey/'+this.state.clicked_survey_id+'/')}
+              onClick={() => this.props.history.push(`/survey/${this.state.clicked_survey_id}/`)}
               positive
-              labelPosition='right'
-              icon='checkmark'
-              content='Yes'
+              labelPosition="right"
+              icon="checkmark"
+              content="Yes"
             />
           </Modal.Actions>
         </Modal>
         <Grid columns={2} divided padded>
           <Grid.Row>
-            <Grid.Column centered style={{ width: '430px', backgroundColor : '#e0e7e9'}}>
+            <Grid.Column centered style={{ width: '430px', backgroundColor: '#e0e7e9' }}>
               <SearchFilter filterHandler={this.filterHandler} />
             </Grid.Column>
             <Grid.Column width={8}>

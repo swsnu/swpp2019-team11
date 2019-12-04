@@ -5,7 +5,7 @@ import {
 import { DateRangePicker } from 'react-dates';
 import Slider from '@material-ui/core/Slider';
 import userImage from '../../../assets/responser.png';
-import './SearchFilter.css'
+import './SearchFilter.css';
 
 class SearchFilter extends Component {
   state = {
@@ -40,9 +40,9 @@ class SearchFilter extends Component {
   render() {
     return (
       <div className="topTag" stretched>
-        <h1 className = "FilterHeader" size="huge" textAlign="center">Filter</h1>
+        <h1 className="FilterHeader" size="huge" textAlign="center">Filter</h1>
         <Segment virticalAlign="middle" style={{ height: 120 }}>
-          <h2 className = "RespondantHeader" color="teal" textAlign="center">Respondents</h2>
+          <h2 className="RespondantHeader" color="teal" textAlign="center">Respondents</h2>
           <Grid>
             <Grid.Row verticalAlign="middle">
               <Grid.Column width="3">
@@ -50,7 +50,7 @@ class SearchFilter extends Component {
               </Grid.Column>
               <Grid.Column>
                 <Slider
-                  className = "Slider"
+                  className="Slider"
                   max={1000}
                   min={1}
                   style={{ width: 270, color: '#354649' }}
@@ -65,7 +65,7 @@ class SearchFilter extends Component {
           </Grid>
         </Segment>
         <Segment>
-          <h2 className = "DateHeader" textAlign="center">Date</h2>
+          <h2 className="DateHeader" textAlign="center">Date</h2>
           <DateRangePicker
             isOutsideRange={this.falseReturn}
             showDefaultInputIcon

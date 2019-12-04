@@ -62,7 +62,10 @@ export class LoginPage extends Component {
             <Message>
         New to us?
               {' '}
-              <NavLink to="/signup" exact>{'  '}Sign Up</NavLink>
+              <NavLink to="/signup" exact>
+                {'  '}
+Sign Up
+              </NavLink>
             </Message>
           </Grid.Column>
         </Grid.Row>
