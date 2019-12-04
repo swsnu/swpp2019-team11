@@ -7,6 +7,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import SurveyBlock from '../../components/SurveyBlock/SurveyBlock';
 import SearchFilter from '../../components/SearchResultPage/SearchFilter/SearchFilter';
 import * as actionCreators from '../../store/actions/index';
+import './SearchResultPage.css'
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -117,13 +118,22 @@ export class SearchResultPage extends Component {
     return (
       <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
-        <Modal open = {this.state.modal_open}>
-          <Modal.Header>Open survey's data</Modal.Header>
+        <Modal size = "small" open = {this.state.modal_open}>
+          <Modal.Header>Do you want to open this survey?</Modal.Header>
           <Modal.Content>
-            <p>100 Point will be used for opening this survey!</p>
+            <p className = "ModalContent">
+              <span className = "Bigger">100</span>
+              Points will be used for opening this survey!
+            </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => this.setState({modal_open : false})} negative content = "No"/>
+            <Button 
+              onClick={() => this.setState({modal_open : false})} 
+              negative 
+              content = "No"
+              labelPosition='right'
+              icon = "x"
+            />
             <Button
               onClick={() => this.props.history.push('/survey/'+this.state.clicked_survey_id+'/')}
               positive
