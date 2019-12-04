@@ -36,7 +36,7 @@ def onGoing_to_complete():
             new_survey.save()
 
             for item in survey.item.all():
-                if(item.personal_data==True):
+                if(item.personal_data):
                     for response in item.response.all():
                         response.delete()
                     item.delete()
