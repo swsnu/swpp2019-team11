@@ -8,12 +8,11 @@ import './ResponsePage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
-  submitOngoingSurvey: (id, response) => dispatch(actionCreators.participateSurvey(id, response)),
+  response : (id, response) => dispatch(actionCreators.participateSurvey(id, response))
 });
 
 export const mapStateToProps = (state) => ({
-  onSurvey: state.sv.ongoing_survey,
+  survey: state.sv.ongoing_survey,
 });
 
 export class ResponsePage extends Component {
@@ -28,12 +27,8 @@ export class ResponsePage extends Component {
     }
   }
 
-  componentDidMount() {/*
-    this.props.checklogIn()
-      .then(() => {
-        //this.props.getOngoingSurvey(this.props.match.params.id);
-      })
-      .catch(() => { this.props.history.push('/login/'); });*/
+  componentDidMount() {
+    this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
   onSubmitHandler = () => {
@@ -49,7 +44,7 @@ export class ResponsePage extends Component {
         });
       }
     });
-    this.props.submitOngoingSurvey(this.props.survey.id, response_json);
+    this.props.participate(this.props.survey.id, response_json);
     this.props.history.push('/participate/');
   }
 
@@ -89,7 +84,7 @@ export class ResponsePage extends Component {
             ))
           }
           </div>
-          <button id="Submit" className="Submit" onClick={() => {this.onSubmitHandler()}}>
+          <button id="Submit" className="Submit" onClick={() => {this.onSubmitHandler(this.state.survey.id)}}>
             Submit
           </button>
         </div>
