@@ -323,6 +323,7 @@ class SurBingTestCase(TestCase):
                       'title': 'title_test11',
                       'question_type': 'Selection',
                       'multiple_choice': False,
+                      'personal_data' : False,
                       'selection': [{'number': 1, 'content': 'test selection'}]}],
             'title': 'test',
             'survey_start_date': '1999/3/15',
