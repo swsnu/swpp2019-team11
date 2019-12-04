@@ -55,7 +55,7 @@ def signup(request):  # create new
         SurBingUser.objects.create_user(username=username, email=email,
                                         password=password, cart=cart,
                                         gender=gender, age=age,
-                                        point=0)
+                                        point=500)
         return HttpResponse(status=201)
 
     else:
@@ -185,6 +185,11 @@ def survey(request, survey_id):
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
+        if (request.user is not survey.author):
+            if (request.user.point >= 100):
+                request.user.point -= 100
+            else:
+                return HttpResponse(status=403)
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
