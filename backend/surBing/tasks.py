@@ -36,10 +36,15 @@ def onGoing_to_complete():
             new_survey.save()
 
             for item in survey.item.all():
-                for response in item.response.all():
-                    response.respondant_number = None
-                    response.save()
-                new_survey.item.add(item)
+                if(item.personal_data==True):
+                    for response in item.response.all():
+                        response.delete()
+                    item.delete()
+                else:
+                    for response in item.response.all():
+                        response.respondant_number = None
+                        response.save()
+                    new_survey.item.add(item)
             new_survey.save()
             survey.delete()
 
