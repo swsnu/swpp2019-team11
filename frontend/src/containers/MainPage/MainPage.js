@@ -33,7 +33,8 @@ export class MainPage extends Component {
             <Header id="surBing" style={{ 'font-size': '6em', cursor: 'pointer' }} textAlign="center">
               surBing
             </Header>
-            <SearchBar size="huge" />
+            <SearchBar size="huge" id="searchbar" className="Search" />
+            <br />
             <br />
             <button className="AddSurveyButton" size="big" onClick={() => this.addSurveyHandler()}>Add New Survey</button>
             <button className="ParticipateButton" size="big" onClick={() => this.participateHandler()}>Participate On Surveys</button>
