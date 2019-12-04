@@ -9,9 +9,12 @@ export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   getSurveyList: () =>  dispatch(actionCreators.getParticipatingList()),
   getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.ongoing_survey_list,
+  username: state.us.info.username,
+  point: state.us.info.state,
 });
 
 export class SurveyParticipate extends Component {
@@ -19,6 +22,7 @@ export class SurveyParticipate extends Component {
 
   componentDidMount() {
     this.props.getSurveyList();
+    this.props.getUserInfo();
   }
 
   componentDidUpdate(prevProps) {
@@ -36,7 +40,8 @@ export class SurveyParticipate extends Component {
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
-          <TopBar context={this.contextRef} />
+          <TopBar context={this.contextRef} username={this.props.username} point={this.props.point} />
+          <div id="underTopbar">
           <table celled id="ParticipateTable">
             <thead id="TableHeader">
               <tr>
@@ -59,6 +64,7 @@ export class SurveyParticipate extends Component {
               )) }
             </tbody>
           </table>
+          </div>
         </div>
       </Ref>
     );
