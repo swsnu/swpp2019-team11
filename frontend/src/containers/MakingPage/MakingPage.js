@@ -197,7 +197,7 @@ export class MakingPage extends Component {
                   height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
                 }}
               >
-                <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
+                <Progress style={{ marginTop: '0px' }} id="progressBar" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <div id="underTopbar">

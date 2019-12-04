@@ -1,8 +1,10 @@
 #DropDownClass {
-    background: #6c7a89;
-    background-color: #6c7a89;
-    color: #ffffff;
-    font-weight: normal;
+    background: #a3c6c4;
+    background-color: #a3c6c4;
+    color: #000000;
+    font-weight: bold;
+    border-width: 2px;
+    border-color: #a3c6c4;
 }
 
 .UserIcon {

@@ -9,6 +9,10 @@
     color: #e0e7e9;
 }
 
+.questionTypeTogglerSet {
+    margin-right: 20px;
+}
+
 #personalPopup {
     background-color: #ffcdd2;
 }

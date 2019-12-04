@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   Button, Form, Grid, Header, Segment, Message,
 } from 'semantic-ui-react';
-
+import './SignupPage.css';
 import { NavLink } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 
@@ -60,11 +60,11 @@ export class SignupPage extends Component {
       <Grid textAlign="center" columns={3} divided>
         <Grid.Row style={{ height: '100vh' }} verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450, minWidth: 300 }} width="8">
-            <Header as="h1" color="teal" textAlign="center">
+            <Header as="h1" id="surBing" textAlign="center">
           Sign-up
             </Header>
             <Form size="large">
-              <Segment stacked>
+              <Segment id="signupSeg" stacked>
                 <Form.Input className="Email" fluid icon="mail outline" iconPosition="left" placeholder="E-mail address" value={this.state.email} onChange={(e) => { this.state.email = e.target.value; this.validate(); }} error={this.state.email_error} />
                 <Form.Input className="UserName" fluid icon="user" iconPosition="left" placeholder="Username" value={this.state.username} onChange={(e) => { this.state.username = e.target.value; this.validate(); }} error={this.state.username_error} />
                 <Form.Input
@@ -93,7 +93,7 @@ export class SignupPage extends Component {
                   <Form.Input className="ageInput" onChange={(e) => { this.state.age = e.target.value; this.validate(); }} fluid placeholder="Age" error={this.state.age_error} />
                   <Form.Select className="genderInput" options={this.options} onChange={(e, { value }) => { this.state.gender = value; this.validate(); }} placeholder="Gender" error={this.state.gender_error} />
                 </Form.Group>
-                <Button id="signupButton" color="teal" fluid size="large" onClick={() => this.signupHandler()}>
+                <Button id="signupButton" fluid size="large" onClick={() => this.signupHandler()}>
               Signup
                 </Button>
               </Segment>
