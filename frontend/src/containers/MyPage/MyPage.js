@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Sidebar,
+  Menu, Segment, Sidebar, Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
@@ -53,7 +53,18 @@ export class MyPage extends Component {
         <div className="SurveyOngoing">
           <h1 id="ongoingTitle">Ongoing Survey</h1>
           <br />
-          <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+          {
+            (this.props.ongoing_survey_list.length > 0) &&
+            <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />            
+          }
+          {
+            (this.props.ongoing_survey_list.length == 0) &&
+            <Segment id="noOnSurvey" >
+              <div id="ongoingTxt1">{'  '}No Ongoing Survey you made.</div>
+              <div id="ongoingTxt2">{'  '}Let's make new Survey!</div>
+              <Button id="moveMaking" onClick={() => this.props.history.push('making/')}> Go to make New Survey </Button>
+            </Segment>
+          }
         </div>
       );
     }
@@ -62,7 +73,18 @@ export class MyPage extends Component {
         <div className="SurveyCompleted">
           <h1 id="openedTitle">Opened Survey</h1>
           <br />
-          <TableForm content={this.props.survey_list} slide={false} />
+          {
+            (this.props.survey_list.length > 0) &&
+            <TableForm content={this.props.survey_list} slide={false} />
+          }
+          {
+            (this.props.survey_list.length == 0) &&
+            <Segment id="noOnSurvey" >
+              <div id="ongoingTxt1">{'  '}No Opened Survey you made.</div>
+              <div id="ongoingTxt2">{'  '}How about making new Survey?</div>
+              <Button id="moveMaking" onClick={() => this.props.history.push('making/')}> Go to make New Survey </Button>
+            </Segment>
+          }
         </div>
       );
     }
@@ -71,7 +93,18 @@ export class MyPage extends Component {
         <div className="Cart">
           <h1 id="cartTitle">Cart</h1>
           <br />
-          <TableForm content={this.props.cart_list} slide />
+          {
+            (this.props.cart_list.length > 0) &&
+            <TableForm content={this.props.cart_list} slide />
+          }
+          {
+            (this.props.cart_list.length == 0) &&
+            <Segment id="noOnSurvey" >
+              <div id="ongoingTxt1">{'  '}No Opened Survey in Your Cart.</div>
+              <div id="ongoingTxt2">{'  '}Let's search Survey to put in Cart!</div>
+              <Button id="moveMaking" onClick={() => this.props.history.push('main/')}> Go to search Survey </Button>
+            </Segment>
+          }
         </div>
       );
     }
