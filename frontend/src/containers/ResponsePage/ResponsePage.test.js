@@ -7,7 +7,7 @@ describe('<ResponsePage />', () => {
   const mockPush = jest.fn();
   const mockSOGS = jest.fn();
   const mockgetOngoingSurvey = jest.fn();
-  const mockResponse = jest.fn()
+  const mockResponse = jest.fn();
   const props = {
     submitOngoingSurvey: mockSOGS,
     history: {
@@ -27,7 +27,7 @@ describe('<ResponsePage />', () => {
     },
     getOngoingSurvey: mockgetOngoingSurvey,
     checklogIn: jest.fn(() => new Promise((res) => { res(); })),
-    response : mockResponse
+    response: mockResponse,
   };
   const component = shallow(<ResponsePage {...props} />);
 

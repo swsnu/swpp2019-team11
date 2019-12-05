@@ -4,7 +4,7 @@ import { SurveyParticipate, mapStateToProps, mapDispatchToProps } from './Survey
 
 describe('<SurveyParticipate />', () => {
   const mockPush = jest.fn();
-  const mockGetOngoingSurvey = jest.fn()
+  const mockGetOngoingSurvey = jest.fn();
   const props = {
     history: {
       push: mockPush,
@@ -13,7 +13,7 @@ describe('<SurveyParticipate />', () => {
       title: 'test',
       upload_date: '1999/10/15',
     }],
-    getOngoingSurvey : mockGetOngoingSurvey,
+    getOngoingSurvey: mockGetOngoingSurvey,
   };
   const component = shallow(<SurveyParticipate {...props} />);
   it('should render well', () => {
@@ -34,10 +34,10 @@ describe('map functions', () => {
         ongoing_survey_list: [],
       },
       us: {
-        info : {
-          username : 'test'
-        }
-      }
+        info: {
+          username: 'test',
+        },
+      },
     };
     expect(mapStateToProps(initialState).survey_list).toEqual([]);
   });

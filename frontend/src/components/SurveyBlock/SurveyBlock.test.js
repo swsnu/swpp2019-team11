@@ -5,12 +5,12 @@ import { SurveyBlock } from './SurveyBlock';
 describe('SurveyBlock', () => {
   const mockOnClickCart = jest.fn();
   const mockPush = jest.fn();
-  const mockSurveyClicked = jest.fn()
+  const mockSurveyClicked = jest.fn();
   const props = {
     history: {
       push: mockPush,
     },
-    surveyClicked : mockSurveyClicked,
+    surveyClicked: mockSurveyClicked,
     search: true,
     survey: {
       title: 'title',
