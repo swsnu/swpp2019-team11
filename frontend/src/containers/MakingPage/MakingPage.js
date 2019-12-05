@@ -52,7 +52,7 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_date: false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_data: false, selection: [],
         },
       ],
       open_date_focused: false,
@@ -99,12 +99,15 @@ export class MakingPage extends Component {
       const new_list = this.state.item_list;
       if (type == 1) {
         new_list[number - 1].question_type = 'Subjective';
+        new_list[number - 1].selection = [];
         new_list[number - 1].multiple_choice = false;
       } else if (type == 2) {
         new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].selection = [{ number: 1, content: '' }];
         new_list[number - 1].multiple_choice = false;
       } else {
         new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].selection = [{ number: 1, content: '' }];
         new_list[number - 1].multiple_choice = true;
       }
       this.setState({ item_list: new_list });
