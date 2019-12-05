@@ -38,7 +38,7 @@ export class MakingItem extends Component {
       { key: 1, text: 'Subjective', value: 1 },
       { key: 2, text: 'CheckBox', value: 2 },
       { key: 3, text: 'Multi-Selection', value: 3 },
-    ]
+    ];
     return (
       <Segment className="MakingItem" style={{ backgroundColor: '#b8bfc7', minHeight: '250px' }}>
         <div id="ItemTop">
@@ -52,15 +52,14 @@ export class MakingItem extends Component {
             placeholder="ItemType"
             as={Button}
             size="large"
-            style={{ float: "right" }}
-            as={Segment}
+            style={{ float: 'right' }}
             options={options}
-            onChange={(data) => {this.setState({type: data.value})}}
+            onChange={(data) => { this.setState({ type: data.value }); }}
           />
-          
-          <div className="questionTypeTogglerSet" style={{ float: "right" }}>
+
+          <div className="questionTypeTogglerSet" style={{ float: 'right' }}>
             <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-            {this.props.question_type == 'Selection' ? "Multiple Choice" : "Short Answer"}
+            {this.props.question_type == 'Selection' ? 'Multiple Choice' : 'Short Answer'}
           </div>
         </div>
 
