@@ -23,7 +23,7 @@ describe('MakingPage', () => {
   it('submitbutton', () => {
     const wrapper = component.find('.submitButton');
     wrapper.simulate('click');
-    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledTimes(0);
   });
   it('onchange target resondant count', () => {
     const wrapper = component.find('.targetCount');
@@ -55,14 +55,10 @@ describe('MakingPage', () => {
     expect(instance.state.title).toEqual('test');
   });
   it('Toggler', () => {
-    instance.multipleSelectionToggler(1);
-    expect(instance.state.item_list[0].multiple_choice).toEqual(true);
-    instance.multipleSelectionToggler(1);
-    expect(instance.state.item_list[0].multiple_choice).toEqual(false);
-    instance.questionTypeToggler(1);
+    instance.itemTypeHandler(1, 1)
+    instance.itemTypeHandler(1, 2)
+    instance.itemTypeHandler(1, 3)
     expect(instance.state.item_list[0].question_type).toEqual('Selection');
-    instance.questionTypeToggler(1);
-    expect(instance.state.item_list[0].question_type).toEqual('Subjective');
   });
   it('dataCallBackHandler', () => {
     instance.dataCallBackHandler({ title: 'test', selection_list: [] }, 1);

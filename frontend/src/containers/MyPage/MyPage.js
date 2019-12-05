@@ -138,6 +138,7 @@ Let's search Survey to put in Cart!
 
 
   render() {
+    let menu = this.selectmenu()
     return (
       <div className="myPage">
         <TopBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
@@ -162,7 +163,7 @@ Let's search Survey to put in Cart!
           </Sidebar>
           <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 800 }}>
             <Segment basic>
-              {this.selectmenu()}
+              {menu}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
