@@ -29,7 +29,7 @@ export class LoginPage extends Component {
         <Grid.Row id="firstrow" className="firstRow" style={{ height: '175px' }} columns={0}>
           <div>{' '}</div>
         </Grid.Row>
-        <Grid.Row id="secondRow" style={{ height: 'calc(100vh - 190px)' }} verticalAlign="middle">
+        <Grid.Row id="secondRow" style={{ height: 'calc(100vh - 165px)' }} verticalAlign="middle">
           <Grid.Column id="rowColumn" style={{ maxWidth: 450, minWidth: 300 }}>
             <Header id="surBing" style={{ fontSize: '4em' }} as="h1" textAlign="center">
             surBing
