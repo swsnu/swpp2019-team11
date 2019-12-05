@@ -107,7 +107,7 @@ export class MakingPage extends Component {
         new_list[number - 1].question_type = 'Selection';
         new_list[number - 1].multiple_choice = true;
       }
-      this.setState({ item: new_list });
+      this.setState({ item_list: new_list });
     }
 
     personalToggler = (number) => {
