@@ -10,7 +10,7 @@ export const MakingOptions = (props) => (
 :
       {' '}
     </div>
-    <Input value = {props.content} className="OptionInput" placeholder="Write Options..." onChange={(e) => props.contentHandler(e.target.value, props.number)} />
+    <Input error = {props.error} value = {props.content} className="OptionInput" placeholder="Write Options..." onChange={(e) => props.contentHandler(e.target.value, props.number)} />
     {' '}
     <br />
   </div>
