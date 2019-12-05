@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
+<<<<<<< HEAD
   Grid, Header, Button, Segment,
+=======
+  Grid, Header,
+>>>>>>> 4eec65e34402f9566eef81ea2412fea81eac5017
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';

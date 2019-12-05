@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker, SingleDatePickerWrapper } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import {
   Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
@@ -261,7 +261,7 @@ export class MakingPage extends Component {
                 <Input
                   className="targetCount"
                   type="text"
-                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
+                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count <= 0 || this.state.response_count > 50}
                   onChange={(event) => this.setState({ response_count: event.target.value })}
                   placeholder="... How many Responses?"
                 />

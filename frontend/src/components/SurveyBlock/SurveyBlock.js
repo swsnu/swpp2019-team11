@@ -27,7 +27,7 @@ export const SurveyBlock = (props) => {
   return (
     <Grid className="SurveyBlock" padded>
       <Grid.Row style={{ minWidth: '1000px' }} verticalAlign="middle">
-        <Segment className="clickSegment" style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.history.push(`/survey/${props.survey.id}`); }}>
+        <Segment className="clickSegment" style={props.search ? search_css : cart_css} attached="left" onClick={() => { props.surveyClicked(props.survey.id); }}>
           <Grid divided>
             <Grid.Column width={11}>
               <Header size="big">{props.survey.title}</Header>
@@ -57,17 +57,16 @@ export const SurveyBlock = (props) => {
         {props.search ? (
           <Button
             className="cartButton"
-            color="teal"
             verticalAlign="middle"
             floated="right"
             size="huge"
             attached="right"
             style={{
-              width: '50px', height: '99px', verticalAlign: 'middle', 'border-top-right-radius': '20px', 'border-bottom-right-radius': '20px', 'padding-top': '35px',
+              width: '50px', height: '99px', verticalAlign: 'middle', 'border-top-right-radius': '20px', 'border-bottom-right-radius': '20px', 'padding-top': '35px', backgroundColor: '#354649',
             }}
             onClick={() => { props.onClickCart(props.survey.id, props.survey.title); }}
           >
-            <Icon name="cart arrow down" />
+            <Icon name="cart arrow down" style={{ color: '#e0e7e9' }} />
           </Button>
         ) : null}
       </Grid.Row>

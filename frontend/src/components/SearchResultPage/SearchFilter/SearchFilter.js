@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Grid, Button, Header, Segment, Image,
+  Grid, Segment, Image,
 } from 'semantic-ui-react';
 import { DateRangePicker } from 'react-dates';
 import Slider from '@material-ui/core/Slider';
 import userImage from '../../../assets/responser.png';
+import './SearchFilter.css';
 
 class SearchFilter extends Component {
   state = {
@@ -38,16 +39,10 @@ class SearchFilter extends Component {
 
   render() {
     return (
-      <div
-        className="topTag"
-        stretched
-        style={{
-          textAlign: 'center', height: '700px', borderStyle: 'none', padding: '5px',
-        }}
-      >
-        <Header color="teal" size="huge" textAlign="center">Filter</Header>
+      <div className="topTag" stretched>
+        <h1 className="FilterHeader" size="huge" textAlign="center">Filter</h1>
         <Segment virticalAlign="middle" style={{ height: 120 }}>
-          <Header color="teal" textAlign="center">Respondents</Header>
+          <h2 className="RespondantHeader" color="teal" textAlign="center">Respondents</h2>
           <Grid>
             <Grid.Row verticalAlign="middle">
               <Grid.Column width="3">
@@ -55,9 +50,10 @@ class SearchFilter extends Component {
               </Grid.Column>
               <Grid.Column>
                 <Slider
+                  className="Slider"
                   max={1000}
                   min={1}
-                  style={{ width: 270, color: '#008080' }}
+                  style={{ width: 270, color: '#354649' }}
                   value={this.state.respondant}
                   onChange={this.handleSlider}
                   valueLabelDisplay="auto"
@@ -69,7 +65,7 @@ class SearchFilter extends Component {
           </Grid>
         </Segment>
         <Segment>
-          <Header color="teal" textAlign="center">Date</Header>
+          <h2 className="DateHeader" textAlign="center">Date</h2>
           <DateRangePicker
             isOutsideRange={this.falseReturn}
             showDefaultInputIcon
@@ -82,7 +78,7 @@ class SearchFilter extends Component {
             onFocusChange={this.onFocusChange}
           />
         </Segment>
-        <Button id="applyButton" textAlign="center" color="teal" onClick={this.onClickHandler}>Apply</Button>
+        <button className="ApplyButton" onClick={this.onClickHandler}>Apply</button>
       </div>
     );
   }

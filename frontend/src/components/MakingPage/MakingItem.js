@@ -46,6 +46,7 @@ export class MakingItem extends Component {
           {this.props.number}
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+<<<<<<< HEAD
           <Dropdown
             clearable
             selection
@@ -57,6 +58,8 @@ export class MakingItem extends Component {
             onChange={(data) => { this.setState({ type: data.value }); }}
           />
 
+=======
+>>>>>>> 4eec65e34402f9566eef81ea2412fea81eac5017
           <div className="questionTypeTogglerSet" style={{ float: 'right' }}>
             <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
             {this.props.question_type == 'Selection' ? 'Multiple Choice' : 'Short Answer'}
