@@ -9,8 +9,8 @@ import './MakingItem.css';
 export class MakingItem extends Component {
   state = {
     title: '',
-    selection_list: [{ number: 1, content: '' }],
-    type: '',
+    selection_list: [],
+    type: 1,
   }
 
   selectionContentHandler = (content, number) => {
@@ -27,9 +27,26 @@ export class MakingItem extends Component {
     this.props.stateSender(this.state, this.props.number);
   }
 
+  typeHandler = (target, data) => {
+    
+    if(this.state.type != data.value){
+      if(data.value == 1){
+        this.state.selection_list = []
+      }
+      else{
+        this.state.selection_list = [{ number: 1, content: '' }]
+      }
+      this.setState({ type: data.value });
+      this.props.itemTypeHandler(this.props.number, data.value);
+    }
+  
+    
+  }
+
   titleChangeHandler = (title) => {
     this.state.title = title;
     this.props.stateSender(this.state, this.props.number);
+    
   }
 
   render() {
@@ -52,7 +69,8 @@ export class MakingItem extends Component {
             size="large"
             style={{ float: 'right' }}
             options={options}
-            onChange={(target, data) => { this.setState({ type: data.value }); this.props.itemTypeHandler(this.props.number, data.value); }}
+            value = {this.state.type}
+            onChange={this.typeHandler}
           />
         </div>
 
@@ -73,7 +91,8 @@ export class MakingItem extends Component {
           <MakingOptions
             className="MakingOptions"
             number={selection.number}
-            content={this.selectionContentHandler}
+            contentHandler={this.selectionContentHandler}
+            content={selection.content}
           />
         ))
         }

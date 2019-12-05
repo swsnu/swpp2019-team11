@@ -70,30 +70,7 @@ export class MakingPage extends Component {
         .catch(() => { this.props.history.push('/login/'); });
     }
 
-    questionTypeToggler = (number) => {
-      if (this.state.item_list[number - 1].question_type == 'Subjective') {
-        const new_list = this.state.item_list;
-        new_list[number - 1].question_type = 'Selection';
-        new_list[number - 1].selection = [{ number: 1, content: '' }];
-        this.setState({ item_list: new_list });
-      } else {
-        const new_list = this.state.item_list;
-        new_list[number - 1].question_type = 'Subjective';
-        new_list[number - 1].selection = [];
-        this.setState({ item_list: new_list });
-      }
-    }
 
-    multipleSelectionToggler = (number) => {
-      const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].multiple_choice == false) {
-        new_list[number - 1].multiple_choice = true;
-        this.setState({ item_list: new_list });
-      } else {
-        new_list[number - 1].multiple_choice = false;
-        this.setState({ item_list: new_list });
-      }
-    }
 
     itemTypeHandler = (number, type) => {
       const new_list = this.state.item_list;
