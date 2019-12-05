@@ -26,19 +26,26 @@ export class ProfileButton extends Component {
   render() {
     if (this.props.username != null) {
       return (
-        <Dropdown className="DropDownClass" as={Button} text="Profile" color="teal" size="large" style={this.props.style} direction="left">
-          <Dropdown.Menu className="Menu" as={Segment}>
-            <Dropdown.Item id="upperItem">
+        <Dropdown className="DropDownClass" id="DropDownClass" as={Button} text="Profile" size="large" style={this.props.style} direction="left">
+          <Dropdown.Menu className="Menu" id="Menu" as={Segment}>
+            <Dropdown.Item id="upperItem" onClick={() => this.props.history.push('/mypage/')}>
               <Icon centered name="user circle" className="UserIcon" size="huge" />
-              <div id="username">{this.props.username}</div>
+              <div id="username">
+                {'Hello, '}
+                {this.props.username}
+                {' !'}
+              </div>
               <div id="userpoint">
                 <div id="blank">{' '}</div>
-              My Point:
+                <div id="mypointText">
+My Point:
+                  {' '}
+                </div>
                 {this.props.point == null && 0}
                 {this.props.point != null && this.props.point}
               </div>
             </Dropdown.Item>
-            <Dropdown.Item className="logOut" onClick={() => this.logoutHandler()} basic as={Button} floating>
+            <Dropdown.Item className="logOut" id="logOut" onClick={() => this.logoutHandler()} basic as={Button} floating>
               <Icon name="key" />
             Log Out
             </Dropdown.Item>

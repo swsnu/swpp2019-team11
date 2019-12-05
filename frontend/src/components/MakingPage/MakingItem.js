@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Segment, Checkbox, Input, Button,
+  Segment, Checkbox, Input, Popup,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
@@ -11,7 +11,6 @@ export class MakingItem extends Component {
     title: '',
     selection_list: [{ number: 1, content: '' }],
   }
-
 
   selectionContentHandler = (content, number) => {
     this.state.selection_list[number - 1].content = content;
@@ -41,9 +40,23 @@ export class MakingItem extends Component {
           {this.props.number}
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
-          <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-          {this.props.question_type == 'Selection' ? 'Multiple Choice' : 'Short Answer'}
+          <div className="questionTypeTogglerSet" style={{ float: 'right' }}>
+            <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
+            {this.props.question_type == 'Selection' ? 'Multiple Choice' : 'Short Answer'}
+          </div>
         </div>
+
+        <Popup
+          id="personalPopup"
+          content="You must Check it if the question asks personal Data"
+          trigger={(
+            <div>
+              <Checkbox onClick={() => { this.props.personalToggler(this.props.number); }} />
+              <p style={{ fontSize: 15, marginLeft: 10, display: 'inline' }}>This is Personal Data.</p>
+            </div>
+            )}
+        />
+
         {
           (this.props.question_type == 'Selection')
           && (

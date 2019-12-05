@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker, SingleDatePickerWrapper } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import {
   Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
@@ -95,6 +95,12 @@ export class MakingPage extends Component {
       }
     }
 
+    personalToggler = (number) => {
+      const new_list = this.state.item_list;
+      new_list[number - 1].personal_data = !(new_list[number - 1].personal_data);
+      this.setState({ item_list: new_list });
+    }
+
     genderCheckToggler = () => {
       this.setState({ gender_check: !this.state.gender_check });
     }
@@ -127,6 +133,7 @@ export class MakingPage extends Component {
         question_type: 'Subjective',
         multiple_choice: false,
         selection: [],
+        personal_data: false,
       };
       this.state.item_list.push(new_item);
       this.forceUpdate();
@@ -148,6 +155,7 @@ export class MakingPage extends Component {
         stateSender={this.dataCallBackHandler}
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
+        personalToggler={this.personalToggler}
       />
     ));
 
@@ -189,12 +197,12 @@ export class MakingPage extends Component {
                   height: '50px', marginTop: '15px', borderBottom: 'none', borberTop: 'none',
                 }}
               >
-                <Progress style={{ marginTop: '0px' }} id="progressBar" color="teal" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
+                <Progress style={{ marginTop: '0px' }} id="progressBar" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
             <div id="underTopbar">
               <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
-                <h3 style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+                <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
                 <br />
                 <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
                 <Input className="SurveyTitle" placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
@@ -231,8 +239,8 @@ export class MakingPage extends Component {
               </Segment>
 
               <Segment style={{ backgroundColor: '#A3C6C4' }}>
-                <h3 color="#354649" style={{ marginBottom: 0 }}><span style={{ padding: '5px', fontSize: 24, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
-                <br />
+                <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+
                 <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
                 <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
                 <div id="Gender">

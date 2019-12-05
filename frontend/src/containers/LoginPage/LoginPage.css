@@ -1,0 +1,36 @@
+#surBing {
+    color: #354649;
+}
+
+#loginbutton {
+    background: #a3c6c4;
+    color: #000000;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px;
+    font-family: sans-serif;
+    vertical-align: center;
+}
+
+#loginStack {
+    border-width: 2px;
+    border-color: #e0e7e9;
+}
+
+#firstrow {
+    background-color: #e0e7e9;
+}
+
+#rowColumn {
+    margin-top: -160px;
+}
+
+#thirdrow {
+    background-color: #a3c6c4;
+    margin-top: -175px;
+    margin-bottom: 0px;
+}
+
+.login {
+    padding-bottom: 0px;
+}

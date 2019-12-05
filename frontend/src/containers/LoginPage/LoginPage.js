@@ -5,6 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
+import './LoginPage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   logIn: (username, password) => dispatch(actionCreators.logIn(username, password)),
@@ -24,14 +25,17 @@ export class LoginPage extends Component {
 
   render() {
     return (
-      <Grid className="login" textAlign="center" columns={2} divided>
-        <Grid.Row style={{ height: '100vh' }} verticalAlign="middle">
-          <Grid.Column style={{ maxWidth: 450, minWidth: 300 }}>
-            <Header style={{ fontSize: '4em' }} as="h1" color="teal" textAlign="center">
+      <Grid className="login" id="login" textAlign="center">
+        <Grid.Row id="firstrow" className="firstRow" style={{ height: 135 }} columns={0}>
+          <div>{' '}</div>
+        </Grid.Row>
+        <Grid.Row id="secondRow" style={{ height: '100vh' }} verticalAlign="middle">
+          <Grid.Column id="rowColumn" style={{ maxWidth: 450, minWidth: 300 }}>
+            <Header id="surBing" style={{ fontSize: '4em' }} as="h1" textAlign="center">
             surBing
             </Header>
             <Form size="large">
-              <Segment stacked>
+              <Segment stacked id="loginStack">
                 <Form.Input
                   className="UserName"
                   onChange={(event) => this.setState({ username: event.target.value })}
@@ -50,17 +54,23 @@ export class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                <Button id="loginbutton" disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} color="teal" fluid size="large">
-              Login
+                <Button id="loginbutton" className="loginbutton" disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} fluid size="large">
+              Log In
                 </Button>
               </Segment>
             </Form>
             <Message>
         New to us?
               {' '}
-              <NavLink to="/signup" exact>Sign Up</NavLink>
+              <NavLink to="/signup" exact>
+                {'  '}
+Sign Up
+              </NavLink>
             </Message>
           </Grid.Column>
+        </Grid.Row>
+        <Grid.Row id="thirdrow" style={{ height: 130 }} columns={0}>
+          <div>{' '}</div>
         </Grid.Row>
       </Grid>
     );

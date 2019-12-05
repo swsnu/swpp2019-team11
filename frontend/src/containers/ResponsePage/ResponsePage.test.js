@@ -7,6 +7,7 @@ describe('<ResponsePage />', () => {
   const mockPush = jest.fn();
   const mockSOGS = jest.fn();
   const mockgetOngoingSurvey = jest.fn();
+  const mockResponse = jest.fn();
   const props = {
     submitOngoingSurvey: mockSOGS,
     history: {
@@ -15,7 +16,7 @@ describe('<ResponsePage />', () => {
     match: {
       params: { id: 1 },
     },
-    onSurvey: {
+    survey: {
       item: [{
         number: 1,
         title: 'test',
@@ -26,8 +27,10 @@ describe('<ResponsePage />', () => {
     },
     getOngoingSurvey: mockgetOngoingSurvey,
     checklogIn: jest.fn(() => new Promise((res) => { res(); })),
+    response: mockResponse,
   };
   const component = shallow(<ResponsePage {...props} />);
+
   it('should render well', () => {
     const wrapper = component.find('.ResponsePage');
     expect(wrapper.length).toBe(1);
@@ -50,7 +53,7 @@ describe('<ResponsePage />', () => {
     let wrapper = component.find('.Submit');
     wrapper.simulate('click');
     const new_onSurvey = {
-      onSurvey: {
+      survey: {
         item: [{
           number: 1,
           title: 'test',
@@ -78,9 +81,8 @@ describe('redex functions', () => {
   it('mapDispatchToProps', () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).checklogIn();
-    mapDispatchToProps(dispatch).getOngoingSurvey(1);
-    mapDispatchToProps(dispatch).submitOngoingSurvey(1, {});
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    mapDispatchToProps(dispatch).response(1, {});
+    expect(dispatch).toHaveBeenCalledTimes(2);
   });
   it('mapStateToProps', () => {
     const initialState = {
@@ -88,6 +90,6 @@ describe('redex functions', () => {
         ongoing_survey: 'test',
       },
     };
-    expect(mapStateToProps(initialState).onSurvey).toEqual('test');
+    expect(mapStateToProps(initialState).survey).toEqual('test');
   });
 });

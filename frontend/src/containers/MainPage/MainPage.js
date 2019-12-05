@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Header, Button } from 'semantic-ui-react';
+import {
+  Grid, Header,
+} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
 import * as actionCreators from '../../store/actions/index';
+import './MainPage.css';
 
 export class MainPage extends Component {
   componentDidMount() {
@@ -22,21 +25,24 @@ export class MainPage extends Component {
   render() {
     return (
       <Grid className="MainPage" textAlign="center">
-        <Grid.Row textAlign="right" colums={1}>
+        <Grid.Row id="firstRow" textAlign="right" colums={1}>
           <Grid.Column>
             <ProfileButton style={{ margin: '25px' }} username={this.props.username} point={this.props.point} />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row columns={2} style={{ height: '60.3vh' }} verticalAlign="middle">
+        <Grid.Row id="secondRow" columns={2} style={{ height: '60.3vh' }} verticalAlign="middle">
           <Grid.Column>
-            <Header style={{ 'font-size': '4em', cursor: 'pointer' }} size="huge" color="teal" textAlign="center">
+            <Header id="surBing" style={{ 'font-size': '6em', cursor: 'pointer' }} textAlign="center">
               surBing
             </Header>
-            <SearchBar size="huge" />
+            <SearchBar size="huge" id="searchbar" className="Search" />
             <br />
-            <Button className="AddSurveyButton" size="big" color="teal" onClick={() => this.addSurveyHandler()}>Add New Survey</Button>
-            <Button className="ParticipateButton" size="big" color="teal" onClick={() => this.participateHandler()}>Participate On Surveys</Button>
+            <br />
+            <button className="AddSurveyButton" size="big" onClick={() => this.addSurveyHandler()}>Add New Survey</button>
+            <button className="ParticipateButton" size="big" onClick={() => this.participateHandler()}>Participate On Surveys</button>
           </Grid.Column>
+        </Grid.Row>
+        <Grid.Row id="thirdRow">
         </Grid.Row>
       </Grid>
     );

@@ -1,0 +1,26 @@
+#surBing {
+    color: #354649;
+    font-size: 35px;
+}
+
+#signupSeg {
+    border-width: 2px;
+    border-color: #e0e7e9;
+}
+
+#signupButton {
+    background-color: #a3c6c4;
+}
+
+#firstrow {
+    background-color: #e0e7e9;
+    height: 100px;
+}
+
+#signupForm {
+    margin-top: -80px;
+}
+
+#thirdrow {
+    margin-top: -115px;
+}

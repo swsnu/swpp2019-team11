@@ -7,10 +7,14 @@ import './SurveyParticipate.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
-  getSurveyList: () => { dispatch(actionCreators.getParticipatingList()); },
+  getSurveyList: () => dispatch(actionCreators.getParticipatingList()),
+  getOngoingSurvey: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.ongoing_survey_list,
+  username: state.us.info.username,
+  point: state.us.info.state,
 });
 
 export class SurveyParticipate extends Component {
@@ -18,6 +22,7 @@ export class SurveyParticipate extends Component {
 
   componentDidMount() {
     this.props.getSurveyList();
+    this.props.getUserInfo();
   }
 
   componentDidUpdate(prevProps) {
@@ -26,33 +31,40 @@ export class SurveyParticipate extends Component {
     }
   }
 
+  participateHandler = (id) => {
+    this.props.getOngoingSurvey(id);
+    this.props.history.push('/responsing/');
+  }
+
   render() {
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
-          <TopBar context={this.contextRef} />
-          <table celled id="ParticipateTable">
-            <thead id="TableHeader">
-              <tr>
-                <th>Survey Title</th>
-                <th id="dateHeader">Upload Date</th>
-                <th id="buttonHeader">Participate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.survey_list.map((survey) => (
+          <TopBar context={this.contextRef} username={this.props.username} point={this.props.point} />
+          <div id="underTopbar">
+            <table celled id="ParticipateTable">
+              <thead id="TableHeader">
                 <tr>
-                  <td id="titleRow">{ survey.title }</td>
-                  <td id="dateRow">{ survey.upload_date }</td>
-                  <td id="buttonRow">
-                    <button id="participateButton" onClick={() => this.props.history.push(`/responsing/${survey.id}/`)}>
-                      Participate
-                    </button>
-                  </td>
+                  <th>Survey Title</th>
+                  <th id="dateHeader">Upload Date</th>
+                  <th id="buttonHeader">Participate</th>
                 </tr>
-              )) }
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {this.props.survey_list.map((survey) => (
+                  <tr>
+                    <td id="titleRow">{ survey.title }</td>
+                    <td id="dateRow">{ survey.upload_date }</td>
+                    <td id="buttonRow">
+                      <button id="participateButton" onClick={() => this.participateHandler(survey.id)}>
+                      Participate
+                      </button>
+                    </td>
+                  </tr>
+                )) }
+              </tbody>
+            </table>
+          </div>
         </div>
       </Ref>
     );

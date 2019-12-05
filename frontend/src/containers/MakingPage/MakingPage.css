@@ -60,6 +60,10 @@
     margin-right: 15px;
 }
 
+#progressBar .bar {
+    background: #a3c6c4;
+}
+
 #righterGrid {
     margin-right: 12px;
 }
@@ -77,4 +81,26 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+#ExplainSurvey {
+    font-family: sans-serif;
+    margin-top: 8px;
+}
+
+#TargetSetting {
+    font-family: sans-serif;
+}
+
+#Items {
+    display: inline;
+}
+
+#addItemButton {
+    margin-bottom: 10px;
+}
+
+#submitButton {
+    margin-top: 10px;
+    margin-bottom: 14px;
 }
