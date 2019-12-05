@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Segment, Checkbox, Input, Popup,
+  Segment, Checkbox, Input, Popup, Dropdown, Button,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
@@ -10,6 +10,7 @@ export class MakingItem extends Component {
   state = {
     title: '',
     selection_list: [{ number: 1, content: '' }],
+    type: '',
   }
 
   selectionContentHandler = (content, number) => {
@@ -33,6 +34,11 @@ export class MakingItem extends Component {
   }
 
   render() {
+    const options = [
+      { key: 1, text: 'Subjective', value: 1 },
+      { key: 2, text: 'CheckBox', value: 2 },
+      { key: 3, text: 'Multi-Selection', value: 3 },
+    ]
     return (
       <Segment className="MakingItem" style={{ backgroundColor: '#b8bfc7', minHeight: '250px' }}>
         <div id="ItemTop">
@@ -40,6 +46,18 @@ export class MakingItem extends Component {
           {this.props.number}
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Dropdown
+            clearable
+            selection
+            placeholder="ItemType"
+            as={Button}
+            size="large"
+            style={{ float: "right" }}
+            as={Segment}
+            options={options}
+            onChange={(data) => {this.setState({type: data.value})}}
+          />
+          
           <div className="questionTypeTogglerSet" style={{ float: "right" }}>
             <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
             {this.props.question_type == 'Selection' ? "Multiple Choice" : "Short Answer"}
