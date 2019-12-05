@@ -108,7 +108,6 @@ def getinfo(request):
 def search(request, keyword=''):
     if request.method == 'GET':
         surveys = list(Survey.objects.filter(title__icontains=keyword).values())
-        print(surveys)
         for survey in surveys:
             survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
             del survey['author_id']
