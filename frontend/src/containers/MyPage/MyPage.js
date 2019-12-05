@@ -69,7 +69,7 @@ No Ongoing Survey you made.
                 {'  '}
 Let's make new Survey!
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('making/')}> Go to make New Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/making/')}> Go to make New Survey </Button>
             </Segment>
             )
           }
@@ -97,7 +97,7 @@ No Opened Survey you made.
                 {'  '}
 How about making new Survey?
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('making/')}> Go to make New Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/making/')}> Go to make New Survey </Button>
             </Segment>
             )
           }
@@ -125,7 +125,7 @@ No Opened Survey in Your Cart.
                 {'  '}
 Let's search Survey to put in Cart!
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('main/')}> Go to search Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/main/')}> Go to search Survey </Button>
             </Segment>
             )
           }
