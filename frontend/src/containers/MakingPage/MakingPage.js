@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Modal, Icon, Header
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Modal, Icon, Header,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
@@ -58,7 +58,7 @@ export class MakingPage extends Component {
       open_date_focused: false,
       due_date_focused: false,
       scrollBound: [200, 300],
-      modal_open : false,
+      modal_open: false,
     }
 
 
@@ -70,7 +70,6 @@ export class MakingPage extends Component {
         })
         .catch(() => { this.props.history.push('/login/'); });
     }
-
 
 
     itemTypeHandler = (number, type) => {
@@ -106,37 +105,31 @@ export class MakingPage extends Component {
     }
 
     submitHandler = () => {
-      let error = (
-        this.state.title == ''||
-        this.state.content == ''||
-        !Number.isInteger(+this.state.response_count) || 
-        this.state.response_count <= 0 || 
-        this.state.response_count > 100 ||
-        this.state.item_list.reduce((item_acc, item) =>{
-          return (item_acc||(item.title=='')||item.error.reduce((error_acc, error)=> {
-            return error_acc||error
-          }, false))
-        }, false))
-        if(error){
-          this.setState({modal_open : true})
-        }
-        else{
-          const survey = {
-            title: this.state.title,
-            content: this.state.content,
-            survey_start_date: moment().format('YYYY/MM/DD'),
-            survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
-            open_date: this.state.open_date.format('YYYY/MM/DD'),
-            item: this.state.item_list,
-            target_age_start: this.state.age_check ? 1 : this.state.target_age[0],
-            target_age_end: this.state.age_check ? 100 : this.state.target_age[1],
-            target_gender: this.state.gender_check ? 'A' : this.state.target_gender,
-            target_respondant_count: this.state.response_count,
-          };
-          this.props.onSubmitSurvey(survey);
-          this.props.history.push('/main/');
-        }
-      
+      const error = (
+        this.state.title == ''
+        || this.state.content == ''
+        || !Number.isInteger(+this.state.response_count)
+        || this.state.response_count <= 0
+        || this.state.response_count > 100
+        || this.state.item_list.reduce((item_acc, item) => (item_acc || (item.title == '') || item.error.reduce((error_acc, error) => error_acc || error, false)), false));
+      if (error) {
+        this.setState({ modal_open: true });
+      } else {
+        const survey = {
+          title: this.state.title,
+          content: this.state.content,
+          survey_start_date: moment().format('YYYY/MM/DD'),
+          survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
+          open_date: this.state.open_date.format('YYYY/MM/DD'),
+          item: this.state.item_list,
+          target_age_start: this.state.age_check ? 1 : this.state.target_age[0],
+          target_age_end: this.state.age_check ? 100 : this.state.target_age[1],
+          target_gender: this.state.gender_check ? 'A' : this.state.target_gender,
+          target_respondant_count: this.state.response_count,
+        };
+        this.props.onSubmitSurvey(survey);
+        this.props.history.push('/main/');
+      }
     }
 
     addItemHandler = () => {
@@ -204,16 +197,18 @@ export class MakingPage extends Component {
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
           <div>
-            <Modal open = {this.state.modal_open}>
-            <Header icon='x' content='Form error!' />
-            <Modal.Content>
-              <h3>Please check if you have filled all of the forms.</h3>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color='grey' onClick={() => this.setState({modal_open : false})}>
-                <Icon name='checkmark' /> Okay
-              </Button>
-            </Modal.Actions>
+            <Modal open={this.state.modal_open}>
+              <Header icon="x" content="Form error!" />
+              <Modal.Content>
+                <h3>Please check if you have filled all of the forms.</h3>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="grey" onClick={() => this.setState({ modal_open: false })}>
+                  <Icon name="checkmark" />
+                  {' '}
+Okay
+                </Button>
+              </Modal.Actions>
             </Modal>
             <TopBar history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
             <Sticky offset={130} context={this.contextRef}>
@@ -231,14 +226,14 @@ export class MakingPage extends Component {
                 <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
                 <br />
                 <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
-                <Input className="SurveyTitle" error = {this.state.title == ''} placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
+                <Input className="SurveyTitle" error={this.state.title == ''} placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
                 <br />
                 <br />
                 <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
                 <TextArea
                   className="SurveyContent"
                   placeholder="Please explain about your Survey"
-                  error = {this.state.content == ''}
+                  error={this.state.content == ''}
                   rows={4}
                   onChange={(event) => this.setState({ content: event.target.value })}
                 />
