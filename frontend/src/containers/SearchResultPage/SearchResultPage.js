@@ -69,7 +69,7 @@ export class SearchResultPage extends Component {
         this.setState({
           survey_component_list: this.props.survey_list
             .map((survey) => (
-              <SurveyBlock search survey={survey} onClickCart={this.onClickCart} onClickCart={this.onClickCart} surveyClicked={this.onClickSurvey} />
+              <SurveyBlock search survey={survey} onClickCart={this.onClickCart} surveyClicked={this.onClickSurvey} />
             )),
         });
       })
@@ -117,7 +117,6 @@ export class SearchResultPage extends Component {
   )
 
   render() {
-    console.log(this.state.survey_component_list)
     return (
       <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
