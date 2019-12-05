@@ -35,7 +35,7 @@ export class MakingItem extends Component {
   render() {
     const options = [
       { key: 1, text: 'Subjective', value: 1 },
-      { key: 2, text: 'CheckBox', value: 2 },
+      { key: 2, text: 'Radio', value: 2 },
       { key: 3, text: 'Multi-Selection', value: 3 },
     ];
     return (
@@ -46,7 +46,6 @@ export class MakingItem extends Component {
 : &nbsp;&nbsp;
           <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Dropdown
-            clearable
             selection
             placeholder="ItemType"
             as={Button}
