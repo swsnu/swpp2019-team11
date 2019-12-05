@@ -95,6 +95,21 @@ export class MakingPage extends Component {
       }
     }
 
+    itemTypeHandler = (number, type) => {
+      const new_list = this.state.item_list;
+      if (type == 1) {
+        new_list[number - 1].question_type = 'Subjective';
+        new_list[number - 1].multiple_choice = false;
+      } else if (type == 2) {
+        new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].multiple_choice = false;
+      } else {
+        new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].multiple_choice = true;
+      }
+      this.setState({ item: new_list });
+    }
+
     personalToggler = (number) => {
       const new_list = this.state.item_list;
       new_list[number - 1].personal_data = !(new_list[number - 1].personal_data);
@@ -156,6 +171,7 @@ export class MakingPage extends Component {
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
         personalToggler={this.personalToggler}
+        itemTypeHandler={this.itemTypeHandler}
       />
     ));
 
