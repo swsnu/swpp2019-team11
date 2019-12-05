@@ -8,6 +8,8 @@ describe('ActionCreators', () => {
     email: '',
     info: {
       point: '',
+      age: null,
+      gender: null,
       username: '',
     },
   };

@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker, SingleDatePickerWrapper } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import {
   Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
 } from 'semantic-ui-react';
