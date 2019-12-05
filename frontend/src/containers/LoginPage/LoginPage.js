@@ -26,10 +26,10 @@ export class LoginPage extends Component {
   render() {
     return (
       <Grid className="login" id="login" textAlign="center">
-        <Grid.Row id="firstrow" className="firstRow" style={{ height: 100 }} columns={0}>
+        <Grid.Row id="firstrow" className="firstRow" style={{ height: '175px' }} columns={0}>
           <div>{' '}</div>
         </Grid.Row>
-        <Grid.Row id="secondRow" style={{ height: '95vh' }} verticalAlign="middle">
+        <Grid.Row id="secondRow" style={{ height: 'calc(100vh - 190px)' }} verticalAlign="middle">
           <Grid.Column id="rowColumn" style={{ maxWidth: 450, minWidth: 300 }}>
             <Header id="surBing" style={{ fontSize: '4em' }} as="h1" textAlign="center">
             surBing
@@ -69,7 +69,7 @@ Sign Up
             </Message>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row id="thirdrow" style={{ height: 130 }} columns={0}>
+        <Grid.Row id="thirdrow" style={{ height: 175 }} columns={0}>
           <div>{' '}</div>
         </Grid.Row>
       </Grid>
