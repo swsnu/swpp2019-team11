@@ -8,7 +8,7 @@ describe('<MakingOptions />', () => {
   const props = {
     id: 1,
     contentHandler: mockContent,
-    
+
   };
   const component = shallow(<MakingOptions {...props} />);
   it('render', () => {

@@ -55,9 +55,9 @@ describe('MakingPage', () => {
     expect(instance.state.title).toEqual('test');
   });
   it('Toggler', () => {
-    instance.itemTypeHandler(1, 1)
-    instance.itemTypeHandler(1, 2)
-    instance.itemTypeHandler(1, 3)
+    instance.itemTypeHandler(1, 1);
+    instance.itemTypeHandler(1, 2);
+    instance.itemTypeHandler(1, 3);
     expect(instance.state.item_list[0].question_type).toEqual('Selection');
   });
   it('dataCallBackHandler', () => {

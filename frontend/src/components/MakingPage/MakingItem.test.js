@@ -8,19 +8,19 @@ describe('<MakingItem />', () => {
   const mockMST = jest.fn();
   const mockQTT = jest.fn();
   const mockstateSender = jest.fn();
-  const mockItemTypeHandler = jest.fn()
+  const mockItemTypeHandler = jest.fn();
   const props = {
     history: {
       push: mockpush,
     },
-    cart_list : [{}],
-    survey_list : [],
-    ongoing_survey_list : [],
+    cart_list: [{}],
+    survey_list: [],
+    ongoing_survey_list: [],
     stateSender: mockstateSender,
     question_type: 'Selection',
     multipleSelectionToggler: mockMST,
     questionTypeToggler: mockQTT,
-    itemTypeHandler : mockItemTypeHandler,
+    itemTypeHandler: mockItemTypeHandler,
   };
   const component = shallow(<MakingItem {...props} />);
   const instance = component.instance();
@@ -29,7 +29,7 @@ describe('<MakingItem />', () => {
     expect(wrapper.length).toBe(1);
   });
   it('MakingOptions test', () => {
-    instance.typeHandler(0, 2)
+    instance.typeHandler(0, 2);
     const wrapper = component.find('.MakingOptions');
     expect(wrapper.length).toEqual(1);
   });
@@ -44,5 +44,4 @@ describe('<MakingItem />', () => {
     instance.addSelectionHandler();
     expect(mockstateSender).toHaveBeenCalledTimes(2);
   });
-  
 });

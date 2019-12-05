@@ -138,7 +138,7 @@ Let's search Survey to put in Cart!
 
 
   render() {
-    let menu = this.selectmenu()
+    const menu = this.selectmenu();
     return (
       <div className="myPage">
         <TopBar style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
