@@ -31,7 +31,7 @@ describe('<MakingItem />', () => {
     expect(mockMST).toHaveBeenCalledTimes(1);
   });
   */
- /*
+  /*
   it('type toggler', () => {
     const wrapper = component.find('.questionTypeToggler');
     wrapper.simulate('click');
