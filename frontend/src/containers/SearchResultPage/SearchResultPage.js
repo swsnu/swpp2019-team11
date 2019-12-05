@@ -69,7 +69,7 @@ export class SearchResultPage extends Component {
         this.setState({
           survey_component_list: this.props.survey_list
             .map((survey) => (
-              <SurveyBlock search survey={survey} onClickCart={this.onClickCart} />
+              <SurveyBlock search survey={survey} onClickCart={this.onClickCart} surveyClicked={this.onClickSurvey} />
             )),
         });
       })

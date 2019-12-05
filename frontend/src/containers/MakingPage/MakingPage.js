@@ -261,7 +261,7 @@ export class MakingPage extends Component {
                 <Input
                   className="targetCount"
                   type="text"
-                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
+                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count <= 0 || this.state.response_count > 50}
                   onChange={(event) => this.setState({ response_count: event.target.value })}
                   placeholder="... How many Responses?"
                 />
