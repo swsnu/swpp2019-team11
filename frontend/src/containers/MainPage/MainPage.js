@@ -30,7 +30,7 @@ export class MainPage extends Component {
             <ProfileButton style={{ margin: '25px' }} username={this.props.username} point={this.props.point} />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row id="secondRow" columns={2} style={{ height: '60.3vh' }} verticalAlign="middle">
+        <Grid.Row id="secondRow" columns={2} style={{ height: 'calc(100vh - 320px)' }} verticalAlign="middle">
           <Grid.Column>
             <Header id="surBing" style={{ 'font-size': '6em', cursor: 'pointer' }} textAlign="center">
               surBing
