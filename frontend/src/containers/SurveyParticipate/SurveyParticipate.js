@@ -24,8 +24,13 @@ export class SurveyParticipate extends Component {
   contextRef = createRef()
 
   componentDidMount() {
-    this.props.getSurveyList();
-    this.props.getUserInfo();
+    this.props.checklogIn().then(() => {
+      this.props.getSurveyList();
+      this.props.getUserInfo();
+    }).catch(() => {
+      window.location.assign('/login')
+    })
+    
   }
 
   componentDidUpdate(prevProps) {
