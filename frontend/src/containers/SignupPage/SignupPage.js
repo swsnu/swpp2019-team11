@@ -106,19 +106,20 @@ export class SignupPage extends Component {
                   </Form.Group>
                   <Button
                     id="signupButton"
-                    fluid size="large"
+                    fluid
+                    size="large"
                     onClick={() => this.signupHandler()}
-                    disabled={!this.state.email||!this.state.username||!this.state.password||!this.state.password_confirmation||!this.state.age||!this.state.gender}
+                    disabled={!this.state.email || !this.state.username || !this.state.password || !this.state.password_confirmation || !this.state.age || !this.state.gender}
                   >
               Signup
                   </Button>
                   <Confirm
-                  id="SignupConfirm"
-                  open={!this.state.signupOk}
-                  onConfirm={this.confirmClose}
-                  cancelButton={null}
-                  content="Existing ID."
-                />
+                    id="SignupConfirm"
+                    open={!this.state.signupOk}
+                    onConfirm={this.confirmClose}
+                    cancelButton={null}
+                    content="Existing ID."
+                  />
                 </Segment>
               </Form>
             </div>
