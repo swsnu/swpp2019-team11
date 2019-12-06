@@ -6,10 +6,12 @@ describe('<ResponsePage />', () => {
   beforeEach(() => { jest.clearAllMocks(); });
   const mockPush = jest.fn();
   const mockSOGS = jest.fn();
+  const mockCPL = jest.fn();
   const mockgetOngoingSurvey = jest.fn();
   const mockResponse = jest.fn();
   const props = {
     submitOngoingSurvey: mockSOGS,
+    clearParticipatingList: mockCPL,
     history: {
       push: mockPush,
     },
@@ -67,7 +69,7 @@ describe('<ResponsePage />', () => {
     component.instance().state.response_list = [[true]];
     wrapper = component.find('.Submit');
     wrapper.simulate('click');
-    expect(mockPush).toHaveBeenCalledTimes(2);
+    expect(mockResponse).toHaveBeenCalledTimes(2);
   });
   it('component functions', (done) => {
     component.instance().componentDidMount();

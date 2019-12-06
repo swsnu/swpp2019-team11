@@ -30,7 +30,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.getCompletedSurvey())
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.survey).toEqual(stubSurvey);
+        expect(newState.sv.completed_survey).toEqual(stubSurvey);
         expect(axios.get).toHaveBeenCalledTimes(1);
         done();
       });
@@ -47,7 +47,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.addOngoingSurvey())
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual([]);
+        expect(newState.sv.ongoing_survey).toEqual({});
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });
@@ -63,7 +63,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.participateSurvey(1, stubResponse))
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.ongoing_survey).toEqual([]);
+        expect(newState.sv.ongoing_survey).toEqual({});
         expect(axios.post).toHaveBeenCalledTimes(1);
         done();
       });
@@ -95,7 +95,7 @@ describe('ActionCreators', () => {
     store.dispatch(actionCreators.getOngoingSurvey(1))
       .then(() => {
         const newState = store.getState();
-        expect(newState.sv.survey).toEqual(stubSurvey);
+        expect(newState.sv.completed_survey).toEqual(stubSurvey);
         expect(axios.get).toHaveBeenCalledTimes(1);
         done();
       });
