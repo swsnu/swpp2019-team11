@@ -1,7 +1,9 @@
 import React, { Component, createRef } from 'react';
-import { Ref } from 'semantic-ui-react';
+import {
+  Ref, Segment, Grid, Header, Icon,
+} from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Segment, Grid, Header, Icon } from 'semantic-ui-react'
+
 import TopBar from '../../components/TopBar/TopBar';
 import * as actionCreators from '../../store/actions/index';
 import './SurveyParticipate.css';
@@ -38,45 +40,44 @@ export class SurveyParticipate extends Component {
   }
 
   render() {
-    console.log(this.props.survey_list)
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
           <TopBar context={this.contextRef} username={this.props.username} point={this.props.point} />
           <Grid padded>
-            <Grid.Row id="underTopbar" columns = {1}>
+            <Grid.Row id="underTopbar" columns={1}>
               <Grid.Column>
-              <table celled id="ParticipateTable">
-                <thead id="TableHeader">
-                  <tr>
-                    <th>Survey Title</th>
-                    <th id="dateHeader">Upload Date</th>
-                    <th id="buttonHeader">Participate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.props.survey_list.map((survey) => (
+                <table celled id="ParticipateTable">
+                  <thead id="TableHeader">
                     <tr>
-                      <td id="titleRow">{ survey.title }</td>
-                      <td id="dateRow">{ survey.upload_date }</td>
-                      <td id="buttonRow">
-                        <button id="participateButton" onClick={() => this.participateHandler(survey.id)}>
-                        Participate
-                        </button>
-                      </td>
+                      <th>Survey Title</th>
+                      <th id="dateHeader">Upload Date</th>
+                      <th id="buttonHeader">Participate</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              {this.props.survey_list.length == 0 && (
-                <Segment placeholder block style = {{textAlign : 'center'}}>
+                  </thead>
+                  <tbody>
+                    {this.props.survey_list.map((survey) => (
+                      <tr>
+                        <td id="titleRow">{ survey.title }</td>
+                        <td id="dateRow">{ survey.upload_date }</td>
+                        <td id="buttonRow">
+                          <button id="participateButton" onClick={() => this.participateHandler(survey.id)}>
+                        Participate
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {this.props.survey_list.length == 0 && (
+                <Segment placeholder block style={{ textAlign: 'center' }}>
                   <Header icon>
-                    <Icon name = "x" />
+                    <Icon name="x" />
                     There are no Surveys available to Participate
-                    </Header>
-                  
+                  </Header>
+
                 </Segment>
-              )}
+                )}
               </Grid.Column>
             </Grid.Row>
           </Grid>

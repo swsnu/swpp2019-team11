@@ -74,4 +74,4 @@ export const getParticipatingList = () => (dispatch) => axios.get('/api/particip
 });
 
 
-export const clearParticipatingList = () => (dispatch) => dispatch({type : actionTypes.CLEAR_PARTICIPATING_LIST})
+export const clearParticipatingList = () => (dispatch) => dispatch({ type: actionTypes.CLEAR_PARTICIPATING_LIST });

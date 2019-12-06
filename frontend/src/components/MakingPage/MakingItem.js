@@ -64,7 +64,7 @@ export class MakingItem extends Component {
         Q
           {this.props.number}
 : &nbsp;&nbsp;
-          <Input style = {{width : 550}} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Input style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Dropdown
             selection
             placeholder="ItemType"
@@ -82,7 +82,7 @@ export class MakingItem extends Component {
           content="You must Check it if the question asks personal Data"
           position="right center"
           trigger={(
-              <Checkbox label = "This question asks about personal information" onClick={() => { this.props.personalToggler(this.props.number); }} />
+            <Checkbox label="This question asks about personal information" onClick={() => { this.props.personalToggler(this.props.number); }} />
             )}
         />
 

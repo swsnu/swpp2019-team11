@@ -29,7 +29,7 @@ export class ResponsePage extends Component {
   }
 
   componentDidMount() {
-    this.props.clearParticipatingList()
+    this.props.clearParticipatingList();
     this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
@@ -47,7 +47,7 @@ export class ResponsePage extends Component {
       }
     });
     this.props.response(this.props.survey.id, response_json);
-    window.location.assign('/participate/')
+    window.location.assign('/participate/');
   }
 
   responseCallback = (item_num, data) => {
