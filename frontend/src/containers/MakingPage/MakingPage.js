@@ -74,18 +74,18 @@ export class MakingPage extends Component {
 
     itemTypeHandler = (number, type) => {
       const new_list = this.state.item_list;
-      if (type == 1) {
-        new_list[number - 1].question_type = 'Subjective';
-        new_list[number - 1].selection = [];
-        new_list[number - 1].multiple_choice = false;
+      if (type == 3) {
+        new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].selection = [{ number: 1, content: '' }];
+        new_list[number - 1].multiple_choice = true;
       } else if (type == 2) {
         new_list[number - 1].question_type = 'Selection';
         new_list[number - 1].selection = [{ number: 1, content: '' }];
         new_list[number - 1].multiple_choice = false;
       } else {
-        new_list[number - 1].question_type = 'Selection';
-        new_list[number - 1].selection = [{ number: 1, content: '' }];
-        new_list[number - 1].multiple_choice = true;
+        new_list[number - 1].question_type = 'Subjective';
+        new_list[number - 1].selection = [];
+        new_list[number - 1].multiple_choice = false;
       }
       this.setState({ item_list: new_list });
     }
@@ -298,6 +298,7 @@ Okay
               <Button size="big" style={{ marginBottom: '10px' }} className="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
+              
             </div>
           </div>
         </Ref>
