@@ -33,3 +33,13 @@
 .login {
     padding-bottom: 0px;
 }
+
+#loginConfirm .actions .button{
+    background-color: #a3c6c4;
+}
+
+#loginConfirm {
+    font-family: sans-serif;
+    font-size: 18px;
+    width: 300px;
+}
