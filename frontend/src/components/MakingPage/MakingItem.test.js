@@ -8,14 +8,19 @@ describe('<MakingItem />', () => {
   const mockMST = jest.fn();
   const mockQTT = jest.fn();
   const mockstateSender = jest.fn();
+  const mockItemTypeHandler = jest.fn();
   const props = {
     history: {
       push: mockpush,
     },
+    cart_list: [{}],
+    survey_list: [],
+    ongoing_survey_list: [],
     stateSender: mockstateSender,
     question_type: 'Selection',
     multipleSelectionToggler: mockMST,
     questionTypeToggler: mockQTT,
+    itemTypeHandler: mockItemTypeHandler,
   };
   const component = shallow(<MakingItem {...props} />);
   const instance = component.instance();
@@ -23,23 +28,8 @@ describe('<MakingItem />', () => {
     const wrapper = component.find('.MakingItem');
     expect(wrapper.length).toBe(1);
   });
-  /*
-  it('checkbox', () => {
-    instance.setState({ questiontype: 'Selection' });
-    const wrapper = component.find('.MultipleSelection');
-    wrapper.simulate('click');
-    expect(mockMST).toHaveBeenCalledTimes(1);
-  });
-  */
-  /*
-  it('type toggler', () => {
-    const wrapper = component.find('.questionTypeToggler');
-    wrapper.simulate('click');
-    expect(mockQTT).toHaveBeenCalledTimes(1);
-  });
-  */
   it('MakingOptions test', () => {
-    instance.setState({ questiontype: 'Selection' });
+    instance.typeHandler(0, 2);
     const wrapper = component.find('.MakingOptions');
     expect(wrapper.length).toEqual(1);
   });

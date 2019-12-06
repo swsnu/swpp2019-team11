@@ -9,12 +9,14 @@ import './MakingItem.css';
 export class MakingItem extends Component {
   state = {
     title: '',
-    selection_list: [{ number: 1, content: '' }],
-    type: '',
+    selection_list: [],
+    type: 1,
+    error: [],
   }
 
   selectionContentHandler = (content, number) => {
     this.state.selection_list[number - 1].content = content;
+    this.state.error[number - 1] = (content == '');
     this.props.stateSender(this.state, this.props.number);
   }
 
@@ -24,7 +26,25 @@ export class MakingItem extends Component {
       content: '',
     };
     this.state.selection_list.push(new_selection);
+    this.state.error[this.state.selection_list.lenth - 1] = true;
     this.props.stateSender(this.state, this.props.number);
+  }
+
+  typeHandler = (target, data) => {
+    if (this.state.type != data.value) {
+      if (data.value == 1) {
+        this.state.selection_list = [];
+      } else {
+        this.state.selection_list = [{ number: 1, content: '' }];
+        this.state.error[0] = true;
+      }
+      this.setState({ type: data.value });
+      this.props.itemTypeHandler(this.props.number, data.value);
+    }
+  }
+
+  errorDetect = () => {
+
   }
 
   titleChangeHandler = (title) => {
@@ -44,7 +64,7 @@ export class MakingItem extends Component {
         Q
           {this.props.number}
 : &nbsp;&nbsp;
-          <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Input className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Dropdown
             selection
             placeholder="ItemType"
@@ -52,7 +72,8 @@ export class MakingItem extends Component {
             size="large"
             style={{ float: 'right' }}
             options={options}
-            onChange={(target, data) => { this.setState({ type: data.value }); this.props.itemTypeHandler(this.props.number, data.value); }}
+            value={this.state.type}
+            onChange={this.typeHandler}
           />
         </div>
 
@@ -73,7 +94,9 @@ export class MakingItem extends Component {
           <MakingOptions
             className="MakingOptions"
             number={selection.number}
-            content={this.selectionContentHandler}
+            contentHandler={this.selectionContentHandler}
+            content={selection.content}
+            error={selection.content == ''}
           />
         ))
         }
