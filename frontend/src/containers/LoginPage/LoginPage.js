@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Button, Form, Grid, Header, Segment, Message,
+  Button, Form, Grid, Header, Segment, Message, Confirm, Popup,
 } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
@@ -15,13 +15,21 @@ export class LoginPage extends Component {
   state = {
     username: '',
     password: '',
+    loginOk: true,
+    // confirmBool: false,
   };
 
   loginHandler = () => {
     this.props.logIn(this.state.username, this.state.password)
       .then(() => { this.props.history.push('/main'); })
-      .catch(() => {});
+      .catch((error) => {
+        if (error.response.status == 401) this.setState({ loginOk: false });
+      });
   };
+
+  confirmClose = () => {
+    this.setState({ loginOk: true });
+  }
 
   render() {
     return (
@@ -54,9 +62,25 @@ export class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                <Button id="loginbutton" className="loginbutton" disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} fluid size="large">
-              Log In
+
+                <Button
+                  id="loginbutton"
+                  className="loginbutton"
+                  disabled={!this.state.username || !this.state.password}
+                  onClick={() => this.loginHandler()}
+                  fluid
+                  size="large"
+                >
+                  Log In
                 </Button>
+
+                <Confirm
+                  id="loginConfirm"
+                  open={!this.state.loginOk}
+                  onConfirm={this.confirmClose}
+                  cancelButton={null}
+                  content="Wrong ID or Password."
+                />
               </Segment>
             </Form>
             <Message>

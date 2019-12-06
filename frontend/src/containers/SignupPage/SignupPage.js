@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Button, Form, Grid, Header, Segment, Message,
+  Button, Form, Grid, Header, Segment, Message, Confirm,
 } from 'semantic-ui-react';
 import './SignupPage.css';
 import { NavLink } from 'react-router-dom';
@@ -21,6 +21,7 @@ export class SignupPage extends Component {
     password_confirmation_error: false,
     age_error: false,
     gender_error: false,
+    signupOk: true,
   }
 
   options = [
@@ -51,8 +52,15 @@ export class SignupPage extends Component {
       this.props.signUp(this.state.username, this.state.email, this.state.password, this.state.age, this.state.gender)
         .then(() => {
           this.props.history.push('/login');
+        })
+        .catch((error) => {
+          if (error.response.status == 400) this.setState({ signupOk: false });
         });
     }
+  }
+
+  confirmClose = () => {
+    this.setState({ signupOk: true });
   }
 
   render() {
@@ -96,9 +104,22 @@ export class SignupPage extends Component {
                     <Form.Input className="ageInput" onChange={(e) => { this.state.age = e.target.value; this.validate(); }} fluid placeholder="Age" error={this.state.age_error} />
                     <Form.Select className="genderInput" options={this.options} onChange={(e, { value }) => { this.state.gender = value; this.validate(); }} placeholder="Gender" error={this.state.gender_error} />
                   </Form.Group>
-                  <Button id="signupButton" fluid size="large" onClick={() => this.signupHandler()}>
+                  <Button
+                    id="signupButton"
+                    fluid
+                    size="large"
+                    onClick={() => this.signupHandler()}
+                    disabled={!this.state.email || !this.state.username || !this.state.password || !this.state.password_confirmation || !this.state.age || !this.state.gender}
+                  >
               Signup
                   </Button>
+                  <Confirm
+                    id="SignupConfirm"
+                    open={!this.state.signupOk}
+                    onConfirm={this.confirmClose}
+                    cancelButton={null}
+                    content="Existing ID."
+                  />
                 </Segment>
               </Form>
             </div>

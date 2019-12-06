@@ -46,7 +46,7 @@ My Point:
               </div>
             </Dropdown.Item>
             <Dropdown.Item className="logOut" id="logOut" onClick={() => this.logoutHandler()} basic as={Button} floating>
-              <Icon name="key" />
+              <Icon id="keyIcon" name="key" />
             Log Out
             </Dropdown.Item>
           </Dropdown.Menu>
