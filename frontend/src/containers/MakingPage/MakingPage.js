@@ -112,6 +112,11 @@ export class MakingPage extends Component {
         || this.state.response_count <= 0
         || this.state.response_count > 100
         || this.state.item_list.reduce((item_acc, item) => (item_acc || (item.title == '') || item.error.reduce((error_acc, error) => error_acc || error, false)), false));
+      
+      this.state.item_list.map((Item) => {
+        if (Item.question_type == 'Selection' && Item.selection.length <= 1) error = true;
+      });
+      
       if (error) {
         this.setState({ modal_open: true });
       } else {
