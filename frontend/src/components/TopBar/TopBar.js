@@ -21,19 +21,19 @@ export const TopBar = (props) => (
     <Menu size="big" className="UtilBar" style={{ borderRadius: '0px', marginBottom: '-15px' }}>
       <Popup
         id="parPop"
-        content={"Lists of Surveys you can participate in! (Not you Made)"}
-        on='hover'
-        trigger={
+        content="Lists of Surveys you can participate in! (Not you Made)"
+        on="hover"
+        trigger={(
           <Menu.Item
             className="Participate"
             onClick={() => props.history.push('/participate')}
           >
             Participate Survey
           </Menu.Item>
-        }
+        )}
         position="bottom left"
       />
-      
+
       <Menu.Item
         className="Making"
         onClick={() => props.history.push('/making')}
@@ -43,19 +43,19 @@ export const TopBar = (props) => (
 
       <Popup
         id="cartPop"
-        content= "You can check: Survey you made/ you response/ and your Cart"
+        content="You can check: Survey you made/ you response/ and your Cart"
         on="hover"
-        trigger={
+        trigger={(
           <Menu.Item
             className="Mypage"
             onClick={() => props.history.push('/mypage')}
           >
             MyPage
           </Menu.Item>
-        }
+        )}
         position="bottom left"
       />
-      
+
     </Menu>
   </Sticky>
 );
