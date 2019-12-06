@@ -23,3 +23,13 @@
 #thirdrow {
     margin-top: -140px;
 }
+
+#SignupConfirm {
+    font-family: sans-serif;
+    font-size: 18px;
+    width: 300px;
+}
+
+#SignupConfirm .actions .button{
+    background-color: #a3c6c4;
+}
