@@ -298,7 +298,7 @@ Okay
               <Button size="big" style={{ marginBottom: '10px' }} className="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
-              
+
             </div>
           </div>
         </Ref>
