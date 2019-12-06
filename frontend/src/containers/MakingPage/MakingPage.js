@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Modal, Icon, Header,
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Modal, Icon, Header, Grid
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
@@ -221,45 +221,49 @@ Okay
                 <Progress style={{ marginTop: '0px' }} id="progressBar" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
-            <div id="underTopbar">
-              <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
-                <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
-                <br />
-                <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
-                <Input className="SurveyTitle" error={this.state.title == ''} placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
-                <br />
-                <br />
-                <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
-                <TextArea
-                  className="SurveyContent"
-                  placeholder="Please explain about your Survey"
-                  error={this.state.content == ''}
-                  rows={4}
-                  onChange={(event) => this.setState({ content: event.target.value })}
-                />
-                <br />
-                <br />
-                <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
-                <SingleDatePicker
-                  borderRadius={5}
-                  numberOfMonths={1}
-                  onDateChange={(due_date) => { this.setState({ due_date, open_date: this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date }); }}
-                  onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
-                  focused={this.state.due_date_focused}
-                  date={moment(this.state.due_date)}
-                />
-                <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
-                <SingleDatePicker
-                  borderRadius={5}
-                  numberOfMonths={1}
-                  onDateChange={(open_date) => this.setState({ open_date })}
-                  onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
-                  focused={this.state.open_date_focused}
-                  date={moment(this.state.open_date)}
-                  isDayBlocked={this.isDateBlocked}
-                />
-              </Segment>
+            <Grid id="underTopbar">
+              <Grid.Row columns = {1}><Grid.Column>
+                
+                <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
+                  <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+                  <br />
+                  <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
+                  <Input className="SurveyTitle" error={this.state.title == ''} placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
+                  <br />
+                  <br />
+                  <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
+                  <TextArea
+                    className="SurveyContent"
+                    placeholder="Please explain about your Survey"
+                    error={this.state.content == ''}
+                    rows={4}
+                    onChange={(event) => this.setState({ content: event.target.value })}
+                  />
+                  <br />
+                  <br />
+                  <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
+                  <SingleDatePicker
+                    borderRadius={5}
+                    numberOfMonths={1}
+                    onDateChange={(due_date) => { this.setState({ due_date, open_date: this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date }); }}
+                    onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
+                    focused={this.state.due_date_focused}
+                    date={moment(this.state.due_date)}
+                  />
+                  <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
+                  <SingleDatePicker
+                    borderRadius={5}
+                    numberOfMonths={1}
+                    onDateChange={(open_date) => this.setState({ open_date })}
+                    onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
+                    focused={this.state.open_date_focused}
+                    date={moment(this.state.open_date)}
+                    isDayBlocked={this.isDateBlocked}
+                  />
+                </Segment>
+              </Grid.Column></Grid.Row>
 
+              <Grid.Row><Grid.Column>
               <Segment style={{ backgroundColor: '#A3C6C4' }}>
                 <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
 
@@ -288,6 +292,8 @@ Okay
                   placeholder="... How many Responses?"
                 />
               </Segment>
+              </Grid.Column></Grid.Row>
+              <Grid.Row><Grid.Column>
               <Segment style={{ backgroundColor: '#8d99a5' }}>
                 <p id="itemsText">3. Items</p>
                 <Button className="addItemButton" onClick={this.addItemHandler}>
@@ -295,10 +301,11 @@ Okay
                 </Button>
                 { items }
               </Segment>
-              <Button size="big" style={{ marginBottom: '10px' }} className="submitButton" onClick={this.submitHandler}>
+              <Button floated = "right" size="huge" style={{ marginBottom: '10px', width : '150px', color : 'black', backgroundColor : "#8d99a5" }} className="submitButton" onClick={this.submitHandler}>
             Submit
               </Button>
-            </div>
+              </Grid.Column></Grid.Row>
+            </Grid>
           </div>
         </Ref>
       );
