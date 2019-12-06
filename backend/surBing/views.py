@@ -429,5 +429,3 @@ def my_survey_completed(request):
         return JsonResponse(survey_list, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
-
-
