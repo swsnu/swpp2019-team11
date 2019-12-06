@@ -96,7 +96,12 @@ export class SignupPage extends Component {
                     <Form.Input className="ageInput" onChange={(e) => { this.state.age = e.target.value; this.validate(); }} fluid placeholder="Age" error={this.state.age_error} />
                     <Form.Select className="genderInput" options={this.options} onChange={(e, { value }) => { this.state.gender = value; this.validate(); }} placeholder="Gender" error={this.state.gender_error} />
                   </Form.Group>
-                  <Button id="signupButton" fluid size="large" onClick={() => this.signupHandler()}>
+                  <Button
+                    id="signupButton"
+                    fluid size="large"
+                    onClick={() => this.signupHandler()}
+                    disabled={!this.state.email||!this.state.username||!this.state.password||!this.state.password_confirmation||!this.state.age||!this.state.gender}
+                  >
               Signup
                   </Button>
                 </Segment>
