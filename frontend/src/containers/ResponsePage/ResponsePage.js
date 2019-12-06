@@ -7,6 +7,7 @@ import ResponsingItem from '../../components/ResponsingPage/ResponsingItem';
 import './ResponsePage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
+  clearParticipatingList: () => dispatch(actionCreators.clearParticipatingList()),
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   response: (id, response) => dispatch(actionCreators.participateSurvey(id, response)),
 });
@@ -28,6 +29,7 @@ export class ResponsePage extends Component {
   }
 
   componentDidMount() {
+    this.props.clearParticipatingList()
     this.props.checklogIn().catch(() => { this.props.history.push('/login/'); });
   }
 
@@ -45,7 +47,7 @@ export class ResponsePage extends Component {
       }
     });
     this.props.response(this.props.survey.id, response_json);
-    this.props.history.push('/participate/');
+    window.location.assign('/participate/')
   }
 
   responseCallback = (item_num, data) => {

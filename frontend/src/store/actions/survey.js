@@ -72,3 +72,6 @@ export const getParticipatingList = () => (dispatch) => axios.get('/api/particip
   dispatch(getParticipatingList_(res.data));
   return res;
 });
+
+
+export const clearParticipatingList = () => (dispatch) => dispatch({type : actionTypes.CLEAR_PARTICIPATING_LIST})
