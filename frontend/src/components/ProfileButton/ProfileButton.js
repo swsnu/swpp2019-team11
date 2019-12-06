@@ -13,9 +13,9 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
-  username : state.us.info.username,
+  username: state.us.info.username,
   point: state.us.info.point,
-})
+});
 
 export class ProfileButton extends Component {
   logoutHandler = () => {
@@ -29,9 +29,9 @@ export class ProfileButton extends Component {
   }
 
   render() {
-    if (this.props.username != "") {
+    if (this.props.username != '') {
       return (
-        <Dropdown className="DropDownClass" id="DropDownClass" style = {this.props.style} as={Button} text="Profile" size="large"  direction="left">
+        <Dropdown className="DropDownClass" id="DropDownClass" style={this.props.style} as={Button} text="Profile" size="large" direction="left">
           <Dropdown.Menu className="Menu" id="Menu" as={Segment}>
             <Dropdown.Item id="upperItem" onClick={() => this.props.history.push('/mypage/')}>
               <Icon centered name="user circle" className="UserIcon" size="huge" />
@@ -57,11 +57,20 @@ My Point:
         </Dropdown>
       );
     }
-    else{
-      return (
-        <Button id = "LoginButton" icon = "user" size = "large" style = {{margin : 25, backgroundColor :"#a3c6c4", width : 110, color : 'black'}}  onClick = {() => this.props.history.push('/login')}>LogIn</Button>
-      );
-    }
+
+    return (
+      <Button
+        id="LoginButton"
+        icon="user"
+        size="large"
+        style={{
+          margin: 25, backgroundColor: '#a3c6c4', width: 110, color: 'black',
+        }}
+        onClick={() => this.props.history.push('/login')}
+      >
+LogIn
+      </Button>
+    );
   }
 }
 

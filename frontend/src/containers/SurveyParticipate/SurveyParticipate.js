@@ -28,9 +28,8 @@ export class SurveyParticipate extends Component {
       this.props.getSurveyList();
       this.props.getUserInfo();
     }).catch(() => {
-      window.location.assign('/login')
-    })
-    
+      window.location.assign('/login');
+    });
   }
 
   componentDidUpdate(prevProps) {

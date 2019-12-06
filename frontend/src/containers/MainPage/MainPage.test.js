@@ -33,7 +33,7 @@ describe('MainPage', () => {
   });
   it('matchDispatchToProps', () => {
     const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).checklogIn();
+    mapDispatchToProps(dispatch).getUserInfo();
     expect(dispatch).toHaveBeenCalledTimes(1);
   });
 });

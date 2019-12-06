@@ -11,7 +11,7 @@ import './MainPage.css';
 
 export class MainPage extends Component {
   componentDidMount() {
-    this.props.getUserInfo()
+    this.props.getUserInfo();
   }
 
   addSurveyHandler = () => {
@@ -27,7 +27,7 @@ export class MainPage extends Component {
       <Grid className="MainPage" textAlign="center">
         <Grid.Row id="firstRow" textAlign="right" colums={1}>
           <Grid.Column>
-            <ProfileButton style={{ margin: '25px' }}/>
+            <ProfileButton style={{ margin: '25px' }} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row id="secondRow" columns={2} style={{ height: 'calc(100vh - 320px)' }} verticalAlign="middle">
