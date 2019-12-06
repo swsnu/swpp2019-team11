@@ -23,9 +23,7 @@ export class LoginPage extends Component {
     this.props.logIn(this.state.username, this.state.password)
       .then(() => { this.props.history.push('/main'); })
       .catch((error) => {
-        // console.log(error.response);
-        this.setState({ loginOk: false });
-        //if (error.response.status == 401) this.render();
+        if (error.response.status == 401) this.setState({ loginOk: false });
       });
   };
 
@@ -64,7 +62,7 @@ export class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                
+
                 <Button
                   id="loginbutton"
                   className="loginbutton"
@@ -75,13 +73,13 @@ export class LoginPage extends Component {
                 >
                   Log In
                 </Button>
-                
+
                 <Confirm
                   id="loginConfirm"
                   open={!this.state.loginOk}
                   onConfirm={this.confirmClose}
                   cancelButton={null}
-                  content= { "Wrong ID or Password." }
+                  content="Wrong ID or Password."
                 />
               </Segment>
             </Form>
