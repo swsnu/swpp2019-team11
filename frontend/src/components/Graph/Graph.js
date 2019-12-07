@@ -11,21 +11,21 @@ class Graph extends Component {
   render(){
     return(
       <div>
-    <Button.Group>
-      <Button onClick={() => this.setState({isClicked : 0})}>블럭</Button>
-      <Button onClick={() => this.setState({isClicked : 1})}>파이</Button>
-      <Button onClick={() => this.setState({isClicked : 2})}>선</Button>  
-      </Button.Group>
-<XYPlot height={300} width= {300}>
-  <VerticalGridLines />
-  <HorizontalGridLines />
-  <XAxis />
-  <YAxis />
-  {this.state.isClicked === 0 ? <VerticalBarSeries data={this.props.graph_block} /> :(
-this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300}/> : 
-  <LineSeries data={this.props.graph_block} />) }
-</XYPlot>
-  </div>
+        <Button.Group>
+          <Button onClick={() => this.setState({isClicked : 0})}>Block</Button>
+          <Button onClick={() => this.setState({isClicked : 1})}>Pie</Button>
+          <Button onClick={() => this.setState({isClicked : 2})}>Line</Button>  
+        </Button.Group>
+        <XYPlot height={300} width= {300}>
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          {this.state.isClicked === 0 ? <VerticalBarSeries data={this.props.graph_block} /> :(
+            this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300}/> : 
+            <LineSeries data={this.props.graph_block} />) }
+        </XYPlot>
+      </div>
     )
   }
 };
