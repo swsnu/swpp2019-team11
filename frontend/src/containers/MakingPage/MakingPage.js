@@ -215,7 +215,7 @@ Okay
                 </Button>
               </Modal.Actions>
             </Modal>
-            <TopBar menu = "Making" history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
+            <TopBar menu="Making" history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
             <Sticky offset={130} context={this.contextRef}>
               <Segment
                 border="none"

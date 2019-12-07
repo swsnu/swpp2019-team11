@@ -21,7 +21,7 @@ export const TopBar = (props) => (
     <Menu size="big" className="UtilBar" pointing secondary style={{ borderRadius: '0px', marginBottom: '-15px' }}>
       <Menu.Item
         className="Participate"
-        active = {props.menu == "Participate"}
+        active={props.menu == 'Participate'}
         onClick={() => props.history.push('/participate')}
       >
           Participate Survey
@@ -29,7 +29,7 @@ export const TopBar = (props) => (
 
       <Menu.Item
         className="Making"
-        active = {props.menu == "Making"}
+        active={props.menu == 'Making'}
         onClick={() => props.history.push('/making')}
       >
           Make Survey
@@ -37,7 +37,7 @@ export const TopBar = (props) => (
 
       <Menu.Item
         className="Mypage"
-        active = {props.menu == "Mypage"}
+        active={props.menu == 'Mypage'}
         onClick={() => props.history.push('/mypage')}
       >
           MyPage

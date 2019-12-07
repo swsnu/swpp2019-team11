@@ -47,7 +47,7 @@ export class SurveyParticipate extends Component {
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
-          <TopBar menu = "Participate" context={this.contextRef} username={this.props.username} point={this.props.point} />
+          <TopBar menu="Participate" context={this.contextRef} username={this.props.username} point={this.props.point} />
           <Grid padded>
             <Grid.Row id="underTopbar" columns={1}>
               <Grid.Column>

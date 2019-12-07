@@ -141,7 +141,7 @@ Let's search Survey to put in Cart!
     const menu = this.selectmenu();
     return (
       <div className="myPage">
-        <TopBar menu = "Mypage" style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
+        <TopBar menu="Mypage" style={{ backgroundColor: 'white', 'z-index': 1 }} username={this.props.username} point={this.props.point} />
         <Sidebar.Pushable as={Segment} style={{ paddingTop: 100, 'z-index': 2 }}>
           <Sidebar
             id="sidebar"
