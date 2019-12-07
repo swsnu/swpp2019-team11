@@ -24,8 +24,13 @@ export class ProfileButton extends Component {
 
   componentDidUpdate(prev) {
     if (prev != this.props) {
+      this.props.getUserInfo();
       this.forceUpdate();
     }
+  }
+
+  componentDidMount() {
+    this.props.getUserInfo();
   }
 
   render() {
