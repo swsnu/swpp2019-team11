@@ -6,10 +6,12 @@ describe('<ProfileButton />', () => {
   beforeEach(() => { jest.clearAllMocks(); });
   const mockPush = jest.fn();
   const mockLogOut = jest.fn(() => new Promise((res) => { res(); }));
+  const mockGetUserInfo = jest.fn();
   const props = {
     history: { push: () => mockPush() },
     logOut: mockLogOut,
     username: 'jom',
+    getUserInfo: mockGetUserInfo,
   };
   const component = shallow(<ProfileButton {...props} />);
   it('should render without errors', () => {
