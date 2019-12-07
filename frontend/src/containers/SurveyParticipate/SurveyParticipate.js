@@ -56,6 +56,7 @@ export class SurveyParticipate extends Component {
                     <tr>
                       <th>Survey Title</th>
                       <th id="dateHeader">Upload Date</th>
+                      <th id="countHeader">current</th>
                       <th id="buttonHeader">Participate</th>
                     </tr>
                   </thead>
@@ -64,11 +65,17 @@ export class SurveyParticipate extends Component {
                       <tr>
                         <td id="titleRow">{ survey.title }</td>
                         <td id="dateRow">{ survey.upload_date }</td>
+                        <td id="countRow">
+                          {survey.respondant_count}
+                          {' / '}
+                          {survey.target_respondant_count}
+                        </td>
                         <td id="buttonRow">
                           <button id="participateButton" onClick={() => this.participateHandler(survey.id)}>
                         Participate
                           </button>
                         </td>
+
                       </tr>
                     ))}
                   </tbody>

@@ -33,6 +33,12 @@
     height: 42px;
 }
 
+#countHeader {
+    text-align: center;
+    border: 1px solid rgba(34, 36, 38, .1);
+    height: 42px;
+}
+
 #tableBody {
     min-height: 40px;
 }
@@ -42,14 +48,14 @@
 }
 
 #titleRow {
-    width: 40%;
+    width: 35%;
     background-color: #e0e7e9;
     border: 1px solid rgba(34, 36, 38, .1);
     min-height: 40px;
 }
 
 #dateRow {
-    width: 40%;
+    width: 30%;
     border: 1px solid rgba(34, 36, 38, .1);
     background-color: #f9fafb;
     min-height: 40px;
@@ -62,6 +68,10 @@
     border: 1px solid rgba(34, 36, 38, .1);
     min-height: 40px;
     height: 40px;
+}
+
+#countRow {
+    width: 15%;
 }
 
 #participateButton {
