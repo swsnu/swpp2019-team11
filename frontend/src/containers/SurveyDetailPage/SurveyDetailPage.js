@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 import SurveyItem from '../../components/SurveyDetailPage/SurveyItem/SurveyItem';
 import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
+import ML from '../../components/ML/ML';
 import * as actionCreators from '../../store/actions/index';
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -23,9 +24,6 @@ export class SurveyDetailPage extends Component {
     this.props.checklogIn()
       .then(() => {
         this.props.onSurveyDetail(this.props.match.params.id)
-          .catch(() => {
-            this.props.history.push('/survey/1');
-          });
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
@@ -55,7 +53,7 @@ export class SurveyDetailPage extends Component {
         <TopBar searchBar />
         <Grid columns={2} style={{ maxWidth: '1000px' }}>
           <Grid.Row>
-            <Grid.Column style={{ width: '400px' }}>
+            <Grid.Column width = {8} style={{ width: '400px' }}>
               <Table celled style={{ margin: 20, height: 200, width: '450px' }}>
                 <Table.Header color="teal">
                   <Table.Row>
@@ -111,6 +109,7 @@ Download
           </Grid.Row>
         </Grid>
         {items}
+        <ML survey = {this.props.survey.related_survey} />
       </div>
     );
   }
