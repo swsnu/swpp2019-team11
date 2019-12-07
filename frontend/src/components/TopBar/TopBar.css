@@ -11,11 +11,3 @@
     font-family: sans-serif;
     background: #a3c6c4;
 }
-
-#parPop::before {
-    background: #a3c6c4;
-}
-
-#cartPop::before {
-    background: #a3c6c4;
-}

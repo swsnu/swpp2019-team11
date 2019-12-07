@@ -19,7 +19,7 @@ describe('TopBar', () => {
     const component = shallow(<TopBar searchBar history={{ push: mockPush }} />);
     let wrapper = component.find('.logo');
     wrapper.simulate('click');
-    wrapper = component.find('#parPop').find('.Participate');
+    wrapper = component.find('.Participate');
     wrapper.simulate('click');
     wrapper = component.find('.Making');
     wrapper.simulate('click');

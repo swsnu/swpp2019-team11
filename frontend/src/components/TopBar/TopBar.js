@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Segment, Grid, Sticky, Header, Menu, Popup,
+  Segment, Grid, Sticky, Header, Menu,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
@@ -19,20 +19,12 @@ export const TopBar = (props) => (
       </Grid>
     </Segment>
     <Menu size="big" className="UtilBar" style={{ borderRadius: '0px', marginBottom: '-15px' }}>
-      <Popup
-        id="parPop"
-        content="Lists of Surveys you can participate in! (Not you Made)"
-        on="hover"
-        trigger={(
-          <Menu.Item
-            className="Participate"
-            onClick={() => props.history.push('/participate')}
-          >
-            Participate Survey
-          </Menu.Item>
-        )}
-        position="bottom left"
-      />
+      <Menu.Item
+        className="Participate"
+        onClick={() => props.history.push('/participate')}
+      >
+          Participate Survey
+      </Menu.Item>
 
       <Menu.Item
         className="Making"
@@ -41,21 +33,12 @@ export const TopBar = (props) => (
           Make Survey
       </Menu.Item>
 
-      <Popup
-        id="cartPop"
-        content="You can check: Survey you made/ you response/ and your Cart"
-        on="hover"
-        trigger={(
-          <Menu.Item
-            className="Mypage"
-            onClick={() => props.history.push('/mypage')}
-          >
-            MyPage
-          </Menu.Item>
-        )}
-        position="bottom left"
-      />
-
+      <Menu.Item
+        className="Mypage"
+        onClick={() => props.history.push('/mypage')}
+      >
+          MyPage
+      </Menu.Item>
     </Menu>
   </Sticky>
 );
