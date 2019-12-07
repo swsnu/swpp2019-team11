@@ -5,6 +5,9 @@
     font-weight: bold;
     border-width: 2px;
     border-color: #a3c6c4;
+    padding-right: 12px;
+    padding-left: 16px;
+    width : 110px;
 }
 
 .UserIcon {
@@ -17,9 +20,10 @@
 }
 
 #upperItem {
-    min-width: 100px;
+    min-width: 125px;
     padding-top: 0px;
     padding-bottom: 0px;
+    text-align: center;
 }
 
 #secondItem {
@@ -47,10 +51,18 @@
     min-height: 20px;
     border-right: 0px;
     background: #e0e7e9;
+    width: 120px;
+    text-align: center;
 }
 
-.Menu {
+#Menu {
     min-height: 125px;
     text-align: center;
-    border: 4px solid rgba(34, 00, 00, .15);
+    border-width: 2px;
+    border-color: #6c7a89;
+    width: 125px;
+}
+
+#Menu #logOut #keyIcon {
+    margin-left: -10px;
 }

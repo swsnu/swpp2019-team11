@@ -1,11 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  survey: {
-    item: [],
-  },
-  ongoing_survey: [],
-  completed_survey: [],
+  ongoing_survey: {},
+  completed_survey: {},
 };
 
 
@@ -18,7 +15,7 @@ const SurveyReducer = (state = initialState, action = actionTypes.DEFAULT) => {
     case actionTypes.ADD_ONGOING_SURVEY:
       return { ...state };
     case actionTypes.PARTICIPATE_SURVEY:
-      return { ...state };
+      return { ...state, ongoing_survey: {} };
     case actionTypes.GET_COMPLETED_SURVEY:
       return { ...state, completed_survey: action.target };
     default:

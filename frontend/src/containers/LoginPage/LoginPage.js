@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Button, Form, Grid, Header, Segment, Message,
+  Button, Form, Grid, Header, Segment, Message, Confirm, Popup,
 } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
@@ -15,21 +15,28 @@ export class LoginPage extends Component {
   state = {
     username: '',
     password: '',
+    loginOk: true,
   };
 
   loginHandler = () => {
     this.props.logIn(this.state.username, this.state.password)
       .then(() => { this.props.history.push('/main'); })
-      .catch(() => {});
+      .catch((error) => {
+        if (error.response.status == 401) this.setState({ loginOk: false });
+      });
   };
+
+  confirmClose = () => {
+    this.setState({ loginOk: true });
+  }
 
   render() {
     return (
       <Grid className="login" id="login" textAlign="center">
-        <Grid.Row id="firstrow" className="firstRow" style={{ height: 135 }} columns={0}>
+        <Grid.Row id="firstrow" className="firstRow" style={{ height: '175px' }} columns={0}>
           <div>{' '}</div>
         </Grid.Row>
-        <Grid.Row id="secondRow" style={{ height: '100vh' }} verticalAlign="middle">
+        <Grid.Row id="secondRow" style={{ height: 'calc(100vh - 165px)' }} verticalAlign="middle">
           <Grid.Column id="rowColumn" style={{ maxWidth: 450, minWidth: 300 }}>
             <Header id="surBing" style={{ fontSize: '4em' }} as="h1" textAlign="center">
             surBing
@@ -54,19 +61,38 @@ export class LoginPage extends Component {
                   value={this.state.password}
                   onChange={(event) => this.setState({ password: event.target.value })}
                 />
-                <Button id="loginbutton" className="loginbutton" disabled={!this.state.username || !this.state.password} onClick={() => this.loginHandler()} fluid size="large">
-              Log In
+
+                <Button
+                  id="loginbutton"
+                  className="loginbutton"
+                  disabled={!this.state.username || !this.state.password}
+                  onClick={() => this.loginHandler()}
+                  fluid
+                  size="large"
+                >
+                  Log In
                 </Button>
+
+                <Confirm
+                  id="loginConfirm"
+                  open={!this.state.loginOk}
+                  onConfirm={this.confirmClose}
+                  cancelButton={null}
+                  content="Wrong ID or Password."
+                />
               </Segment>
             </Form>
             <Message>
         New to us?
               {' '}
-              <NavLink to="/signup" exact>{'  '}Sign Up</NavLink>
+              <NavLink to="/signup" exact>
+                {'  '}
+Sign Up
+              </NavLink>
             </Message>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row id="thirdrow" style={{ height: 130 }} columns={0}>
+        <Grid.Row id="thirdrow" style={{ height: 175 }} columns={0}>
           <div>{' '}</div>
         </Grid.Row>
       </Grid>

@@ -5,10 +5,12 @@ import { SurveyBlock } from './SurveyBlock';
 describe('SurveyBlock', () => {
   const mockOnClickCart = jest.fn();
   const mockPush = jest.fn();
+  const mockSurveyClicked = jest.fn();
   const props = {
     history: {
       push: mockPush,
     },
+    surveyClicked: mockSurveyClicked,
     search: true,
     survey: {
       title: 'title',
@@ -28,7 +30,7 @@ describe('SurveyBlock', () => {
   it('segment should be pressed', () => {
     const wrapper = component.find('.clickSegment');
     wrapper.simulate('click');
-    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockSurveyClicked).toHaveBeenCalledTimes(1);
   });
   it('cart button should be pressed', () => {
     const wrapper = component.find('.cartButton');

@@ -17,7 +17,7 @@ describe('<SearchFilter />', () => {
     expect(wrapper.length).toBe(1);
   });
   it('button testing', () => {
-    const wrapper = component.find('#applyButton');
+    const wrapper = component.find('.ApplyButton');
     wrapper.simulate('click');
     expect(mockFilterHandler).toHaveBeenCalledTimes(1);
   });

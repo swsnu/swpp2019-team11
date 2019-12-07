@@ -18,6 +18,8 @@ const SurveyListReducer = (state = initialState, action = actionTypes.DEFAULT) =
       return { ...state, ongoing_survey_list: action.target };
     case actionTypes.GET_PARTICIPATING_LIST:
       return { ...state, ongoing_survey_list: action.target };
+    case actionTypes.CLEAR_PARTICIPATING_LIST:
+      return { ...state, ongoing_survey_list: [], survey_list: [] };
     default:
       break;
   }

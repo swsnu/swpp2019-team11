@@ -22,15 +22,24 @@
 }
 
 #rowColumn {
-    margin-top: -160px;
+    margin-top: -200px;
 }
+
 
 #thirdrow {
     background-color: #a3c6c4;
-    margin-top: -175px;
-    margin-bottom: 0px;
 }
 
 .login {
     padding-bottom: 0px;
+}
+
+#loginConfirm .actions .button{
+    background-color: #a3c6c4;
+}
+
+#loginConfirm {
+    font-family: sans-serif;
+    font-size: 18px;
+    width: 300px;
 }

@@ -2,12 +2,13 @@
     background-color: #6c7a89;
     color: #ffffff;
     font-size: 1.28571429rem;
-    margin: 0 .25em 0 0;
-    padding: .93571429em 1.5em .93571429em;
+    margin: 0 .27em 0 0;
+    padding: .88571429em 1.5em .88571429em;
     font-weight: normal;
     text-align: center;
     border-radius: .28571429rem;
     min-width: 230px;
+    cursor: pointer;
 }
 
 .AddSurveyButton {
@@ -15,9 +16,9 @@
     border-color: #6c7a89;
     color: #6c7a89;
     vertical-align: center;
-    border-width: 4px;
+    border-width: 2px;
     font-size: 1.28571429rem;
-    margin: 0 .25em 0 0;
+    margin: 0 .27em 0 0;
     padding: .78571429em 1.5em .78571429em;
     font-weight: 700;
     text-align: center;
@@ -26,20 +27,23 @@
     cursor: pointer;
 }
 
+#searchbar {
+    margin-bottom: 0px;
+}
+
 #firstRow {
     background-color: #e0e7e9;
-    min-height: 180px;
+    min-height: 175px;
 }
 
 #secondRow {
-    margin-top: -50px;
+    margin-top: -31px;
 }
 
 #thirdRow {
     background-color: #a3c6c4;
-
-    min-height: 200px;
-    margin-top: -20px;
+    min-height: 190px;
+    margin-top: -1px;
 }
 
 #surBing {

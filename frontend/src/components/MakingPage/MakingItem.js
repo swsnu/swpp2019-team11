@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Segment, Checkbox, Input, Popup,
+  Segment, Checkbox, Input, Popup, Dropdown, Button,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
@@ -9,11 +9,14 @@ import './MakingItem.css';
 export class MakingItem extends Component {
   state = {
     title: '',
-    selection_list: [{ number: 1, content: '' }],
+    selection_list: [],
+    type: 1,
+    error: [],
   }
 
   selectionContentHandler = (content, number) => {
     this.state.selection_list[number - 1].content = content;
+    this.state.error[number - 1] = (content == '');
     this.props.stateSender(this.state, this.props.number);
   }
 
@@ -23,9 +26,26 @@ export class MakingItem extends Component {
       content: '',
     };
     this.state.selection_list.push(new_selection);
+    this.state.error[this.state.selection_list.lenth - 1] = true;
     this.props.stateSender(this.state, this.props.number);
   }
 
+  typeHandler = (target, data) => {
+    if (this.state.type != data.value) {
+      if (data.value == 1) {
+        this.state.selection_list = [];
+      } else {
+        this.state.selection_list = [{ number: 1, content: '' }];
+        this.state.error[0] = true;
+      }
+      this.setState({ type: data.value });
+      this.props.itemTypeHandler(this.props.number, data.value);
+    }
+  }
+
+  errorDetect = () => {
+
+  }
 
   titleChangeHandler = (title) => {
     this.state.title = title;
@@ -33,47 +53,48 @@ export class MakingItem extends Component {
   }
 
   render() {
+    const options = [
+      { key: 1, text: 'Subjective', value: 1 },
+      { key: 2, text: 'Radio', value: 2 },
+      { key: 3, text: 'Multi-Selection', value: 3 },
+    ];
     return (
       <Segment className="MakingItem" style={{ backgroundColor: '#b8bfc7', minHeight: '250px' }}>
         <div id="ItemTop">
         Q
           {this.props.number}
 : &nbsp;&nbsp;
-          <Input className="title" id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
-          <div className="questionTypeTogglerSet" style={{ float: "right" }}>
-            <Checkbox toggle className="questionTypeToggler" onClick={() => { this.props.questionTypeToggler(this.props.number); }} />
-            {this.props.question_type == 'Selection' ? "Multiple Choice" : "Short Answer"}
-          </div>
+          <Input style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Dropdown
+            selection
+            placeholder="ItemType"
+            as={Button}
+            size="large"
+            style={{ float: 'right' }}
+            options={options}
+            value={this.state.type}
+            onChange={this.typeHandler}
+          />
         </div>
 
         <Popup
           id="personalPopup"
           content="You must Check it if the question asks personal Data"
+          position="right center"
           trigger={(
-            <div>
-              <Checkbox onClick={() => { this.props.personalToggler(this.props.number); }} />
-              <p style={{ fontSize: 15, marginLeft: 10, display: 'inline' }}>This is Personal Data.</p>
-            </div>
+            <Checkbox label="This question asks about personal information" onClick={() => { this.props.personalToggler(this.props.number); }} />
             )}
         />
 
-        {
-          (this.props.question_type == 'Selection')
-          && (
-          <div>
-            <Checkbox className="MultipleSelection" label={this.props.multiple_choice ? 'CheckBox' : 'Radio'} toggle onClick={() => { this.props.multipleSelectionToggler(this.props.number); }} />
-            <br />
-            <div className="Options">Options:</div>
-          </div>
-          )
-        }
         {
           (this.props.question_type == 'Selection')
         && this.state.selection_list.map((selection) => (
           <MakingOptions
             className="MakingOptions"
             number={selection.number}
-            content={this.selectionContentHandler}
+            contentHandler={this.selectionContentHandler}
+            content={selection.content}
+            error={selection.content == ''}
           />
         ))
         }

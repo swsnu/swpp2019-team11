@@ -21,6 +21,7 @@ export const ADD_CART = 'ADD_CART';
 export const DELETE_CART = 'DELETE_CART';
 export const GET_ML = 'GET_ML';
 
+export const CLEAR_PARTICIPATING_LIST = 'CLEAR_PARTICIPATING_LIST';
 export const GET_ITEM_ALL = 'GET_ITEM_ALL';
 export const RES_ALL = 'RES_ALL';
 

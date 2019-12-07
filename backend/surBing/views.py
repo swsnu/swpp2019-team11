@@ -92,11 +92,20 @@ def signout(request):
     else:
         return HttpResponseBadRequest(['GET'])
 
-
 def getinfo(request):
     if request.method == 'GET':
-        info = {'username': request.user.username, 'point': request.user.point, 'age': request.user.age, 'genger': request.user.gender}
-        return JsonResponse(info, safe=False)
+        if request.user.is_authenticated:
+            info = {'username': request.user.username,
+                    'point': request.user.point,
+                    'age': request.user.age,
+                    'gender': request.user.gender}
+            return JsonResponse(info, safe=False)
+        else:
+            info = {'username': "",
+                    'point': "",
+                    'age': None,
+                    'gender': None}
+            return JsonResponse(info, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])
 
@@ -418,14 +427,5 @@ def my_survey_completed(request):
             survey['author'] = user.username
             del survey['author_id']
         return JsonResponse(survey_list, safe=False)
-    else:
-        return HttpResponseBadRequest(['GET'])
-
-
-@check_logged_in
-def get_point(request):
-    if request.method == 'GET':
-        user = request.user
-        return JsonResponse(user.point, safe=False)
     else:
         return HttpResponseBadRequest(['GET'])

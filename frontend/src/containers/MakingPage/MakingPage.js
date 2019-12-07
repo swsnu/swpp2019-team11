@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker, SingleDatePickerWrapper } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import {
-  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref,
+  Sticky, Segment, Input, TextArea, Progress, Form, Button, Checkbox, Ref, Modal, Icon, Header, Grid,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import MakingItem from '../../components/MakingPage/MakingItem';
@@ -52,12 +52,13 @@ export class MakingPage extends Component {
       item_count: 1,
       item_list: [
         {
-          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_date : false, selection: [],
+          number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_data: false, selection: [],
         },
       ],
       open_date_focused: false,
       due_date_focused: false,
       scrollBound: [200, 300],
+      modal_open: false,
     }
 
 
@@ -70,29 +71,23 @@ export class MakingPage extends Component {
         .catch(() => { this.props.history.push('/login/'); });
     }
 
-    questionTypeToggler = (number) => {
-      if (this.state.item_list[number - 1].question_type == 'Subjective') {
-        const new_list = this.state.item_list;
+
+    itemTypeHandler = (number, type) => {
+      const new_list = this.state.item_list;
+      if (type == 3) {
         new_list[number - 1].question_type = 'Selection';
         new_list[number - 1].selection = [{ number: 1, content: '' }];
-        this.setState({ item_list: new_list });
+        new_list[number - 1].multiple_choice = true;
+      } else if (type == 2) {
+        new_list[number - 1].question_type = 'Selection';
+        new_list[number - 1].selection = [{ number: 1, content: '' }];
+        new_list[number - 1].multiple_choice = false;
       } else {
-        const new_list = this.state.item_list;
         new_list[number - 1].question_type = 'Subjective';
         new_list[number - 1].selection = [];
-        this.setState({ item_list: new_list });
-      }
-    }
-
-    multipleSelectionToggler = (number) => {
-      const new_list = this.state.item_list;
-      if (this.state.item_list[number - 1].multiple_choice == false) {
-        new_list[number - 1].multiple_choice = true;
-        this.setState({ item_list: new_list });
-      } else {
         new_list[number - 1].multiple_choice = false;
-        this.setState({ item_list: new_list });
       }
+      this.setState({ item_list: new_list });
     }
 
     personalToggler = (number) => {
@@ -110,20 +105,36 @@ export class MakingPage extends Component {
     }
 
     submitHandler = () => {
-      const survey = {
-        title: this.state.title,
-        content: this.state.content,
-        survey_start_date: moment().format('YYYY/MM/DD'),
-        survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
-        open_date: this.state.open_date.format('YYYY/MM/DD'),
-        item: this.state.item_list,
-        target_age_start: this.state.age_check ? 1 : this.state.target_age[0],
-        target_age_end: this.state.age_check ? 100 : this.state.target_age[1],
-        target_gender: this.state.gender_check ? 'A' : this.state.target_gender,
-        target_respondant_count: this.state.response_count,
-      };
-      this.props.onSubmitSurvey(survey);
-      this.props.history.push('/main/');
+      let error = (
+        this.state.title == ''
+        || this.state.content == ''
+        || !Number.isInteger(+this.state.response_count)
+        || this.state.response_count <= 0
+        || this.state.response_count > 100
+        || this.state.item_list.reduce((item_acc, item) => (item_acc || (item.title == '') || item.error.reduce((error_acc, error) => error_acc || error, false)), false));
+
+      this.state.item_list.map((Item) => {
+        if (Item.question_type == 'Selection' && Item.selection.length <= 1) error = true;
+      });
+
+      if (error) {
+        this.setState({ modal_open: true });
+      } else {
+        const survey = {
+          title: this.state.title,
+          content: this.state.content,
+          survey_start_date: moment().format('YYYY/MM/DD'),
+          survey_end_date: this.state.due_date.format('YYYY/MM/DD'),
+          open_date: this.state.open_date.format('YYYY/MM/DD'),
+          item: this.state.item_list,
+          target_age_start: this.state.age_check ? 1 : this.state.target_age[0],
+          target_age_end: this.state.age_check ? 100 : this.state.target_age[1],
+          target_gender: this.state.gender_check ? 'A' : this.state.target_gender,
+          target_respondant_count: this.state.response_count,
+        };
+        this.props.onSubmitSurvey(survey);
+        this.props.history.push('/main/');
+      }
     }
 
     addItemHandler = () => {
@@ -144,6 +155,7 @@ export class MakingPage extends Component {
     dataCallBackHandler = (data, number) => {
       this.state.item_list[number - 1].title = data.title;
       this.state.item_list[number - 1].selection = data.selection_list;
+      this.state.item_list[number - 1].error = data.error;
       this.setState({ ...this.state });
     }
 
@@ -156,6 +168,7 @@ export class MakingPage extends Component {
         multipleSelectionToggler={this.multipleSelectionToggler}
         questionTypeToggler={this.questionTypeToggler}
         personalToggler={this.personalToggler}
+        itemTypeHandler={this.itemTypeHandler}
       />
     ));
 
@@ -189,6 +202,19 @@ export class MakingPage extends Component {
       return (
         <Ref className="MakingPage" innerRef={this.contextRef}>
           <div>
+            <Modal open={this.state.modal_open}>
+              <Header icon="x" content="Form error!" />
+              <Modal.Content>
+                <h3>Please check if you have filled all of the forms.</h3>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="grey" onClick={() => this.setState({ modal_open: false })}>
+                  <Icon name="checkmark" />
+                  {' '}
+Okay
+                </Button>
+              </Modal.Actions>
+            </Modal>
             <TopBar history={this.props.history} context={this.contextRef} username={this.props.username} point={this.props.point} />
             <Sticky offset={130} context={this.contextRef}>
               <Segment
@@ -200,84 +226,105 @@ export class MakingPage extends Component {
                 <Progress style={{ marginTop: '0px' }} id="progressBar" value={window.pageYOffset <= this.state.scrollBound[0] ? '1' : (window.pageYOffset < this.state.scrollBound[1] ? '2' : '3')} total="3" progress="ratio" />
               </Segment>
             </Sticky>
-            <div id="underTopbar">
-              <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
-                <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
-                <br />
-                <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
-                <Input className="SurveyTitle" placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
-                <br />
-                <br />
-                <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
-                <TextArea
-                  className="SurveyContent"
-                  placeholder="Please explain about your Survey"
-                  rows={4}
-                  onChange={(event) => this.setState({ content: event.target.value })}
-                />
-                <br />
-                <br />
-                <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
-                <SingleDatePicker
-                  borderRadius={5}
-                  numberOfMonths={1}
-                  onDateChange={(due_date) => {this.setState({ due_date : due_date , open_date : this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date })}}
-                  onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
-                  focused={this.state.due_date_focused}
-                  date={moment(this.state.due_date)}
-                />
-                <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
-                <SingleDatePicker
-                  borderRadius={5}
-                  numberOfMonths={1}
-                  onDateChange={(open_date) => this.setState({ open_date })}
-                  onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
-                  focused={this.state.open_date_focused}
-                  date={moment(this.state.open_date)}
-                  isDayBlocked={this.isDateBlocked}
-                />
-              </Segment>
+            <Grid id="underTopbar">
+              <Grid.Row columns={1}>
+                <Grid.Column>
 
-              <Segment style={{ backgroundColor: '#A3C6C4' }}>
-                <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+                  <Segment className="ItemFirst" id="item" sytle={{ backgroundColor: '#E0E7E9' }} backgroundColor="#E0E7E9">
+                    <h3 style={{ marginBottom: 0, marginTop: 10 }}><span id="ExplainSurvey" style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>1. Explain your survey!</span></h3>
+                    <br />
+                    <p id="titleInput" style={{ 'font-size': '20px', marginBottom: 5 }}>Title </p>
+                    <Input className="SurveyTitle" error={this.state.title == ''} placeholder="Survey Title..." style={{ width: '500px' }} onChange={(event) => this.setState({ title: event.target.value })} />
+                    <br />
+                    <br />
+                    <p style={{ 'font-size': '19px', marginBottom: 5 }}>Content </p>
+                    <TextArea
+                      className="SurveyContent"
+                      placeholder="Please explain about your Survey"
+                      error={this.state.content == ''}
+                      rows={4}
+                      onChange={(event) => this.setState({ content: event.target.value })}
+                    />
+                    <br />
+                    <br />
+                    <p style={{ 'font-size': '17px', marginBottom: 5 }}>Due Date </p>
+                    <SingleDatePicker
+                      borderRadius={5}
+                      numberOfMonths={1}
+                      onDateChange={(due_date) => { this.setState({ due_date, open_date: this.state.open_date.isBefore(due_date) ? due_date : this.state.open_date }); }}
+                      onFocusChange={({ focused }) => this.setState({ due_date_focused: focused })}
+                      focused={this.state.due_date_focused}
+                      date={moment(this.state.due_date)}
+                    />
+                    <p style={{ 'font-size': '17px', marginBottom: 5, marginTop: 5 }}>Open Date </p>
+                    <SingleDatePicker
+                      borderRadius={5}
+                      numberOfMonths={1}
+                      onDateChange={(open_date) => this.setState({ open_date })}
+                      onFocusChange={({ focused }) => this.setState({ open_date_focused: focused })}
+                      focused={this.state.open_date_focused}
+                      date={moment(this.state.open_date)}
+                      isDayBlocked={this.isDateBlocked}
+                    />
+                  </Segment>
+                </Grid.Column>
+              </Grid.Row>
 
-                <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
-                <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
-                <div id="Gender">
-                  <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
-                  {' '}
+              <Grid.Row>
+                <Grid.Column>
+                  <Segment style={{ backgroundColor: '#A3C6C4' }}>
+                    <h3 id="TargetSetting" color="#354649" style={{ marginBottom: 14, marginTop: 10 }}><span style={{ padding: '5px', fontSize: 26, 'border-radius': 5 }}>2. Survey Target Settings!</span></h3>
+
+                    <p style={{ 'font-size': '15px', marginBottom: 5, fontWeight: 'bold' }}>Gender </p>
+                    <Form.Select className="genderSelect" disabled={this.state.gender_check} value={this.state.target_gender} options={genders} onChange={(e, { value }) => { this.setState({ target_gender: value }); }} placeholder="Gender" />
+                    <div id="Gender">
+                      <Checkbox className="genderCheck" checked={this.state.gender_check} onClick={this.genderCheckToggler} />
+                      {' '}
                 For all genders
-                </div>
-                <p style={{
-                  'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
-                }}
-                >
+                    </div>
+                    <p style={{
+                      'font-size': '15px', marginBottom: 5, marginTop: 6, fontWeight: 'bold',
+                    }}
+                    >
                 Age
-                </p>
-                <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
-                <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
+                    </p>
+                    <Form.Select className="ageSelect" disabled={this.state.age_check} value={{ start: this.state.target_age[0], end: this.state.target_age[1] }} options={ages} onChange={(e, { value }) => { this.setState({ target_age: [value.start, value.end] }); }} placeholder="Age" />
+                    <Checkbox className="ageCheck" checked={this.state.age_check} onClick={this.ageCheckToggler} />
                 For all age
-                <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
-                <Input
-                  className="targetCount"
-                  type="text"
-                  error={this.state.response_count == '' || !Number.isInteger(+this.state.response_count) || this.state.response_count < 0 || this.state.response_count > 50}
-                  onChange={(event) => this.setState({ response_count: event.target.value })}
-                  placeholder="... How many Responses?"
-                />
-              </Segment>
-
-              <Segment style = {{backgroundColor : "#8d99a5"}} >
-                <p id="itemsText">3. Items</p>
-                <Button className="addItemButton" onClick={this.addItemHandler}>
+                    <p style={{ marginTop: 10, marginBottom: 5, fontWeight: 'bold' }}>Target Response count:</p>
+                    <Input
+                      className="targetCount"
+                      type="text"
+                      error={!Number.isInteger(+this.state.response_count) || this.state.response_count <= 0 || this.state.response_count > 100}
+                      onChange={(event) => this.setState({ response_count: event.target.value })}
+                      placeholder="... How many Responses?"
+                    />
+                  </Segment>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Segment style={{ backgroundColor: '#8d99a5' }}>
+                    <p id="itemsText">3. Items</p>
+                    <Button className="addItemButton" onClick={this.addItemHandler}>
                   Add Question Item
-                </Button>
-              { items }
-              </Segment>
-              <Button size = "big" style = {{marginBottom : '10px'}} className="submitButton" onClick={this.submitHandler}>
+                    </Button>
+                    { items }
+                  </Segment>
+                  <Button
+                    floated="right"
+                    size="huge"
+                    style={{
+                      marginBottom: '10px', width: '150px', color: 'black', backgroundColor: '#8d99a5',
+                    }}
+                    className="submitButton"
+                    onClick={this.submitHandler}
+                  >
             Submit
-              </Button>
-            </div>
+                  </Button>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </div>
         </Ref>
       );

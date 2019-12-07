@@ -22,6 +22,6 @@ const logger = () => (next) => (action) => {
   return result;
 };
 
-const store = createStore(rootReducer, compose(applyMiddleware(logger, thunk), window.devToolsExtension ? window.devToolsExtension() : ((f) => f)));
+const store = createStore(rootReducer, compose(applyMiddleware(logger, thunk), window.devToolsExtension ? window.devToolsExtension() : (f) => f));
 
 export default store;

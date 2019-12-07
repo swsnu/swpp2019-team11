@@ -7,7 +7,8 @@ describe('<MakingOptions />', () => {
   const mockContent = jest.fn();
   const props = {
     id: 1,
-    content: mockContent,
+    contentHandler: mockContent,
+
   };
   const component = shallow(<MakingOptions {...props} />);
   it('render', () => {
