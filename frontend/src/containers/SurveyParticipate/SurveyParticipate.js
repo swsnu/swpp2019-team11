@@ -24,8 +24,12 @@ export class SurveyParticipate extends Component {
   contextRef = createRef()
 
   componentDidMount() {
-    this.props.getSurveyList();
-    this.props.getUserInfo();
+    this.props.checklogIn().then(() => {
+      this.props.getSurveyList();
+      this.props.getUserInfo();
+    }).catch(() => {
+      window.location.assign('/login');
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -43,7 +47,7 @@ export class SurveyParticipate extends Component {
     return (
       <Ref innerRef={this.contextRef}>
         <div className="SurveyParticipate">
-          <TopBar context={this.contextRef} username={this.props.username} point={this.props.point} />
+          <TopBar menu="Participate" context={this.contextRef} username={this.props.username} point={this.props.point} />
           <Grid padded>
             <Grid.Row id="underTopbar" columns={1}>
               <Grid.Column>

@@ -16,7 +16,6 @@ export class LoginPage extends Component {
     username: '',
     password: '',
     loginOk: true,
-    // confirmBool: false,
   };
 
   loginHandler = () => {

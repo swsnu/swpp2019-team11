@@ -11,7 +11,7 @@ import './MainPage.css';
 
 export class MainPage extends Component {
   componentDidMount() {
-    this.props.checklogIn().then(this.props.getUserInfo()).catch(() => { this.props.history.push('/login/'); });
+    this.props.getUserInfo();
   }
 
   addSurveyHandler = () => {
@@ -27,7 +27,7 @@ export class MainPage extends Component {
       <Grid className="MainPage" textAlign="center">
         <Grid.Row id="firstRow" textAlign="right" colums={1}>
           <Grid.Column>
-            <ProfileButton style={{ margin: '25px' }} username={this.props.username} point={this.props.point} />
+            <ProfileButton style={{ margin: '25px' }} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row id="secondRow" columns={2} style={{ height: 'calc(100vh - 320px)' }} verticalAlign="middle">
@@ -48,14 +48,9 @@ export class MainPage extends Component {
     );
   }
 }
-export const mapStateToProps = (state) => ({
-  username: state.us.info.username,
-  point: state.us.info.point,
-});
 
 export const mapDispatchToProps = (dispatch) => ({
-  checklogIn: () => dispatch(actionCreators.checklogIn()),
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainPage));
+export default connect(null, mapDispatchToProps)(withRouter(MainPage));
