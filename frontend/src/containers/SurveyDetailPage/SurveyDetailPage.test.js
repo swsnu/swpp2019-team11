@@ -31,14 +31,14 @@ describe('SearchDetailPage', () => {
           selection: [],
         },
       ],
-      related_survey : [
+      related_survey: [
         {
-          title : 'test'
+          title: 'test',
         },
         {
-          title : 'test2'
-        }
-      ]
+          title: 'test2',
+        },
+      ],
 
     },
   };
