@@ -92,6 +92,7 @@ def signout(request):
     else:
         return HttpResponseBadRequest(['GET'])
 
+
 def getinfo(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -217,7 +218,7 @@ def survey(request, survey_id):
         if survey.related_survey1 is not None:
             related1 = {
                 'id': survey.related_survey1.id,
-                'title': survey.related_survey1.title, 
+                'title': survey.related_survey1.title,
                 'author': survey.related_survey1.author.username,
                 'upload_date': survey.related_survey1.upload_date.strftime('%y/%m/%d'),
                 'survey_start_date': survey.related_survey1.survey_start_date.strftime('%y/%m/%d'),
@@ -231,11 +232,11 @@ def survey(request, survey_id):
             survey_dict['related_survey'].append(related1)
         else:
             survey_dict['related_survey'].append(None)
-        
+
         if survey.related_survey2 is not None:
             related2 = {
                 'id': survey.related_survey2.id,
-                'title': survey.related_survey2.title, 
+                'title': survey.related_survey2.title,
                 'author': survey.related_survey2.author.username,
                 'upload_date': survey.related_survey2.upload_date.strftime('%y/%m/%d'),
                 'survey_start_date': survey.related_survey2.survey_start_date.strftime('%y/%m/%d'),
@@ -249,7 +250,7 @@ def survey(request, survey_id):
             survey_dict['related_survey'].append(related2)
         else:
             survey_dict['related_survey'].append(None)
-        
+
         for item in survey.item.all():
             item_dict = {
                 'title': item.title,
