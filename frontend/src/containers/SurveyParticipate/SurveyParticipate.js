@@ -66,14 +66,16 @@ export class SurveyParticipate extends Component {
                         <td id="titleRow">{ survey.title }</td>
                         <td id="dateRow">{ survey.upload_date }</td>
                         <td id="countRow">
-                          {survey.respondant_count}{" / "}{survey.target_respondant_count}
+                          {survey.respondant_count}
+                          {' / '}
+                          {survey.target_respondant_count}
                         </td>
                         <td id="buttonRow">
                           <button id="participateButton" onClick={() => this.participateHandler(survey.id)}>
                         Participate
                           </button>
                         </td>
-                        
+
                       </tr>
                     ))}
                   </tbody>
