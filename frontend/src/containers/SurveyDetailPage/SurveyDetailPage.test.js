@@ -31,6 +31,15 @@ describe('SearchDetailPage', () => {
           selection: [],
         },
       ],
+      related_survey : [
+        {
+          title : 'test'
+        },
+        {
+          title : 'test2'
+        }
+      ]
+
     },
   };
   const component = mount(<SurveyDetailPage {...props} />);
