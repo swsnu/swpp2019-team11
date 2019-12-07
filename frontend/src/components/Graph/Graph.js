@@ -13,8 +13,8 @@ class Graph extends Component {
       <div>
     <Button.Group>
       <Button onClick={() => this.setState({isClicked : 0})}>블럭</Button>
-      <Button onClick={() => this.setState({isClicked : 1})}>선</Button>
-      <Button onClick={() => this.setState({isClicked : 2})}>파이</Button>  
+      <Button onClick={() => this.setState({isClicked : 1})}>파이</Button>
+      <Button onClick={() => this.setState({isClicked : 2})}>선</Button>  
       </Button.Group>
 <XYPlot height={300} width= {300}>
   <VerticalGridLines />
@@ -22,7 +22,7 @@ class Graph extends Component {
   <XAxis />
   <YAxis />
   {this.state.isClicked === 0 ? <VerticalBarSeries data={this.props.graph_block} /> :(
-this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300} margin={{ top, right, bottom, left }} /> : 
+this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300}/> : 
   <LineSeries data={this.props.graph_block} />) }
 </XYPlot>
   </div>
