@@ -40,5 +40,5 @@ describe('<ProfileButton />', () => {
     const wrapper = component.find('#upperItem');
     wrapper.simulate('click');
     expect(mockPush).toHaveBeenCalledTimes(1);
-  })
+  });
 });
