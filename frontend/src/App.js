@@ -18,16 +18,16 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route path="/main" exact component={MainPage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/signup" exact component={SignupPage} />
-        <Route path="/main" exact component={MainPage} />
         <Route path="/search" exact component={SearchResultPage} />
         <Route path="/survey/:id" exact component={SurveyDetailPage} />
         <Route path="/participate" exact component={SurveyParticipate} />
         <Route path="/mypage" exact component={MyPage} />
         <Route path="/making" exact component={MakingPage} />
         <Route path="/responsing" exact component={ResponsePage} />
-        <Redirect exact from="/" to="/login" />
+        <Redirect exact from="/" to="/main" />
       </Switch>
     </div>
   );
