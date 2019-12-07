@@ -36,4 +36,9 @@ describe('<ProfileButton />', () => {
     component.instance().componentDidUpdate(mockProps);
     expect(1).toBe(1);
   });
+  it('line36, onClick', () => {
+    const wrapper = component.find('#upperItem');
+    wrapper.simulate('click');
+    expect(mockPush).toHaveBeenCalledTimes(1);
+  })
 });
