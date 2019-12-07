@@ -16,6 +16,7 @@ class Graph extends Component {
           <Button onClick={() => this.setState({isClicked : 1})}>Pie</Button>
           <Button onClick={() => this.setState({isClicked : 2})}>Line</Button>  
         </Button.Group>
+        <Segment>
         <XYPlot height={300} width= {300}>
           <VerticalGridLines />
           <HorizontalGridLines />
@@ -25,6 +26,7 @@ class Graph extends Component {
             this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300}/> : 
             <LineSeries data={this.props.graph_block} />) }
         </XYPlot>
+        </Segment>
       </div>
     )
   }
