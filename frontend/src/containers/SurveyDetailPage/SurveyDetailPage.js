@@ -23,7 +23,7 @@ export class SurveyDetailPage extends Component {
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-        this.props.onSurveyDetail(this.props.match.params.id)
+        this.props.onSurveyDetail(this.props.match.params.id);
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
@@ -53,7 +53,7 @@ export class SurveyDetailPage extends Component {
         <TopBar searchBar />
         <Grid columns={2} style={{ maxWidth: '1000px' }}>
           <Grid.Row>
-            <Grid.Column width = {8} style={{ width: '400px' }}>
+            <Grid.Column width={8} style={{ width: '400px' }}>
               <Table celled style={{ margin: 20, height: 200, width: '450px' }}>
                 <Table.Header color="teal">
                   <Table.Row>
@@ -109,7 +109,7 @@ Download
           </Grid.Row>
         </Grid>
         {items}
-        <ML survey = {this.props.survey.related_survey} />
+        <ML survey={this.props.survey.related_survey} />
       </div>
     );
   }
