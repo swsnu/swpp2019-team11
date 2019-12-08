@@ -4,9 +4,20 @@ import {
 } from 'semantic-ui-react';
 import './TableForm.css';
 
+
+const onClickHandler = (ongoing, id) => {
+  if(ongoing){
+    window.location.assign('/ongoingsurvey/'+id+'/')
+  }
+  else{
+    window.location.assign('/survey/'+id+'/')
+  }
+}
+
 export const TableForm = (props) => (
   <Table
     celled
+    selectable
     definition
     id="Table"
     style={{
@@ -25,7 +36,7 @@ export const TableForm = (props) => (
 
     <Table.Body id="Body">
       {props.content.map((cur) => (
-        <Table.Row>
+        <Table.Row style = {{cursor : 'pointer'}} onClick = {() => {onClickHandler(props.ongoing, cur.id)}}>
           { props.slide
           && (
           <Table.Cell collapsing>

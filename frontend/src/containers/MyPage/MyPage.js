@@ -48,17 +48,23 @@ export class MyPage extends Component {
   }
 
   selectmenu = () => {
-    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
+    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list && this.props.survey_list) {
       return (
         <div className="SurveyOngoing">
           <h1 id="ongoingTitle">Ongoing Survey</h1>
           <br />
           {
             (this.props.ongoing_survey_list.length > 0)
-            && <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+            && <TableForm ongoing = {true} id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+          }
+          <h1 id="openedTitle">Opened Survey</h1>
+          <br />
+          {
+            (this.props.survey_list.length > 0)
+            && <TableForm content={this.props.survey_list} slide={false} />
           }
           {
-            (this.props.ongoing_survey_list.length == 0)
+            (this.props.ongoing_survey_list.length == 0 && this.props.survey_list.length == 0)
             && (
             <Segment id="noOnSurvey">
               <div id="ongoingTxt1">
@@ -78,12 +84,12 @@ Let's make new Survey!
     }
     if (this.state.clickedMenu == 1 && this.props.survey_list) {
       return (
-        <div className="SurveyCompleted">
-          <h1 id="openedTitle">Opened Survey</h1>
+        <div className="ParticipatedSurvey">
+          <h1 id="cartTitle">Cart</h1>
           <br />
           {
-            (this.props.survey_list.length > 0)
-            && <TableForm content={this.props.survey_list} slide={false} />
+            (this.props.cart_list.length > 0)
+            && <TableForm content={this.props.cart_list} slide />
           }
           {
             (this.props.survey_list.length == 0)
@@ -152,13 +158,13 @@ Let's search Survey to put in Cart!
             vertical
           >
             <Menu.Item className="OngoingSurvey" id="ongoing" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
-              My Ongoing Survey
+              My Surveys
             </Menu.Item>
             <Menu.Item className="CompletedSurvey" id="completed" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
-              My Completed Survey
+              Participated Surveys
             </Menu.Item>
             <Menu.Item className="Cart" id="cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
-              Cart
+              My Cart
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 800 }}>

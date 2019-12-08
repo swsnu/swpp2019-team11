@@ -13,32 +13,54 @@ import * as actionCreators from '../../store/actions/index';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getCompletedSurvey(id)),
+  onOngoingSurveyDetail: (id) => dispatch(actionCreators.getOngoingSurvey(id))
 });
 
 export const mapStateToProps = (state) => ({
   survey: state.sv.completed_survey,
+  ongoing_survey: state.sv.ongoing_survey,
 });
 
 export class SurveyDetailPage extends Component {
+
+  state = {
+    survey : {}
+  }
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-        this.props.onSurveyDetail(this.props.match.params.id);
+        if(this.props.ongoing){
+          this.props.onOngoingSurveyDetail(this.props.match.params.id)
+        }
+        else{
+          this.props.onSurveyDetail(this.props.match.params.id);
+        }
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props!=prevProps){
+      if(this.props.ongoing){
+        this.setState({survey : this.props.ongoing_survey})
+      }
+      else{
+        this.setState({survey : this.props.survey})
+      }
+    }
+  }
+
 
   onClickDownload() {
-    CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.props.survey.id}_${this.props.survey.title.replace(/ /g, '_')}.csv`); }, this.props.survey, false);
+    CSVconverter((res) => { saveAs(new Blob([res], { type: 'text/csv;charset=utf-8;' }), `${this.state.survey.id}_${this.state.survey.title.replace(/ /g, '_')}.csv`); }, this.state.survey, false);
   }
 
   render() {
-    if (this.props.survey === undefined || this.props.survey.item === undefined) {
+    if (!this.state.survey || !this.state.survey.item ) {
       return <div />;
     }
 
-    const items = this.props.survey.item.map((it, it_index) => (
+    const items = this.state.survey.item.map((it, it_index) => (
       <SurveyItem
         number={it_index + 1}
         title={it.title}
@@ -60,7 +82,7 @@ export class SurveyDetailPage extends Component {
                     <Table.HeaderCell style={{ textColor: 'teal' }}>
                       <Label ribbon style={{ color: '#00B5AD', 'font-size': '2em' }}>
                         {' '}
-                        {this.props.survey.title}
+                        {this.state.survey.title}
                         {' '}
                       </Label>
                     </Table.HeaderCell>
@@ -71,29 +93,29 @@ export class SurveyDetailPage extends Component {
                     <Table.Cell>
                     Upload Date :
                       {' '}
-                      {this.props.survey.upload_date}
+                      {this.state.survey.upload_date}
                       {' '}
                       <br />
                     Survey date :
                       {' '}
-                      {this.props.survey.survey_start_date}
+                      {this.state.survey.survey_start_date}
 ~
-                      {this.props.survey.survey_end_date}
+                      {this.state.survey.survey_end_date}
                       {' '}
                       <br />
                     Author :
                       {' '}
-                      {this.props.survey.author}
+                      {this.state.survey.author}
                       {' '}
                       <br />
                     Number of Respondants :
                       {' '}
-                      {this.props.survey.respondant_count}
+                      {this.state.survey.respondant_count}
                       {' '}
                       <br />
                     Description :
                       {' '}
-                      {this.props.survey.content}
+                      {this.state.survey.content}
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
@@ -109,7 +131,7 @@ Download
           </Grid.Row>
         </Grid>
         {items}
-        <ML survey={this.props.survey.related_survey} />
+        {!this.props.ongoing && (<ML survey={this.props.survey.related_survey} />)}
       </div>
     );
   }

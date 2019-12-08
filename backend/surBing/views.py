@@ -280,10 +280,13 @@ def onGoingSurvey(request, survey_id):
         if not SurveyOngoing.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
+        if (request.user is not survey.author):
+            return HttpResponse(status=403)
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
             'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'open_date': survey.open_date.strftime('%y/%m/%d'),
             'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
             'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'target_age_start': survey.target_age_start,
