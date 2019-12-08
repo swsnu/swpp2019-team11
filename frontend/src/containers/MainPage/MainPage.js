@@ -43,6 +43,14 @@ export class MainPage extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row id="thirdRow">
+          <div id="aboutus"> {"< About Us >"} </div>
+          <div id="dev">
+            <div>Ko Jihyung</div>
+            <div>Kim Donghyun</div>
+            <div>Jang Minseok</div>
+            <div>Cho Minjeong</div>
+          </div>
+          <div id="team11">swpp2019-team11: surBing</div>
         </Grid.Row>
       </Grid>
     );
