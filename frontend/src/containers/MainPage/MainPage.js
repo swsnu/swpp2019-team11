@@ -43,7 +43,11 @@ export class MainPage extends Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row id="thirdRow">
-          <div id="aboutus"> {"< About Us >"} </div>
+          <div id="aboutus">
+            {' '}
+            {'< About Us >'}
+            {' '}
+          </div>
           <div id="dev">
             <div>Ko Jihyung</div>
             <div>Kim Donghyun</div>
