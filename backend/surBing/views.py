@@ -322,6 +322,16 @@ def onGoingSurvey(request, survey_id):
     else:
         return HttpResponseBadRequest(['GET'])
 
+@check_logged_in
+def participatedList(request):
+    if request.method == 'GET':
+        user = request.user
+        surveys = list(SurveyOngoing.objects
+                       .filter(respondant=user)
+                       .values())
+        return JsonResponse(surveys, safe=False, status=200)
+    else:
+        return HttpResponseBadRequest(['GET'])
 
 @check_logged_in
 def participate(request, survey_id):
