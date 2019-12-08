@@ -18,18 +18,21 @@ export const TableForm = (props) => (
   <Table
     celled
     selectable
+    fixed
+    singleLine
     definition
     id="Table"
     style={{
-      borderRadius: 0, width: 1050, height: 150, outline: '0.1rem solid', outlineColor: '#DEDEDF',
+      borderRadius: 0, outline: '0.1rem solid', outlineColor: '#DEDEDF',
     }}
   >
     <Table.Header id="Header">
       <Table.Row style={{ 'font-size': '14pt' }}>
         { props.slide && <Table.HeaderCell />}
         <Table.HeaderCell id="headerTitle">Survey Title</Table.HeaderCell>
-        <Table.HeaderCell id="headerAuthor">Survey author</Table.HeaderCell>
-        <Table.HeaderCell id="headerResp">Survey Respondants</Table.HeaderCell>
+        <Table.HeaderCell id="headerAuthor">Survey Date</Table.HeaderCell>
+        <Table.HeaderCell id="headerResp">Total Respondants</Table.HeaderCell>
+        {props.ongoing && <Table.HeaderCell id="headerResp">Target Respondants</Table.HeaderCell>}
         <Table.HeaderCell id="headerContent">Survey content</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
@@ -44,8 +47,9 @@ export const TableForm = (props) => (
           </Table.Cell>
           )}
           <Table.Cell id="bodyTitle">{cur.title}</Table.Cell>
-          <Table.Cell>{cur.author}</Table.Cell>
+          <Table.Cell>{cur.survey_start_date}~{cur.survey_end_date}</Table.Cell>
           <Table.Cell>{cur.respondant_count}</Table.Cell>
+          {props.ongoing && <Table.Cell>{cur.target_respondant_count}</Table.Cell>}
           <Table.Cell>{cur.content}</Table.Cell>
         </Table.Row>
       ))}
