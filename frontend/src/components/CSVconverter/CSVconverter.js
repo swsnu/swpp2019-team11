@@ -18,6 +18,6 @@ const CSVconverter = (func, data) => {
   });
   return_data = return_array.map((e) => e.join(',')).join('\n');
   func(return_data);
-}
+};
 
 export default CSVconverter;

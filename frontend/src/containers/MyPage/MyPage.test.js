@@ -65,8 +65,8 @@ describe('map function', () => {
         },
       },
       pt: {
-        participated_list : []
-      }
+        participated_list: [],
+      },
     };
     const map = mapStateToProps(initialState);
     expect(map.cart_list).toEqual([]);
