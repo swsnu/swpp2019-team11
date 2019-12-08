@@ -330,7 +330,7 @@ def participatedList(request):
                        .filter(respondant=user)
                        .values())
         for survey in surveys:
-            survey['author'] = user
+            survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
             del survey['author_id']
         return JsonResponse(surveys, safe=False, status=200)
     else:
