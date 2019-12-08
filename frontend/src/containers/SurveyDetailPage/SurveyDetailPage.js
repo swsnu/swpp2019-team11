@@ -56,6 +56,8 @@ export class SurveyDetailPage extends Component {
   }
 
   render() {
+    console.log(this.props)
+    console.log(this.state)
     if (!this.state.survey || !this.state.survey.item ) {
       return <div />;
     }

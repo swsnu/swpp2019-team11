@@ -29,7 +29,7 @@ export const TableForm = (props) => (
         { props.slide && <Table.HeaderCell />}
         <Table.HeaderCell id="headerTitle">Survey Title</Table.HeaderCell>
         <Table.HeaderCell id="headerAuthor">Survey author</Table.HeaderCell>
-        <Table.HeaderCell id="headerResp">Survey respondant_count</Table.HeaderCell>
+        <Table.HeaderCell id="headerResp">Survey Respondants</Table.HeaderCell>
         <Table.HeaderCell id="headerContent">Survey content</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
@@ -49,26 +49,7 @@ export const TableForm = (props) => (
           <Table.Cell>{cur.content}</Table.Cell>
         </Table.Row>
       ))}
-      {' '}
     </Table.Body>
-
-    <Table.Footer>
-      <Table.Row>
-        <Table.HeaderCell colSpan="5">
-          <Menu floated="right" pagination>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron left" />
-            </Menu.Item>
-            <Menu.Item as="a">1</Menu.Item>
-            <Menu.Item as="a">2</Menu.Item>
-            <Menu.Item as="a">3</Menu.Item>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron right" />
-            </Menu.Item>
-          </Menu>
-        </Table.HeaderCell>
-      </Table.Row>
-    </Table.Footer>
   </Table>
 );
 

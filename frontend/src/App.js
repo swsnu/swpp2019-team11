@@ -23,7 +23,7 @@ function App() {
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/search" exact component={SearchResultPage} />
         <Route path="/survey/:id" exact render = {(props) => <SurveyDetailPage {...props} ongoing = {false} />}/>
-        <Route path="/ongoingsuvey/:id" exact render = {(props) => <SurveyDetailPage {...props} ongoing = {true} />} />
+        <Route path="/ongoingsurvey/:id" exact render = {(props) => <SurveyDetailPage {...props} ongoing = {true} />} />
         <Route path="/participate" exact component={SurveyParticipate} />
         <Route path="/mypage" exact component={MyPage} />
         <Route path="/making" exact component={MakingPage} />

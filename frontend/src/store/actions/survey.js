@@ -43,7 +43,7 @@ export const getOngoingSurvey_ = (ongoing_survey) => ({
   target: ongoing_survey,
 });
 
-export const getOngoingSurvey = (id) => (dispatch) => axios.get(`/api/survey/ongoing/${String(id)}/`)
+export const getOngoingSurvey = (id) => (dispatch) => axios.get(`/api/survey/ongoing/${id}/`)
   .then((res) => {
     dispatch(getOngoingSurvey_(res.data));
     return res;

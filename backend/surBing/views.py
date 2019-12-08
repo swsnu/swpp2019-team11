@@ -196,11 +196,12 @@ def survey(request, survey_id):
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
-        if (request.user is not survey.author):
+        if (survey.author.username != request.user.username):
             if (request.user.point >= 100):
                 request.user.point -= 100
             else:
                 return HttpResponse(status=403)
+        request.user.save()
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
@@ -280,7 +281,7 @@ def onGoingSurvey(request, survey_id):
         if not SurveyOngoing.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
-        if (request.user is not survey.author):
+        if (survey.author.username != request.user.username):
             return HttpResponse(status=403)
         survey_dict = {
             'id': survey.id,

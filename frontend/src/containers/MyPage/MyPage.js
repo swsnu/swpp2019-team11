@@ -89,7 +89,7 @@ Let's make new Survey!
     if (this.state.clickedMenu == 1 && this.props.survey_list) {
       return (
         <div className="ParticipatedSurvey">
-          <h1 id="cartTitle">Cart</h1>
+          <h1 id="cartTitle">Participated Surveys</h1>
           <br />
           {
             (this.props.participating_list.length > 0)
@@ -107,7 +107,7 @@ No Surveys you have participated.
                 {'  '}
 How about participating to onGoing surveys?
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('/participate/')}> Go to Participate to Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/participate/')}> Go to Participate </Button>
             </Segment>
             )
           }
