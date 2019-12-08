@@ -14,11 +14,13 @@ export const mapDispatchToProps = (dispatch) => ({
   getCart: () => dispatch(actionCreators.getCart()),
   getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
+  getParticipating: ()=>dispatch(actionCreators.getParticipatingList()),
   getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
 export const mapStateToProps = (state) => ({
   cart_list: state.ct.survey_list,
+  participating_list: state.pt.survey_list,
   survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
   username: state.us.info.username,
@@ -40,11 +42,13 @@ export class MyPage extends Component {
     this.props.checklogIn()
       .then(() => {
         this.props.getUserInfo();
+        this.props.getSurveyOngoing();
+        this.props.getCart();
+        this.props.getSurveyAll();
+        this.props.getParticipating()
       })
       .catch(() => { this.props.history.push('/login/'); });
-    this.props.getSurveyOngoing();
-    this.props.getCart();
-    this.props.getSurveyAll();
+    
   }
 
   selectmenu = () => {
@@ -88,22 +92,22 @@ Let's make new Survey!
           <h1 id="cartTitle">Cart</h1>
           <br />
           {
-            (this.props.cart_list.length > 0)
-            && <TableForm content={this.props.cart_list} slide />
+            (this.props.participating_list.length > 0)
+            && <TableForm content={this.props.participating_list} slide />
           }
           {
-            (this.props.survey_list.length == 0)
+            (this.props.participating_list.length == 0)
             && (
-            <Segment id="noOnSurvey">
+            <Segment placeholder id="noOnSurvey">
               <div id="ongoingTxt1">
                 {'  '}
-No Opened Survey you made.
+No Surveys you have participated.
               </div>
               <div id="ongoingTxt2">
                 {'  '}
-How about making new Survey?
+How about participating to onGoing surveys?
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('/making/')}> Go to make New Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/participate/')}> Go to Participate to Survey </Button>
             </Segment>
             )
           }
@@ -122,7 +126,7 @@ How about making new Survey?
           {
             (this.props.cart_list.length == 0)
             && (
-            <Segment id="noOnSurvey">
+            <Segment placeholder id="noOnSurvey">
               <div id="ongoingTxt1">
                 {'  '}
 No Opened Survey in Your Cart.
