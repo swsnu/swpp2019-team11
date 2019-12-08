@@ -54,7 +54,7 @@ const ML = (props) => {
   ));
 
   return (
-    <Grid padded>
+    <Grid className="ML" padded>
       <Grid.Row column={1}>
         <Grid.Column>
           <Segment style={{ backgroundColor: '#8d99a5' }}>

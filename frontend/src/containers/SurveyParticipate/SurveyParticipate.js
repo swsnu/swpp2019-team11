@@ -15,7 +15,7 @@ export const mapDispatchToProps = (dispatch) => ({
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 export const mapStateToProps = (state) => ({
-  survey_list: state.svl.ongoing_survey_list,
+  survey_list: state.pt.survey_list,
   username: state.us.info.username,
   point: state.us.info.state,
 });

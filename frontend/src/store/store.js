@@ -7,12 +7,14 @@ import SurveyListReducer from './reducers/SurveyListReducer';
 import SurveyReducer from './reducers/SurveyReducer';
 import UserReducer from './reducers/UserReducer';
 import CartReducer from './reducers/CartReducer';
+import ParticipatingReducer from './reducers/ParticipatingReducer';
 
 const rootReducer = combineReducers({
   us: UserReducer,
   sv: SurveyReducer,
   svl: SurveyListReducer,
   ct: CartReducer,
+  pt: ParticipatingReducer,
 });
 
 const logger = () => (next) => (action) => {

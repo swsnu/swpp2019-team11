@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Sidebar, Button,
+  Menu, Segment, Sidebar, Button, Grid,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
@@ -14,11 +14,13 @@ export const mapDispatchToProps = (dispatch) => ({
   getCart: () => dispatch(actionCreators.getCart()),
   getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
+  getParticipated: () => dispatch(actionCreators.getParticipatedList()),
   getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
 export const mapStateToProps = (state) => ({
   cart_list: state.ct.survey_list,
+  participating_list: state.pt.participated_list,
   survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
   username: state.us.info.username,
@@ -40,25 +42,32 @@ export class MyPage extends Component {
     this.props.checklogIn()
       .then(() => {
         this.props.getUserInfo();
+        this.props.getSurveyOngoing();
+        this.props.getCart();
+        this.props.getSurveyAll();
+        this.props.getParticipated();
       })
       .catch(() => { this.props.history.push('/login/'); });
-    this.props.getSurveyOngoing();
-    this.props.getCart();
-    this.props.getSurveyAll();
   }
 
   selectmenu = () => {
-    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list) {
+    if (this.state.clickedMenu == 0 && this.props.ongoing_survey_list && this.props.survey_list) {
       return (
         <div className="SurveyOngoing">
           <h1 id="ongoingTitle">Ongoing Survey</h1>
           <br />
           {
             (this.props.ongoing_survey_list.length > 0)
-            && <TableForm id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+            && <TableForm ongoing id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+          }
+          <h1 id="openedTitle">Opened Survey</h1>
+          <br />
+          {
+            (this.props.survey_list.length > 0)
+            && <TableForm content={this.props.survey_list} slide={false} />
           }
           {
-            (this.props.ongoing_survey_list.length == 0)
+            (this.props.ongoing_survey_list.length == 0 && this.props.survey_list.length == 0)
             && (
             <Segment id="noOnSurvey">
               <div id="ongoingTxt1">
@@ -78,26 +87,26 @@ Let's make new Survey!
     }
     if (this.state.clickedMenu == 1 && this.props.survey_list) {
       return (
-        <div className="SurveyCompleted">
-          <h1 id="openedTitle">Opened Survey</h1>
+        <div className="ParticipatedSurvey">
+          <h1 id="cartTitle">Participated Surveys</h1>
           <br />
           {
-            (this.props.survey_list.length > 0)
-            && <TableForm content={this.props.survey_list} slide={false} />
+            (this.props.participating_list.length > 0)
+            && <TableForm content={this.props.participating_list} slide={false} />
           }
           {
-            (this.props.survey_list.length == 0)
+            (this.props.participating_list.length == 0)
             && (
-            <Segment id="noOnSurvey">
+            <Segment placeholder id="noOnSurvey">
               <div id="ongoingTxt1">
                 {'  '}
-No Opened Survey you made.
+No Surveys you have participated.
               </div>
               <div id="ongoingTxt2">
                 {'  '}
-How about making new Survey?
+How about participating to onGoing surveys?
               </div>
-              <Button id="moveMaking" onClick={() => this.props.history.push('/making/')}> Go to make New Survey </Button>
+              <Button id="moveMaking" onClick={() => this.props.history.push('/participate/')}> Go to Participate </Button>
             </Segment>
             )
           }
@@ -116,14 +125,14 @@ How about making new Survey?
           {
             (this.props.cart_list.length == 0)
             && (
-            <Segment id="noOnSurvey">
+            <Segment placeholder id="noOnSurvey">
               <div id="ongoingTxt1">
                 {'  '}
-No Opened Survey in Your Cart.
+No Opened Survey are in Your Cart.
               </div>
               <div id="ongoingTxt2">
                 {'  '}
-Let's search Survey to put in Cart!
+Let's search Survey to put them in your Cart!
               </div>
               <Button id="moveMaking" onClick={() => this.props.history.push('/main/')}> Go to search Survey </Button>
             </Segment>
@@ -152,18 +161,24 @@ Let's search Survey to put in Cart!
             vertical
           >
             <Menu.Item className="OngoingSurvey" id="ongoing" onClick={() => { this.setState({ clickedMenu: 0 }); }}>
-              My Ongoing Survey
+              My Surveys
             </Menu.Item>
             <Menu.Item className="CompletedSurvey" id="completed" onClick={() => { this.setState({ clickedMenu: 1 }); }}>
-              My Completed Survey
+              Participated Surveys
             </Menu.Item>
             <Menu.Item className="Cart" id="cart" onClick={() => { this.setState({ clickedMenu: 2 }); }}>
-              Cart
+              My Cart
             </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 800 }}>
+          <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 820 }}>
             <Segment basic>
-              {menu}
+              <Grid padded>
+                <Grid.Row column={1}>
+                  <Grid.Column width={12}>
+                    {menu}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

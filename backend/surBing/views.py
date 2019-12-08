@@ -196,11 +196,12 @@ def survey(request, survey_id):
         if not Survey.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = Survey.objects.get(id=survey_id)
-        if (request.user is not survey.author):
+        if (survey.author.username != request.user.username):
             if (request.user.point >= 100):
                 request.user.point -= 100
             else:
                 return HttpResponse(status=403)
+        request.user.save()
         survey_dict = {
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
@@ -284,6 +285,7 @@ def onGoingSurvey(request, survey_id):
             'id': survey.id,
             'title': survey.title, 'author': survey.author.username,
             'upload_date': survey.upload_date.strftime('%y/%m/%d'),
+            'open_date': survey.open_date.strftime('%y/%m/%d'),
             'survey_start_date': survey.survey_start_date.strftime('%y/%m/%d'),
             'survey_end_date': survey.survey_end_date.strftime('%y/%m/%d'),
             'target_age_start': survey.target_age_start,
@@ -320,6 +322,19 @@ def onGoingSurvey(request, survey_id):
     else:
         return HttpResponseBadRequest(['GET'])
 
+@check_logged_in
+def participatedList(request):
+    if request.method == 'GET':
+        user = request.user
+        surveys = list(SurveyOngoing.objects
+                       .filter(respondant=user)
+                       .values())
+        for survey in surveys:
+            survey['author'] = SurBingUser.objects.get(id=survey['author_id']).username
+            del survey['author_id']
+        return JsonResponse(surveys, safe=False, status=200)
+    else:
+        return HttpResponseBadRequest(['GET'])
 
 @check_logged_in
 def participate(request, survey_id):

@@ -4,28 +4,42 @@ import {
 } from 'semantic-ui-react';
 import './TableForm.css';
 
+
+const onClickHandler = (ongoing, id) => {
+  if (ongoing) {
+    window.location.assign(`/ongoingsurvey/${id}/`);
+  } else {
+    window.location.assign(`/survey/${id}/`);
+  }
+};
+
 export const TableForm = (props) => (
   <Table
     celled
+    selectable
+    fixed
+    singleLine
     definition
+    textAlign="center"
     id="Table"
     style={{
-      borderRadius: 0, width: 1050, height: 150, outline: '0.1rem solid', outlineColor: '#DEDEDF',
+      borderRadius: 0, outline: '0.1rem solid', outlineColor: '#DEDEDF',
     }}
   >
     <Table.Header id="Header">
       <Table.Row style={{ 'font-size': '14pt' }}>
         { props.slide && <Table.HeaderCell />}
         <Table.HeaderCell id="headerTitle">Survey Title</Table.HeaderCell>
-        <Table.HeaderCell id="headerAuthor">Survey author</Table.HeaderCell>
-        <Table.HeaderCell id="headerResp">Survey respondant_count</Table.HeaderCell>
+        <Table.HeaderCell id="headerAuthor">Survey Date</Table.HeaderCell>
+        <Table.HeaderCell id="headerResp">Total Respondants</Table.HeaderCell>
+        {props.ongoing && <Table.HeaderCell id="headerResp">Target Respondants</Table.HeaderCell>}
         <Table.HeaderCell id="headerContent">Survey content</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body id="Body">
       {props.content.map((cur) => (
-        <Table.Row>
+        <Table.Row style={{ cursor: 'pointer' }} onClick={() => { onClickHandler(props.ongoing, cur.id); }}>
           { props.slide
           && (
           <Table.Cell collapsing>
@@ -33,31 +47,17 @@ export const TableForm = (props) => (
           </Table.Cell>
           )}
           <Table.Cell id="bodyTitle">{cur.title}</Table.Cell>
-          <Table.Cell>{cur.author}</Table.Cell>
+          <Table.Cell>
+            {cur.survey_start_date}
+~
+            {cur.survey_end_date}
+          </Table.Cell>
           <Table.Cell>{cur.respondant_count}</Table.Cell>
+          {props.ongoing && <Table.Cell>{cur.target_respondant_count}</Table.Cell>}
           <Table.Cell>{cur.content}</Table.Cell>
         </Table.Row>
       ))}
-      {' '}
     </Table.Body>
-
-    <Table.Footer>
-      <Table.Row>
-        <Table.HeaderCell colSpan="5">
-          <Menu floated="right" pagination>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron left" />
-            </Menu.Item>
-            <Menu.Item as="a">1</Menu.Item>
-            <Menu.Item as="a">2</Menu.Item>
-            <Menu.Item as="a">3</Menu.Item>
-            <Menu.Item as="a" icon>
-              <Icon name="chevron right" />
-            </Menu.Item>
-          </Menu>
-        </Table.HeaderCell>
-      </Table.Row>
-    </Table.Footer>
   </Table>
 );
 
