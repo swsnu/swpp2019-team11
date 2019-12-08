@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Sidebar, Button,
+  Menu, Segment, Sidebar, Button, Grid
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
@@ -171,9 +171,15 @@ Let's search Survey to put in Cart!
               My Cart
             </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 800 }}>
+          <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 820 }}>
             <Segment basic>
-              {menu}
+              <Grid padded>
+                <Grid.Row column = {1}>
+                  <Grid.Column width = {12}>
+                    {menu}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
