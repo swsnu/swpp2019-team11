@@ -329,6 +329,9 @@ def participatedList(request):
         surveys = list(SurveyOngoing.objects
                        .filter(respondant=user)
                        .values())
+        for survey in surveys:
+            survey['author'] = user
+            del survey['author_id']
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
