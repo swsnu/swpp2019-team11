@@ -14,13 +14,13 @@ export const mapDispatchToProps = (dispatch) => ({
   getCart: () => dispatch(actionCreators.getCart()),
   getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
-  getParticipating: ()=>dispatch(actionCreators.getParticipatingList()),
+  getParticipated: ()=>dispatch(actionCreators.getParticipatedList()),
   getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
 export const mapStateToProps = (state) => ({
   cart_list: state.ct.survey_list,
-  participating_list: state.pt.survey_list,
+  participating_list: state.pt.participated_list,
   survey_list: state.svl.survey_list,
   ongoing_survey_list: state.svl.ongoing_survey_list,
   username: state.us.info.username,
@@ -45,7 +45,7 @@ export class MyPage extends Component {
         this.props.getSurveyOngoing();
         this.props.getCart();
         this.props.getSurveyAll();
-        this.props.getParticipating()
+        this.props.getParticipated()
       })
       .catch(() => { this.props.history.push('/login/'); });
     
@@ -93,7 +93,7 @@ Let's make new Survey!
           <br />
           {
             (this.props.participating_list.length > 0)
-            && <TableForm content={this.props.participating_list} slide />
+            && <TableForm content={this.props.participating_list} slide={false} />
           }
           {
             (this.props.participating_list.length == 0)
