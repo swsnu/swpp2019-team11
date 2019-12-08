@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Sidebar, Button, Grid
+  Menu, Segment, Sidebar, Button, Grid,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar/TopBar';
@@ -14,7 +14,7 @@ export const mapDispatchToProps = (dispatch) => ({
   getCart: () => dispatch(actionCreators.getCart()),
   getSurveyOngoing: () => { dispatch(actionCreators.getMyOngoingSurveys()); },
   getUserInfo: () => dispatch(actionCreators.getUserInfo()),
-  getParticipated: ()=>dispatch(actionCreators.getParticipatedList()),
+  getParticipated: () => dispatch(actionCreators.getParticipatedList()),
   getSurveyAll: () => dispatch(actionCreators.getMyCompletedSurveys()),
 });
 
@@ -45,10 +45,9 @@ export class MyPage extends Component {
         this.props.getSurveyOngoing();
         this.props.getCart();
         this.props.getSurveyAll();
-        this.props.getParticipated()
+        this.props.getParticipated();
       })
       .catch(() => { this.props.history.push('/login/'); });
-    
   }
 
   selectmenu = () => {
@@ -59,7 +58,7 @@ export class MyPage extends Component {
           <br />
           {
             (this.props.ongoing_survey_list.length > 0)
-            && <TableForm ongoing = {true} id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
+            && <TableForm ongoing id="ongoingTable" content={this.props.ongoing_survey_list} slide={false} />
           }
           <h1 id="openedTitle">Opened Survey</h1>
           <br />
@@ -174,8 +173,8 @@ Let's search Survey to put them in your Cart!
           <Sidebar.Pusher id="sidebarPusher" style={{ minHeight: 820 }}>
             <Segment basic>
               <Grid padded>
-                <Grid.Row column = {1}>
-                  <Grid.Column width = {12}>
+                <Grid.Row column={1}>
+                  <Grid.Column width={12}>
                     {menu}
                   </Grid.Column>
                 </Grid.Row>

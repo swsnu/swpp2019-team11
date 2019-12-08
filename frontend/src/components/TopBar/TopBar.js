@@ -18,7 +18,7 @@ export const TopBar = (props) => (
         </Grid.Row>
       </Grid>
     </Segment>
-    <Menu size="big" className="UtilBar" pointing secondary style={{ borderRadius: '0px', marginBottom: '-15px', backgroundColor : 'white' }}>
+    <Menu size="big" className="UtilBar" pointing secondary style={{ borderRadius: '0px', marginBottom: '-15px', backgroundColor: 'white' }}>
       <Menu.Item
         className="Participate"
         active={props.menu == 'Participate'}

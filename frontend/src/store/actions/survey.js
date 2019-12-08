@@ -75,7 +75,7 @@ export const getParticipatingList = () => (dispatch) => axios.get('/api/particip
 
 export const getParticipatedList_ = (ongoing_survey_list) => ({ type: actionTypes.GET_PARTICIPATED_LIST, target: ongoing_survey_list });
 export const getParticipatedList = () => (dispatch) => axios.get('/api/participatedlist/').then((res) => {
-  dispatch(getParticipatedList_(res.data))
-})
+  dispatch(getParticipatedList_(res.data));
+});
 
 export const clearParticipatingList = () => (dispatch) => dispatch({ type: actionTypes.CLEAR_PARTICIPATING_LIST });

@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   survey_list: [],
-  participated_list : []
+  participated_list: [],
 };
 
 const ParticipatingReducer = (state = initialState, action = actionTypes.DEFAULT) => {
@@ -10,7 +10,7 @@ const ParticipatingReducer = (state = initialState, action = actionTypes.DEFAULT
     case actionTypes.GET_PARTICIPATING_LIST:
       return { ...state, survey_list: action.target };
     case actionTypes.GET_PARTICIPATED_LIST:
-      return { ...state, participated_list: action.target}
+      return { ...state, participated_list: action.target };
     default:
       break;
   }

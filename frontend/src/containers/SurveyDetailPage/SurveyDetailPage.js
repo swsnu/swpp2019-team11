@@ -13,7 +13,7 @@ import * as actionCreators from '../../store/actions/index';
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getCompletedSurvey(id)),
-  onOngoingSurveyDetail: (id) => dispatch(actionCreators.getOngoingSurvey(id))
+  onOngoingSurveyDetail: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
 });
 
 export const mapStateToProps = (state) => ({
@@ -22,30 +22,28 @@ export const mapStateToProps = (state) => ({
 });
 
 export class SurveyDetailPage extends Component {
-
   state = {
-    survey : {}
+    survey: {},
   }
+
   componentDidMount() {
     this.props.checklogIn()
       .then(() => {
-        if(this.props.ongoing){
-          this.props.onOngoingSurveyDetail(this.props.match.params.id)
-        }
-        else{
+        if (this.props.ongoing) {
+          this.props.onOngoingSurveyDetail(this.props.match.params.id);
+        } else {
           this.props.onSurveyDetail(this.props.match.params.id);
         }
       })
       .catch(() => { this.props.history.push('/login/'); });
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props!=prevProps){
-      if(this.props.ongoing){
-        this.setState({survey : this.props.ongoing_survey})
-      }
-      else{
-        this.setState({survey : this.props.survey})
+  componentDidUpdate(prevProps) {
+    if (this.props != prevProps) {
+      if (this.props.ongoing) {
+        this.setState({ survey: this.props.ongoing_survey });
+      } else {
+        this.setState({ survey: this.props.survey });
       }
     }
   }
@@ -56,9 +54,7 @@ export class SurveyDetailPage extends Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.state)
-    if (!this.state.survey || !this.state.survey.item ) {
+    if (!this.state.survey || !this.state.survey.item) {
       return <div />;
     }
 

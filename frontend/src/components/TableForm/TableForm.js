@@ -6,13 +6,12 @@ import './TableForm.css';
 
 
 const onClickHandler = (ongoing, id) => {
-  if(ongoing){
-    window.location.assign('/ongoingsurvey/'+id+'/')
+  if (ongoing) {
+    window.location.assign(`/ongoingsurvey/${id}/`);
+  } else {
+    window.location.assign(`/survey/${id}/`);
   }
-  else{
-    window.location.assign('/survey/'+id+'/')
-  }
-}
+};
 
 export const TableForm = (props) => (
   <Table
@@ -21,7 +20,7 @@ export const TableForm = (props) => (
     fixed
     singleLine
     definition
-    textAlign = 'center'
+    textAlign="center"
     id="Table"
     style={{
       borderRadius: 0, outline: '0.1rem solid', outlineColor: '#DEDEDF',
@@ -40,7 +39,7 @@ export const TableForm = (props) => (
 
     <Table.Body id="Body">
       {props.content.map((cur) => (
-        <Table.Row style = {{cursor : 'pointer'}} onClick = {() => {onClickHandler(props.ongoing, cur.id)}}>
+        <Table.Row style={{ cursor: 'pointer' }} onClick={() => { onClickHandler(props.ongoing, cur.id); }}>
           { props.slide
           && (
           <Table.Cell collapsing>
@@ -48,7 +47,11 @@ export const TableForm = (props) => (
           </Table.Cell>
           )}
           <Table.Cell id="bodyTitle">{cur.title}</Table.Cell>
-          <Table.Cell>{cur.survey_start_date}~{cur.survey_end_date}</Table.Cell>
+          <Table.Cell>
+            {cur.survey_start_date}
+~
+            {cur.survey_end_date}
+          </Table.Cell>
           <Table.Cell>{cur.respondant_count}</Table.Cell>
           {props.ongoing && <Table.Cell>{cur.target_respondant_count}</Table.Cell>}
           <Table.Cell>{cur.content}</Table.Cell>
