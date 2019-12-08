@@ -100,4 +100,19 @@ describe('ActionCreators', () => {
         done();
       });
   });
+  it('get my completed survey', (done) => {
+    const stubSurveyList = []
+
+    axios.get = jest.fn(() => new Promise((res) => {
+      const result = { ststus: 200, data: stubSurveyList };
+      res(result);
+    }));
+    store.dispatch(actionCreators.getMyCompletedSurveys(1))
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.sv.completed_survey).toEqual({"item" : []});
+        expect(axios.get).toHaveBeenCalledTimes(1);
+        done();
+      });
+  });
 });
