@@ -21,6 +21,7 @@ export const TableForm = (props) => (
     fixed
     singleLine
     definition
+    textAlign = 'center'
     id="Table"
     style={{
       borderRadius: 0, outline: '0.1rem solid', outlineColor: '#DEDEDF',

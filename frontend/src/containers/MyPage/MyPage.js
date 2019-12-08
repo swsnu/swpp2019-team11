@@ -129,11 +129,11 @@ How about participating to onGoing surveys?
             <Segment placeholder id="noOnSurvey">
               <div id="ongoingTxt1">
                 {'  '}
-No Opened Survey in Your Cart.
+No Opened Survey are in Your Cart.
               </div>
               <div id="ongoingTxt2">
                 {'  '}
-Let's search Survey to put in Cart!
+Let's search Survey to put them in your Cart!
               </div>
               <Button id="moveMaking" onClick={() => this.props.history.push('/main/')}> Go to search Survey </Button>
             </Segment>
