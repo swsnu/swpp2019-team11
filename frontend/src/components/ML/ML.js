@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import {
   Segment, Grid, Header, Icon,
 } from 'semantic-ui-react';
@@ -7,7 +6,12 @@ import {
 const ML = (props) => {
   const surveyBlock = (survey) => ((survey) ? (
     <Grid.Column width={8}>
-      <Segment onClick={() => { window.location.assign(`/survey/${survey.id}/`); }} style={{ backgroundColor: '#b8bfc7', borderRadius: 25, cursor: 'pointer' }}>
+      <Segment
+        onClick={() => { window.location.assign(`/survey/${survey.id}/`); }}
+        style={{
+          backgroundColor: '#c0d8d7', borderRadius: 25, borderColor: '#2a2a2a', borderWidth: '1px', cursor: 'pointer',
+        }}
+      >
         <Grid divided>
           <Grid.Column width={10}>
             <Header size="big">{survey.title}</Header>
@@ -57,7 +61,7 @@ const ML = (props) => {
     <Grid className="ML" padded>
       <Grid.Row column={1}>
         <Grid.Column>
-          <Segment style={{ backgroundColor: '#8d99a5' }}>
+          <Segment style={{ backgroundColor: '#c0d8d7' }}>
             <Header size="huge">Related Surveys</Header>
             <Grid>
               <Grid.Row column={2}>
