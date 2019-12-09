@@ -11,21 +11,22 @@ class Graph extends Component {
   render(){
     return(
       <div>
-        <Button.Group>
+        <Segment textAlign = 'center'>
+        <Button.Group style = {{align : 'middle'}}>
           <Button onClick={() => this.setState({isClicked : 0})}>Block</Button>
           <Button onClick={() => this.setState({isClicked : 1})}>Pie</Button>
           <Button onClick={() => this.setState({isClicked : 2})}>Line</Button>  
         </Button.Group>
-        <Segment>
-        <XYPlot height={300} width= {300}>
+        {this.state.isClicked !== 1 && 
+          <XYPlot style = {{marginLeft : '35'}} height={300} width= {300}>
           <VerticalGridLines />
           <HorizontalGridLines />
-          <XAxis />
+          <XAxis tickValues = {this.props.tickValues} />
           <YAxis />
-          {this.state.isClicked === 0 ? <VerticalBarSeries data={this.props.graph_block} /> :(
-            this.state.isClicked === 1 ? <RadialChart data={this.props.graph_radial} width={300} height={300}/> : 
-            <LineSeries data={this.props.graph_block} />) }
-        </XYPlot>
+          {this.state.isClicked === 0 && <VerticalBarSeries data={this.props.graph_block} />} 
+          {this.state.isClicked === 2 && <LineSeries data={this.props.graph_block} /> }
+        </XYPlot>}
+        {this.state.isClicked === 1 && <RadialChart showLabels data={this.props.graph_radial} width={300} height={300}/>}
         </Segment>
       </div>
     )

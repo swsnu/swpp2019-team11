@@ -75,10 +75,10 @@ export class SurveyDetailPage extends Component {
           <Grid.Row>
             <Grid.Column width={8} style={{ width: '400px' }}>
               <Table celled style={{ margin: 20, height: 200, width: '450px' }}>
-                <Table.Header color="teal">
+                <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell style={{ textColor: 'teal' }}>
-                      <Label ribbon style={{ color: '#00B5AD', 'font-size': '2em' }}>
+                    <Table.HeaderCell>
+                      <Label ribbon style={{color : '#354649', fontColor: '#354649', 'font-size': '2em' }}>
                         {' '}
                         {this.state.survey.title}
                         {' '}

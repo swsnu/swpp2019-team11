@@ -1,91 +1,92 @@
 import React from 'react';
 import {
-  Table, Segment, Header, Grid, Button
+  Table, Segment, Header, Grid
 } from 'semantic-ui-react';
 import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
 import ItemSelection from './ItemResponse/ItemSelection';
 import Graph from '../../Graph/Graph';
 
-function SurveyItem(props) {
-  let isClicked= 0;
-  let count =  Array.apply(null, new Array(props.selection.length)).map(Number.prototype.valueOf,0);
+const SurveyItem = (props) => {
+  let count =  props.selection.map(() => 0)
 
-  const counting = props.response.map((rs) => {
+  props.response.map((rs) => {
     count[rs.content-1] = count[rs.content-1] + 1;
   });
 
   const responses = props.response.map((rs) => (
-    <ItemResponse
+    props.question_type == 'Subjective' ?
+    (<ItemResponse
       respondant_id={rs.respondant_number}
       content={rs.content}
-    />
+    />)
+    :
+    (<ItemSelection
+      respondant_id={rs.respondant_number}
+      content={rs.content}
+    />)
     
   ));
 
-  const selections = props.selection.map((sl) => (
-    <ItemSelection
-      number={sl.number}
-      content={sl.content}
-      count={count[sl.number-1]}
-    />
-  ));
+  const tickValues = props.selection.map((sl) => (sl.number))
+
 
   const graph_block = count.map((data, index) => (
-    {'x':index, 'y': data}
+    {x:index+1, y: data}
   ));
 
 
-  const graph_radial = count.map((data) => (
-    {'angle':data}
+  const graph_radial = count.map((data, index) => (
+    {angle: data, label : index+1+''}
   ))
-  console.log(graph_radial)
   return (
     
-    <Grid className="SurveyItem">
-      <Table
-        celled
-        color="teal"
-        size="huge"
-        style={{
-          margin: 30, 'font-size': '1em',
-        }}
-      >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>
-              <Header style={{ color: '#00B5AD', 'font-size': '2em' }}>
+    <Grid padded className="SurveyItem">
+      <Grid.Row>
+      <Grid.Column>
+      <Segment style={{ 'font-size': '1em', backgroundColor : "#E0E7E9"}}>
+      <Header style={{ color: '#354649', 'font-size': '2em' }}>
 Q
-                {props.number}
+        {props.number}
 .
-                {' '}
-                {props.title}
-              </Header>
-              <p style={{ textAlign: 'right', color: 'black', 'font-size': '1.4em' }}>
-            type :
-                {' '}
-                {props.question_type}
-              </p>
-            </Table.HeaderCell>
-
-          </Table.Row>
-        </Table.Header>
-        <Table.Body style={{ width: '790px' }}>
-          <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 250, border: 'none' }}>
-            <Segment style={{ padding: -20, border: 'none' }}>
-              {counting}
-              {props.question_type === 'selection' ? selections : responses}
-            </Segment>
-          </ScrollArea>
+        {' '}
+        {props.title}
+      </Header>
+      <p style={{ textAlign: 'right', 'font-size': '1.4em' }}>
+        type :
+        {' '}
+        {props.question_type}
+      </p>
+      <Table size="huge" celled style = {{border : 'none'}} >
+        <Table.Body>
+        <Segment>
+          <Grid>
+            <Grid.Row column = {2}>
+              <Grid.Column style = {{height : 300}} width = {12}>
+                <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
+                  <Segment style={{ padding: -20 }}>
+                    {responses}
+                  </Segment>
+                </ScrollArea>
+                </Grid.Column>
+                <Grid.Column width = {4}>
+                {props.question_type === 'Selection' && (
+                  <Graph
+                    graph_block={graph_block}
+                    count = {count}
+                    graph_radial = {graph_radial}
+                    tickValues = {tickValues}
+                  />
+                )}
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          </Segment>
         </Table.Body>
       </Table>
-      
-      <Graph
-        graph_block={graph_block}
-        count = {count}
-        isClicked = {isClicked}
-        graph_radial = {graph_radial}
-      />
+      </Segment>
+      </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 }
