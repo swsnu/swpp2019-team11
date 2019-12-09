@@ -44,6 +44,32 @@
     background-color: #a3c6c4;
     min-height: 190px;
     margin-top: -1px;
+    color: #354649;
+    text-align: center;
+    padding: 0px;
+}
+
+#aboutus {
+    font-size: 16px;
+    margin-top: 65px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -10px;
+}
+
+#dev {
+    width: 100%;
+    margin-bottom: -10px;
+    font-size: 11px;
+}
+
+#team11 {
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 0px;
+    vertical-align: center;
 }
 
 #surBing {
