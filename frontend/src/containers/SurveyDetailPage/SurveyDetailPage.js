@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Icon, Grid, Label, Table, Button, Header
+  Icon, Grid, Label, Table, Button, Header,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { saveAs } from 'file-saver';
@@ -9,7 +9,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import ML from '../../components/ML/ML';
 import * as actionCreators from '../../store/actions/index';
-import './SurveyDetailPage.css'
+import './SurveyDetailPage.css';
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -61,7 +61,7 @@ export class SurveyDetailPage extends Component {
 
     const items = this.state.survey.item.map((it, it_index) => (
       <SurveyItem
-        multiple_choice = {it.multiple_choice}
+        multiple_choice={it.multiple_choice}
         number={it_index + 1}
         title={it.title}
         question_type={it.question_type}
@@ -80,7 +80,7 @@ export class SurveyDetailPage extends Component {
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>
-                      <Label ribbon style={{color : '#354649', fontColor: '#354649', 'font-size': '2em' }}>
+                      <Label ribbon style={{ color: '#354649', fontColor: '#354649', 'font-size': '2em' }}>
                         {' '}
                         {this.state.survey.title}
                         {' '}
@@ -91,36 +91,36 @@ export class SurveyDetailPage extends Component {
                 <Table.Body style={{ 'font-size': '1.2em' }}>
                   <Table.Row>
                     <Table.Cell>
-                      <Header className = "headers"  size = 'small'>
+                      <Header className="headers" size="small">
                     Upload Date :
-                      {' '}
-                      {this.state.survey.upload_date}
-                      {' '}
+                        {' '}
+                        {this.state.survey.upload_date}
+                        {' '}
                       </Header>
-                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
+                      <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Survey date :
-                      {' '}
-                      {this.state.survey.survey_start_date}
+                        {' '}
+                        {this.state.survey.survey_start_date}
 ~
-                      {this.state.survey.survey_end_date}
-                      {' '}
+                        {this.state.survey.survey_end_date}
+                        {' '}
                       </Header>
-                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
+                      <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Author :
-                      {' '}
-                      {this.state.survey.author}
-                      {' '}
+                        {' '}
+                        {this.state.survey.author}
+                        {' '}
                       </Header>
-                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
+                      <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Number of Respondants :
-                      {' '}
-                      {this.state.survey.respondant_count}
-                      {' '}
+                        {' '}
+                        {this.state.survey.respondant_count}
+                        {' '}
                       </Header>
-                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
+                      <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Description :
-                      {' '}
-                      {this.state.survey.content}
+                        {' '}
+                        {this.state.survey.content}
                       </Header>
                     </Table.Cell>
                   </Table.Row>

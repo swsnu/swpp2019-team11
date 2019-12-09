@@ -6,7 +6,12 @@ import {
 const ML = (props) => {
   const surveyBlock = (survey) => ((survey) ? (
     <Grid.Column width={8}>
-      <Segment onClick={() => { window.location.assign(`/survey/${survey.id}/`); }} style={{backgroundColor: '#c0d8d7', borderRadius: 25, borderColor : "#2a2a2a", borderWidth : "1px", cursor: 'pointer' }}>
+      <Segment
+        onClick={() => { window.location.assign(`/survey/${survey.id}/`); }}
+        style={{
+          backgroundColor: '#c0d8d7', borderRadius: 25, borderColor: '#2a2a2a', borderWidth: '1px', cursor: 'pointer',
+        }}
+      >
         <Grid divided>
           <Grid.Column width={10}>
             <Header size="big">{survey.title}</Header>
