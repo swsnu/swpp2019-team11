@@ -256,6 +256,7 @@ def survey(request, survey_id):
             item_dict = {
                 'title': item.title,
                 'question_type': item.question_type,
+                'multiple_choice': item.multiple_choice,
                 'selection': [],
                 'response': [],
             }
