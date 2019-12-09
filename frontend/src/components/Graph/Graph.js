@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {RadialChart, XYPlot, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalBarSeries, LineSeries} from 'react-vis';
+import {RadialChart, XYPlot, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
 import { Button, Segment } from 'semantic-ui-react';
 
 
@@ -24,7 +24,7 @@ class Graph extends Component {
             <YAxis />
             <VerticalBarSeries data={this.props.graph_block} />
           </XYPlot>}
-        {this.state.isClicked === 1 && <RadialChart  showLabels data={this.props.graph_radial} width={300} height={300}/>}
+        {this.state.isClicked === 1 && <RadialChart labelsRadiusMultiplier = {0.5} style = {{fortSize : '10px'}} labelsAboveChildren showLabels data={this.props.graph_radial} width={300} height={300}/>}
         </Segment>
       </div>
     )

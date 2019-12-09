@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Icon, Grid, Label, Table, Button,
+  Icon, Grid, Label, Table, Button, Header
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { saveAs } from 'file-saver';
@@ -9,6 +9,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import CSVconverter from '../../components/CSVconverter/CSVconverter';
 import ML from '../../components/ML/ML';
 import * as actionCreators from '../../store/actions/index';
+import './SurveyDetailPage.css'
 
 export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
@@ -90,31 +91,37 @@ export class SurveyDetailPage extends Component {
                 <Table.Body style={{ 'font-size': '1.2em' }}>
                   <Table.Row>
                     <Table.Cell>
+                      <Header className = "headers"  size = 'small'>
                     Upload Date :
                       {' '}
                       {this.state.survey.upload_date}
                       {' '}
-                      <br />
+                      </Header>
+                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
                     Survey date :
                       {' '}
                       {this.state.survey.survey_start_date}
 ~
                       {this.state.survey.survey_end_date}
                       {' '}
-                      <br />
+                      </Header>
+                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
                     Author :
                       {' '}
                       {this.state.survey.author}
                       {' '}
-                      <br />
+                      </Header>
+                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
                     Number of Respondants :
                       {' '}
                       {this.state.survey.respondant_count}
                       {' '}
-                      <br />
+                      </Header>
+                      <Header className = "headers" style = {{marginTop : -5}} size = 'small'>
                     Description :
                       {' '}
                       {this.state.survey.content}
+                      </Header>
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
