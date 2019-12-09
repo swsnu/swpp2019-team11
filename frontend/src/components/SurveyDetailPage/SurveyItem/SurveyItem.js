@@ -29,8 +29,7 @@ const SurveyItem = (props) => {
   ));
 
   const tickValues = props.selection.map((sl) => (sl.number))
-
-
+  const question_type = (props.question_type == 'Sebjective' ? 'Short Answer' : (props.multiple_choice ? 'Checkbox' : 'Radio'))
   const graph_block = count.map((data, index) => (
     {x:index+1, y: data}
   ));
@@ -53,10 +52,9 @@ Q
         {props.title}
       </Header>
       <p style={{ textAlign: 'right', 'font-size': '1.4em' }}>
-        type :
+        Question Type :
         {' '}
-        {props.question_type}
-        {props.multiple_choice}
+        {question_type}
       </p>
       <Table size="huge" celled style = {{border : 'none'}} >
         <Table.Body>
