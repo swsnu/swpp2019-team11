@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {RadialChart, XYPlot, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalBarSeries, LineSeries} from 'react-vis';
-import { Button } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 
 
 class Graph extends Component {
