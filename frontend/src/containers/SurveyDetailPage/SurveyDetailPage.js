@@ -60,6 +60,7 @@ export class SurveyDetailPage extends Component {
 
     const items = this.state.survey.item.map((it, it_index) => (
       <SurveyItem
+        multiple_choice = {it.multiple_choice}
         number={it_index + 1}
         title={it.title}
         question_type={it.question_type}

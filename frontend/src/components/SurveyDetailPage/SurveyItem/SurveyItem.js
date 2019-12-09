@@ -45,7 +45,7 @@ const SurveyItem = (props) => {
       <Grid.Row>
       <Grid.Column>
       <Segment style={{ 'font-size': '1em', backgroundColor : "#E0E7E9"}}>
-      <Header style={{ color: '#354649', 'font-size': '2em' }}>
+      <Header style={{ color: '#354649', 'font-size': '2em' , margin : 5}}>
 Q
         {props.number}
 .
@@ -56,20 +56,21 @@ Q
         type :
         {' '}
         {props.question_type}
+        {props.multiple_choice}
       </p>
       <Table size="huge" celled style = {{border : 'none'}} >
         <Table.Body>
         <Segment>
           <Grid>
             <Grid.Row column = {2}>
-              <Grid.Column style = {{height : 300}} width = {12}>
+              <Grid.Column style = {{height : 300}} width = {13}>
                 <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
                   <Segment style={{ padding: -20 }}>
                     {responses}
                   </Segment>
                 </ScrollArea>
                 </Grid.Column>
-                <Grid.Column width = {4}>
+                <Grid.Column style = {{marginLeft : -10}} width = {3}>
                 {props.question_type === 'Selection' && (
                   <Graph
                     graph_block={graph_block}
