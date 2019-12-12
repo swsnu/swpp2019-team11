@@ -49,7 +49,6 @@ export class MakingPage extends Component {
       response_count: 0,
       due_date: moment(),
       open_date: moment(),
-      item_count: 1,
       item_list: [
         {
           number: 1, title: '', question_type: 'Subjective', multiple_choice: false, personal_data: false, selection: [],
@@ -138,16 +137,18 @@ export class MakingPage extends Component {
     }
 
     addItemHandler = () => {
+      console.log(this.state.item_list)
+      let new_item_list = this.state.item_list
       const new_item = {
-        number: this.state.item_list.length + 1,
+        number: (this.state.item_list.length + 1),
         title: '',
         question_type: 'Subjective',
         multiple_choice: false,
         selection: [],
         personal_data: false,
       };
-      this.state.item_list.push(new_item);
-      this.forceUpdate();
+      new_item_list.push(new_item)
+      this.setState({item_list : new_item_list})
     };
 
     deleteItemHandler = (number) => {
@@ -170,8 +171,9 @@ export class MakingPage extends Component {
       this.setState({ ...this.state });
     }
 
-    Items = () => this.state.item_list.map((item) => (
+    Items = () => this.state.item_list.map((item, index) => (
       <MakingItem
+        data = {this.state.item_list[index]}
         number={item.number}
         question_type={item.question_type}
         multiple_choice={item.multiple_choice}

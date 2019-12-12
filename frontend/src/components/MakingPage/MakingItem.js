@@ -14,6 +14,16 @@ export class MakingItem extends Component {
     error: [],
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps != this.props){
+      this.setState({
+        title : this.props.data.title,
+        selection_list : this.props.data.selection,
+        type : this.props.data.question_type == 'Subjective' ? 1 : (this.props.data.multiple_choice ? 3 :2)
+      })  
+    }
+  }
+
   selectionContentHandler = (content, number) => {
     this.state.selection_list[number - 1].content = content;
     this.state.error[number - 1] = (content == '');
@@ -70,7 +80,7 @@ export class MakingItem extends Component {
         Q
           {this.props.number}
 : &nbsp;&nbsp;
-          <Input style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Input value = {this.state.title} style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Dropdown
             selection
             placeholder="ItemType"
@@ -108,7 +118,7 @@ export class MakingItem extends Component {
           (this.props.question_type == 'Selection')
           && <button className="addOptionButton" onClick={this.addSelectionHandler}>Add options</button>
         }
-        <Icon size = 'large' onClick = {() => this.props.deleteHandler(this.props.number)} circular style = {{position : 'absolute', bottom : 10, right : 10, backgroundColor : 'white'}} name = "trash alternate outline" />
+        <Icon size = 'large' onClick = {() => this.props.deleteHandler(this.props.number)} circular style = {{position : 'absolute', bottom : 10, right : 10, backgroundColor : 'white', cursor : 'pointer'}} name = "trash alternate outline" />
       </Segment>
     );
   }
