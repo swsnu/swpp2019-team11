@@ -150,6 +150,17 @@ export class MakingPage extends Component {
       this.forceUpdate();
     };
 
+    deleteItemHandler = (number) => {
+      let new_item_list = this.state.item_list.filter((item) => !(item.number==number))
+      console.log(new_item_list)
+      new_item_list.map((item, index) => {
+        item.number = index+1;
+      })
+      console.log(new_item_list)
+      this.state.item_list = new_item_list;
+      this.forceUpdate();
+    }
+
     isDateBlocked = (date) => (date.isBefore(this.state.due_date))
 
     dataCallBackHandler = (data, number) => {
@@ -169,6 +180,7 @@ export class MakingPage extends Component {
         questionTypeToggler={this.questionTypeToggler}
         personalToggler={this.personalToggler}
         itemTypeHandler={this.itemTypeHandler}
+        deleteHandler={this.deleteItemHandler}
       />
     ));
 

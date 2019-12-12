@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Segment, Checkbox, Input, Popup, Dropdown, Button,
+  Segment, Checkbox, Input, Popup, Dropdown, Button, Icon
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
@@ -30,6 +30,16 @@ export class MakingItem extends Component {
     this.props.stateSender(this.state, this.props.number);
   }
 
+  deleteSelectionHandler = (number) => {
+    let new_selection_list = this.state.selection_list.filter((selection) => selection.number == number)
+    new_selection_list.map((selection, index) => {
+      selection.number = index+1
+    })
+    this.state.selection_list = new_selection_list
+    this.forceUpdate()
+
+  }
+
   typeHandler = (target, data) => {
     if (this.state.type != data.value) {
       if (data.value == 1) {
@@ -41,10 +51,6 @@ export class MakingItem extends Component {
       this.setState({ type: data.value });
       this.props.itemTypeHandler(this.props.number, data.value);
     }
-  }
-
-  errorDetect = () => {
-
   }
 
   titleChangeHandler = (title) => {
@@ -102,6 +108,7 @@ export class MakingItem extends Component {
           (this.props.question_type == 'Selection')
           && <button className="addOptionButton" onClick={this.addSelectionHandler}>Add options</button>
         }
+        <Icon size = 'large' onClick = {() => this.props.deleteHandler(this.props.number)} circular style = {{position : 'absolute', bottom : 10, right : 10, backgroundColor : 'white'}} name = "trash alternate outline" />
       </Segment>
     );
   }
