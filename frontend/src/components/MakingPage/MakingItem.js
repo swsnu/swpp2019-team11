@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Segment, Checkbox, Input, Popup, Dropdown, Button, Icon
+  Segment, Checkbox, Input, Popup, Dropdown, Button, Icon,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import MakingOptions from './MakingOptions';
@@ -14,13 +14,13 @@ export class MakingItem extends Component {
     error: [],
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps != this.props){
+  componentDidUpdate(prevProps) {
+    if (prevProps != this.props) {
       this.setState({
-        title : this.props.data.title,
-        selection_list : this.props.data.selection,
-        type : this.props.data.question_type == 'Subjective' ? 1 : (this.props.data.multiple_choice ? 3 :2)
-      })  
+        title: this.props.data.title,
+        selection_list: this.props.data.selection,
+        type: this.props.data.question_type == 'Subjective' ? 1 : (this.props.data.multiple_choice ? 3 : 2),
+      });
     }
   }
 
@@ -41,16 +41,15 @@ export class MakingItem extends Component {
   }
 
   deleteSelectionHandler = (number) => {
-    if(this.state.selection_list.length>1){
-        let new_selection_list = this.state.selection_list.filter((selection) => !(selection.number == number))
-        new_selection_list.map((selection, index) => {
-          selection.number = index+1
-        })
-        this.state.selection_list = new_selection_list
-        this.setState({selection_list : new_selection_list})
-        this.props.stateSender(this.state, this.props.number);
+    if (this.state.selection_list.length > 1) {
+      const new_selection_list = this.state.selection_list.filter((selection) => !(selection.number == number));
+      new_selection_list.map((selection, index) => {
+        selection.number = index + 1;
+      });
+      this.state.selection_list = new_selection_list;
+      this.setState({ selection_list: new_selection_list });
+      this.props.stateSender(this.state, this.props.number);
     }
-
   }
 
   typeHandler = (target, data) => {
@@ -83,7 +82,7 @@ export class MakingItem extends Component {
         Q
           {this.props.number}
 : &nbsp;&nbsp;
-          <Input value = {this.state.title} style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
+          <Input value={this.state.title} style={{ width: 550 }} className="title" error={this.state.title == ''} id="title" placeholder="Question..." onChange={(e) => this.titleChangeHandler(e.target.value)} />
           <Dropdown
             selection
             placeholder="ItemType"
@@ -114,7 +113,7 @@ export class MakingItem extends Component {
             contentHandler={this.selectionContentHandler}
             content={selection.content}
             error={selection.content == ''}
-            deleteHandler = {this.deleteSelectionHandler}
+            deleteHandler={this.deleteSelectionHandler}
           />
         ))
         }
@@ -122,7 +121,15 @@ export class MakingItem extends Component {
           (this.props.question_type == 'Selection')
           && <button className="addOptionButton" onClick={this.addSelectionHandler}>Add options</button>
         }
-        <Icon size = 'large' onClick = {() => this.props.deleteHandler(this.props.number)} circular style = {{position : 'absolute', bottom : 10, right : 10, backgroundColor : 'white', cursor : 'pointer'}} name = "trash alternate outline" />
+        <Icon
+          size="large"
+          onClick={() => this.props.deleteHandler(this.props.number)}
+          circular
+          style={{
+            position: 'absolute', bottom: 10, right: 10, backgroundColor: 'white', cursor: 'pointer',
+          }}
+          name="trash alternate outline"
+        />
       </Segment>
     );
   }

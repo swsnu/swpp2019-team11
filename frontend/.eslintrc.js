@@ -51,6 +51,7 @@ module.exports = {
     "react/prefer-stateless-function": [0],
     "no-unused-vars": [0],
     "consistent-return": [0],
+    "no-param-reassign": [0],
 
   },
 };
