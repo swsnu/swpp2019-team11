@@ -82,6 +82,7 @@ describe('map function', () => {
     mapDispatchToProps(dispatch).getSurveyOngoing();
     mapDispatchToProps(dispatch).getUserInfo();
     mapDispatchToProps(dispatch).getSurveyAll();
-    expect(dispatch).toHaveBeenCalledTimes(5);
+    mapDispatchToProps(dispatch).getParticipated();
+    expect(dispatch).toHaveBeenCalledTimes(6);
   });
 });

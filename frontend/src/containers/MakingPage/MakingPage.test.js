@@ -65,6 +65,10 @@ describe('MakingPage', () => {
     instance.addItemHandler();
     expect(instance.state.item_list[0].title).toEqual('test');
   });
+  it('personal toggler', () => {
+    instance.personalToggler(1);
+    expect(instance.state.item_list[0].personal_data).toEqual(true);
+  });
 });
 
 

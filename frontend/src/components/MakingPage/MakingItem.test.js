@@ -10,6 +10,13 @@ describe('<MakingItem />', () => {
   const mockstateSender = jest.fn();
   const mockItemTypeHandler = jest.fn();
   const props = {
+    data: {
+      title: 'test',
+      content: 'content',
+      question_type: 'Subjective',
+      multiple_choice: true,
+      selection: [{ number: 1, content: 'c' }, { number: 2, content: 'asd' }],
+    },
     history: {
       push: mockpush,
     },
@@ -43,5 +50,10 @@ describe('<MakingItem />', () => {
     expect(mockstateSender).toHaveBeenCalledTimes(1);
     instance.addSelectionHandler();
     expect(mockstateSender).toHaveBeenCalledTimes(2);
+  });
+  it('delete selection', () => {
+    instance.componentDidUpdate({});
+    instance.deleteSelectionHandler(2);
+    expect(mockstateSender).toHaveBeenCalledTimes(1);
   });
 });
