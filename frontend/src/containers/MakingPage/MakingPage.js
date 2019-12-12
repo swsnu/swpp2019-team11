@@ -151,7 +151,7 @@ export class MakingPage extends Component {
     };
 
     deleteItemHandler = (number) => {
-      if(this.state.item_list.length>0){
+      if(this.state.item_list.length>1){
         let new_item_list = this.state.item_list.filter((item) => !(item.number==number))
         new_item_list.map((item, index) => {
           item.number = index+1;
