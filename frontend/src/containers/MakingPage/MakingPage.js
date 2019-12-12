@@ -137,7 +137,6 @@ export class MakingPage extends Component {
     }
 
     addItemHandler = () => {
-      console.log(this.state.item_list)
       let new_item_list = this.state.item_list
       const new_item = {
         number: (this.state.item_list.length + 1),
@@ -152,14 +151,13 @@ export class MakingPage extends Component {
     };
 
     deleteItemHandler = (number) => {
-      let new_item_list = this.state.item_list.filter((item) => !(item.number==number))
-      console.log(new_item_list)
-      new_item_list.map((item, index) => {
-        item.number = index+1;
-      })
-      console.log(new_item_list)
-      this.state.item_list = new_item_list;
-      this.forceUpdate();
+      if(this.state.item_list.length>0){
+        let new_item_list = this.state.item_list.filter((item) => !(item.number==number))
+        new_item_list.map((item, index) => {
+          item.number = index+1;
+        })
+        this.setState({item_list : new_item_list})
+      }
     }
 
     isDateBlocked = (date) => (date.isBefore(this.state.due_date))

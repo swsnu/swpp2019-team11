@@ -41,13 +41,15 @@ export class MakingItem extends Component {
   }
 
   deleteSelectionHandler = (number) => {
-    let new_selection_list = this.state.selection_list.filter((selection) => selection.number == number)
-    new_selection_list.map((selection, index) => {
-      selection.number = index+1
-    })
-    this.state.selection_list = new_selection_list
-    this.forceUpdate()
-
+    if(this.state.selection_list.length>0){
+      let new_selection_list = this.state.selection_list.filter((selection) => !(selection.number == number))
+      new_selection_list.map((selection, index) => {
+        selection.number = index+1
+      })
+      this.state.selection_list = new_selection_list
+      this.setState({selection_list : new_selection_list})
+      this.props.stateSender(this.state, this.props.number);
+    }
   }
 
   typeHandler = (target, data) => {
@@ -111,6 +113,7 @@ export class MakingItem extends Component {
             contentHandler={this.selectionContentHandler}
             content={selection.content}
             error={selection.content == ''}
+            deleteHandler = {this.deleteSelectionHandler}
           />
         ))
         }
