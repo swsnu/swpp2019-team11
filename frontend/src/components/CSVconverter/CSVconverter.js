@@ -9,7 +9,11 @@ const CSVconverter = (func, data) => {
     return_array[0][index] = item.title;
     item.response.map((response, res_index) => {
       if (response.respondant_number) {
-        return_array[response.respondant_number][index] = response.content;
+        if (return_array[response.respondant_number][index]) {
+          return_array[response.respondant_number][index] += (`${response.content} `);
+        } else {
+          return_array[response.respondant_number][index] = (`${response.content} `);
+        }
       } else {
         return_array[res_index + 1][index] = response.content;
       }

@@ -14,22 +14,22 @@ const SurveyItem = (props) => {
     count[rs.content - 1] = count[rs.content - 1] + 1;
   });
 
-  const responses = props.response.map((rs) => (
-    props.question_type == 'Subjective'
-      ? (
-        <ItemResponse
-          respondant_id={rs.respondant_number}
-          content={rs.content}
-        />
-      )
-      : (
-        <ItemSelection
-          respondant_id={rs.respondant_number}
-          content={props.selection[rs.content - 1].content}
-        />
-      )
-
-  ));
+  const responses = props.question_type == 'Subjective' ? (
+    props.response.map((rs) => (
+      <ItemResponse
+        respondant_id={rs.respondant_number}
+        content={rs.content}
+      />
+    ))
+  ) : (
+    props.selection.map((se) => (
+      <ItemSelection
+        selection_number={se.number}
+        content={se.content}
+        count={count[se.number - 1]}
+      />
+    ))
+  );
 
   const tickValues = props.selection.map((sl) => (sl.number));
   const question_type = (props.question_type == 'Subjective' ? 'Short Answer' : (props.multiple_choice ? 'Checkbox' : 'Radio'));
