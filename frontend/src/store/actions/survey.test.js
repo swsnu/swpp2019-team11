@@ -115,4 +115,19 @@ describe('ActionCreators', () => {
         done();
       });
   });
+  it('get participating list', (done) => {
+    const SurveyList = [];
+
+    axios.get = jest.fn(() => new Promise((res) => {
+      const result = { ststus: 200, data: SurveyList };
+      res(result);
+    }));
+    store.dispatch(actionCreators.getParticipatingList(1))
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.pt.survey_list).toEqual([]);
+        expect(axios.get).toHaveBeenCalledTimes(1);
+        done();
+      });
+  });
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Menu, Table, Icon, Checkbox,
+  Table, Checkbox,
 } from 'semantic-ui-react';
 import './TableForm.css';
 
 
-const onClickHandler = (participating, ongoing, id) => {
+export const onClickHandler = (participating, ongoing, id) => {
   if (!participating) {
     if (ongoing) {
       window.location.assign(`/ongoingsurvey/${id}/`);

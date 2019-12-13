@@ -141,10 +141,9 @@ Download
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        {console.log(this.state.survey)}
         <Button
           id="deleteButton"
-          onClick={() => { this.props.onOngoingSurveyDelete(this.state.survey.id); window.location.assign('/mypage/')} }
+          onClick={() => { this.props.onOngoingSurveyDelete(this.state.survey.id); window.location.assign('/mypage/'); }}
           disabled={this.props.username != this.state.survey.author}
         >
           Delete Survey
