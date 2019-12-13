@@ -47,6 +47,8 @@ def onGoing_to_complete():
             survey_delete_list.append(survey.id)
 
             for completed_survey in Survey.objects.all():
+                if new_survey.id == completed_survey.id:
+                    continue
                 querystring = {
                     "text1": completed_survey.title,
                     "text2": new_survey.title
