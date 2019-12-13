@@ -463,7 +463,7 @@ def participating_list(request):
 def my_survey_ongoing(request):
     if request.method == 'GET':
         user = request.user
-        survey_list = list(SurveyOngoing.objects.filter(author=user).values())
+        survey_list = list(SurveyOngoing.objects.filter(author=user).order_by('survey_end_date').values())
         for survey in survey_list:
             survey['author'] = user.username
             del survey['author_id']
