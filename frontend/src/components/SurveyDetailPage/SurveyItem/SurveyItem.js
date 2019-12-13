@@ -39,10 +39,9 @@ const SurveyItem = (props) => {
 
 
   const graph_radial = count.map((data, index) => (
-    { angle: data, label: props.selection[index].content }
+    { angle: data, label: (props.question_type == 'Subjective' ? (null) : (props.selection[index].content)) }
   ));
   return (
-
     <Grid padded className="SurveyItem">
       <Grid.Row>
         <Grid.Column>
