@@ -15,11 +15,14 @@ export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getCompletedSurvey(id)),
   onOngoingSurveyDetail: (id) => dispatch(actionCreators.getOngoingSurvey(id)),
+  onOngoingSurveyDelete: (id) => dispatch(actionCreators.deleteOngoingSurvey(id)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 
 export const mapStateToProps = (state) => ({
   survey: state.sv.completed_survey,
   ongoing_survey: state.sv.ongoing_survey,
+  username: state.us.info.username,
 });
 
 export class SurveyDetailPage extends Component {
@@ -32,8 +35,10 @@ export class SurveyDetailPage extends Component {
       .then(() => {
         if (this.props.ongoing) {
           this.props.onOngoingSurveyDetail(this.props.match.params.id);
+          this.props.getUserInfo();
         } else {
           this.props.onSurveyDetail(this.props.match.params.id);
+          this.props.getUserInfo();
         }
       })
       .catch(() => { this.props.history.push('/login/'); });
@@ -136,6 +141,14 @@ Download
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        {console.log(this.state.survey)}
+        <button
+          id="deleteButton"
+          onClick={() => { this.props.onOngoingSurveyDelete(this.state.survey.id); this.props.history.push('/mypage/')} }
+          disabled={this.props.username != this.state.survey.author}
+        >
+          Delete Survey
+        </button>
         {items}
         {!this.props.ongoing && (<ML survey={this.props.survey.related_survey} />)}
       </div>

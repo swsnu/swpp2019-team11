@@ -7,6 +7,7 @@ export {
   getCompletedSurvey,
   getOngoingSurvey,
   addOngoingSurvey,
+  deleteOngoingSurvey,
   participateSurvey,
   getParticipatingList,
   getMyCompletedSurveys,
