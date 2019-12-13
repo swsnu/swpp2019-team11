@@ -364,4 +364,4 @@ class SurBingTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
         # ongoing survey+id bad request
         response = client.delete('/api/survey/ongoing/1/')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 403)
