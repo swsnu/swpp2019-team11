@@ -17,6 +17,8 @@ headers = {
 def onGoing_to_complete():
     onGoingSurveys = SurveyOngoing.objects.all()
     today = datetime.date.today()
+    survey_delete_list = []
+
     for survey in onGoingSurveys:
         if (survey.open_date <= today):
             new_survey = Survey(
@@ -36,17 +38,13 @@ def onGoing_to_complete():
             new_survey.save()
 
             for item in survey.item.all():
-                if(item.personal_data):
-                    for response in item.response.all():
-                        response.delete()
-                    item.delete()
-                else:
+                if(not item.personal_data):
                     for response in item.response.all():
                         response.respondant_number = None
                         response.save()
                     new_survey.item.add(item)
             new_survey.save()
-            survey.delete()
+            survey_delete_list.append(survey.id)
 
             for completed_survey in Survey.objects.all():
                 querystring = {
@@ -77,3 +75,6 @@ def onGoing_to_complete():
                     new_survey.related_survey2 = completed_survey
                     new_survey.similarity2 = similarity
                     new_survey.save()
+
+    for i in survey_delete_list:
+        SurveyOngoing.objects.get(id=i).delete()
