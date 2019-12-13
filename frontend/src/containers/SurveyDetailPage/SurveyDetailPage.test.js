@@ -20,6 +20,7 @@ describe('SearchDetailPage', () => {
     checklogIn: mockCheckLogIn,
     onOngoingSurveyDetail: mockOnongoingSurveyDetail,
     onSurveyDetail: mockOnSurveyDetail,
+    username: 'test',
     survey: {
       title: '',
       id: 1,
@@ -91,7 +92,14 @@ describe('redux functions testing', () => {
   it('mapStateToProps', () => {
     const initialState = {
       sv: {
-        survey: {},
+        completed_survey: {},
+        ongoing_survey: {},
+
+      },
+      us: {
+        info: {
+          username: 'test',
+        },
       },
     };
     expect(mapStateToProps(initialState).survey).toEqual(initialState.sv.completed_survey);

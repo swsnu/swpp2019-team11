@@ -1,6 +1,3 @@
-import PapaParse from 'papaparse';
-import moment from 'moment';
-
 
 const CSVconverter = (func, data) => {
   let return_data = {};
@@ -10,8 +7,12 @@ const CSVconverter = (func, data) => {
   for (let i = 0; i < row_num; i++) return_array[i] = Array(col_num);
   data.item.map((item, index) => {
     return_array[0][index] = item.title;
-    item.response.map((response) => {
-      return_array[response.respondant_id][index] = response.content;
+    item.response.map((response, res_index) => {
+      if (response.respondant_number) {
+        return_array[response.respondant_number][index] = response.content;
+      } else {
+        return_array[res_index + 1][index] = response.content;
+      }
       return response;
     });
     return item;

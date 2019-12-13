@@ -32,14 +32,14 @@ const SurveyItem = (props) => {
   ));
 
   const tickValues = props.selection.map((sl) => (sl.number));
-  const question_type = (props.question_type == 'Sebjective' ? 'Short Answer' : (props.multiple_choice ? 'Checkbox' : 'Radio'));
+  const question_type = (props.question_type == 'Subjective' ? 'Short Answer' : (props.multiple_choice ? 'Checkbox' : 'Radio'));
   const graph_block = count.map((data, index) => (
     { x: index + 1, y: data }
   ));
 
 
   const graph_radial = count.map((data, index) => (
-    { angle: data, label: `${index + 1}` }
+    { angle: data, label: props.selection[index].content }
   ));
   return (
 
@@ -74,6 +74,7 @@ Q
                       <Grid.Column style={{ marginLeft: -10 }} width={3}>
                         {props.question_type === 'Selection' && (
                         <Graph
+                          selection={props.selection}
                           graph_block={graph_block}
                           count={count}
                           graph_radial={graph_radial}

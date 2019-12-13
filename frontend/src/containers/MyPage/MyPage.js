@@ -92,7 +92,7 @@ Let's make new Survey!
           <br />
           {
             (this.props.participating_list.length > 0)
-            && <TableForm content={this.props.participating_list} slide={false} />
+            && <TableForm participating content={this.props.participating_list} slide={false} />
           }
           {
             (this.props.participating_list.length == 0)

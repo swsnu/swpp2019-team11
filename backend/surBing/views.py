@@ -320,8 +320,23 @@ def onGoingSurvey(request, survey_id):
 
             survey_dict['item'].append(item_dict)
         return JsonResponse(survey_dict, safe=False)
+
+    elif request.method == 'DELETE':
+        if not SurveyOngoing.objects.filter(id=survey_id).exists():
+            return HttpResponse(status=404)
+        survey = SurveyOngoing.objects.get(id=survey_id)
+        if survey.author.username != request.user.username:
+            return HttpResponse(status=403)
+        for item in survey.item.all():
+            for response in item.response.all():
+                response.delete()
+            for selection in item.selection.all():
+                selection.delete()
+            item.delete()
+        survey.delete()
+        return HttpResponse(status=200)
     else:
-        return HttpResponseBadRequest(['GET'])
+        return HttpResponseBadRequest(['GET', 'DELETE'])
 
 
 @check_logged_in
