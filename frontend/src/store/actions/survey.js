@@ -83,6 +83,6 @@ export const clearParticipatingList = () => (dispatch) => dispatch({ type: actio
 export const deleteOngoingSurvey_ = () => ({ type: actionTypes.DELETE_ONGOING_SURVEY });
 
 export const deleteOngoingSurvey = (id) => (dispatch) => axios.delete(`/api/survey/ongoing/${id}/`).then((res) => {
-  dispatch(deleteOngoingSurvey_(res.data));
+  dispatch(deleteOngoingSurvey_());
   return res;
 });
