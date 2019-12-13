@@ -15,10 +15,12 @@ export const mapDispatchToProps = (dispatch) => ({
   checklogIn: () => dispatch(actionCreators.checklogIn()),
   onSurveyDetail: (id) => dispatch(actionCreators.getCompletedSurvey(id)),
   onAddCart: (id) => dispatch(actionCreators.addCart(id)),
+  getUserInfo: () => dispatch(actionCreators.getUserInfo()),
 });
 
 export const mapStateToProps = (state) => ({
   survey_list: state.svl.survey_list,
+  point: state.us.info.point,
 });
 
 export class SearchResultPage extends Component {
@@ -64,6 +66,7 @@ export class SearchResultPage extends Component {
   }
 
   componentDidMount() {
+    this.props.getUserInfo();
     this.props.checklogIn()
       .then(() => {
         this.setState({
@@ -97,6 +100,14 @@ export class SearchResultPage extends Component {
     }
   }
 
+  checkPoint = () => {
+    if (this.props.point >= 100) {
+      this.props.history.push(`/survey/${this.state.clicked_survey_id}/`);
+    } else {
+      this.props.history.push('/participate');
+    }
+  }
+
   getCartPopup = () => (
     <Segment className="cartPopup" style={{ width: '850px' }}>
       <Grid>
@@ -121,12 +132,19 @@ export class SearchResultPage extends Component {
       <div className="searchResultPage" style={{ minWidth: '800px' }}>
         <TopBar searchBar history={this.props.history} />
         <Modal size="small" open={this.state.modal_open}>
-          <Modal.Header>Do you want to open this survey?</Modal.Header>
+          <Modal.Header>{this.props.point >= 100 ? 'Do you want to open this survey?' : 'Not Enough points to open this survey' }</Modal.Header>
           <Modal.Content>
-            <p className="ModalContent">
-              <span className="Bigger">100</span>
+            {this.props.point >= 100
+              ? (
+                <p className="ModalContent">
+                  <span className="Bigger">100</span>
               Points will be used for opening this survey!
-            </p>
+                </p>
+              ) : (
+                <p className="ModalContent">
+              Participate on surveys to get some points!
+                </p>
+              )}
           </Modal.Content>
           <Modal.Actions>
             <Button
@@ -137,7 +155,7 @@ export class SearchResultPage extends Component {
               icon="x"
             />
             <Button
-              onClick={() => this.props.history.push(`/survey/${this.state.clicked_survey_id}/`)}
+              onClick={this.checkPoint}
               positive
               labelPosition="right"
               icon="checkmark"
