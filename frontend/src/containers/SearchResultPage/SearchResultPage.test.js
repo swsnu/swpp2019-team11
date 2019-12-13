@@ -11,6 +11,7 @@ const props = {
   onAddCart: mockOnAddCart,
   checklogIn: mockCheckLogIn,
   onSurveyDetail: mockOnSurveyDetail,
+  getUserInfo: jest.fn(),
   survey_list: [{
     respondant_count: 10,
     survey_start_date: '1999-10-15',
@@ -72,6 +73,11 @@ describe('redux functions testing', () => {
     const initialState = {
       svl: {
         survey_list: [],
+      },
+      us: {
+        info: {
+          point: 100,
+        },
       },
     };
     expect(mapStateToProps(initialState).survey_list).toEqual(initialState.svl.survey_list);
