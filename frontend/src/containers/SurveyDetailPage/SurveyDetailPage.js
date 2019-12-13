@@ -142,13 +142,13 @@ Download
           </Grid.Row>
         </Grid>
         {console.log(this.state.survey)}
-        <button
+        <Button
           id="deleteButton"
-          onClick={() => { this.props.onOngoingSurveyDelete(this.state.survey.id); this.props.history.push('/mypage/')} }
+          onClick={() => { this.props.onOngoingSurveyDelete(this.state.survey.id); window.location.assign('/mypage/')} }
           disabled={this.props.username != this.state.survey.author}
         >
           Delete Survey
-        </button>
+        </Button>
         {items}
         {!this.props.ongoing && (<ML survey={this.props.survey.related_survey} />)}
       </div>

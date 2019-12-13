@@ -325,7 +325,7 @@ def onGoingSurvey(request, survey_id):
         if not SurveyOngoing.objects.filter(id=survey_id).exists():
             return HttpResponse(status=404)
         survey = SurveyOngoing.objects.get(id=survey_id)
-        if survey.author.name == request.user.name :
+        if survey.author.username != request.user.username:
             return HttpResponse(status=403)
         for item in survey.item.all():
             for response in item.response.all():
