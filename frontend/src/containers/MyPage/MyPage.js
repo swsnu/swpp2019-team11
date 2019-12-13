@@ -120,7 +120,7 @@ How about participating to onGoing surveys?
           <br />
           {
             (this.props.cart_list.length > 0)
-            && <TableForm slider = {false} content={this.props.cart_list} slide />
+            && <TableForm content={this.props.cart_list} />
           }
           {
             (this.props.cart_list.length == 0)
