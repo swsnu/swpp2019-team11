@@ -323,6 +323,7 @@ def onGoingSurvey(request, survey_id):
     else:
         return HttpResponseBadRequest(['GET'])
 
+
 @check_logged_in
 def participatedList(request):
     if request.method == 'GET':
@@ -336,6 +337,7 @@ def participatedList(request):
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
+
 
 @check_logged_in
 def participate(request, survey_id):
@@ -463,7 +465,8 @@ def participating_list(request):
 def my_survey_ongoing(request):
     if request.method == 'GET':
         user = request.user
-        survey_list = list(SurveyOngoing.objects.filter(author=user).values())
+        survey_list = list(SurveyOngoing.objects.filter(author=user)
+                           .order_by('survey_end_date').values())
         for survey in survey_list:
             survey['author'] = user.username
             del survey['author_id']
