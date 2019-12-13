@@ -5,11 +5,14 @@ import {
 import './TableForm.css';
 
 
-const onClickHandler = (ongoing, id) => {
-  if (ongoing) {
-    window.location.assign(`/ongoingsurvey/${id}/`);
-  } else {
-    window.location.assign(`/survey/${id}/`);
+const onClickHandler = (participating, ongoing, id) => {
+  if(!participating){
+    if (ongoing) {
+      window.location.assign(`/ongoingsurvey/${id}/`);
+    } 
+    else {
+      window.location.assign(`/survey/${id}/`);
+    }
   }
 };
 
@@ -39,7 +42,7 @@ export const TableForm = (props) => (
 
     <Table.Body id="Body">
       {props.content.map((cur) => (
-        <Table.Row style={{ cursor: 'pointer' }} onClick={() => { onClickHandler(props.ongoing, cur.id); }}>
+        <Table.Row style={{ cursor: 'pointer' }} onClick={() => { onClickHandler(props.participating, props.ongoing, cur.id); }}>
           { props.slide
           && (
           <Table.Cell collapsing>
