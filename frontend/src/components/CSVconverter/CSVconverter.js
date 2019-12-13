@@ -2,7 +2,7 @@
 const CSVconverter = (func, data) => {
   let return_data = {};
   const col_num = data.item.length;
-  const row_num = data.item.reduce((data_acc, data) => (data_acc > data.response.length ? data_acc : data.response.length), 0);
+  const row_num = data.item.reduce((data_acc, data) => (data_acc > data.response.length ? data_acc : data.response.length), 0) + 1;
   const return_array = Array(row_num);
   for (let i = 0; i < row_num; i++) return_array[i] = Array(col_num);
   data.item.map((item, index) => {
