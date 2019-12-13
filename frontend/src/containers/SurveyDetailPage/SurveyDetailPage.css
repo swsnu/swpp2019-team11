@@ -1,3 +1,7 @@
 .headers {
   margin-top : 5px;
 }
+
+#deleteButton {
+  margin-left: 20px;
+}

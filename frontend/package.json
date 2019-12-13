@@ -8,8 +8,7 @@
     "@types/file-saver": "^2.0.1",
     "@types/jszip": "^3.1.6",
     "axios": "^0.19.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
     "file-saver": "^2.0.2",
     "history": "^4.10.1",
     "jszip": "^3.2.2",
@@ -32,7 +31,8 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.1"
+    "semantic-ui-react": "^0.88.1",
+    "yarn": "^1.21.1"
   },
   "scripts": {
     "start": "react-scripts start",

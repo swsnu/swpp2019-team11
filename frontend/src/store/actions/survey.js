@@ -79,3 +79,10 @@ export const getParticipatedList = () => (dispatch) => axios.get('/api/participa
 });
 
 export const clearParticipatingList = () => (dispatch) => dispatch({ type: actionTypes.CLEAR_PARTICIPATING_LIST });
+
+export const deleteOngoingSurvey_ = () => ({ type: actionTypes.DELETE_ONGOING_SURVEY });
+
+export const deleteOngoingSurvey = (id) => (dispatch) => axios.delete(`/api/survey/ongoing/${id}/`).then((res) => {
+  dispatch(deleteOngoingSurvey_(res.data));
+  return res;
+});
