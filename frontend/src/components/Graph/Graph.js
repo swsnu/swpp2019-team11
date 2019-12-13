@@ -9,7 +9,8 @@ class Graph extends Component {
   state = {
     isClicked: 0,
   }
-  tickFormat = (value) => (this.props.selection[value-1].content)
+
+  tickFormat = (value) => (this.props.selection[value - 1].content)
 
   render() {
     return (
@@ -24,7 +25,7 @@ class Graph extends Component {
           <XYPlot height={300} width={300}>
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis tickValues = {this.props.tickValues} tickFormat={v => this.props.selection[Number(v-1)].content} />
+            <XAxis tickValues={this.props.tickValues} tickFormat={(v) => this.props.selection[Number(v - 1)].content} />
             <YAxis />
             <VerticalBarSeries data={this.props.graph_block} />
           </XYPlot>

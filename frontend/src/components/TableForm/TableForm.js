@@ -6,11 +6,10 @@ import './TableForm.css';
 
 
 const onClickHandler = (participating, ongoing, id) => {
-  if(!participating){
+  if (!participating) {
     if (ongoing) {
       window.location.assign(`/ongoingsurvey/${id}/`);
-    } 
-    else {
+    } else {
       window.location.assign(`/survey/${id}/`);
     }
   }
