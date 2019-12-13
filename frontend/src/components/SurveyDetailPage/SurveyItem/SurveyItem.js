@@ -25,7 +25,7 @@ const SurveyItem = (props) => {
       : (
         <ItemSelection
           respondant_id={rs.respondant_number}
-          content={rs.content}
+          content={props.selection[rs.content - 1].content}
         />
       )
 
@@ -39,7 +39,7 @@ const SurveyItem = (props) => {
 
 
   const graph_radial = count.map((data, index) => (
-    { angle: data, label: (props.question_type == 'Subjective' ? (null) : (props.selection[index].content)) }
+    { angle: data, label: index + 1 }
   ));
   return (
     <Grid padded className="SurveyItem">
@@ -73,7 +73,6 @@ Q
                       <Grid.Column style={{ marginLeft: -10 }} width={3}>
                         {props.question_type === 'Selection' && (
                         <Graph
-                          selection={props.selection}
                           graph_block={graph_block}
                           count={count}
                           graph_radial={graph_radial}
