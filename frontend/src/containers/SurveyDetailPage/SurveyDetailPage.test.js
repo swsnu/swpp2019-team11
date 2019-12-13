@@ -93,14 +93,14 @@ describe('redux functions testing', () => {
     const initialState = {
       sv: {
         completed_survey: {},
-        ongoing_survey: {}
+        ongoing_survey: {},
 
       },
-      us : {
+      us: {
         info: {
-          username : 'test'
-        }
-      }
+          username: 'test',
+        },
+      },
     };
     expect(mapStateToProps(initialState).survey).toEqual(initialState.sv.completed_survey);
   });

@@ -17,10 +17,10 @@ describe('TableForm', () => {
     expect(wrapper.length).toBe(1);
   });
   it('handler', () => {
-    window.location.assign = jest.fn()
-    onClickHandler(true, false, 1)
-    onClickHandler(false, true, 1)
-    onClickHandler(false, false, 1)
-    expect(window.location.assign).toHaveBeenCalledTimes(2)
-  })
+    window.location.assign = jest.fn();
+    onClickHandler(true, false, 1);
+    onClickHandler(false, true, 1);
+    onClickHandler(false, false, 1);
+    expect(window.location.assign).toHaveBeenCalledTimes(2);
+  });
 });
