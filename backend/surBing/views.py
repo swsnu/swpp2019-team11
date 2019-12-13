@@ -468,9 +468,6 @@ def participating_list(request):
                        .exclude(author=user)
                        .exclude(respondant=user)
                        .values())
-        for survey in surveys:
-            if (survey['target_respondant_count'] == survey['respondant_count']):
-                surveys.remove(survey)
         return JsonResponse(surveys, safe=False, status=200)
     else:
         return HttpResponseBadRequest(['GET'])
