@@ -10,12 +10,12 @@ describe('CSVconverter testing', () => {
     const data = {
       item: [
         {
-          response: [],
+          selection: [],
+          response: [{ respondant_number: 1, content: 'test' }],
         },
       ],
     };
 
-    CSVconverter(mockFunk, data, true);
-    CSVconverter(mockFunk, data, false);
+    CSVconverter(mockFunk, data);
   });
 });
