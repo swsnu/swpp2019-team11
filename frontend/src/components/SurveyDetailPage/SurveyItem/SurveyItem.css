@@ -21,6 +21,11 @@
     float: right;
 }
 
+.outerGraph .segment .buttons .button{
+    margin-bottom: 20px;
+    background: #a3c6c4;
+}
+
 #outerGraph {
     position: absolute;
     right: 13px;
