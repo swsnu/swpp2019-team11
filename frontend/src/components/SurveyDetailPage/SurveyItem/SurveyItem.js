@@ -69,10 +69,9 @@ Q
                           {responses}
                         </Segment>
                       </ScrollArea>
-                      <div id="int">
-                      </div>
+                      <div id="int" />
                       <div className="outerGraph">
-                      {props.question_type === 'Selection' && (
+                        {props.question_type === 'Selection' && (
                         <Graph
                           id="Graph"
                           graph_block={graph_block}
