@@ -99,33 +99,33 @@ export class SurveyDetailPage extends Component {
                       <Header className="headers" size="small">
                     Upload Date :
                         {' '}
-                        {this.state.survey.upload_date}
+                        <div id="uploaddate">{this.state.survey.upload_date}</div>
                         {' '}
                       </Header>
                       <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Survey date :
                         {' '}
-                        {this.state.survey.survey_start_date}
+                        <div id="surveystart">{this.state.survey.survey_start_date}</div>
 ~
-                        {this.state.survey.survey_end_date}
+                        <div id="surveyend">{this.state.survey.survey_end_date}</div>
                         {' '}
                       </Header>
                       <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Author :
                         {' '}
-                        {this.state.survey.author}
+                        <div id="author">{this.state.survey.author}</div>
                         {' '}
                       </Header>
                       <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Number of Respondants :
                         {' '}
-                        {this.state.survey.respondant_count}
+                        <div id="resnum">{this.state.survey.respondant_count}</div>
                         {' '}
                       </Header>
                       <Header className="headers" style={{ marginTop: -5 }} size="small">
                     Description :
                         {' '}
-                        {this.state.survey.content}
+                        <div id="content">{this.state.survey.content}</div>
                       </Header>
                     </Table.Cell>
                   </Table.Row>
@@ -133,7 +133,7 @@ export class SurveyDetailPage extends Component {
               </Table>
             </Grid.Column>
             <Grid.Column verticalAlign="center" textAlign="middle">
-              <Button className="downloadButton" onClick={() => this.onClickDownload()}>
+              <Button className="downloadButton" id="download" onClick={() => this.onClickDownload()}>
                 <Icon size="large" name="file outline" />
                 {' '}
 Download
