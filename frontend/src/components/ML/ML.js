@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Segment, Grid, Header, Icon,
 } from 'semantic-ui-react';
+import './ML.css';
 
 const ML = (props) => {
   const surveyBlock = (survey) => ((survey) ? (
@@ -62,7 +63,7 @@ const ML = (props) => {
       <Grid.Row column={1}>
         <Grid.Column>
           <Segment style={{ backgroundColor: '#c0d8d7' }}>
-            <Header size="huge">Related Surveys</Header>
+            <Header size="huge" id="header">Related Surveys</Header>
             <Grid>
               <Grid.Row column={2}>
                 {props.survey.map((survey) => surveyBlock(survey))}
