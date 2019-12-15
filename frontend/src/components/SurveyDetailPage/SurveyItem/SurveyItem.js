@@ -47,19 +47,19 @@ const SurveyItem = (props) => {
       <Grid.Row>
         <Grid.Column>
           <Segment style={{ 'font-size': '1em', backgroundColor: '#E0E7E9' }}>
-            <Header style={{ color: '#354649', 'font-size': '2em', margin: 5 }}>
+            <Header id="title" style={{ color: '#354649', 'font-size': '2.1em', margin: 5 }}>
 Q
               {props.number}
 .
               {' '}
               {props.title}
             </Header>
-            <p style={{ textAlign: 'right', 'font-size': '1.4em' }}>
+            <p id="qtype" style={{ textAlign: 'right', 'font-size': '1.4em' }}>
         Question Type :
               {' '}
               {question_type}
             </p>
-            <Table size="huge" celled style={{ border: 'none' }}>
+            <Table id="table" size="huge" celled style={{ border: 'none' }}>
               <Table.Body>
                 <Segment>
                   <Grid>

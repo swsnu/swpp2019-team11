@@ -3,6 +3,21 @@
     width: 72%;
 }
 
+#title {
+    font-family: sans-serif;
+}
+
+#qtype {
+    margin-right: 4px;
+    font-family: sans-serif;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+#table {
+    margin-top: 6px;
+}
+
 #responseSeg {
     width: 100%;
     margin-top: 10px;
