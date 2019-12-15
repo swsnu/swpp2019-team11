@@ -6,6 +6,7 @@ import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
 import ItemSelection from './ItemResponse/ItemSelection';
 import Graph from '../../Graph/Graph';
+import './SurveyItem.css';
 
 const SurveyItem = (props) => {
   const count = props.selection.map(() => 0);
@@ -62,24 +63,25 @@ Q
               <Table.Body>
                 <Segment>
                   <Grid>
-                    <Grid.Row column={2}>
-                      <Grid.Column style={{ height: 300 }} width={13}>
-                        <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
-                          <Segment style={{ padding: -20 }}>
-                            {responses}
-                          </Segment>
-                        </ScrollArea>
-                      </Grid.Column>
-                      <Grid.Column style={{ marginLeft: -10 }} width={3}>
-                        {props.question_type === 'Selection' && (
+                    <Grid.Row id="gridrow">
+                      <ScrollArea className="resScroll" speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
+                        <Segment id="responseSeg" style={{ padding: -20 }}>
+                          {responses}
+                        </Segment>
+                      </ScrollArea>
+                      <div id="int">
+                      </div>
+                      <div className="outerGraph">
+                      {props.question_type === 'Selection' && (
                         <Graph
+                          id="Graph"
                           graph_block={graph_block}
                           count={count}
                           graph_radial={graph_radial}
                           tickValues={tickValues}
                         />
                         )}
-                      </Grid.Column>
+                      </div>
                     </Grid.Row>
                   </Grid>
                 </Segment>

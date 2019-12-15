@@ -1,0 +1,43 @@
+.resScroll {
+    margin-left: 10px;
+    width: 72%;
+}
+
+#responseSeg {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.resScroll {
+    margin-left: 0px;
+}
+
+#charSeg {
+    float: right;
+    width: 30%;
+}
+
+#Graph {
+    float: right;
+}
+
+#outerGraph {
+    position: absolute;
+    right: 13px;
+    bottom: 5px;
+    top: 14px;
+}
+
+.outerGraph {
+    margin-top: 10px;
+}
+
+#gridrow {
+    padding-top: 0px;
+    min-height: 392px;
+    padding-left: 14px;
+}
+
+#int {
+    width: 10px;
+}
