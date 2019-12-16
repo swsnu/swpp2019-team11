@@ -62,7 +62,6 @@ def signup(request):  # create new
         return HttpResponseBadRequest(['POST'])
 
 
-# login
 def signin(request):
     if request.method == 'POST':
         try:
