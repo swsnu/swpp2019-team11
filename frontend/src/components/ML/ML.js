@@ -13,7 +13,7 @@ const ML = (props) => {
           backgroundColor: '#c0d8d7', borderRadius: 25, borderColor: '#2a2a2a', borderWidth: '1px', cursor: 'pointer',
         }}
       >
-        <Grid divided>
+        <Grid id="grid" divided>
           <Grid.Column width={10}>
             <Header size="big">{survey.title}</Header>
             <Header size="small">{survey.content}</Header>
