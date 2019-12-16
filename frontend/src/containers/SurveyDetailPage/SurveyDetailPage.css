@@ -4,4 +4,38 @@
 
 #deleteButton {
   margin-left: 20px;
+  background-color: #6c7a89;
+  font-family: sans-serif;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+#uploaddate {
+  font-weight: normal;
+  display: inline;
+}
+
+#surveystart {
+  font-weight: normal;
+  display: inline;
+}
+
+#surveyend {
+  font-weight: normal;
+  display: inline;
+}
+
+#author {
+  font-weight: normal;
+  display: inline;
+}
+
+#resnum {
+  font-weight: normal;
+  display: inline;
+}
+
+#content {
+  font-weight: normal;
+  display: inline;
 }

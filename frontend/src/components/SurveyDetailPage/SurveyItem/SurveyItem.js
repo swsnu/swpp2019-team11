@@ -6,6 +6,7 @@ import ScrollArea from 'react-scrollbar';
 import ItemResponse from './ItemResponse/ItemResponse';
 import ItemSelection from './ItemResponse/ItemSelection';
 import Graph from '../../Graph/Graph';
+import './SurveyItem.css';
 
 const SurveyItem = (props) => {
   const count = props.selection.map(() => 0);
@@ -46,40 +47,40 @@ const SurveyItem = (props) => {
       <Grid.Row>
         <Grid.Column>
           <Segment style={{ 'font-size': '1em', backgroundColor: '#E0E7E9' }}>
-            <Header style={{ color: '#354649', 'font-size': '2em', margin: 5 }}>
+            <Header id="title" style={{ color: '#354649', 'font-size': '2.1em', margin: 5 }}>
 Q
               {props.number}
 .
               {' '}
               {props.title}
             </Header>
-            <p style={{ textAlign: 'right', 'font-size': '1.4em' }}>
+            <p id="qtype" style={{ textAlign: 'right', 'font-size': '1.4em' }}>
         Question Type :
               {' '}
               {question_type}
             </p>
-            <Table size="huge" celled style={{ border: 'none' }}>
+            <Table id="table" size="huge" celled style={{ border: 'none' }}>
               <Table.Body>
                 <Segment>
                   <Grid>
-                    <Grid.Row column={2}>
-                      <Grid.Column style={{ height: 300 }} width={13}>
-                        <ScrollArea speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
-                          <Segment style={{ padding: -20 }}>
-                            {responses}
-                          </Segment>
-                        </ScrollArea>
-                      </Grid.Column>
-                      <Grid.Column style={{ marginLeft: -10 }} width={3}>
+                    <Grid.Row id="gridrow">
+                      <ScrollArea className="resScroll" speed={0.8} horizontal={false} style={{ maxHeight: 300, border: 'none' }}>
+                        <Segment id="responseSeg" style={{ padding: -20 }}>
+                          {responses}
+                        </Segment>
+                      </ScrollArea>
+                      <div id="int" />
+                      <div className="outerGraph">
                         {props.question_type === 'Selection' && (
                         <Graph
+                          id="Graph"
                           graph_block={graph_block}
                           count={count}
                           graph_radial={graph_radial}
                           tickValues={tickValues}
                         />
                         )}
-                      </Grid.Column>
+                      </div>
                     </Grid.Row>
                   </Grid>
                 </Segment>
