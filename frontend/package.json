@@ -7,7 +7,7 @@
     "@material-ui/core": "^4.6.0",
     "@types/file-saver": "^2.0.1",
     "@types/jszip": "^3.1.6",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "enzyme-to-json": "^3.4.3",
     "file-saver": "^2.0.2",
     "history": "^4.10.1",
